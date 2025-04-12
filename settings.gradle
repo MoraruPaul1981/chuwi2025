@@ -1,0 +1,4 @@
+include ':app'
+rootProject.name='DSU'
+include ':back'
+include ':backasync'
