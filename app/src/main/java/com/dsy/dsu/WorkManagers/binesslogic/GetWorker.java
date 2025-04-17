@@ -1,0 +1,152 @@
+package com.dsy.dsu.WorkManagers.binesslogic;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
+
+
+import com.dsy.dsu.BootAndAsync.Model.Service.IntentServiceBoot;
+import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
+import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.LinkedHashMap;
+
+import dagger.hilt.EntryPoints;
+
+public class GetWorker {
+
+
+    Context context;
+
+    public GetWorker(Context context) {
+        this.context = context;
+    }
+
+
+    public void startingSingleWorkerManger(@NotNull  IntentServiceBoot.LocalBinderBootSerice          getlocalBinderBootSerice) {
+        try{
+            LinkedHashMap<Integer,String> getHiltPortJboss=   EntryPoints.get(context, getHiltPortJbossInterface.class).getHiltPortJboss();
+
+
+
+            // TODO: 22.12.2022  сама запуска синхронищации из workmanager ОБЩЕГО
+            boolean ВыбранныйРежимСети =
+                    new GetConnectivityManagerAndroid(context).сonnectivityManageruserselection();
+            Intent intentSingleWorker=new Intent();
+
+            if(getlocalBinderBootSerice!=null) {
+                if (ВыбранныйРежимСети) {
+                    if (getlocalBinderBootSerice.isBinderAlive()  ) {
+                        String actionSingleWorker =  "lanchUpdatePOAndAsync" ;
+                        intentSingleWorker.setAction(actionSingleWorker);
+                        intentSingleWorker.setData(Uri.parse(actionSingleWorker));
+
+                        getlocalBinderBootSerice.getService().startingServiceSingleWorkManger(intentSingleWorker, getHiltPortJboss);
+
+                    }
+                } else {
+// TODO: 18.03.2025
+                    String exitSingleWorker = "ExitBootService";
+                    intentSingleWorker.setAction(exitSingleWorker);
+                    intentSingleWorker.setData(Uri.parse(exitSingleWorker));
+                    getlocalBinderBootSerice.getService().startingServiceSingleWorkManger(intentSingleWorker, getHiltPortJboss);
+
+                    Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                            + " SINGLE SINGLE SINGLE  isWorkManagerRunning " );
+
+
+                }
+            }
+            // TODO: 04.04.2025
+
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+        }
+
+    }
+
+
+
+    public void startingPublicWorkManager(@NotNull  IntentServiceBoot.LocalBinderBootSerice          getlocalBinderBootSerice,
+                                          @NotNull String    ИмяСлужбыWorkManger  ) {
+        try{
+            LinkedHashMap<Integer,String> getHiltPortJboss=   EntryPoints.get(context, getHiltPortJbossInterface.class).getHiltPortJboss();
+
+            Boolean isWorkManagerRunning=  new FindRunnigServiceBeforeWorkManager(context).isWorkManagerRunning(ИмяСлужбыWorkManger);
+
+            // TODO: 22.12.2022  сама запуска синхронищации из workmanager ОБЩЕГО
+            boolean ВыбранныйРежимСети =
+                    new GetConnectivityManagerAndroid(context).сonnectivityManageruserselection();
+            Intent intentSingleWorker=new Intent();
+
+            GetActivityManager getActivityManager=new GetActivityManager(context);
+
+            Boolean getActivityTasks=   getActivityManager.getActivityTasks();
+
+
+            if (getActivityTasks) {
+                if(getlocalBinderBootSerice!=null) {
+                    if (ВыбранныйРежимСети) {
+
+                        if (getlocalBinderBootSerice.isBinderAlive() && isWorkManagerRunning == false) {
+                            String actionSingleWorker =  "lanchAsync" ;
+                            intentSingleWorker.setAction(actionSingleWorker);
+                            intentSingleWorker.setData(Uri.parse(actionSingleWorker));
+
+                            getlocalBinderBootSerice.getService().startingServicePublicWorkManger(intentSingleWorker, getHiltPortJboss);
+
+                        }
+                    }
+                }
+            }
+
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                    + " PUBLIC PUBLIC PUBLIC isWorkManagerRunning " +isWorkManagerRunning  + " getActivityTasks " +getActivityTasks  );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+        }
+
+    }
+
+
+    public void closingSinglePublicWorkManager(@NotNull  IntentServiceBoot.LocalBinderBootSerice          getlocalBinderBootSerice) {
+        try{
+            getlocalBinderBootSerice.getService().stopSelf();
+            getlocalBinderBootSerice.getService().onDestroy();
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+        }
+
+    }
+
+
+}

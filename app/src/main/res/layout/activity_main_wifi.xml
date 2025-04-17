@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:foregroundGravity="center"
+    android:visibility="visible"
+    tools:context=".Settings.View.MainActivity_Settings"
+    tools:visibility="visible">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+
+        android:id="@+id/imageViewСтрелкаВнутриНастроек"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="screen"
+        android:stateListAnimator="@drawable/icon_dsu1_exit3_foreground"
+        android:textAlignment="center"
+        android:visibility="visible"
+        app:icon="@drawable/icon_dsu1_exit3_foreground"
+        app:iconGravity="textEnd"
+        app:iconSize="40dp"
+        app:iconTint="#FFD5D9DA"
+        app:layout_constraintBottom_toTopOf="@id/Линияview4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/colorAccent" />
+
+    <Spinner
+        android:id="@+id/СпинерДляСозданииОрганизации"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTintMode="multiply"
+        android:drawingCacheQuality="auto"
+        android:dropDownWidth="wrap_content"
+        android:focusable="auto"
+        android:gravity="center|center_horizontal"
+        android:requiresFadingEdge="horizontal|vertical"
+        android:soundEffectsEnabled="true"
+        android:spinnerMode="dialog"
+        android:textColor="#0E0E0E"
+        android:textStyle="bold"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewНастройки"
+        style="@style/Widget.MaterialComponents.MaterialCalendar.DayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:bufferType="normal"
+        android:capitalize="characters"
+        android:fontFamily="sans-serif-light"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:lineSpacingExtra="22sp"
+        android:text="Настройки"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#0E0E0E"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/Линияview4"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_marginTop="6dp"
+        android:background="#FFD5D9DA"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewНастройки" />
+
+
+
+    <Switch
+        android:id="@+id/switchWIFI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="40dp"
+        android:checked="true"
+        android:hint="режим передача данных "
+        android:showText="false"
+        android:splitTrack="true"
+        android:switchMinWidth="70dp"
+        android:text="Только WIFI (Сеть)"
+        android:textColorHighlight="#651FFF"
+        android:textOff="выкл."
+        android:textOn="вкл."
+        android:textSize="16sp"
+        android:textStyle="normal|bold"
+        android:trackTint="#FFD5D9DA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/СпинерДляСозданииОрганизации"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/switchАвтоЗаполенияВТАбелеВыходных"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:checked="true"
+        android:hint="режим авто заполения Больничных в табеле"
+        android:showText="false"
+        android:splitTrack="true"
+        android:switchMinWidth="70dp"
+        android:text="Выкл (Выходные)"
+        android:textColorHighlight="#651FFF"
+        android:textOff="выкл."
+        android:textOn="вкл."
+        android:textSize="16sp"
+        android:textStyle="normal|bold"
+        android:trackTint="#FFD5D9DA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchWIFI"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/switchСкрытыеПоляПолучениеМатериалов"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:checked="true"
+        android:hint="режим авто заполения Больничных в табеле"
+        android:showText="false"
+        android:splitTrack="true"
+        android:switchMinWidth="70dp"
+        android:text="Материалы (Скрытые)"
+        android:textColorHighlight="#651FFF"
+        android:textOff="выкл."
+        android:textOn="вкл."
+        android:textSize="16sp"
+        android:textStyle="normal|bold"
+        android:trackTint="#FFD5D9DA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchАвтоЗаполенияВТАбелеВыходных"
+        tools:checked="true" />
+
+
+
+
+    <Switch
+        android:id="@+id/switchsslcomunications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:checked="false"
+        android:hint="режим подключение защищеное или нет !!!"
+        android:showText="false"
+        android:splitTrack="true"
+        android:switchMinWidth="70dp"
+        android:text="Обычный (Сервер)"
+        android:textColorHighlight="#651FFF"
+        android:textOff="выкл."
+        android:textOn="вкл."
+        android:textSize="16sp"
+        android:textStyle="normal|bold"
+        android:trackTint="#FFD5D9DA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchСкрытыеПоляПолучениеМатериалов"
+        tools:checked="true" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/textViewРазрабочикПрогрммы"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:textAlignment="gravity"
+        android:textStyle="bold"
+        android:text="Собственость: ООО Союз-Автодор"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/textViewВерсияПрограммы"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:textAlignment="gravity"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewРазрабочикПрогрммы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewТекущийПользователь"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:textAlignment="gravity"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewВерсияПрограммы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewВремяПоследнееСинхронизации"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center_horizontal"
+        android:textAlignment="gravity"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewТекущийПользователь"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

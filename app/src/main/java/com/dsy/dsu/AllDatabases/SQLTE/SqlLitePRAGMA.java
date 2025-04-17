@@ -19,11 +19,11 @@ public class SqlLitePRAGMA {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    public void launchsqlLitePRAGMA(@NonNull  SQLiteDatabase ССылкаНаСозданнуюБазу ) {
+    protected void launchsqlLitePRAGMA(@NonNull  SQLiteDatabase ССылкаНаСозданнуюБазу ) {
         // TODO: 13.01.2025
         try{
       SQLiteStatement stackTraceElementPRAGMA=
-              ССылкаНаСозданнуюБазу.compileStatement("PRAGMA synchronous = FULL");
+              ССылкаНаСозданнуюБазу.compileStatement("PRAGMA synchronous = FULL");//
           int updatessynch=      stackTraceElementPRAGMA.executeUpdateDelete();
 
             // TODO: 17.04.2023
