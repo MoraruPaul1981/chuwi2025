@@ -324,7 +324,7 @@
                 android:transcriptMode="alwaysScroll"
                 android:layout_gravity="center"
                 android:foregroundGravity="center"
-                android:scrollbarThumbVertical="@color/colorAccent"
+                android:scrollbarThumbVertical="@color/divider"
                 android:outlineAmbientShadowColor="@color/actionbar_text_color">
 
 

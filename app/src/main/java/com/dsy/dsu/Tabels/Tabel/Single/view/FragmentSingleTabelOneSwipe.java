@@ -49,23 +49,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.CELLUPDATE.SubClassUpdatesCELL;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
@@ -103,7 +109,6 @@ import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
-import dagger.hilt.EntryPoints;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
@@ -163,7 +168,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     private  Integer GetPosition;
   private      Animation animation1;
   private      Animation animationFromRecyReview;
-  private ConcurrentSkipListSet<Disposable>  disposableAfterTextChangeEvent;
+  private CopyOnWriteArrayList<Disposable>  disposableAfterTextChangeEvent=new CopyOnWriteArrayList<>();
   private      Cursor    cursorForViewPager;
   private      Handler handlerМетодForCurcorHandlerCallBack;
   private  MaterialTextView  materialTextViewfio,materialTextViewprofession;
@@ -172,8 +177,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
     @Inject
     SQLiteDatabase sqLiteDatabaseSingle;
-
-
     // TODO: Rename and change types and number of parameters
     public static FragmentSingleTabelOneSwipe newInstance(@NonNull Bundle bundle_single_tabel_viewpagers ) {
         FragmentSingleTabelOneSwipe fragment = new FragmentSingleTabelOneSwipe();
@@ -396,11 +399,12 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             }
             if (disposableAfterTextChangeEvent!=null) {
                 disposableAfterTextChangeEvent.forEach(new java.util.function.Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) {
-                        disposable.dispose();
-                    }
-                });
+                                                           @Override
+                                                           public void accept(Disposable disposable) {
+                                                               disposable.dispose();
+                                                           }
+                                                       }
+                );
             }
 
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -1803,28 +1807,44 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
 
                                 // TODO: 25.08.2023  тест код
-                                disposableAfterTextChangeEvent.add(
-                                        RxTextView.afterTextChangeEvents( editTextRowКликПоДАнными)
+                                disposableAfterTextChangeEvent.add(      RxTextView.afterTextChangeEvents( editTextRowКликПоДАнными)
                                         .skip(1)
                                         .debounce(500,TimeUnit.MILLISECONDS)///общее время event
                                         .filter(edit->edit.component1().getText().toString().length()<=2)
                                         .subscribeOn(Schedulers.single())
                                         .observeOn(Schedulers.single())
-                                        .distinct().forEachWhile(new Predicate<TextViewAfterTextChangeEvent>() {
-                                            @SuppressLint("NewApi")
+                                                .doOnError(new Consumer<Throwable>() {
+                                                    @Override
+                                                    public void accept(Throwable throwable) throws Throwable {
+                                                        throwable.printStackTrace();
+                                                        Log.e(getContext().getClass().getName(),
+                                                                "Ошибка " + throwable + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                                                                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+                                                        new RecordNewErros(getContext()).recordnewerror(throwable.toString(),
+                                                                this.getClass().getName().toString(), Thread.currentThread().getStackTrace()[2].getMethodName().toString(),
+                                                                Thread.currentThread().getStackTrace()[2].getLineNumber());
+                                                    }
+                                                })
+                                        .distinct().subscribe(new Consumer<TextViewAfterTextChangeEvent>() {
+                                            @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
                                             @Override
-                                            public boolean test(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) throws Throwable {
-                                                // TODO: 24.08.2023
+                                            public void accept(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent)
+                                                    throws Throwable {
+                                                // TODO: 05.05.2025
                                                 try{
+
                                                 if(textViewAfterTextChangeEvent.component1().isInputMethodTarget()){
+
+
                                                     // TODO: 28.03.2025
                                                     textViewAfterTextChangeEvent.getView().getHandler().post(()->{
 
-                                                        String   НовоеЗначенияДня   =(String) textViewAfterTextChangeEvent.component1().getText().toString();
+                                                        String   НовоеЗначенияДня   =(String)
+                                                                textViewAfterTextChangeEvent.component1().getText().toString();
                                                         НовоеЗначенияДня=   НовоеЗначенияДня.replaceAll("[^0-9]","").trim();
 
 
-                                                        Long getNewValueCell=     Optional.ofNullable(НовоеЗначенияДня).stream()
+                                                          Long getNewValueCell=     Optional.ofNullable(НовоеЗначенияДня).stream()
                                                                 .filter(f1->f1!=null)
                                                                 /*  .filter(f3->f3.chars().allMatch( Character::isDigit ))*/
                                                                 .mapToInt(new ToIntFunction<String>() {
@@ -1845,7 +1865,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                                                 }).asLongStream().findAny().orElse(0l);
 
 
-                                                        Integer     РезультатОбновлениеЯчейки=        методListerAfterSaveNewDay (editTextRowКликПоДАнными,getNewValueCell);
+                                                        Integer     РезультатОбновлениеЯчейки=
+                                                                методListerAfterSaveNewDay (editTextRowКликПоДАнными,getNewValueCell );
 
 
                                                         // TODO: 24.08.2023
@@ -1857,11 +1878,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
                                                     });
 
-
-
-                                                    return true;
                                                 }
-
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                                 Log.e(getContext().getClass().getName(),
@@ -1871,7 +1888,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                                         this.getClass().getName().toString(), Thread.currentThread().getStackTrace()[2].getMethodName().toString(),
                                                         Thread.currentThread().getStackTrace()[2].getLineNumber());
                                             }
-                                                return false;
                                             }
                                         }));
                             }
@@ -1907,11 +1923,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                             // TODO: 06.07.2023 Считаем ЧАсы
                             методRefrefyGetDataRecycreView();
                             методСчитаемЧасы(myRecycleViewAdapter.cursor);
-
-
-                            // TODO: 04.05.2025 переопреление дизайна
-                            getAfterDisaynEbitText(editTextRowКликПоДАнными, getNewValueCell);
-
+                                 message.getTarget().postDelayed(()->{
+                                     editTextRowКликПоДАнными.startAnimation(animation1);
+                                 },50);
 
                             // TODO: 19.06.2023 код когда данные в ячейке не сохранились
                         } else {
@@ -1939,17 +1953,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
             }
 
-            private void getAfterDisaynEbitText(@NonNull EditText editTextRowКликПоДАнными, @NonNull Long getNewValueCell ) {
-                editTextRowКликПоДАнными.setText(null);
-                editTextRowКликПоДАнными.invalidate();
-                editTextRowКликПоДАнными.clearFocus();
-                message.getTarget().postDelayed(()->{
-                    editTextRowКликПоДАнными.setText(getNewValueCell.toString());
-                    editTextRowКликПоДАнными.startAnimation(animation1);
-                    editTextRowКликПоДАнными.requestLayout();
-                    editTextRowКликПоДАнными.refreshDrawableState();
-                },50);
-            }
 
 
             private void методПереходНаМеткиТАбедяcRow(@NonNull EditText editTextRowКликПоДАнными) {
@@ -3197,20 +3200,16 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             protected  Cursor МетодКурсорДляНовогоПосика(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
                 Cursor КурсорТаблицаПрофесииLike = null;
                 try{
-//                    Long getPublicID=  new GetPublicID()
-//                            .gettingSettingTableVersion(getContext()," SELECT publicid FROM successlogin "
-//                                    ,"successlogin");
+                    Integer   ПубличныйIDДляФрагмента     = new GetPublicID().
+                            getPublicIDAllApp(getContext());
+                    Log.d(getContext().getClass().getName(), "\n"
+                            + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента + " Фильтр " +Фильтр);
                     Bundle bundleНовыйПоиск=new Bundle();
                     bundleНовыйПоиск.putString("СамЗапрос","  SELECT * FROM  prof WHERE name  LIKE  ?  ");
                     bundleНовыйПоиск.putStringArray("УсловияВыборки" ,new String[]{"%"+Фильтр+"%"});
                     bundleНовыйПоиск.putString("Таблица","prof");
                     КурсорТаблицаПрофесииLike=      (Cursor)    new SubClassCursorLoader(). CursorLoaders(getContext(), bundleНовыйПоиск);
-                    Log.d(this.getClass().getName(), "\n" + " class " +
-                            Thread.currentThread().getStackTrace()[2].getClassName()
-                            + "\n" +
-                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                            + "    cursorДанные " +cursorДанные+" КурсорТаблицаПрофесииLike" + КурсорТаблицаПрофесииLike);
+                    Log.d(this.getClass().getName(), " КурсорТаблицаПрофесииLike" + КурсорТаблицаПрофесииLike);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -3245,10 +3244,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         ContentValues valuesСменаПрофесси=new ContentValues();
                         Integer ПолучаемIDПрофессии=      bundleСменаПрофессии.getInt("ПолучаемIDПрофессии",0);
                         valuesСменаПрофесси.put("prof",ПолучаемIDПрофессии);
-
                         Long ВерсияДанныхUp = new VersionCurentTable(getContext(),sqLiteDatabaseSingle).upVersionCurentTable(ТаблицаОбработки );
                         valuesСменаПрофесси.put("current_table",ВерсияДанныхUp);
-
                         String ДатаОбновления=     new Class_Generation_Data(getContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
                         valuesСменаПрофесси.put("date_update",ДатаОбновления);
                         Long CurrenrsСhildUUID =   bundleСменаПрофессии.getLong("CurrenrsСhildUUID",0l);
