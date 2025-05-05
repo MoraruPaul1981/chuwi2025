@@ -7,28 +7,29 @@ import android.util.Log;
 
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.dsy.dsu.Dashboard.View.Fragments.DashboardFragmentMaterialDesign;
+import com.dsy.dsu.Dashboard.View.Fragments.dashbordfaceapp.DashboardFaceApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 public class BunesslogicViewPager2 {
    private ViewPager2 pagerdachbord;
     private Context getcontext;
     private  DemoCollectionAdapter demoCollectionAdapter;
-    private  DashboardFragmentMaterialDesign dashboardFragmentMaterialDesign;
-    public BunesslogicViewPager2(ViewPager2 pagerdachbord, Context getcontext, DashboardFragmentMaterialDesign dashboardFragmentMaterialDesign) {
+    private DashboardFaceApp dashboardFaceApp;
+    public BunesslogicViewPager2(ViewPager2 pagerdachbord, Context getcontext,
+                                 DashboardFaceApp dashboardFaceApp) {
         this.pagerdachbord = pagerdachbord;
         this.getcontext = getcontext;
-        this.dashboardFragmentMaterialDesign = dashboardFragmentMaterialDesign;
+        this.dashboardFaceApp = dashboardFaceApp;
     }
 
    public void getBunesslogicViewPager2(){
         try{
-            demoCollectionAdapter = new DemoCollectionAdapter(dashboardFragmentMaterialDesign);
-            dashboardFragmentMaterialDesign.pagerdachbord.setAdapter(demoCollectionAdapter);
-            dashboardFragmentMaterialDesign.pagerdachbord.setScrollContainer(true);
-            dashboardFragmentMaterialDesign.pagerdachbord.animate().start();
-            dashboardFragmentMaterialDesign.pagerdachbord.setPageTransformer(new ZoomOutPageTransformerDashBoard());
-            dashboardFragmentMaterialDesign.pagerdachbord.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            demoCollectionAdapter = new DemoCollectionAdapter(dashboardFaceApp);
+            dashboardFaceApp.pagerdachbord.setAdapter(demoCollectionAdapter);
+            dashboardFaceApp.pagerdachbord.setScrollContainer(true);
+            dashboardFaceApp.pagerdachbord.animate().start();
+            dashboardFaceApp.pagerdachbord.setPageTransformer(new ZoomOutPageTransformerDashBoard());
+            dashboardFaceApp.pagerdachbord.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -52,8 +53,8 @@ public class BunesslogicViewPager2 {
                 public void onPageScrollStateChanged(int state) {
                     super.onPageScrollStateChanged(state);
                     if(state==SCROLL_STATE_SETTLING){
-                    /*    dashboardFragmentMaterialDesign.pagerdachbord.getHandler().postDelayed(()->{
-                            dashboardFragmentMaterialDesign.pagerdachbord.setCurrentItem( 0,true);
+                    /*    dashboardFaceApp.pagerdachbord.getHandler().postDelayed(()->{
+                            dashboardFaceApp.pagerdachbord.setCurrentItem( 0,true);
                         },5000);*/
                     }
                     Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

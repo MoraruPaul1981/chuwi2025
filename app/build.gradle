@@ -19,13 +19,13 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks')
+            storeFile file(myValue)
             storePassword 'dsu1dsu1up'
             keyAlias 'tabels_releases'
             keyPassword 'dsu1dsu1down'
         }
         release {
-            storeFile file('C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks')
+            storeFile file(myValue)
             storePassword 'dsu1dsu1up'
             keyAlias 'tabels_releases'
             keyPassword 'dsu1dsu1down'
@@ -63,10 +63,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -168,6 +172,7 @@ dependencies {
     /////TODO Workmanager
     implementation 'androidx.work:work-runtime:2.9.1'
     implementation 'androidx.work:work-runtime-ktx:2.9.1'
+    implementation project(':app:tabels')
     testImplementation 'androidx.work:work-testing:2.9.1'
     implementation "androidx.work:work-multiprocess:2.9.1"
 
@@ -300,7 +305,12 @@ dependencies {
 /*    implementation project(':app') // 'app' depends on 'app' !!!*/
     // ...
     api project(path: ':backasync')
+    implementation(project(path: ':backasync'))
+    api project(path: ':back')
+    implementation(project(path: ':back'))
 
+    api project(path: ':app:tabels')
+    implementation(project(path: ':app:tabels'))
 
 }
 

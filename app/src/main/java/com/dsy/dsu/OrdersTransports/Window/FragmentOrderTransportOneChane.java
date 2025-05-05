@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
@@ -52,10 +51,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.OrdersTransports.Background.ServiceOrserTransportService;
-import com.dsy.dsu.Dashboard.View.MainActivity_Dashboard;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -80,6 +80,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import dagger.hilt.EntryPoints;
 
 
 // TODO: 29.09.2022 фрагмент для получение материалов
@@ -158,7 +160,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
             lifecycleOwnerОдноразовая =this;
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
-            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйID = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
 
             subClassOrdersTransport.   МетодHandlerCallBack();
 
@@ -583,8 +585,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
                             progressBarСканирование.setVisibility(View.VISIBLE);
                             МетодЗапускаАнимацииКнопок(v);
 
-                            Integer ПубличныйIDДляФрагмента =
-                                    new GetPublicID().getPublicIDAllApp(getContext());
+                            Integer ПубличныйIDДляФрагмента =EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
                             // TODO: 16.11.2022  запуск синхронизации однорозовая
 
 
@@ -618,17 +619,15 @@ public class FragmentOrderTransportOneChane extends Fragment {
         private void методBackActivityOrderTranport( ) {
            try{
                ///todo код которыц возврящет предыдущий актвитики кнопка back
-               Intent Интент_ЗапускаетDashboard = new Intent();
-               Интент_ЗапускаетDashboard.setFlags(  Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-               Интент_ЗапускаетDashboard.setAction("MainActivity_Dashboard.class");
-               Интент_ЗапускаетDashboard.  addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-               Интент_ЗапускаетDashboard.  addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-               Интент_ЗапускаетDashboard.setClass(getActivity(), MainActivity_Dashboard.class);
 
-               Bundle bundleBinderUpdate=new Bundle();
-               bundleBinderUpdate.putBoolean("CallBackMainActivityBootAndAsync", true);
-               Интент_ЗапускаетDashboard.putExtras(bundleBinderUpdate);
-               activity.  startActivity(Интент_ЗапускаетDashboard);//tso*/
+               LaunchActivityDashboard launchActivityDashboard=new LaunchActivityDashboard( fragmentManager,getContext());
+               // TODO: 27.03.2024 в зависомсти кто вызвает
+               launchActivityDashboard.     launchADashboardFragment();
+
+
+               Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                       " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                       " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
 
 

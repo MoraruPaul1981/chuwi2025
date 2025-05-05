@@ -20,11 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.google.firebase.annotations.concurrent.Background;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +37,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+
+import dagger.hilt.EntryPoints;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -60,7 +62,12 @@ public class ServiceOrserTransportService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        // TODO: 16.04.2025
+        sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+        Log.d(getApplicationContext().getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
         subClassOrderTransport=new SubClassOrderTransport();
         Log.d(getApplicationContext().getClass().getName(), "\n"
                 + " время: " + new Date()+"\n+" +

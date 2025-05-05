@@ -7,10 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
+
+import dagger.hilt.EntryPoints;
 
 public class Class_Send_Generation_Errors {
     Context context;
@@ -23,7 +26,12 @@ public class Class_Send_Generation_Errors {
         this.context =context;
 
         activity=   activityВнутри;
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        // TODO: 16.04.2025
+        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+        Log.d(context.getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
 
         StringBuffer БуферОшибкаПриПодключениекСерверуДляАунтификацииПользователяПриВходе=new StringBuffer(СамаОшибка);
 

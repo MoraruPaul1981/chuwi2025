@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.CallBackBusUpdatePO;
@@ -29,8 +30,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.net.ssl.SSLSocketFactory;
 
 import dagger.Module;
@@ -38,6 +43,13 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.internal.observers.BlockingBaseObserver;
+import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
 
 @Module
 @InstallIn(SingletonComponent.class)
@@ -46,18 +58,26 @@ public class BinessLogicIntentServiceBoot {
 
     public   Service_For_Remote_Async_Binary.LocalBinderAsync localBinderAsync;//TODO нова\
     public    ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO нова
+    private  Context context;
 
-    private  Integer permissibledaysofwork=240;
+ Subject<  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО> publishSubjectlocalBinderОбновлениеПО= ReplaySubject.create();
+ Subject< Service_For_Remote_Async_Binary.LocalBinderAsync> publishSubjectLocalBinderAsync= ReplaySubject.create();
+
 
     public  @Inject BinessLogicIntentServiceBoot(@ApplicationContext Context contextBounding) {
         //TODO сомо имя json
         try{
+// TODO: 30.04.2025  слуушатели на всякий случай
+            publishSubjectlocalBinderОбновлениеПО.subscribe();
+            // TODO: 30.04.2025
+            publishSubjectLocalBinderAsync.subscribe();
+
+            // TODO: 28.04.2025
+            this.context=contextBounding;
         // TODO: 14.08.2023 методЗапукска Синхрониазйиии
            МетодБиндингаОбновлениеПО(  contextBounding);
-
             // TODO: 14.08.2023 методЗапукска Синхрониазйиии
             МетодБиндингаRemoteAsync(contextBounding);
-
         Log.d(contextBounding.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
@@ -386,42 +406,7 @@ public class BinessLogicIntentServiceBoot {
 
 
 
-        // TODO: 20.03.2025  слушатель после завершения синхронизации и обновление по 
-        private void DontUpdatePOComplete(@NonNull Integer СервернаяВерсия, @NonNull Context context,@NonNull String getWhoLaunched) {
-            try{
-                Intent intentComunicationsUpdatePO=new Intent();
-                intentComunicationsUpdatePO.setAction("EventBusUpdatePO");
-                // TODO: 20.03.2025
-                Bundle bundleComunications=new Bundle();
 
-                PackageInfo pInfo = context. getPackageManager().getPackageInfo(context. getPackageName(), 0);
-                Integer ЛокальнаяВерсияПО = pInfo.versionCode;//Version Code
-
-                if(СервернаяВерсия==0){
-                    bundleComunications.putInt("СервернаяВерсия",  ЛокальнаяВерсияПО);///"В процесс"
-                }else {
-                    bundleComunications.putInt("СервернаяВерсия",  СервернаяВерсия);///"В процесс"
-                }
-                bundleComunications.putString("Статус",    "LastVersionUpdatePO");///"В процесс"
-                intentComunicationsUpdatePO.putExtras(bundleComunications);
-
-                // TODO: 20.03.2025
-           new CallBackBusUpdatePO(context).callbackEvensBusUpdatePO(intentComunicationsUpdatePO);
-
-                    Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
-                            " localBinderAsync "+ "\n" );
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :"
-                    + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErros(context).recordnewerror(e.toString(),
-                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                    Thread.currentThread().getStackTrace()[2].getLineNumber());
-        }
-        }
 
 
 
@@ -432,10 +417,37 @@ public class BinessLogicIntentServiceBoot {
 
     ///////todo ФИНАЛЬНЫЙ МЕТОД КТО ВХОДИЛ ДО 7 ДНЕЙ ИЛИ ПОСЫЛАЕМ НА АУНТИФИКАЦИЮ
     Integer getVersionServicePO(@NonNull LinkedHashMap<Integer,String> getHiltPortJboss, @NonNull Context context) {
-        Integer СервернаяВерсия=0;
+        AtomicInteger СервернаяВерсия=new AtomicInteger(0);
         try {
-            СервернаяВерсия = localBinderОбновлениеПО.getService().МетодГлавныйОбновленияПОДоAsync(true,
-                    context,getHiltPortJboss );
+            if (localBinderОбновлениеПО!=null) {
+                СервернаяВерсия.getAndSet(localBinderОбновлениеПО.getService().МетодГлавныйОбновленияПОДоAsync(true,
+                        context,getHiltPortJboss ));
+
+                Log.d(context.getClass().getName(), "\n"
+                        + " время: " + new Date() + "\n+" +
+                        " Класс в процессе... " + this.getClass().getName() + "\n" +
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" + "СервернаяВерсия " +СервернаяВерсия);
+            } else {
+
+
+
+            publishSubjectlocalBinderОбновлениеПО.doOnNext(new Consumer<  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО>() {
+                @Override
+                public void accept(  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО ser) throws Throwable {
+                    // TODO: 29.04.2025
+                    СервернаяВерсия.getAndSet( ser.getService().МетодГлавныйОбновленияПОДоAsync(true,
+                            context,getHiltPortJboss ));
+
+
+                    Log.d(context.getClass().getName(), "\n"
+                            + " время: " + new Date() + "\n+" +
+                            " Класс в процессе... " + this.getClass().getName() + "\n" +
+                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n"+ "\n" + "СервернаяВерсия " +СервернаяВерсия);
+
+                }
+            }).subscribe();
+            }
+
 
             Log.i(this.getClass().getName(), " Атоманически установкаОбновление ПО " +
                     Thread.currentThread().getStackTrace()[2].getMethodName() + " время " + new Date().toLocaleString());
@@ -451,7 +463,7 @@ public class BinessLogicIntentServiceBoot {
                     Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
 
-        return  СервернаяВерсия;
+        return  СервернаяВерсия.get();
     }
 
     Integer getVersionLocalPO(@NonNull LinkedHashMap<Integer,String> getHiltPortJboss, @NonNull Context context) {
@@ -481,11 +493,38 @@ public class BinessLogicIntentServiceBoot {
 
     Long completeAsync( @NonNull Context context  ){
         // TODO: 28.03.2025
-        Long completeAsync=0l;
+        AtomicLong completeAsync=new AtomicLong(0l);
         try{
             // TODO: 03.10.2023
 
-            completeAsync=  localBinderAsync.getService().metodStartingSync(context);
+            if (localBinderAsync!=null) {
+                completeAsync.getAndSet(localBinderAsync.getService().metodStartingSync(context)) ;
+
+                Log.d(context.getClass().getName(), "\n"
+                        + " время: " + new Date() + "\n+" +
+                        " Класс в процессе... " + this.getClass().getName() + "\n" +
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n"+ "\n" + "completeAsync " +completeAsync);
+            } else {
+                // TODO: 30.04.2025
+
+                publishSubjectLocalBinderAsync.doOnNext(new Consumer<   Service_For_Remote_Async_Binary.LocalBinderAsync>() {
+                    @Override
+                    public void accept(  Service_For_Remote_Async_Binary.LocalBinderAsync asy) throws Throwable {
+                        // TODO: 29.04.2025
+
+                        completeAsync.getAndSet(  localBinderAsync.getService().metodStartingSync(context));
+
+                        Log.d(context.getClass().getName(), "\n"
+                                + " время: " + new Date() + "\n+" +
+                                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n"+ "\n" + "completeAsync " +completeAsync);
+
+                    }
+                }).subscribe();
+
+            }
+
+
 
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -500,7 +539,7 @@ public class BinessLogicIntentServiceBoot {
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
-        return  completeAsync;
+        return  completeAsync.get();
     }
 
 
@@ -613,8 +652,6 @@ public class BinessLogicIntentServiceBoot {
     public void МетодБиндингаRemoteAsync(  @NonNull  Context contextBounding  ) {
         try {
             // TODO: 28.04.2023  запускаем Гланвную Синхрониазцию
-
-                //  Intent intentОбноразоваяСинхронизациия = new Intent(context, Service_For_Remote_Async.class);
                 Intent intentAsync = new Intent(contextBounding, Service_For_Remote_Async_Binary.class);
                 intentAsync.setAction("com.StartingAsyncMainBackgroud");
                 ServiceConnection connectionAsync = new ServiceConnection() {
@@ -625,7 +662,13 @@ public class BinessLogicIntentServiceBoot {
                                 // TODO: 29.09.2023
                                  localBinderAsync = (Service_For_Remote_Async_Binary.LocalBinderAsync) service;
 
-                                // TODO: 25.03.2023
+                                // TODO: 30.04.2025
+
+                                publishSubjectLocalBinderAsync.onNext(localBinderAsync);
+                                // TODO: 30.04.2025
+                                publishSubjectLocalBinderAsync.onComplete();
+
+                                // TODO: 28.04.2025
                                 Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                         " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -647,20 +690,12 @@ public class BinessLogicIntentServiceBoot {
                         localBinderAsync = null;
                         Log.d(contextBounding.getClass().getName().toString(), "\n"
                                 + "onServiceConnected  одноразовая  messengerActivity  ");
-                    }
+                    }};
 
-                    @Override
-                    public void onBindingDied(ComponentName name) {
-                        ServiceConnection.super.onBindingDied(name);
-                    }
-
-                    @Override
-                    public void onNullBinding(ComponentName name) {
-                        ServiceConnection.super.onNullBinding(name);
-                    }
-                };
-
-            contextBounding. bindService(intentAsync ,connectionAsync ,Context.BIND_AUTO_CREATE);
+            if (localBinderAsync==null) {
+                //contextBounding. bindService(intentAsync ,connectionAsync ,Context.BIND_AUTO_CREATE);
+                contextBounding. bindService(intentAsync,Context.BIND_AUTO_CREATE , Executors.newSingleThreadExecutor(),connectionAsync );
+            }
 
 
             // TODO: 28.04.2023
@@ -695,7 +730,11 @@ public class BinessLogicIntentServiceBoot {
 
                             // TODO: 28.07.2023  Update
                             localBinderОбновлениеПО = (ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО) service;
+                            // TODO: 30.04.2025
+                            publishSubjectlocalBinderОбновлениеПО.onNext(localBinderОбновлениеПО);
+                            publishSubjectlocalBinderОбновлениеПО.onComplete();
 
+                            // TODO: 28.04.2025
                             // TODO: 25.03.2023
                             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -738,7 +777,10 @@ public class BinessLogicIntentServiceBoot {
             Intent intentЗапускСлужбыОбновлениеПО = new Intent(contextBounding, ServiceUpdatePoОбновлениеПО.class);
             intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatePoОбновлениеПО");
 
-            contextBounding. bindService(intentЗапускСлужбыОбновлениеПО,connectionОбновлениеПО,Context.BIND_AUTO_CREATE  );
+            if (localBinderОбновлениеПО==null) {
+                //contextBounding. bindService(intentЗапускСлужбыОбновлениеПО,connectionОбновлениеПО,Context.BIND_AUTO_CREATE  );
+                contextBounding. bindService(intentЗапускСлужбыОбновлениеПО,Context.BIND_AUTO_CREATE , Executors.newSingleThreadExecutor(),connectionОбновлениеПО );
+            }
             // TODO: 28.04.2023
             Log.d(this.getClass().getName(), "\n" + " class " +
                     Thread.currentThread().getStackTrace()[2].getClassName()

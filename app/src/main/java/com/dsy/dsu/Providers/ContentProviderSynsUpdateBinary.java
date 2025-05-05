@@ -53,7 +53,7 @@ import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
-import com.dsy.dsu.Hilt.Sqlitehilt.HiltInterfacesqlite;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
@@ -146,7 +146,7 @@ public class ContentProviderSynsUpdateBinary extends ContentProvider {
         try {
             // TODO: 02.09.2023  CREATE get SQLITE
 
-            sqlite = EntryPoints.get(getContext(), HiltInterfacesqlite.class).getHiltSqlite();
+            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 

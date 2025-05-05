@@ -9,14 +9,14 @@
     app:cardBackgroundColor="@color/actionbar_text_color"
     android:background="#FFFFFF"
     app:layout_gravity="center"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="10dp"
-    app:cardMaxElevation="10dp"
-    android:translationZ="10dp"
+    app:cardMaxElevation="2dp"
+    android:translationZ="5dp"
     android:animateLayoutChanges="true"
-    app:strokeColor="#CFCCCC"
-    app:strokeWidth="2dp"
-    tools:context=".Dashboard.View.MainActivity_Dashboard">
+    app:strokeColor="@color/actionbar_text_color"
+    app:strokeWidth="1dp"
+    tools:context=".BootAndAsync.View.MainActivityBootAndAsync">
 
 
 
@@ -28,42 +28,61 @@
         android:orientation="vertical">
 
     <!--       ///TODO TOOLBAR  toolbarcamera_settigs -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarcamera_dashbord"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
-        android:elevation="0dp"
-        app:showAsAction="always"
-        app:theme="@style/AppTheme">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="1dp"
+            android:gravity="center"
+            android:background="#FFFFFF"
+            app:layout_gravity="center"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="10dp"
+            android:translationZ="10dp"
+            android:animateLayoutChanges="true"
+            app:strokeColor="#F1ECEC"
+            app:strokeWidth="0dp">
+
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.appcompat.widget.AppCompatImageButton
+
+
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/imageButton_back_in_settings"
-                android:layout_alignLeft="@+id/TextViewLogo"
+                android:layout_width="43dp"
+                android:layout_height="55dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:alpha="0.5"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icon_new_settings_arrow_back"
-                app:rippleColor="@color/colorPrimaryDark"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:foreground="?attr/selectableItemBackground"
+                android:backgroundTint="#F1F4F4"
+                android:fontFamily="@font/alegreya_sans_sc_thin"
+                android:gravity="center"
+                android:stateListAnimator="@drawable/icon_back_tabelcustomer_arrow"
+                android:textAlignment="center"
+                android:translationZ="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp"
+                app:cardMaxElevation="20dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/icon_back_tabelcustomer_arrow"
+                app:iconGravity="textEnd"
+                app:iconPadding="1dp"
+                app:iconSize="20dp"
+                app:iconTint="#909393"
+                app:rippleColor="#F50057"
+                app:strokeColor="#E0E0E3"
+                app:strokeWidth="1dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
 
             <TextView
                 android:id="@+id/TextViewLogo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="270dp"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/alegreya_sans_sc_thin"
                 android:gravity="center"
@@ -75,7 +94,8 @@
                 android:textStyle="bold"
                 android:visibility="visible" />
         </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 
@@ -84,6 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:layout_margin="5dp"
+            android:padding="2dp"
             android:scrollbars="horizontal|vertical"
             android:stackFromBottom="true"
             android:transcriptMode="alwaysScroll"
@@ -120,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_margin="5dp"
-                android:padding="15dp"
+                android:paddingStart="20dp"
                 android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/icon_newsettings_info_settrtings"
                 android:fontFamily="@font/alfa_slab_one"
@@ -151,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_margin="5dp"
-                android:padding="15dp"
+                android:paddingStart="20dp"
                 android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/icon_newsetting_users_ettings"
                 android:fontFamily="@font/alfa_slab_one"
@@ -182,7 +204,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="5dp"
-        android:padding="15dp"
+        android:paddingStart="20dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/icon_newsettings_async"
         android:fontFamily="@font/alfa_slab_one"
@@ -211,7 +233,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="5dp"
-        android:padding="15dp"
+        android:paddingStart="20dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/icon_newsettings_updatepo"
         android:fontFamily="@font/alfa_slab_one"
@@ -239,7 +261,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="5dp"
-        android:padding="15dp"
+        android:paddingStart="20dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/icon_newsettings_error"
         android:fontFamily="@font/alfa_slab_one"
@@ -267,7 +289,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="5dp"
-        android:padding="15dp"
+        android:paddingStart="20dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/icon_newswttings_shablon"
         android:fontFamily="@font/alfa_slab_one"

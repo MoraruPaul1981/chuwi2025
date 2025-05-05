@@ -14,10 +14,13 @@ import androidx.work.WorkerParameters;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.IntentServiceBoot;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.WorkManagers.binesslogic.GetWorker;
 
 import java.util.Date;
+
+import dagger.hilt.EntryPoints;
 
 public class MyWork_Async_Public extends Worker {
 /*    private String ИмяСлужбыWorkManger ="WorkManager Synchronizasiy_Data";*/
@@ -31,6 +34,7 @@ public class MyWork_Async_Public extends Worker {
         super(context, workerParams);
         try{
             // TODO: 22.12.2022
+
             // TODO: 02.04.2024 Bl
             getLiveBindibngServiceBoot();
 
@@ -59,6 +63,9 @@ public class MyWork_Async_Public extends Worker {
     @Override
     public Result doWork() {
         try {
+
+            Integer PublicIDWorkMangerPubluc= EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+
             // TODO: 18.03.2025
             GetWorker getWorker=new GetWorker(getApplicationContext());
             // TODO: 07.04.2025 start
@@ -71,7 +78,7 @@ public class MyWork_Async_Public extends Worker {
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName()
                     + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"  + " PublicIDWorkMangerPubluc " +PublicIDWorkMangerPubluc);
 
         } catch (Exception e) {
             e.printStackTrace();

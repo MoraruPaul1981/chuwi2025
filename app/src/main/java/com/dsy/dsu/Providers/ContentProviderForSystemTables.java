@@ -25,7 +25,7 @@ import androidx.annotation.Nullable;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSettingsTabels;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSuccessLogin;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.Sqlitehilt.HiltInterfacesqlite;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -365,7 +365,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
     public boolean onCreate() {
         try{
             // TODO: 02.09.2023  CREATE get SQLITE
-            sqliteManager = EntryPoints.get(getContext(), HiltInterfacesqlite.class).getHiltSqlite();
+            sqliteManager = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
 
 
             Log.d(this.getClass().getName(),"\n"
@@ -393,7 +393,13 @@ public class ContentProviderForSystemTables extends ContentProvider  {
             Log.d(this.getClass().getName(), " uri"+uri  + "selection "+selection );
             String table = МетодОпределяемТаблицу(uri);
                         cursor=     sqliteManager.rawQuery(selection,selectionArgs);
-                        Log.w(getContext().getClass().getName(), " Полученый для Получение Материалов cursor  " + cursor);/////
+            // TODO: 16.04.2025
+            // TODO: 17.04.2023
+            Log.d(this.getClass().getName(),"\n" + " class FaceAPp "
+                    + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
+                    "cursor  " +cursor);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"

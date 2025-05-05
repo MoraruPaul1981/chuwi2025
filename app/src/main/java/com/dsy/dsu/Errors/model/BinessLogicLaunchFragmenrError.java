@@ -36,7 +36,6 @@ public class BinessLogicLaunchFragmenrError {
             fragmentTransaction.addToBackStack(null);
             fragmentManager.popBackStack();
             fragmentError.setArguments(data);
-            fragmentTransaction.setPrimaryNavigationFragment(fragmentError);
             fragmentError.setEnterTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             fragmentError.show(fragmentManager, "FragmentError");
@@ -66,7 +65,6 @@ public class BinessLogicLaunchFragmenrError {
             fragmentTransaction.addToBackStack(null);
             fragmentManager.popBackStack();
             fragmentError.setArguments(data);
-            fragmentTransaction.setPrimaryNavigationFragment(fragmentError);
             fragmentError.setEnterTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             fragmentError.show(fragmentManager, "FragmentError");

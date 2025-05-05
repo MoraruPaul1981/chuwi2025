@@ -11,11 +11,15 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.SubClass_Connection_BroadcastReceiver_Sous_Asyns_Glassfish;
+
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.WorkManagers.MyWork_AsyncSingle;
 
 import java.util.Date;
+
+import dagger.hilt.EntryPoints;
 
 public class CreateSingleWorkManager {
     Context context;
@@ -28,8 +32,7 @@ public class CreateSingleWorkManager {
 
         try{
             // TODO: 08.10.2023
-            Integer PublicId = new SubClass_Connection_BroadcastReceiver_Sous_Asyns_Glassfish()
-                    .МетодПолучениеяПубличногоID(context);
+            Integer PublicId = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
 
             Data myDataSingleWorker = new Data.Builder()
                     .putInt("ПубличныйID", PublicId)

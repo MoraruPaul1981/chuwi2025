@@ -8,7 +8,7 @@
     android:gravity="center"
     android:visibility="visible"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".Tabels.Tabel.Single.MainActivity_Tabel_Single_PeopleOneSwipe">
+    tools:context=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe">
 
 
     <!--//TODO   НАЧАЛО ПЕРВАЯ СТРОЧКА ROW #1-->

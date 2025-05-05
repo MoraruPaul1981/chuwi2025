@@ -8,7 +8,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".Tabels.Tabel.Single.MainActivity_Tabel_Single_PeopleOneSwipe">
+    tools:context=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardviewmatirealtask"

@@ -3,33 +3,40 @@ package com.dsy.dsu.BusinessLogicAll.GetPublicID;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+
 
 import java.util.Date;
 
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.components.SingletonComponent;
 
+
+
+@Module
+@InstallIn(SingletonComponent.class)
 public class GetPublicID {
-    Context context;
-    private SQLiteDatabase sqLiteDatabase ;
 
-    public GetPublicID( ) {
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
-    }
 
-    //todo функция получающая время операции ДАННАЯ ФУНКЦИЯ ВРЕМЯ ПРИМЕНЯЕТЬСЯ ВО ВСЕЙ ПРОГРАММЕ
-    public Integer getPublicIDAllApp(@NonNull  Context context) {
+
+
+
+    @Provides
+    @QualifierPublicID
+    public Integer getPublicIDAllApp(@ApplicationContext Context context  ) {
         ///TODO --первая вставка
-        this.context =context;
+
         Integer PublicID = 0;
         try{
-            if (this.context !=null) {
+            if (context !=null) {
                 //TODO SELECT getpublic id
                 Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + "successLogin" + "");
                 ContentResolver contentResolverPublicID = context.getContentResolver();
@@ -57,7 +64,7 @@ public class GetPublicID {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErros(this.context).recordnewerror(e.toString(),
+            new RecordNewErros(context).recordnewerror(e.toString(),
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
@@ -67,10 +74,9 @@ public class GetPublicID {
 
     public Long gettingSettingTableVersion(@NonNull  Context context,@NonNull String getSql,@NonNull String ИмяТаблицы) {
         ///TODO --первая вставка
-        this.context =context;
         Long getsettingTableVersion = 0l;
         try{
-            if (this.context !=null) {
+            if (context !=null) {
                 //TODO SELECT getpublic id
                 Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + ИмяТаблицы + "");
                 ContentResolver contentResolverPublicID = context.getContentResolver();
@@ -98,7 +104,7 @@ public class GetPublicID {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErros(this.context).recordnewerror(e.toString(),
+            new RecordNewErros(context).recordnewerror(e.toString(),
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }

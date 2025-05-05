@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
@@ -18,6 +19,7 @@ import java.util.Date;
 
 import javax.crypto.NoSuchPaddingException;
 
+import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.core.Flowable;
 
 class WriterNewKeyOneSignal {
@@ -42,8 +44,7 @@ class WriterNewKeyOneSignal {
         try {
             // TODO: 14.11.2021  ПОВТОРЫЙ ЗАПУСК ВОРК МЕНЕДЖЕР
             // TODO: 30.09.2021 МЕТОД ЗАПУСКА СИНХРОНИЗАЦИИ ЧАТА ПО РАСПИСАНИЮ , НЕ ВЗАВИСИМОСТИ ОТ СОЗДАВАЛ ЛИ СООБЩЕНИЕ ИЛИ НЕТ
-            Integer PublicId =
-                    new GetPublicID().getPublicIDAllApp(context);
+            Integer PublicId = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента  ИЗ ВСЕХ ТАБЕЛЕЙ PublicId "
                     + PublicId);
 

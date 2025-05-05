@@ -16,10 +16,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -62,7 +66,10 @@ dependencies {
     //TODO new MOdules
 /*    implementation project(':app') // 'app' depends on 'app' !!!*/
     // ...
+//    api project(path: ':back')
+//    implementation project(':back')
     api project(path: ':back')
+    implementation(project(path: ':back'))
 
 }
 

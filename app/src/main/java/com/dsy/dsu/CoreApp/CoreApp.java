@@ -2,26 +2,13 @@ package com.dsy.dsu.CoreApp;
 
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-
-import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.BinessLogicIntentServiceBoot;
-import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceName;
-import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceVersionBack;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
 import com.dsy.dsu.R;
-import com.sous.backasync.businesslogic.errors.RecordNewErroBack;
-import com.sous.backasync.devicename.ModulegetDeviceNameBack;
-import com.sous.backasync.launch.ModuleDeleting;
-import com.sous.backasync.launch.ModuleInserting;
-import com.sous.backasync.launch.ModuleQuety;
-import com.sous.backasync.launch.ModuleUpdating;
+import com.example.tabels.model.launtch.ModuleTabels;
 
-
-import java.util.LinkedHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -31,7 +18,12 @@ import dagger.hilt.android.HiltAndroidApp;
 @HiltAndroidApp
 public class CoreApp extends Application {
 
-  @Inject
+/*  @Inject
+  public   SQLiteDatabase getSqlLiteCoreApp;*/
+  /*@Inject
+  public BinessLogicIntentServiceBoot binessLogicIntentServiceBoot;*/
+
+/*  @Inject
   public   SQLiteDatabase getSqlLiteCoreApp;
   @Inject
   @QualifiergetDeviceName
@@ -57,14 +49,21 @@ public class CoreApp extends Application {
   ModulegetDeviceNameBack modulegetDeviceNameBack;
 
 
-  @Inject
-  BinessLogicIntentServiceBoot binessLogicIntentServiceBoot;
+
 
   @Inject
    @QualifierJbossServer3
    public LinkedHashMap<Integer,String> getHiltPortJboss;
 
 
+
+  @Inject
+  @QualifierPublicID
+  Integer getHiltPublicId;*/
+
+
+/*  @Inject
+  ModuleTabels moduleTabels;*/
 
   @Override
   public void onCreate() {
@@ -73,7 +72,12 @@ public class CoreApp extends Application {
       // TODO: 04.10.2023 разрешения для всего
       // TODO   запускам бизнес логику CoreApp
       setTheme(R.style.Theme_AppCompat_DayNight_DarkActionBar);
-
+      Log.d(this.getClass().getName(),"\n" + " class CoreApp    " + Thread.currentThread().getStackTrace()[2].getClassName()
+              + "\n" +
+              " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+              " \n" +
+              " STARTED    COREAPP    " +" BREMY " +new Date().toLocaleString());
 
      // new BunessLogicCoreApp(getApplicationContext()).getBunessLogicCoreApp();
 
@@ -138,14 +142,6 @@ public class CoreApp extends Application {
 
       // TODO: 04.10.2023 разрешения для всего
       // TODO: 24.03.2025 test
-
-
-
-      Log.d(this.getClass().getName(),"\n" + " class CoreApp    " + Thread.currentThread().getStackTrace()[2].getClassName()
-              + "\n" +
-              " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-              " sqlite " + getSqlLiteCoreApp );
 
     } catch (Exception e) {
       e.printStackTrace();

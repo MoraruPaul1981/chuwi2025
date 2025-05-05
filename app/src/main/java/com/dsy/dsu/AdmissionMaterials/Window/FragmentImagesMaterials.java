@@ -49,6 +49,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
@@ -70,6 +71,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
+
+import dagger.hilt.EntryPoints;
 
 
 // TODO: 29.09.2022 фрагмент для получение материалов
@@ -515,8 +518,7 @@ public class FragmentImagesMaterials extends Fragment {
                         progressBarСканирование.setVisibility(View.VISIBLE);
                         МетодЗапускаАнимацииКнопок(v);
                         message.getTarget().postDelayed(()->{
-                                    Integer ПубличныйIDДляФрагмента =
-                                            new GetPublicID().getPublicIDAllApp(getContext());
+                                    Integer ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
                                     // TODO: 16.11.2022  запуск синхронизации однорозовая
                                     },
                                 500);
@@ -842,7 +844,7 @@ public class FragmentImagesMaterials extends Fragment {
     , @NonNull Integer ТекущаяНомерМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента     = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

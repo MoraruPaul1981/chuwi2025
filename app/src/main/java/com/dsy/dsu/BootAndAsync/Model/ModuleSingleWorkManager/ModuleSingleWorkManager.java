@@ -37,9 +37,6 @@ public class ModuleSingleWorkManager {
             // TODO: 03.03.2025 Запускем Синхрнонизацию через Singlw Work manager
             new CreateSingleWorkManager(context).getcreateSingleWorkManager( "BootService");
 
-
-            // TODO: 15.04.2025 test
-
             Log.d(context.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +

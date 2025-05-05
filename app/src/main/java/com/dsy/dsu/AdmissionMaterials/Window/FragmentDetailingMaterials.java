@@ -42,6 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
@@ -65,6 +66,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Predicate;
@@ -571,8 +573,7 @@ public class FragmentDetailingMaterials extends Fragment {
 
                     МетодЗапускаАнимацииКнопок(GetNameSingleAsync1c);
                     handler.postDelayed(()->{
-                                Integer ПубличныйIDДляФрагмента =
-                                        new GetPublicID().getPublicIDAllApp(getContext());
+                                Integer ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
                     },
                             500);
                     Log.d(this.getClass().getName(), " GetNameSingleAsync1c  " + GetNameSingleAsync1c);
@@ -956,7 +957,7 @@ public class FragmentDetailingMaterials extends Fragment {
     , @NonNull Integer НомерВыбраногоМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента     =  EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

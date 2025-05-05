@@ -4,10 +4,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.FirebaseAndOneSignal.OneSignal.registOnesignal.ClassOneSingnalGenerator;
 import com.dsy.dsu.Hilt.OneSignalHils.QualifierOneSignal;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 
 import java.util.Date;
 
@@ -38,7 +39,7 @@ public class ServiceOneSignalForFirebase extends IntentService {
 
 
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
 
     public ServiceOneSignalForFirebase() {

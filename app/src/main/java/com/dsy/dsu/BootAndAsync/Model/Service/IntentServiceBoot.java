@@ -22,9 +22,10 @@ import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.BinessLogicIntentS
 import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
 
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,7 +61,7 @@ public class IntentServiceBoot extends IntentService {
     @QualifiergetsslSocketFactory2
     SSLSocketFactory getsslSocketFactory2;
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
    private Notification notification;
 

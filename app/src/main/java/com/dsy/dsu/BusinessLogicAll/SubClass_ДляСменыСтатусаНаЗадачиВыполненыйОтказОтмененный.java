@@ -7,12 +7,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 
 import java.util.Date;
+
+import dagger.hilt.EntryPoints;
 
 public class SubClass_ДляСменыСтатусаНаЗадачиВыполненыйОтказОтмененный {
     // TODO: 07.02.2022
@@ -26,7 +28,12 @@ public class SubClass_ДляСменыСтатусаНаЗадачиВыполн
         Boolean РезультатСменыСтатусаНАОзнакомленый = false;
         try {
 
-            sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+            // TODO: 16.04.2025
+            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+            Log.d(context.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
 
 
             Log.d(context.getClass().getName(), "ПримечанияОтКлинетаВыполнилИлиНетЗадачу "

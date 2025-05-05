@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
@@ -43,6 +42,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
@@ -61,6 +63,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
+
+
+@AndroidEntryPoint
 public class Service_For_Public extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     private String ПолученныйПоследнийМесяцДляСортировкиЕгоВСпиноре;
@@ -68,16 +73,20 @@ public class Service_For_Public extends IntentService {
     protected         SibClassApplyFromBackPeriodof_ЗаполененияТабеляИзПрошлогоМесяца sibClassApplyFromBackPeriodof_заполененияТабеляИзПрошлогоМесяца;
     private Context context;
     private  Intent intentОтActivityListPeoples;
-    private  SQLiteDatabase sqLiteDatabase ;
+
     public Service_For_Public() {
         super("Service_For_Public");
     }
 
+
+    @Inject
+    public   SQLiteDatabase getSqlLiteCoreApp;
     @Override
     public void onCreate() {
         super.onCreate();
         try{
-            sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+            // TODO: 16.04.2025
+          //  sqLiteDatabase = EntryPoints.get(context, HiltInterfacesqlite.class).getHiltSqlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date()+"\n+" +
                 " Класс в процессе... " +  this.getClass().getName()+"\n"+

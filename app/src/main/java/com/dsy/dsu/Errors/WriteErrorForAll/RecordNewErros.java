@@ -3,6 +3,7 @@ package com.dsy.dsu.Errors.WriteErrorForAll;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Environment;
+import android.util.AtomicFile;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DeviceName.ModulegetDeviceName;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.model.bl_writer_errors_app.WewriteallApplicationErrorstoaFile;
 import com.dsy.dsu.Errors.model.interfaces.RecordNewErrorsInterface;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import dagger.Module;
+import dagger.hilt.EntryPoints;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
@@ -84,7 +87,7 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
                     // TODO: 21.12.2022  главная  файл ErrorDSU1 в ТАблицу
 
 
-
+                    AtomicFile atomicFile=new AtomicFile(new File(""));//
 
                 }
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -161,8 +164,7 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
             Long getVersionForError  = new VersionCurentTable(context).upVersionCurentTable("errordsu1");
             Long UUIDForError = (Long)
                     new Class_Generation_UUID(context).МетодГенерацииUUID();
-            Integer getPublicIdForError = new GetPublicID().
-                    getPublicIDAllApp(context);
+            Integer getPublicIdForError = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
 
 
             String getNewDateForError = new Class_Generation_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанных();

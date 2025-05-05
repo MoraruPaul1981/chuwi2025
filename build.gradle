@@ -19,6 +19,10 @@ buildscript {
     }
 }
 
+ext {
+    myValue = 'C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks'
+}
+
 allprojects {
     repositories {
         google()

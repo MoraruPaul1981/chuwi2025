@@ -1,5 +1,7 @@
 package com.dsy.dsu.AllDatabases.SQLTE;
 
+
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,23 +24,17 @@ public class SqlLitePRAGMA {
     protected void launchsqlLitePRAGMA(@NonNull  SQLiteDatabase ССылкаНаСозданнуюБазу ) {
         // TODO: 13.01.2025
         try{
-      SQLiteStatement stackTraceElementPRAGMA=
-              ССылкаНаСозданнуюБазу.compileStatement("PRAGMA synchronous = FULL");//
-          int updatessynch=      stackTraceElementPRAGMA.executeUpdateDelete();
 
+                    ССылкаНаСозданнуюБазу.compileStatement("PRAGMA synchronous = FULL");//
             // TODO: 17.04.2023
-            stackTraceElementPRAGMA=
-                    ССылкаНаСозданнуюБазу.compileStatement("PRAGMA journal_mode =  MEMORY");//DELETE | TRUNCATE | PERSIST | MEMORY | WAL | OFF
+                    ССылкаНаСозданнуюБазу.rawQuery("PRAGMA journal_mode =  MEMORY",null);//DELETE | TRUNCATE | PERSIST | MEMORY | WAL | OFF
 
-            int updatesjournal=      stackTraceElementPRAGMA.executeUpdateDelete();
 
             // TODO: 17.04.2023
             Log.d(this.getClass().getName(),"\n" + " class FaceAPp "
                     + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                    " updatesjournal "+updatesjournal+ "\n"+
-                    " updatessynch "+updatessynch);
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" );
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" +
@@ -55,3 +51,4 @@ public class SqlLitePRAGMA {
 
 
 }
+

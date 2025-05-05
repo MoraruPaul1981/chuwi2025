@@ -18,20 +18,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import dagger.hilt.EntryPoints;
 
 public class MainActivity_List_Chats extends FragmentActivity {
 
@@ -62,7 +65,12 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main_history_chat);
-            sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+            // TODO: 16.04.2025
+            sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            Log.d(getApplicationContext().getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
 
 
             ////
@@ -1052,7 +1060,7 @@ try{
 
         try {
             // TODO: 28.12.2021  ЗАПУСК ОДНОРАЗОВОЙ СЛУЖБЫ
-            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   new GetPublicID().getPublicIDAllApp(getApplicationContext());
+            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             if (!WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().isEmpty()) {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая =
                         WorkManager.getInstance(getApplicationContext().getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().get(0);

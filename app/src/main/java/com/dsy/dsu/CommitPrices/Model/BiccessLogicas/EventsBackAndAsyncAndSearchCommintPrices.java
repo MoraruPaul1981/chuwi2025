@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.Dashboard.View.MainActivity_Dashboard;
+import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -97,20 +97,14 @@ public class EventsBackAndAsyncAndSearchCommintPrices {
                         .subscribe( getbottomNavigationBack-> {
                             ///todo revboot
                             try{
-                            Intent Интент_BackВозвращаемАктивти = new Intent();
-                            Bundle data1C = new Bundle();
-                            Интент_BackВозвращаемАктивти.putExtras(data1C);
-                            Интент_BackВозвращаемАктивти.setClass(context, MainActivity_Dashboard.class); // Т
-                                Интент_BackВозвращаемАктивти.setFlags(  Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                Интент_BackВозвращаемАктивти.setAction("MainActivity_Dashboard.class");
-                                Интент_BackВозвращаемАктивти.  addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                Интент_BackВозвращаемАктивти.  addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                                Интент_BackВозвращаемАктивти.setClass(context, MainActivity_Dashboard.class);
+                                /*LaunchActivityDashboard launchActivityDashboard=new LaunchActivityDashboard( fragmentManager,context);
+                                // TODO: 27.03.2024 в зависомсти кто вызвает
+                                launchActivityDashboard.     launchADashboardFragment();*/
 
-                                Bundle bundleBinderUpdate=new Bundle();
-                                Интент_BackВозвращаемАктивти.putExtras(bundleBinderUpdate);
-                            Log.d(this.getClass().getName(), "  выходим из задания МетодКпопкаВозвращениеНазадИзСогласованиии");
-                            context. startActivity(Интент_BackВозвращаемАктивти);
+
+                                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
 
                             // TODO: 17.04.2023 LOG

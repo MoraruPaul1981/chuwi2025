@@ -10,7 +10,7 @@
     android:orientation="vertical"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="snapMargins|scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
-    tools:context=".Tabels.Tabel.Single.MainActivity_Metki_Tabel"
+    tools:context=".Tabels.Tabel.Single.view.MainActivity_Metki_Tabel"
     tools:visibility="visible">
 
     <com.google.android.material.button.MaterialButton

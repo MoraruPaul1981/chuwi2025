@@ -49,15 +49,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
 import com.dsy.dsu.Services.Service_For_Public;
-import com.dsy.dsu.Dashboard.View.MainActivity_Dashboard;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
 import com.dsy.dsu.Tabels.Tabel.New.MainActivity_New_Tabely;
@@ -83,6 +81,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -110,7 +110,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
 
     private   Context context;
 
-    private   Button КонопкаНазадСтрелкаВсеТабеля;
+    private   Button backFaceApp;
     private SQLiteDatabase sqLiteDatabase ;
 
     private  TextView textViewКоличествоТабелей;
@@ -138,23 +138,32 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private   Cursor    Курсор_Main_ListTabelsFinal;
+
     private    SimpleCursorAdapter simpleCursorAdapterAllTAbels;
 
     private   Cursor Курсор_ДанныеСпиннера;
+
+    @Inject
+    public   SQLiteDatabase getSqlLiteCoreApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main__historytabely);
+           // setContentView(R.layout.activity_main__historytabely);
+            setContentView(R.layout.activity_main__historytabely_materialview);
             activity=this;
             context =this;
             getSupportActionBar().hide(); ///скрывать тул бар
             subClassCursorLoader=      new SubClassCursorLoader();
-
             class_grud_sql_operationsДляАктивтиТабель      = new Class_GRUD_SQL_Operations(getApplicationContext());
-            sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+            // TODO: 16.04.2025
+            Log.d(context.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+
+
             Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (getApplicationContext());
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -169,7 +178,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
             fragmentTransaction = fragmentManager.beginTransaction();
 
         //todo кнопка назад
-        КонопкаНазадСтрелкаВсеТабеля = findViewById(R.id.КонопкаНазадСтрелкаВсеТабеля);
+        backFaceApp = findViewById(R.id.КонопкаНазадСтрелкаВсеТабеля);
         textViewКоличествоТабелей= findViewById(R.id.textViewКоличествоТабелей);
         СпинерВыборДату=(Spinner) findViewById(R.id.СпинерТабельМесяцИсториииТабелей);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
@@ -274,40 +283,21 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
     }
 
     private void МетодНазадBACKНААктивти() {
-        КонопкаНазадСтрелкаВсеТабеля.setOnClickListener(new View.OnClickListener() {
+        backFaceApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
                     Log.d(this.getClass().getName(), " кликнем для созданни новго сотрдника при нажатии  ");
                     ///todo код которыц возврящет предыдущий актвитики кнопка back
-                    Intent Интент_ЗапускаетDashboard = new Intent();
-                    Интент_ЗапускаетDashboard.setFlags(  Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    Интент_ЗапускаетDashboard.setAction("MainActivity_Dashboard.class");
-                    Интент_ЗапускаетDashboard.  addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    Интент_ЗапускаетDashboard.  addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    Интент_ЗапускаетDashboard.setClass(context, MainActivity_Dashboard.class);
 
-                    Bundle bundleBinderUpdate=new Bundle();
-                    bundleBinderUpdate.putBoolean("CallBackMainActivityBootAndAsync", true);
-                    Интент_ЗапускаетDashboard.putExtras(bundleBinderUpdate);
-                    activity.  startActivity(Интент_ЗапускаетDashboard);//tso*/
+                    LaunchActivityDashboard launchActivityDashboard=new LaunchActivityDashboard( fragmentManager,getApplicationContext());
+                    // TODO: 27.03.2024 в зависомсти кто вызвает
+                    launchActivityDashboard.     launchADashboardFragment();
 
 
-
-        /*            // TODO Запусукаем Фргамент НАстройки  dashbord
-                    DashboardFragmentSettings dashboardFragmentSettings = DashboardFragmentSettings.newInstance();
-                    Bundle data=new Bundle();
-                    dashboardFragmentSettings.setArguments(data);
-                    fragmentTransaction.remove(dashboardFragmentSettings);
-                    String fragmentNewImageNameaddToBackStack=   dashboardFragmentSettings.getClass().getName();
-                    fragmentTransaction.addToBackStack(fragmentNewImageNameaddToBackStack);
-                    Fragment FragmentУжеЕСтьИлиНЕт=     fragmentManager.findFragmentByTag(fragmentNewImageNameaddToBackStack);
-                    if (FragmentУжеЕСтьИлиНЕт==null) {
-                        dashboardFragmentSettings.show(fragmentManager, "DashboardFragmentSettings");
-                        // TODO: 01.08.2023
-
-                    }*/
-
+                    Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
                     Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -502,8 +492,8 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
                                     " ПолученныйПоследнийМесяцДляСортировкиЕгоВСпиноре " + ИмесяцвИГодСразу+
                                     " МассивДляВыбораВСпинерДатаArray " +МассивДляВыбораВСпинерДатаArray  +
                                     " МассивДляВыбораВСпинореMainUUID " + МассивДляВыбораВСпинореMainUUID+
-                                    "  ((TextView) parent.getChildAt(0)) " +((TextView) parent.getChildAt(0)).getTag()  + " MainParentUUID " + MainParentUUIDFromTabel +
-                                    " Курсор_Main_ListTabelsFinal "+Курсор_Main_ListTabelsFinal);
+                                    "  ((TextView) parent.getChildAt(0)) " +((TextView) parent.getChildAt(0)).getTag()
+                                    + " MainParentUUID " + MainParentUUIDFromTabel );
 
                         }else {
                             // TODO: 19.04.2023  Когда ДАННЫХ НЕТ
@@ -1151,15 +1141,9 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
             ДатаДляКалендаря.getWindow().setAttributes(params);
 
 
-            Drawable drawabledown=context.getDrawable(R.drawable.style_for_calendar1);
-            ДатаДляКалендаря.getWindow().setBackgroundDrawable(drawabledown);
+         /*   Drawable drawabledown=context.getDrawable(R.drawable.style_for_calendar1);
+            ДатаДляКалендаря.getWindow().setBackgroundDrawable(drawabledown);*/
             //todo:
-
-           /* ДатаДляКалендаря.getWindow().setNavigationBarColor(Color.RED);
-            ДатаДляКалендаря.getWindow().setStatusBarColor(Color.RED);
-            ДатаДляКалендаря.getWindow().setNavigationBarDividerColor(Color.RED);*/
-
-
             if (!ДатаДляКалендаря.isShowing()) {
                 ДатаДляКалендаря.show();
             }

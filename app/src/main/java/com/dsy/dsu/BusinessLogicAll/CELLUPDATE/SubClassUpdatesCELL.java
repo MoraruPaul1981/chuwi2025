@@ -12,25 +12,33 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Date;
 import java.util.function.LongToIntFunction;
+
+import dagger.hilt.EntryPoints;
 
 //TODO класс обновление Ячеек
 public class SubClassUpdatesCELL {
     Context context;
     private LongToIntFunction longToIntFunction;
     private SQLiteDatabase sqLiteDatabase ;
-    public SubClassUpdatesCELL(Context context) {
+    public SubClassUpdatesCELL( @NonNull  Context context,@NonNull SQLiteDatabase sqLiteDatabase ) {
 
         this.context = context;
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        this.sqLiteDatabase = sqLiteDatabase;
+        // TODO: 16.04.2025
+
+        Log.d(context.getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
     }
 
 
@@ -128,12 +136,12 @@ public class SubClassUpdatesCELL {
             String Дата =     new Class_Generation_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанныхДОП();
             contentValuesОбноленияЯчейкиSingleTanel.put("date_update", Дата);
 
-            Long Версия = new VersionCurentTable(context).upVersionCurentTable(    ТаблицаОбработки);
+            Long Версия = new VersionCurentTable(context,sqLiteDatabase).upVersionCurentTable(    ТаблицаОбработки);
             contentValuesОбноленияЯчейкиSingleTanel.put("current_table", Версия);
 
 
 
-            Long getPublicID=  new GetPublicID().gettingSettingTableVersion(context," SELECT publicid FROM successlogin "  ,"successlogin");
+            Long getPublicID=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT publicid FROM successlogin "  ,"successlogin");
             contentValuesОбноленияЯчейкиSingleTanel.put("user_update", getPublicID);
 
 

@@ -19,8 +19,9 @@ import androidx.annotation.Nullable;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.BinessLogicIntentServiceBoot;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 import com.dsy.dsu.SynsProccessor.AsynsProccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,7 +66,7 @@ public class Service_For_Remote_Async_Binary extends IntentService {
 
 
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
 
 

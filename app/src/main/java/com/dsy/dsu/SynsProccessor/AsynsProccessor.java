@@ -8,23 +8,23 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.net.ssl.SSLSocketFactory;
 
@@ -58,7 +58,12 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
                            @NonNull   Integer getHiltPublicId) {
         super(context);
         this.context=context;
-        this.   sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        // TODO: 16.04.2025
+        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+        Log.d(context.getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
         this.jsonGenerator=    jsonGenerator;
         this.getsslSocketFactory2=    getsslSocketFactory2;
         this.getHiltPublicId=    getHiltPublicId;
@@ -130,7 +135,7 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
         Long результатСинхрониазции=0l;
         try {
             ////САМАЯ ПЕРВАЯ КОМАНДА НАЧАЛА ОБМНЕНА ДАННЫМИ///// TODO ГЛАВНЫЙ МЕТОД ОБМЕНА ДАНЫМИ  НА АКТИВИТИ FACE_APP
-            Integer getPublicID = new GetPublicID().getPublicIDAllApp(context);
+            Integer getPublicID = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             //TODO
             if (getPublicID > 0) {
 
@@ -233,8 +238,6 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
                         && ! BufferGetVersionData.toString().trim().matches("(.*)Server Running...... Don't Login(.*)")) {
                     Log.d(this.getClass().getName(), "  getHiltPublicId  " + getHiltPublicId +
                             " BufferGetVersionData " + BufferGetVersionData.toString());
-
-
                     //TODO Таблицы ОТ  Сервера
                     CopyOnWriteArrayList<ConcurrentHashMap<String, String>> getBufferFromJbossServerAllTables =
                             jsonGenerator.readValue(BufferGetVersionData.toString(),
@@ -409,32 +412,22 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
     Long МетодГлавныхЦиклТаблицДляСинхронизации(@NonNull Integer PublicID,
                                                 @NonNull    CopyOnWriteArrayList<ConcurrentHashMap<String, String>> getBufferFromJbossServerAllTables) {//КонтекстСинхроДляКонтроллера
         // TODO: 07.04.2024
-       AtomicLong ResultatSync =new AtomicLong(0l);
+   Long getResultatSync=0l;
         try {
-            Log.i(this.getClass().getName(), " PublicID "
-                    +  PublicID.toString()
-                    + " getBufferFromJbossServerAllTables "
-                    +  getBufferFromJbossServerAllTables.toString());
-
-
+            // TODO: 28.04.2025
             LinkedHashMap<Integer,String> getHiltPortJboss=    EntryPoints.get(context, getHiltPortJbossInterface.class).getHiltPortJboss();
-            /*
-//TODO :  Реальная Работа
- */
 
-// TODO: 21.08.2023 ГЛАВНЫЙ ЦИКЛ СИХРОНИАЗЦИИ
-            // TODO: 21.08.2023  только  Параллено
-            ResultatSync.set(       new ProccesorparallelSynch( context,
+            // TODO: 28.04.2025 работа сихрониазции
+            getResultatSync=     new ProccesorparallelSynch( context,
                     jsonGenerator,
                     getsslSocketFactory2,
                     getBufferFromJbossServerAllTables,
-                    PublicID,getHiltPortJboss).startingAsyncParallels());
+                    PublicID,getHiltPortJboss).startingAsyncParallels();
 
-            // TODO: 08.04.2024
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()
-                    + "\n" + "parallel"+" ResultatSync.get() " + ResultatSync.get());
+                    + "\n" + "parallel"+" getResultatSync" + getResultatSync);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -445,7 +438,7 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber()  );
         }
-        return  ResultatSync.get();
+        return  getResultatSync;
     }
 
 

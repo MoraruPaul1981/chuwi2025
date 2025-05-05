@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Tabels.Tabel.Single.MainActivity_Metki_Tabel"
+    tools:context=".Tabels.Tabel.Single.view.MainActivity_Metki_Tabel"
     android:orientation="vertical">
 
     <com.google.android.material.textview.MaterialTextView

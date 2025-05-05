@@ -43,6 +43,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
@@ -69,6 +70,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+
+import dagger.hilt.EntryPoints;
 
 
 // TODO: 29.09.2022 фрагмент для получение материалов
@@ -111,7 +114,7 @@ public class FragmentNewOrderTransport extends Fragment {
             // TODO: 27.04.2023  Запускаем  Новый Заказ Транпорта
             subClassNewOrderTransport    =new SubClassNewOrderTransport(getActivity());
             subClassSetAllSprabochnik=           new SubClassSetAllSprabochnik();
-            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйID = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             localBinderNewOrderTransport =  (ServiceOrserTransportService.  LocalBinderOrderTransport) getArguments().getBinder("binder");
             animationvibr1 = AnimationUtils.loadAnimation(getContext(),R.anim.slide_singletable2);//
             preferencesМатериалы = getContext().getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
@@ -933,8 +936,7 @@ public class FragmentNewOrderTransport extends Fragment {
                 String getName=     bundlegetCfo.getString("getName");
                 subClassNewOrderTransport.     методЗаписьВыбраногоЦФО(getId,getName);
                 // TODO: 06.06.2023 запускаем сихорнизацию одноразовую
-                Integer ПубличныйIDДляФрагмента =
-                        new GetPublicID().getPublicIDAllApp(getContext());
+                Integer ПубличныйIDДляФрагмента =EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +

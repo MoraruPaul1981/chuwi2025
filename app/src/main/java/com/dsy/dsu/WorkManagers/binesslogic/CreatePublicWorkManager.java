@@ -32,12 +32,10 @@ public class CreatePublicWorkManager {
 
 
     @SuppressLint("NewApi")
-    public void getcreatePublicWorkManager(@NotNull Context context,
-                                           @NotNull Integer PublicId) {
+    public void getcreatePublicWorkManager(@NotNull Context context) {
 
         try{
             Data myDataДляОбщейСинхрониазации = new Data.Builder()
-                    .putInt("КтоЗапустилWorkManagerДляСинхронизации", PublicId)
                     .build();
             Constraints constraintsСинхронизация= new Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -82,8 +80,7 @@ public class CreatePublicWorkManager {
                 Log.d(context.getClass().getName(), "\n"
                         + " время: " + new Date()+"\n+" +
                         " Класс в процессе... " +  this.getClass().getName()+"\n"+
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+
-                        " PublicId " +PublicId+ " callbackRunnable "
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+ " callbackRunnable "
                         + "\n" + " workInfo.get(0).getState() " +RunWorkInfo);
 
         } catch (Exception e) {

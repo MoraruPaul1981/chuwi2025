@@ -61,7 +61,7 @@ import com.dsy.dsu.Tabels.Peoples.MainActivity_Find_Peoples;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_New_People;
 import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
 
-import com.dsy.dsu.Tabels.Tabel.Single.MainActivity_Tabel_Single_PeopleOneSwipe;
+import com.dsy.dsu.Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe;
 import com.dsy.dsu.Services.Service_For_Public;
 import com.dsy.dsu.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

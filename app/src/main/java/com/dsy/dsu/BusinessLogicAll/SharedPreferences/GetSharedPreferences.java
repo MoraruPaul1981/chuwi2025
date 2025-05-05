@@ -37,8 +37,8 @@ public class GetSharedPreferences {
             preferences =context. getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
             // TODO: 02.08.2023 БИЗНЕС КОД
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("РежимЗапускаПереполучение", "ПовторныйЗапускСинхронизации");
-            editor.apply();
+            editor.putString("РежимЗапускаСинхронизации", "ПовторныйЗапускСинхронизации");
+            editor.commit();
             Log.d(context.getClass().getName(), "\n"
                     + " время: " + new Date()+"\n+" +
                     " Класс в процессе... " +  this.getClass().getName()+"\n"+

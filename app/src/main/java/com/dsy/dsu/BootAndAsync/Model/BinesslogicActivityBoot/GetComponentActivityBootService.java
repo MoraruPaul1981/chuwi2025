@@ -3,6 +3,7 @@ package com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -548,6 +550,9 @@ public class GetComponentActivityBootService {
                 " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "   unregisterEventBusFirst bootFragment "+bootFragment);
     }
+
+
+
 
 
     // TODO: 04.04.2022  END CLASS

@@ -28,7 +28,7 @@ import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.Hilt.Sqlitehilt.HiltInterfacesqlite;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -117,7 +117,7 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
 /*            new GetSqlite().методGetSqlite(getContext());
             sqlite=    GetSQLiteDatabase.SqliteDatabase();*/
 
-            sqlite = EntryPoints.get(getContext(), HiltInterfacesqlite.class).getHiltSqlite();
+            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 

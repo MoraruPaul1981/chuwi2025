@@ -14,10 +14,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.R;
+
+import dagger.hilt.EntryPoints;
 
 
 public class MainActivity_Tasks extends FragmentActivity {
@@ -42,7 +45,6 @@ public class MainActivity_Tasks extends FragmentActivity {
             super.onCreate(savedInstanceState);
             activity=this;
             subClass_only_activyMain_buccess_logic=new SubClass_Only_ActivyMain_Buccess_Logic(getApplicationContext(),activity);
-            getPublic_id =new GetPublicID();
             /*   setContentView(R.layout.activity_main_fragment1_for_tasks);//R.layout.activity_main_history_chat  //TODO old R.layout.activity_main_history_tasks*/
             setContentView(R.layout.activity_main_fisrt_for_tasks);//R.layout.activity_main_history_chat  //TODO old R.layout.activity_main_history_tasks
             // TODO: 27.04.2021 формируем внешний вид Чата через фрагменты
@@ -59,7 +61,7 @@ public class MainActivity_Tasks extends FragmentActivity {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая=   WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get() .get(0);
             if (WorkInfoИнформацияОЗапущенойСлужбеОдноразовая.getState().compareTo(WorkInfo.State.RUNNING)!=0) {
 // TODO: 02.03.2022
-                Integer ПубличныйIDДляФрагмента = getPublic_id.getPublicIDAllApp(getApplicationContext());
+                Integer ПубличныйIDДляФрагмента = EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
 
 
 

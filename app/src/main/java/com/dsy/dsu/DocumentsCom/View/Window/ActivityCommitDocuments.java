@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 import com.dsy.dsu.R;
 
 import javax.inject.Inject;
@@ -22,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ActivityCommitDocuments extends AppCompatActivity {
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
 
     private FragmentManager fragmentManager;

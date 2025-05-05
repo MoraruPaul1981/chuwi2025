@@ -11,7 +11,7 @@
     android:background="#FFFFFF"
     android:gravity="top"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".Dashboard.View.MainActivity_Dashboard"
+    tools:context=".BootAndAsync.View.MainActivityBootAndAsync"
     tools:ignore="MissingClass">
 
 
@@ -79,8 +79,8 @@
             android:background="#FFFFFF"
             app:layout_gravity="center"
             app:cardElevation="2dp"
-            app:cardMaxElevation="1dp"
-            android:translationZ="1dp"
+            app:cardMaxElevation="10dp"
+            android:translationZ="10dp"
             android:animateLayoutChanges="true"
             app:strokeColor="#F1ECEC"
             app:strokeWidth="0dp">

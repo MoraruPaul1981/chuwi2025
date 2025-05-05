@@ -39,14 +39,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -63,6 +64,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+
+import dagger.hilt.EntryPoints;
 
 
 public class Fragment2_Create_Tasks extends Fragment {
@@ -158,10 +161,17 @@ public class Fragment2_Create_Tasks extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  try{
-     sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+     // TODO: 16.04.2025
+     sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+     Log.d(context.getClass().getName(), "\n"
+             + " время: " + new Date() + "\n+" +
+             " Класс в процессе... " + this.getClass().getName() + "\n" +
+             " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+
+
         // TODO: 02.08.2022 инициализация классовдля работы
         subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2(getContext(), getActivity());
-        getPublic_id =new GetPublicID();
+
         // TODO: 02.08.2022  инициализация двух слуушатель для двух work manager
         subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerФрагмент2();
         subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerОбщщийДополнительныйФрагмент2();
@@ -202,7 +212,7 @@ public class Fragment2_Create_Tasks extends Fragment {
         // TODO: 20.07.2022
         try{
             // TODO: 14.03.2022
-            ПубличныйIDДляФрагмента = getPublic_id.getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодПолучаемГлавныеДанныеДляЗадач(ПубличныйIDДляФрагмента);
             Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента " + ПубличныйIDДляФрагмента);
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодПолученимТОлькоКоличествоЗадач(ПубличныйIDДляФрагмента);

@@ -6,9 +6,13 @@ import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
+
+import java.util.Date;
+
+import dagger.hilt.EntryPoints;
 
 
 public class Class_Generation_Weekend_For_Tabels {
@@ -16,7 +20,12 @@ public class Class_Generation_Weekend_For_Tabels {
     private SQLiteDatabase sqLiteDatabase ;
     public Class_Generation_Weekend_For_Tabels(Context context) {
         this.context =context;
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        // TODO: 16.04.2025
+        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+        Log.d(context.getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
     }
 
 

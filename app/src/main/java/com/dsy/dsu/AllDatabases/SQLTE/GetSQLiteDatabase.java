@@ -23,16 +23,19 @@ import java.util.function.Consumer;
 
 //этот класс создает базу данных SQLite
 public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
-     static final int VERSION =              1078;//ПРИ ЛЮБОМ ИЗМЕНЕНИЕ В СТРУКТУРЕ БАЗЫ ДАННЫХ НУЖНО ДОБАВИТЬ ПЛЮС ОДНУ ЦИФРУ К ВЕРСИИ 1=1+1=2 ИТД.1
-   private   Context context;
-    private  static AtomicReference<SQLiteDatabase> sqliteDatabase=new AtomicReference<>();
+    static final int VERSION =              1078;//ПРИ ЛЮБОМ ИЗМЕНЕНИЕ В СТРУКТУРЕ БАЗЫ ДАННЫХ НУЖНО ДОБАВИТЬ ПЛЮС ОДНУ ЦИФРУ К ВЕРСИИ 1=1+1=2 ИТД.1
+    private   Context context;
+
+
+
+    private   AtomicReference<SQLiteDatabase> sqliteDatabase=new AtomicReference<>();
     private     CopyOnWriteArrayList<String> ИменаТаблицыОтАндройда;
 
 
 
 
     public         GetSQLiteDatabase   (@NotNull Context context) {/////КОНСТРУКТОР КЛАССА ПО СОЗДАНИЮ БАЗЫ ДАННЫХ
-    /*    super(context, "Database DSU-1.db", null, VERSION ); // определяем имя базы данных  и ее версию*/
+        /*    super(context, "Database DSU-1.db", null, VERSION ); // определяем имя базы данных  и ее версию*/
         super(context, "Database DSU-1.db", null, VERSION, new DatabaseErrorHandler() {
             @Override
             public void onCorruption(SQLiteDatabase dbObj) {
@@ -51,8 +54,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                             Thread.currentThread().getStackTrace()[2].getClassName()
                             + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                            " SqliteDatabase " + sqliteDatabase);
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+"dbObj"+dbObj);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -66,7 +68,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
             }
         });
         try{
-                    this.context = context;
+            this.context = context;
             // TODO: 16.04.2025 start
             initDatabase(context);
 
@@ -97,7 +99,6 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
     public void onCreate(SQLiteDatabase ССылкаНаСозданнуюБазу) {
         try {
             Log.d(this.getClass().getName(), "сработала ... НАЧАЛО  СОЗДАНИЯ ТАЛИЦ ");
-
             // TODO: 24.10.2022 Генерируем Список Таблиц
             ИменаТаблицыОтАндройда=    new SubClassCreatingMainAllTables().getWorkerTablesALl(context);
 
@@ -413,16 +414,16 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
 
     private void МетодТаблицаMODIFITATION_Client(SQLiteDatabase ССылкаНаСозданнуюБазу) throws InterruptedException {
         try {
-        ССылкаНаСозданнуюБазу.execSQL("drop table  if exists MODIFITATION_Client");//test
-        ССылкаНаСозданнуюБазу.execSQL("Create table  if not exists MODIFITATION_Client (" +
-                "name  TEXT  NOT NULL UNIQUE DEFAULT '2000-01-10 00:00:00.000' " +
-                ",  localversionandroid NUMERIC NOT NULL  DEFAULT '2000-01-10 00:00:00.000' , " +
-                "versionserveraandroid NUMERIC NOT NULL  DEFAULT '2000-01-10 00:00:00.000' ," +
-                " localversionandroid_version    NUMERIC  NOT NULL DEFAULT '0' , " +
-                "versionserveraandroid_version   NUMERIC NOT NULL  DEFAULT '0'  )");
-        //////////
-        Log.d(this.getClass().getName(), " сработала ... INSERT  INTO MODIFITATION_Client");
-          ИменаТаблицыОтАндройда.forEach(new Consumer<String>() {
+            ССылкаНаСозданнуюБазу.execSQL("drop table  if exists MODIFITATION_Client");//test
+            ССылкаНаСозданнуюБазу.execSQL("Create table  if not exists MODIFITATION_Client (" +
+                    "name  TEXT  NOT NULL UNIQUE DEFAULT '2000-01-10 00:00:00.000' " +
+                    ",  localversionandroid NUMERIC NOT NULL  DEFAULT '2000-01-10 00:00:00.000' , " +
+                    "versionserveraandroid NUMERIC NOT NULL  DEFAULT '2000-01-10 00:00:00.000' ," +
+                    " localversionandroid_version    NUMERIC  NOT NULL DEFAULT '0' , " +
+                    "versionserveraandroid_version   NUMERIC NOT NULL  DEFAULT '0'  )");
+            //////////
+            Log.d(this.getClass().getName(), " сработала ... INSERT  INTO MODIFITATION_Client");
+            ИменаТаблицыОтАндройда.forEach(new Consumer<String>() {
                 @Override
                 public void accept(String НазваниеТаблицыДляЗаполения) {
                     String ФиналНазваниеТаблицыДляЗаполения =
@@ -430,8 +431,8 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                     ССылкаНаСозданнуюБазу.execSQL("INSERT INTO MODIFITATION_Client(name)  VALUES(  " + ФиналНазваниеТаблицыДляЗаполения + ")");
                     Log.d(this.getClass().getName(), " сработала вставка таблицы ... ФиналНазваниеТаблицыДляЗаполения " + ФиналНазваниеТаблицыДляЗаполения);
                 }
-        });
-        Log.d(this.getClass().getName(), " сработала ... создание тригера MODIFITATION_Client");
+            });
+            Log.d(this.getClass().getName(), " сработала ... создание тригера MODIFITATION_Client");
         } catch (SQLException e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -674,7 +675,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
     private void МетодСоздания_ТаблицыТабель(SQLiteDatabase ССылкаНаСозданнуюБазу) {
         ССылкаНаСозданнуюБазу.execSQL("drop table  if exists tabel");//test
         ССылкаНаСозданнуюБазу.execSQL(" UPDATE MODIFITATION_Client SET  localversionandroid_version='0',versionserveraandroid_version='0'  WHERE name =  'tabel'");//test
-       ССылкаНаСозданнуюБазу.execSQL("Create table if not exists tabel(" +
+        ССылкаНаСозданнуюБазу.execSQL("Create table if not exists tabel(" +
                 "_id  INTEGER  PRIMARY KEY  AUTOINCREMENT  ," +
                 "cfo NUMERIC ," +
                 " month_tabels INTEGER check(length(month_tabels) <13 ) ," +
@@ -915,7 +916,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
     private void МетодСозданиеТаблицыОшибок(SQLiteDatabase ССылкаНаСозданнуюБазу) {
         try{
             ССылкаНаСозданнуюБазу.execSQL("drop table  if exists errordsu1 ");//ТАБЛИЦА ГЕНЕРАЦИИ ОШИБОК
-           ССылкаНаСозданнуюБазу.execSQL("Create table if not exists errordsu1 (" +
+            ССылкаНаСозданнуюБазу.execSQL("Create table if not exists errordsu1 (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT  ," +
                     " Error TEXT    NOT NULL  ," +
                     "Klass TEXT NOT NULL ," +
@@ -925,7 +926,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                     "user_update   INTEGER ,"+
                     "current_table   NUMERIC ,"+
                     "whose_error INTEGER NOT NULL ," +
-                   "  uuid NUMERIC  )");
+                    "  uuid NUMERIC  )");
             Log.d(this.getClass().getName(), " сработала ...  создание таблицы ErrorDSU1 ");
 
         } catch (SQLException e) {
@@ -966,7 +967,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                     "FOREIGN KEY(cfo) REFERENCES cfo  (_id)  ON UPDATE CASCADE ," +
                     "FOREIGN KEY(tracks) REFERENCES track  (_id)  ON UPDATE CASCADE ," +
                     "FOREIGN KEY(companys) REFERENCES company  (_id)  ON UPDATE CASCADE ," +
-                     "FOREIGN KEY(nomen_vesov) REFERENCES nomen_vesov  (_id)  ON UPDATE CASCADE)");
+                    "FOREIGN KEY(nomen_vesov) REFERENCES nomen_vesov  (_id)  ON UPDATE CASCADE)");
             Log.d(this.getClass().getName(), " сработала ...  создание таблицы get_materials_data ");
 
         } catch (SQLException e) {
@@ -1128,7 +1129,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                     "                          nomen_vesov ON  get_materials_data.nomen_vesov =  nomen_vesov._id" +
                     " AND  get_materials_data.nomen_vesov =  nomen_vesov._id LEFT OUTER JOIN\n" +
                     "                          cfo ON  get_materials_data.cfo =  cfo._id  WHERE        (  name_cfo IS NOT NULL)");
-           Log.d(this.getClass().getName(), " сработала ...  создание view  view_taterials ");
+            Log.d(this.getClass().getName(), " сработала ...  создание view  view_taterials ");
         } catch (SQLException e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -1257,10 +1258,10 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
             ИменаТаблицыОтАндройда=    new SubClassCreatingMainAllTables().getWorkerTablesALl(context);
             Log.d(this.getClass().getName()," ИменаТаблицыОтАндройда " +ИменаТаблицыОтАндройда); // TODO: 28.09.2022 таблицы
             Log.d(this.getClass().getName(), " после СЛУЖБА  содание базы newVersion==  652   (например)   " + new Date() + " newVersion " + newVersion);
-            
 
-                    // TODO: 08.06.2021 создание Базы Данных  ЧИСТАЯ УСТАНОВКА
-                    onCreate(ССылкаНаСозданнуюБазу);
+
+            // TODO: 08.06.2021 создание Базы Данных  ЧИСТАЯ УСТАНОВКА
+            onCreate(ССылкаНаСозданнуюБазу);
 
             Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
@@ -1287,22 +1288,22 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
         try{
-        Log.d(this.getClass().getName(),"\n" + " onOpen  class " +
-                Thread.currentThread().getStackTrace()[2].getClassName()
-                + "\n" +
-                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                " SqliteDatabase " + sqliteDatabase);
+            Log.d(this.getClass().getName(),"\n" + " onOpen  class " +
+                    Thread.currentThread().getStackTrace()[2].getClassName()
+                    + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                    " SqliteDatabase " + sqliteDatabase);
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" +
-                Thread.currentThread().getStackTrace()[2].getMethodName() +
-                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros( context).recordnewerror(e.toString(),
-                this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                Thread.currentThread().getStackTrace()[2].getLineNumber());
-    }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" +
+                    Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErros( context).recordnewerror(e.toString(),
+                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+        }
     }
 
 
@@ -1310,12 +1311,12 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
         try{
             if (context !=null) {
                 if (sqliteDatabase.get() == null) {
-                    sqliteDatabase.getAndSet(this.getWritableDatabase()) ;//
+                    sqliteDatabase.getAndSet(this.getWritableDatabase()) ; //ссылка на схему базы данных;//ссылка на схему базы данных ГЛАВНАЯ ВСТАВКА НА БАЗУ ДСУ-
 
-
+                    // TODO: 17.04.2025
                     new SqlLitePRAGMA(context).launchsqlLitePRAGMA(sqliteDatabase.get());
-
-                    //ссылка на схему базы данных;//ссылка на схему базы данных ГЛАВНАЯ ВСТАВКА НА БАЗУ ДСУ-
+                    
+                    
                     Log.d(this.getClass().getName(),"\n" + " class " +
                             Thread.currentThread().getStackTrace()[2].getClassName()
                             + "\n" +
@@ -1340,18 +1341,18 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
         }
     }
 
-
-    // TODO: 02.09.2023 длявный метод получение Базы Данныз  Sqlite
-    public static   SQLiteDatabase  SqliteDatabase() {
-        // TODO: 02.09.2023  CREATE get SQLITE
-        System.out.printf(" \" class \" +\n" +
-                "                Thread.currentThread().getStackTrace()[2].getClassName()\n" +
-                "                + \"\\n\" +\n" +
-                "                \" metod \" + Thread.currentThread().getStackTrace()[2].getMethodName() + \"\\n\" +\n" +
-                "                \" line \" + Thread.currentThread().getStackTrace()[2].getLineNumber() + \"\\n\"+\n" +
-                "                \" sqliteDatabase.get() " + sqliteDatabase.get());
+/*
+    public    SQLiteDatabase  getSqliteDatabase() {
+        System.out.printf("\n" + " class " +
+                Thread.currentThread().getStackTrace()[2].getClassName()
+                + "\n" +
+                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                " sqliteDatabase.get() " + sqliteDatabase.get());
         return sqliteDatabase.get();
     }
+*/
+
 
 }// конец public class CREATE_DATABASE extends SQLiteOpenHelper
 

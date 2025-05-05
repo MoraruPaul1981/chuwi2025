@@ -20,6 +20,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.BLFragmentCommintingPrices;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.EventsBackAndAsyncAndSearchCommintPrices;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.InitRecyreviews.InizializayRecyreViews;
@@ -30,7 +31,7 @@ import com.dsy.dsu.CommitPrices.ViewModel.ModelComminingPrisesByte;
 import com.dsy.dsu.CommitPrices.ViewModel.ModelComminingPrisesString;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.Adress1cPrices.QualifierCommintgPrices;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 import com.dsy.dsu.R;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,7 +54,7 @@ public class FragmentCommingPrices extends Fragment {
     ObjectMapper getHiltJaksonObjectMapper;
 
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
 
 
@@ -81,8 +82,11 @@ public class FragmentCommingPrices extends Fragment {
 
 
     private BottomNavigationView bottomnavigationw_commintingprices;
+    @SuppressLint("RestrictedApi")
     private BottomNavigationItemView bottomNavigationBack;
+    @SuppressLint("RestrictedApi")
     private BottomNavigationItemView bottomNavigationAsync;
+    @SuppressLint("RestrictedApi")
     private BottomNavigationItemView bottomNavigationSearch;
     private     EventsBackAndAsyncAndSearchCommintPrices eventsBackAndAsyncAndSearchCommintPrices;
 

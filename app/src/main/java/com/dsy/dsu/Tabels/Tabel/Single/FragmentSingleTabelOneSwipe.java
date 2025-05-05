@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -75,6 +76,7 @@ import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
 import com.dsy.dsu.R;
+import com.dsy.dsu.Tabels.Tabel.Single.model.BunesslogicSingleTabel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -102,6 +104,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.IntConsumer;
 import java.util.function.ToIntFunction;
 import java.util.stream.IntStream;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -169,7 +173,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     private LinkedHashMap< String,String> getWorkerDays =new LinkedHashMap<>();
     private LinkedHashMap< String,String> getHolidaysDays =new LinkedHashMap<>();
 
-
+    @Inject
+    SQLiteDatabase sqLiteDatabaseSingle;
     // TODO: Rename and change types and number of parameters
     public static FragmentSingleTabelOneSwipe newInstance(@NonNull Bundle bundle_single_tabel_viewpagers ) {
         FragmentSingleTabelOneSwipe fragment = new FragmentSingleTabelOneSwipe();
@@ -1891,7 +1896,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 Integer РезультатОбновлениеЯчейки=0;
                 try{
                         // TODO: 11.04.2023 Оперция Обновлнения ЯЧЕЕК
-                        SubClassUpdatesCELL subClassUpdateSingletabel = new SubClassUpdatesCELL(getContext());
+                        SubClassUpdatesCELL subClassUpdateSingletabel = new SubClassUpdatesCELL(getContext(),sqLiteDatabaseSingle);
                         // TODO: 10.05.2023  ЗАВПИСЫАЕМ НОВЫЕ ДАННЫВЕ В БАЗУ
                           РезультатОбновлениеЯчейки = subClassUpdateSingletabel.МетодВалидацияЯчеекSaveCell(editTextRowКликПоДАнными,getNewValueCell);
                         // TODO: 10.05.2023 После операции Сохранение в Ячкейке
@@ -2527,7 +2532,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 Integer ПозицуияВыбраногоСОтрудника=      cursor.getPosition();
                 ПозицуияВыбраногоСОтрудника=ПозицуияВыбраногоСОтрудника+1;
                 //TODO ЗАПОЛЯНЕМ ПОЛУЧЕННЫЙ МЕСЯ Ц ПЛУС КОЛИЧЕСТВО ЧАСОВ СОТРУДНИКА КОНКРЕТНОГО
-                Integer   ЧасыТекущегоСОтрудника = new Class_MODEL_synchronized(getContext()).МетодПосчётаЧасовПоСотруднику(cursor);
+                Integer   ЧасыТекущегоСОтрудника = new BunesslogicSingleTabel(getContext()).getemployeeHoursCounting(cursor);
                 Log.d(this.getClass().getName(), "  ЧасыТекущегоСОтрудника " + ЧасыТекущегоСОтрудника);
 
                 String ЧасыТекущегоСотрудника="(" + ЧасыТекущегоСОтрудника + "/часы) "

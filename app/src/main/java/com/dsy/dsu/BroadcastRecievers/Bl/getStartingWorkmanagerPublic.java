@@ -5,23 +5,24 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.WorkManagers.binesslogic.CreatePublicWorkManager;
-import com.dsy.dsu.BusinessLogicAll.SubClass_Connection_BroadcastReceiver_Sous_Asyns_Glassfish;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import java.util.Date;
+
+import dagger.hilt.EntryPoints;
 
 public class getStartingWorkmanagerPublic {
 
 
     public void metodRegistraBroadCastFroPublicAsyns(@NonNull Context context) {
         try {
-            // TODO: 08.10.2023
-            Integer ПубличныйIDДляФрагмента = new SubClass_Connection_BroadcastReceiver_Sous_Asyns_Glassfish()
-                    .МетодПолучениеяПубличногоID(context);
+
 
             // TODO: 14.12.2023 REPLACE
-            new CreatePublicWorkManager(context).getcreatePublicWorkManager(context,ПубличныйIDДляФрагмента );
+            new CreatePublicWorkManager(context).getcreatePublicWorkManager(context );
 
             Log.d(context.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +

@@ -12,7 +12,6 @@ import android.util.Log;
 
 import androidx.loader.content.AsyncTaskLoader;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSqlite;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
@@ -34,7 +33,7 @@ import java.util.stream.Stream;
 
 
 ///////TODO КЛАСС ВСЕ ОПЕРАЦИИ ВСТАВКИ УДАЛЕНИЕ ОБНОВЛЕНИЯ ВЫБОРКА ДАННЫХ В ОДНОМ МЕСТЕ
-public class Class_GRUD_SQL_Operations extends GetSqlite {
+public class Class_GRUD_SQL_Operations {
     public AsyncTaskLoader asyncTaskLoaderАунтификацияПользователя = null;
     protected Stream Стрим=null;
     public Context context;

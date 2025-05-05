@@ -36,15 +36,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 
 
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -62,6 +62,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import dagger.hilt.EntryPoints;
+
 
 public class Fragment1_One_Tasks extends Fragment {
     // TODO: 01.03.2022
@@ -72,7 +74,7 @@ public class Fragment1_One_Tasks extends Fragment {
     private View viewДляПервойКнопкиHome_Задания;
     private SQLiteCursor Курсор_ГлавныйКурсорДляЗадач;
     private SQLiteCursor Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе = null;
-    private GetPublicID getPublic_id;;
+
     private Bundle BungleДанныеДляViewCard;
     private Bundle BungleДанныеДляViewCardBungle;
     private Bundle BungleДанныеДляViewCardBungleID;
@@ -153,10 +155,17 @@ public class Fragment1_One_Tasks extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
      try{
-         sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+         // TODO: 16.04.2025
+         sqLiteDatabase = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+         Log.d(getContext().getClass().getName(), "\n"
+                 + " время: " + new Date() + "\n+" +
+                 " Класс в процессе... " + this.getClass().getName() + "\n" +
+                 " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+
+
          // TODO: 04.03.2022 инициализацуия ссылок на кассы
          subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент1 = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент1(getContext(), getActivity());
-         getPublic_id =      new GetPublicID();
+
         // TODO: 02.08.2022  иницциализирован два work manager
         subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент1.МетодСоздаенияСлушателяДляЧатаWorkMAnager();
         // TODO: 04.03.2022 создаем слушатель    третий класс создаем ЗАПУСКАЕМ СЛУШАТЕЛЬ КУРСОРРА туту запускам два слушателя дялнаших work manager
@@ -200,7 +209,7 @@ public class Fragment1_One_Tasks extends Fragment {
     public void onStart() {
         super.onStart();
         try{
-            ПубличныйIDДляФрагмента = getPublic_id.getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
             Курсор_ГлавныйКурсорДляЗадач=        subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент1.МетодПолучаемГлавныеДанныеДляЗадач(ПубличныйIDДляФрагмента);
             Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента " + ПубличныйIDДляФрагмента+ " Курсор_ГлавныйКурсорДляЗадач " +Курсор_ГлавныйКурсорДляЗадач);
             Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе=    subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент1.МетодПолученимТОлькоКоличествоЗадач(ПубличныйIDДляФрагмента);

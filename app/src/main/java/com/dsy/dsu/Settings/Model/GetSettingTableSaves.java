@@ -34,7 +34,7 @@ public class GetSettingTableSaves implements com.dsy.dsu.Settings.Model.Model.IN
                 АдаптерВставкиПолученогоПубличногоID.put("user_update", PublicID);
 
                //Long NewUUID= new GetgeneratorNewUUID(context).generatorNewUUID();
-                Long getPublicID=  new GetPublicID().gettingSettingTableVersion(context," SELECT publicid FROM successlogin "  ,"successlogin");
+                Long getPublicID=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT publicid FROM successlogin "  ,"successlogin");
                 АдаптерВставкиПолученогоПубличногоID.put("uuid", getPublicID);
 
                 АдаптерВставкиПолученогоПубличногоID.put("version_dsu1",  Integer.parseInt(verCode.toString()));

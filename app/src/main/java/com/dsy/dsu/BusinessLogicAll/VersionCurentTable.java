@@ -14,10 +14,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.Sqlitehilt.HiltInterfacesqlite;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,16 +30,17 @@ public class VersionCurentTable {
     SQLiteDatabase sqLiteDatabase ;
     Context context;
 
-    public VersionCurentTable(Context context) {
-        this.context = context;
+    public VersionCurentTable(@NonNull Context context) {
+
         // TODO: 11.02.2025
         try {
-            try {
-                sqLiteDatabase = EntryPoints.get(context, HiltInterfacesqlite.class).getHiltSqlite();
-            } catch (Exception e) {
-                //throw new RuntimeException(e);
-                sqLiteDatabase  =    GetSQLiteDatabase.SqliteDatabase();
-            }
+            this.context = context;
+                // TODO: 16.04.2025
+                sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+                Log.d(context.getClass().getName(), "\n"
+                        + " время: " + new Date() + "\n+" +
+                        " Класс в процессе... " + this.getClass().getName() + "\n" +
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
 
             // TODO: 11.02.2025
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -57,7 +57,32 @@ public class VersionCurentTable {
         }
     }
 
+    public VersionCurentTable(@NonNull Context context,@NonNull  SQLiteDatabase sqLiteDatabase ) {
 
+        // TODO: 11.02.2025
+        try {
+            this.context = context;
+            this.sqLiteDatabase = sqLiteDatabase;
+            // TODO: 16.04.2025
+            Log.d(context.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+
+            // TODO: 11.02.2025
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
+                    "  sqLiteDatabase   " + sqLiteDatabase);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(context.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
+                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErros(context).recordnewerror(e.toString(),
+                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+        }
+    }
 
 
 

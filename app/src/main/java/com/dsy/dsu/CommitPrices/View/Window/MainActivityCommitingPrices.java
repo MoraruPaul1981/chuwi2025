@@ -13,12 +13,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.CommitPrices.ViewModel.ModelComminingPrisesByte;
 import com.dsy.dsu.CommitPrices.ViewModel.ModelComminingPrisesString;
 import com.dsy.dsu.CommitPrices.ViewModel.ModelFactory;
 import com.dsy.dsu.CommitPrices.ViewModel.ModelFactoryByte;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.PublicId.QualifierPublicId;
+
 import com.dsy.dsu.R;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public class MainActivityCommitingPrices extends AppCompatActivity {
     protected  ModelComminingPrisesByte modelComminingPrisesByte;
 
     @Inject
-    @QualifierPublicId
+    @QualifierPublicID
     Integer getHiltPublicId;
 
 

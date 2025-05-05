@@ -1,5 +1,4 @@
-package com.dsy.dsu.Hilt.Sqlitehilt;
-
+package com.example.tabels.model.hilts;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,10 +9,9 @@ import dagger.hilt.components.SingletonComponent;
 
 @EntryPoint
 @InstallIn(SingletonComponent.class)
-public interface HiltInterfacesqlite {
+
+public interface ModuleTabelsSQLlite {
 
 
-    SQLiteDatabase getHiltSqlite( );
+    SQLiteDatabase getModuleTabelsSQLlite( );
 }
-
-

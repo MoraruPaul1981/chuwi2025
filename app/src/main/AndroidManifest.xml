@@ -393,15 +393,12 @@
 
         <activity
             android:name=".BootAndAsync.View.MainActivityBootAndAsync"
-            android:configChanges="orientation|screenSize|keyboardHidden|screenSize|screenLayout"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="@string/name_dsu"
-            android:launchMode="singleInstance"
-            android:finishOnTaskLaunch="true"
-            android:taskAffinity=""
-            android:excludeFromRecents="true"
-            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:alwaysRetainTaskState="true"
+            android:noHistory="false"
             android:requestLegacyExternalStorage="true"
             android:showOnLockScreen="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -416,18 +413,7 @@
         <!-- активити прикложения ДСУ-1 -->
         <!-- активити прикложения ДСУ-1 -->
         <!-- активити прикложения ДСУ-1  singleTask  singleTask   standard -->
-        <activity
-            android:name=".Dashboard.View.MainActivity_Dashboard"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:label="Союз-Автодор"
-            android:requestLegacyExternalStorage="true"
-            android:launchMode="singleTop"
-            android:excludeFromRecents="true"
-            android:clearTaskOnLaunch="true"
-            android:showOnLockScreen="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-        </activity>
+
 
 
         <activity
@@ -466,13 +452,13 @@
                 android:value="com.dsy.dsu.Tabels.Templates.MainActivity_Find_Templates" />
         </activity>
         <activity
-            android:name=".Tabels.Tabel.Single.MainActivity_Metki_Tabel"
+            android:name=".Tabels.Tabel.Single.view.MainActivity_Metki_Tabel"
             android:exported="true"
             android:label="Список Контант Слов Для Табеля"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.Single.MainActivity_Metki_Tabel" />
+                android:value="com.dsy.dsu.Tabels.Tabel.Single.view.MainActivity_Metki_Tabel" />
         </activity> <!-- TODO НАЧИНАЮТЬСЯ РАБОЧИЕ АКТИВИТИ ПРИЛОЖЕНИЯ -->
         <activity
             android:name=".Tabels.Peoples.MainActivity_Find_Peoples"
@@ -493,7 +479,7 @@
                 android:value="com.dsy.dsu.Tabels.Peoples.MainActivity_New_People" />
         </activity>
         <activity
-            android:name=".Tabels.Tabel.Single.MainActivity_Tabel_Single_PeopleOneSwipe"
+            android:name=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
             android:exported="true"
             android:label="Табель"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
@@ -516,9 +502,6 @@
             android:exported="true"
             android:label="Выбор ЦФО"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Dashboard.View.MainActivity_Dashboard" />
         </activity>
 
 
@@ -536,6 +519,7 @@
         <activity
             android:name=".Settings.View.MainActivity_Settings"
             android:exported="true"
+            android:finishOnTaskLaunch="true"
             android:label="Форма просмотр Логин"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         </activity>

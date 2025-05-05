@@ -14,11 +14,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
 import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadBufferReader.DownloadReader;
 import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadBufferReader.GetBinessLogicDownloadReader;
 import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadByte.DownloadByte;
-import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadByte.GetBinessLogicDownloadByte;
+import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadByte.GetBinessLogicDownloadByteBuffer;
 import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadFiles.DownloadFiles;
 import com.dsy.dsu.BusinessLogicAll.DownloadsJBOSS.BunessLogicDownloadFiles.GetBinessLogicDownloadFiles;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
@@ -29,18 +28,14 @@ import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
 import com.dsy.dsu.Hilt.OkhhtpBuilder.GetAsyncOkHttpClientBuilder;
-import com.google.common.io.ByteSource;
+import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -57,7 +52,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.crypto.NoSuchPaddingException;
@@ -76,7 +70,7 @@ import okhttp3.Response;
 import okio.BufferedSink;
 
 ///////Универсальный Класс Обмена Данными  Два Стачичных Метода и Плюс Сттичный Курсор
- public class Class_MODEL_synchronized extends GetSQLiteDatabase {
+ public class Class_MODEL_synchronized   {
   public     Context context;
     private PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
     private Class_MODEL_synchronized ссылка_MODELsynchronized = null;
@@ -90,14 +84,28 @@ import okio.BufferedSink;
 
 
     public Class_MODEL_synchronized(  @NotNull Context context) {
-        super(context);
        this. context=context;
+       try{
         //TODO контроль потоков
         Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT(context);
-        sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+        // TODO: 16.04.2025
+        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+        Log.d(context.getClass().getName(), "\n"
+                + " время: " + new Date() + "\n+" +
+                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
         // TODO: 06.10.2024
 
         preferencesJboss = context.getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        Log.e(this.getClass().getName(), "Ошибка " +e + " Метод :"+Thread.currentThread().getStackTrace()[2].getMethodName()
+                + " Линия  :"+Thread.currentThread().getStackTrace()[2].getLineNumber());
+        new RecordNewErros(context).recordnewerror(e.toString(),  this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                Thread.currentThread().getStackTrace()[2].getLineNumber());
+    }
+
     }
 
 
@@ -408,7 +416,7 @@ import okio.BufferedSink;
                                 // TODO: 07.04.2025  получаем STEAM  от сервера и обрабоатываем его для READER
                                 DownloadByte downloadByte=new DownloadByte();
                                 // TODO: 07.04.2025 обрабоатываем пршедщий файл
-                                inputStreamJaksonByte.set(downloadByte.downloadByte(context, new GetBinessLogicDownloadByte(), response.body().bytes())); ;
+                                inputStreamJaksonByte.set(downloadByte.downloadByte(context, new GetBinessLogicDownloadByteBuffer(), response.body().bytes())); ;
 
                                 Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -1703,7 +1711,7 @@ import okio.BufferedSink;
             КонтейнерДляВставкиПубличныйID.put("currenttaskforthecontentprovider","firststartapp");
 
             // TODO: 08.10.2024 Находим если такой  Пользователь
-          Long getuuidLocal=  new GetPublicID().gettingSettingTableVersion(context," SELECT user_update FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
+          Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT user_update FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
             // TODO: 12.04.2023 UPDATER PUBLIC ID
           if(getuuidLocal>0 ){
               // TODO: 12.04.2023 UPDATER PUBLIC ID
@@ -1767,7 +1775,7 @@ import okio.BufferedSink;
             КонтейнерДляВставкиПубличныйID.put("publicid",PublicID);
             
             // TODO: 08.10.2024 Находим если такой  Пользователь
-            Long getuuidLocal=  new GetPublicID().gettingSettingTableVersion(context," SELECT id FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
+            Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT id FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
             // TODO: 08.10.2024  
             КонтейнерДляВставкиПубличныйID.put("getuuidLocal",getuuidLocal);
             // TODO: 12.04.2023 UPDATER PUBLIC ID
@@ -3530,34 +3538,6 @@ Class_GRUD_SQL_Operations classGrudSqlOperationsУдалениеДанныхЧе
         return  ЗначениеДляПовышениеВерсии;
     }
 
-
-    public Integer МетодПосчётаЧасовПоСотруднику(Cursor курсор_ЗагружаемТабеляСозданный) {
-        Integer СуммаЧасов = 0;
-        try{
-            if (курсор_ЗагружаемТабеляСозданный.getCount()>0) {
-                for (int ИндексДляИзмененияДней = 1; ИндексДляИзмененияДней < 32; ИндексДляИзмененияДней++) {
-                    int ИндексЧассыСотрудника = курсор_ЗагружаемТабеляСозданный.getColumnIndex("d" + ИндексДляИзмененияДней);
-                    if (  курсор_ЗагружаемТабеляСозданный.getType(ИндексЧассыСотрудника)==Cursor.FIELD_TYPE_INTEGER) {
-                        int ЧассыСотрудника = курсор_ЗагружаемТабеляСозданный.getInt(ИндексЧассыСотрудника);
-                        СуммаЧасов = СуммаЧасов + ЧассыСотрудника;
-                        Log.d(this.getClass().getName(), "    СуммаЧасов " + СуммаЧасов);
-                    }
-                }
-            }
-            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                    + " СуммаЧасов "+СуммаЧасов );
-        } catch (Exception e) {
-        e.printStackTrace();
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
-                + " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros(context).recordnewerror(e.toString(),
-                this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                Thread.currentThread().getStackTrace()[2].getLineNumber());
-    }
-        return СуммаЧасов;
-    }
 
 
 

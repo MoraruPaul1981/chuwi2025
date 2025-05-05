@@ -25,12 +25,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsy.dsu.BusinessLogicAll.Class_Get_Json_1C;
+import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.LiveData.GetLiveDataForrecyreViewPay;
 import com.dsy.dsu.PaysCommit.Model.LeftDividerItemDecoratorCommitPay;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyRecycleViewAdapterCommingPay;
 import com.dsy.dsu.PaysCommit.View.RecyreViewIsNull.MyRecycleViewIsNullAdapterPay;
-import com.dsy.dsu.Dashboard.View.MainActivity_Dashboard;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -378,17 +378,15 @@ public class Bl_CommintigPay {
 
     private void subcriBackFromCommitPay() {
         try{
-        Intent Интент_BackВозвращаемАктивти = new Intent();
-        Интент_BackВозвращаемАктивти.setClass(context, MainActivity_Dashboard.class); // Т
-            Интент_BackВозвращаемАктивти.setFlags(  Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Интент_BackВозвращаемАктивти.setAction("MainActivity_Dashboard.class");
-            Интент_BackВозвращаемАктивти.  addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Интент_BackВозвращаемАктивти.  addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            Интент_BackВозвращаемАктивти.setClass(context, MainActivity_Dashboard.class);
-            Bundle bundleBinderUpdate=new Bundle();
-            bundleBinderUpdate.putBoolean("CallBackMainActivityBootAndAsync", true);
-            Интент_BackВозвращаемАктивти.putExtras(bundleBinderUpdate);
-        context.  startActivity( Интент_BackВозвращаемАктивти);
+
+           /* LaunchActivityDashboard launchActivityDashboard=new LaunchActivityDashboard( fragmentManager,getContext());
+            // TODO: 27.03.2024 в зависомсти кто вызвает
+            launchActivityDashboard.     launchADashboardFragment();*/
+
+
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
 
         Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

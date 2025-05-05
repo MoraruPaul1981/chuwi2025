@@ -9,17 +9,10 @@ import android.content.pm.PackageInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,8 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.dsy.dsu.AllDatabases.SQLTE.GetSQLiteDatabase;
-
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
@@ -42,6 +33,7 @@ import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Settings.Model.ChangeSSLForSettings;
+import com.google.android.material.button.MaterialButton;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +44,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,12 +56,14 @@ public class MainActivity_Settings extends AppCompatActivity {
 
      private      Map<String, String> ХэшДанныеИзБазыДляЗАполенияСпинеровыОрганизация = Collections.synchronizedMap(new LinkedHashMap<String, String>());
 
-    private SQLiteDatabase sqLiteDatabase ;
+
+     @Inject
+      SQLiteDatabase sqLiteDatabase ;
     private Spinner СпинерВыборОрганизации;
     private     Cursor Курсор_СамиДанные_Logins=null;
             private int ЕстьСтроки;
-    private      Button  imageViewСтрелкаВнутриНастроек,КнопкаСохранениеОрганизации;
-    private    Spinner СпинерДляСозданииОрганизации;
+    private MaterialButton imageViewСтрелкаВнутриНастроек,КнопкаСохранениеОрганизации;
+
     private       Switch СвичДляWIFI ,switchАвтоЗаполенияВТАбелеВыходных,switchСкрытыеПоляПолучениеМатериалов,switchsslcomunications;
     private    Context context;
     private      TextView textViewИмяПрограммы;
@@ -83,6 +78,10 @@ public class MainActivity_Settings extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
     PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -106,10 +105,18 @@ public class MainActivity_Settings extends AppCompatActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             getSupportActionBar().hide(); ///скрывать тул бар
             context =this;
-            sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();
+            // TODO: 16.04.2025
+
+            Log.d(context.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+
+
+
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            imageViewСтрелкаВнутриНастроек = (Button) findViewById(R.id.imageViewСтрелкаВнутриНастроек);
-            СпинерДляСозданииОрганизации= (Spinner) findViewById(R.id.СпинерДляСозданииОрганизации);
+            imageViewСтрелкаВнутриНастроек = (MaterialButton) findViewById(R.id.imageViewСтрелкаВнутриНастроек);
+
             textViewВерсияПрограммы=(TextView) findViewById(R.id.textViewВерсияПрограммы);
 
             Log.d(this.getClass().getName(), "  textViewВерсияПрограммы " + textViewВерсияПрограммы.getText());
@@ -940,187 +947,6 @@ return (int) РезультатВставкиНовогоСотрудникар�
 
 
 
-
-    private void МетодСозданиеСпинераОрганизации() {
-        try{
-
-            ArrayList ДанныеДляЗаполенияОрганизациивАдаптер=МетодЗаполненияНазваниеОрганизации("organization","name,id");
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                ДанныеДляЗаполенияОрганизациивАдаптер = (ArrayList) ДанныеДляЗаполенияОрганизациивАдаптер.stream().distinct().collect(Collectors.toList());
-            }
-
-
-            ArrayAdapter<String> АдаптерДляСпинераОрганизации = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1,
-                ДанныеДляЗаполенияОрганизациивАдаптер );
-
-        АдаптерДляСпинераОрганизации.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-
-
-
-        // Применяем адаптер к элементу spinner
-        СпинерДляСозданииОрганизации.setAdapter(АдаптерДляСпинераОрганизации);
-
-            СпинерДляСозданииОрганизации.setHorizontalScrollBarEnabled(true);
-
-
-        ///
-        СпинерДляСозданииОрганизации.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-                ////todo когда пользователь выбрал из спинера значение
-                if (position>0) {///ставим ограничкния если выбрано не 0 позиция то запонимаеним
-                    ///////////
-             String       ПолученноеЗначениеИзСпинераОрганизации=parent.getItemAtPosition(position).toString();
-                    ////СПИНЕР ЦФО
-                    ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                    ((TextView) parent.getChildAt(0)).setBackgroundResource(R.drawable.textlines);
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
-                    ((TextView) parent.getChildAt(0)).setLines(1);
-                    ((TextView) parent.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
-                    ((TextView) parent.getChildAt(0)).setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-                    ((TextView) parent.getChildAt(0)).setHintTextColor(Color.parseColor("#00ACC1"));
-                    Log.e(this.getClass().getName(), " СпинерВыборЦФО.getCount() " +СпинерДляСозданииОрганизации.getCount());
-
-                    ////TODO Выбраная Организация Записываем название оргнаизации   В БАЗУ ЧТОБЫ ПРИ ПОВТОРНОМ ВХОДЕ ОРГАНИЗАЦИЮ УЖЕ СТОЯЛА
-                    Log.d(this.getClass().getName(), " ((TextView) parent.getChildAt(0))  " +((TextView) parent.getChildAt(0)).getText());
-
-                    ////////TODO если выбрана какая то огранизациия то мы ее и записываем
-                    if (((TextView) parent.getChildAt(0)).getText().length()>0){
-
-                        МетодЗаписиВбАзуОрганизацииТекущейИзаписьегоВСамСпинерДЛяВизуализацииВыбранойОрганизации(parent);
-
-
-                    }
-
-
-                    ////////////////
-//                                                               Toast toast = Toast.makeText(getApplicationContext(),
-//                                                                         "((TextView) parent.getChildAt(0)).getText() : " + ((TextView) parent.getChildAt(0)).getText() + " " + position, Toast.LENGTH_SHORT);
-//                                                                 toast.show();
-                }else if (position==0) {
-                    ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                    ((TextView) parent.getChildAt(0)).setBackgroundResource(R.drawable.textlines);
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
-                    ((TextView) parent.getChildAt(0)).setLines(1);
-                    ((TextView) parent.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
-                    ((TextView) parent.getChildAt(0)).setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-                    ((TextView) parent.getChildAt(0)).setHint("Выбирете Организацию");
-                    ((TextView) parent.getChildAt(0)).setHintTextColor(Color.parseColor("#00ACC1"));
-
-
-                    ///TODO записть в базу название организации при нулевой позиции в спиноре
-                    if (((TextView) parent.getChildAt(0)).getText().length()>0){
-
-                       // МетодЗаписиВбАзуОрганизацииТекущейИзаписьегоВСамСпинерДЛяВизуализацииВыбранойОрганизации(parent);
-
-
-                    }
-
-
-
-                }
-
-
-
-                ///
-            }
-
-            protected void МетодЗаписиВбАзуОрганизацииТекущейИзаписьегоВСамСпинерДЛяВизуализацииВыбранойОрганизации(AdapterView<?> parent) {
-                final Long[] РезультатВставкиГотовойОрганизации = {0L};
-
-                ////////todo записываем выбраную оргниазцаию
-
-
-
-
-
-                /////TODO ЕСЛИ ОРГАНИЗАЦИЯ ДОБАВЛИСЬ ПОКАЗЫВАЕМ ЭТО ПОЛЬЗОВАТЕЛЮ
-                Toast aa = Toast.makeText(getApplicationContext(), "OPEN",Toast.LENGTH_SHORT);
-                ImageView cc = new ImageView(getApplicationContext());
-
-
-                final int[] РезультатВставкиНовогоUUIIDОрганизации = {0};
-
-                ///
-                Log.d(this.getClass().getName(), " РезультатВставкиГотовойОрганизации  " + РезультатВставкиГотовойОрганизации[0]);
-
-
-                int ТекущаяПозицияСпинераЦФО=СпинерДляСозданииОрганизации.getSelectedItemPosition();
-                //TODO еСЛИ чтО ВЫБРАЛИ ТО НАЧИНАЕМ ВСТАВЛЯТЬ
-                Log.d(this.getClass().getName(), " кликнем для созданни новго сотрдника при нажатии  " + СпинерДляСозданииОрганизации.getItemAtPosition(ТекущаяПозицияСпинераЦФО).toString());
-
-
-              String СодержимоеСпинераНазваниеОрганизации=СпинерДляСозданииОрганизации.getItemAtPosition(ТекущаяПозицияСпинераЦФО).toString();
-
-
-
-                if (СодержимоеСпинераНазваниеОрганизации !=null ) {
-                    Log.d(this.getClass().getName()," СпинерДляСозданииОрганизации  " +СодержимоеСпинераНазваниеОрганизации
-                            + " ТекущаяПозицияСпинераЦФО " +ТекущаяПозицияСпинераЦФО);
-
-
-
-
-
-                           /* ///todo устанвливаем организацию КОТОРУЮ ВЫБРАЛ ПОЛЬЗОВАТЕЛЬ
-                            РезультатВставкиГотовойОрганизации[0] =      new Class_MODEL_synchronized(getApplicationContext()).
-                                    МетодКоторыйЗаписываемВыбраннуюОргназациювБазуЧтобыПотомЕеНеБывырать(((TextView) parent.getChildAt(0)),getApplicationContext());
-
-*/
-
-
-
-
-
-                         ///   РезультатВставкиНовогоUUIIDОрганизации[0] =       МетодЗаписиПолученойОрганизацииВТАблицу(СодержимоеСпинераНазваниеОрганизации);
-
-
-
-
-
-
-
-
-
-
-
-
-                }else{
-////todo сообщаем пользователю что он не выбрал ничего сфо и/или департметем
-                    Toast.makeText(getApplicationContext(), "Выбор организации" + " Вы не выбрали организацию (пропробуйте еще раз)" , Toast.LENGTH_LONG).show();
-                }
-
-
-
-
-
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        ///поймать ошибку
-    } catch (Exception e) {
-        //  Block of code to handle errors
-        e.printStackTrace();
-        ///метод запись ошибок в таблицу
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-
-            // TODO: 01.09.2021 метод вызова
-            new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(),
-                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                    Thread.currentThread().getStackTrace()[2].getLineNumber());
-
-            ///////
-    }
-    }
 
 
 
