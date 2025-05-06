@@ -3069,7 +3069,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                             // TODO: 05.02.2025
                             try{
                                 if (cursorДанные!=null) {
-                                    cursorДанные=      МетодКурсорДляНовогоПосика(ТаблицаПосика,null);
+                                    cursorДанные=      МетодКурсорДляНовогоПосика( null);
 
                                     startswapCursor(simpleCursorAdapterЦФО,  listViewДляНовыйПосик,alertDialogНовыйПосик);
                                 }
@@ -3103,7 +3103,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         public Cursor runQuery(CharSequence constraint) {
                             Log.d(this.getClass().getName()," constraint"  +constraint);
                             try{
-                                cursorДанные=      МетодКурсорДляНовогоПосика(ТаблицаПосика,constraint.toString());
+                                cursorДанные=      МетодКурсорДляНовогоПосика(constraint.toString());
                                 message.getTarget().post(()->{
                                     if (cursorДанные.getCount()>0 && constraint.length()>0) {
                                         // TODO: 05.02.2025
@@ -3197,7 +3197,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
 
             // TODO: 02.08.2022
-            protected  Cursor МетодКурсорДляНовогоПосика(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
+            protected  Cursor МетодКурсорДляНовогоПосика(  @NotNull String Фильтр){
                 Cursor КурсорТаблицаПрофесииLike = null;
                 try{
                     Integer   ПубличныйIDДляФрагмента     = new GetPublicID().
