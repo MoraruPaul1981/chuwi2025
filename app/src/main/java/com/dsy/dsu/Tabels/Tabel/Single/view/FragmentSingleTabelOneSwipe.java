@@ -56,17 +56,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.CELLUPDATE.SubClassUpdatesCELL;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
@@ -100,7 +94,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntConsumer;
@@ -110,12 +103,10 @@ import java.util.stream.IntStream;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.functions.Predicate;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
@@ -169,7 +160,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
   private      Animation animation1;
   private      Animation animationFromRecyReview;
   private CopyOnWriteArrayList<Disposable>  disposableAfterTextChangeEvent=new CopyOnWriteArrayList<>();
-  private      Cursor    cursorForViewPager;
+  private      Cursor cursorSingleTabels;
   private      Handler handlerМетодForCurcorHandlerCallBack;
   private  MaterialTextView  materialTextViewfio,materialTextViewprofession;
     private LinkedHashMap< String,String> getWorkerDays =new LinkedHashMap<>();
@@ -180,9 +171,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static FragmentSingleTabelOneSwipe newInstance(@NonNull Bundle bundle_single_tabel_viewpagers ) {
         FragmentSingleTabelOneSwipe fragment = new FragmentSingleTabelOneSwipe();
-        Bundle args = new Bundle();
-        args=bundle_single_tabel_viewpagers.deepCopy();
-        fragment.setArguments(args);
+        fragment.setArguments(bundle_single_tabel_viewpagers);
+        System.out.printf("bundle_single_tabel_viewpagers "+bundle_single_tabel_viewpagers);
         return fragment;
     }
 
@@ -254,7 +244,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             // TODO: 21.06.2023 КОДЕ
             fragmentSingleTabel.new SubClassNewDataSingleTabel().методВнешнийВидФрагмента(view);
 
-            singleTabelRecycreView.metodAddCurcorRecyreview(cursorForViewPager );
+            singleTabelRecycreView.metodAddCurcorRecyreview(cursorSingleTabels);
 
             singleTabelRecycreView.metodДизайнRecycreView();
 
@@ -307,10 +297,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
         super.onStart();
         try{
 
-            cursorForViewPager  =   singleTabelRecycreView.  new SubClassGetCursor().МетодSwipesКурсор();
+            cursorSingleTabels =   singleTabelRecycreView.  new SubClassGetCursor().МетодSwipesКурсор();
             // TODO: 21.06.2023 Смещения Курсоора
-            cursorForViewPager.moveToPosition(GetPosition);
-            singleTabelRecycreView.МетодСлушательКурсора(cursorForViewPager);
+            singleTabelRecycreView.МетодСлушательКурсора(cursorSingleTabels);
             // TODO: 26.06.2023  созданнй CallBack
             singleTabelRecycreView.методДляSimpeCallbacks( );
             singleTabelRecycreView.МетодСлушательRecycleView();
@@ -337,9 +326,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
         super.onResume();
         // TODO: 16.11.2023
                 try{
-                    if (cursorForViewPager!=null) {
+                    if (cursorSingleTabels !=null) {
                 //singleTabelRecycreView.metodAddCurcorRecyreview(cursorForViewPager );
-                  singleTabelRecycreView.  методRebootRecyreview(cursorForViewPager);
+                  singleTabelRecycreView.  методRebootRecyreview(cursorSingleTabels);
                 // TODO: 16.06.2023  перегрузка экрана
                 singleTabelRecycreView.   методПерегрузкиRecycreView();
 
@@ -525,7 +514,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                 + " ГодТабелей " +ГодТабелей +" МЕсяцТабелей " +МЕсяцТабелей   + " DigitalNameCFO "+DigitalNameCFO+
                                 " CurrentFragmentMaxItem " + CurrentFragmentMaxItem
                                 + " ИмесяцвИГодСразу " +ИмесяцвИГодСразу
-                                + "  cursorForViewPager " +  cursorForViewPager);
+                                + "  cursorForViewPager " + cursorSingleTabels);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -903,46 +892,16 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
         }
 
 
-        // TODO: 15.06.2023  скоол левый внутри reryvreview
-        private void методAlterSaveCellRecyreView( ) {
-            try {
-                // TODO: 20.04.2023 Данные
 
-                Integer Позиция=        myRecycleViewAdapter.cursor.getPosition();
-                // TODO: 20.04.2023 Данные
-                Cursor   cursorForViewPager =    new  SubClassGetCursor().МетодSwipesКурсор();
-
-                cursorForViewPager.moveToPosition(Позиция);
-
-                myRecycleViewAdapter.cursor= cursorForViewPager;
-                // TODO: 15.06.2023 перегрузка данныех
-                myRecycleViewAdapter.notifyItemChanged(0);
-                recycleviewsingletabel.getAdapter().notifyItemChanged(0);
-                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+"CurrentFragmentMaxItem   " + CurrentFragmentMaxItem + " cursorForViewPager " + cursorForViewPager +
-                        " posio " +myViewHolder.getLayoutPosition()  + " CurrenrsСhildUUID " +CurrenrsСhildUUID + " CurrenrsSelectFio " +CurrenrsSelectFio + "  ФИО " + ФИО
-                        + " cursorForViewPager " + cursorForViewPager.getPosition());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(getContext().getClass().getName(),
-                        "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(),
-                        this.getClass().getName().toString(), Thread.currentThread().getStackTrace()[2].getMethodName().toString(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-        }
 
         // TODO: 04.03.2022 прозвомжность Заполения RecycleView
         void metodAddCurcorRecyreview(@NonNull Cursor cursorForViewPager) {
             try {
-                this.cursorForViewPager=cursorForViewPager;
                 // remove item from adapter
                 myRecycleViewAdapter = new  MyRecycleViewAdapter(cursorForViewPager );
                 myRecycleViewAdapter.notifyDataSetChanged();
                 recycleviewsingletabel.setAdapter(myRecycleViewAdapter);
+                recycleviewsingletabel.requestLayout();
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                         " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
@@ -3402,12 +3361,10 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             String[] УсловияВыборки;
             protected Cursor МетодSwipesКурсор() {
                 try{
-                    if (DigitalNameCFO>0 && МЕсяцТабелей>0  && ГодТабелей>0) {
+                    if (CurrenrsСhildUUID>0) {
                         СамЗапрос=" SELECT  *   FROM viewtabel AS t" +
-                                " WHERE t.cfo=? AND t.month_tabels  =?  AND t.year_tabels = ?  AND t.status_send !=?  AND t.fio IS NOT NULL  ORDER BY   t._id  " ;
-                        УсловияВыборки=new String[]{String.valueOf(DigitalNameCFO),
-                                String.valueOf(  МЕсяцТабелей),
-                                String.valueOf(   ГодТабелей),
+                                " WHERE t.uuid=?    AND t.status_send !=?    ORDER BY date_update DESC LIMIT 1   " ;
+                        УсловияВыборки=new String[]{String.valueOf(CurrenrsСhildUUID),
                                 String.valueOf(  "Удаленная") };
                         //////TODO ГЛАВНЫЙ КУРСОР ДЛЯ НЕПОСРЕДТСВЕНОГО ЗАГРУЗКИ СОТРУДНИКА
                         Bundle bundleГлавныйКурсорMultiДанныеSwipes= new Bundle();

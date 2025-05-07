@@ -33,11 +33,11 @@ public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity 
     private  Integer     DigitalNameCFO=0;
     private       Bundle bungleforFragment;
 
-    private       Integer   PositionOffsetSingleTabel;
+
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
+    Long       CurrenrsСhildUUID;
 
     // TODO: 12.10.2022  для одного сигг табеля сотрудника
     @Override
@@ -97,13 +97,12 @@ public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity 
                 // TODO: 10.04.2023
                 if (bungleforFragment !=null) {
                     Long    MainParentUUID=    bungleforFragment.getLong("MainParentUUID", 0l);
-                      PositionOffsetSingleTabel=    bungleforFragment.getInt("Position", 0);
                       ГодТабелей=  bungleforFragment.getInt("ГодТабелей", 0);
                        МЕсяцТабелей=  bungleforFragment.getInt("МЕсяцТабелей",0);
                            DigitalNameCFO=   bungleforFragment.getInt("DigitalNameCFO", 0);
                     String      FullNameCFO=  bungleforFragment.getString("FullNameCFO", "").trim();
                     String    ИмесяцвИГодСразу= bungleforFragment.getString("ИмесяцвИГодСразу", "").trim();
-                    Long       CurrenrsСhildUUID= bungleforFragment.getLong("CurrenrsСhildUUID", 0l);
+                            CurrenrsСhildUUID= bungleforFragment.getLong("CurrenrsСhildUUID", 0l);
                     String     ФИО= bungleforFragment.getString("ФИО", "").trim();
                     Long  CurrenrsSelectFio= bungleforFragment.getLong("CurrenrsSelectFio", 0l);
 
@@ -111,8 +110,7 @@ public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity 
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
                             + " FullNameCFO "+FullNameCFO+ " CurrenrsСhildUUID " +CurrenrsСhildUUID
-                            + " ГодТабелей " +ГодТабелей +" МЕсяцТабелей " +МЕсяцТабелей   + " DigitalNameCFO "+DigitalNameCFO+
-                            " PositionOffsetSingleTabel " +PositionOffsetSingleTabel+ " ИмесяцвИГодСразу " +ИмесяцвИГодСразу);
+                            + " ГодТабелей " +ГодТабелей +" МЕсяцТабелей " +МЕсяцТабелей   + " DigitalNameCFO "+DigitalNameCFO);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -128,6 +126,7 @@ public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity 
             try{
                 fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 Fragment      fragment_Single_Tabel_One_Swipe = new FragmentSingleTabelOneSwipe();
+                fragment_Single_Tabel_One_Swipe.setArguments(bungleforFragment);
                 fragment_Single_Tabel_One_Swipe.setEnterTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragment_Single_Tabel_One_Swipe.setArguments(bungleforFragment);
                 fragmentTransaction.add(R.id.linearLayout_single_tabel_one_swipe, fragment_Single_Tabel_One_Swipe);//.layout.activity_for_fragemtb_history_tasks
@@ -148,39 +147,7 @@ public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity 
         }
         // TODO: 20.06.2023 Класс получение данных CURSOR
 
-      public  class SubClassGetCursor{
-            Cursor          cursor = null;
-            String  СамЗапрос;
-            String[] УсловияВыборки;
-            protected Cursor МетодSwipesКурсор() {
-                try{
-                    СамЗапрос=" SELECT  *   FROM viewtabel AS t" +
-                            " WHERE t.cfo=? AND t.month_tabels  =?  AND t.year_tabels = ?  AND t.status_send !=?  AND t.fio IS NOT NULL  ORDER BY   t._id  " ;
-                    УсловияВыборки=new String[]{String.valueOf(DigitalNameCFO),
-                            String.valueOf(  МЕсяцТабелей),
-                            String.valueOf(   ГодТабелей),
-                            String.valueOf(  "Удаленная") };
-                    //////TODO ГЛАВНЫЙ КУРСОР ДЛЯ НЕПОСРЕДТСВЕНОГО ЗАГРУЗКИ СОТРУДНИКА
-                    Bundle bundleГлавныйКурсорMultiДанныеSwipes= new Bundle();
-                    bundleГлавныйКурсорMultiДанныеSwipes.putString("СамЗапрос",СамЗапрос);
-                    bundleГлавныйКурсорMultiДанныеSwipes.putStringArray("УсловияВыборки" ,УсловияВыборки);
-                    bundleГлавныйКурсорMultiДанныеSwipes.putString("Таблица","viewtabel");
-                    cursor =      (Cursor)    new SubClassCursorLoader(). CursorLoaders(getApplicationContext(), bundleГлавныйКурсорMultiДанныеSwipes);
 
-                    Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "cursor " +cursor );
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                            " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                            Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                }
-                return  cursor;
-            }
-
-        }
 
 
     }//TODO SubClassBissnessLogicTableSingleWithViewPager
