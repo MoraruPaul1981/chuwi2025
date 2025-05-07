@@ -600,7 +600,7 @@ public class MainActivity_New_Templates extends AppCompatActivity {
             }
             ХэшФИОВсеСотурдникаТекущегоТабеля.clear();
             AdapterSimpleMainActivityListPeoples = new SimpleCursorAdapter(getApplicationContext(),
-                    R.layout.list_item_all_customer_tabel5,
+                    R.layout.listitempeoples,
                     сursorActivvityListPeoples, new String[]{"fio"},
                     new int[]{android.R.id.text1},
                     CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);  ///name
@@ -610,82 +610,82 @@ public class MainActivity_New_Templates extends AppCompatActivity {
                 @Override
                 public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                     try{
-                        LinearLayout linearLayout=(LinearLayout) view;
-                        ImageView ImageViewPeople=  linearLayout.findViewById(R.id.ImageViewPeople);
-                        MaterialTextView MaterialTextViewPeople=   linearLayout.findViewById(R.id.MaterialTextViewPeople);
-                        MaterialTextView MaterialTextViewPeopeChasy=   linearLayout.findViewById(R.id.MaterialTextViewPeopeChasy);
-                        switch (view.getId()) {
-                            case android.R.id.text1:
-                                ПолученыеКоличествоСторочек = cursor.getCount();
-                                ////TODO ДДАНЫЕ ИЗ БАЗЫ САМИ ФИО
-                                CurrenrsSelectFio = cursor.getLong(cursor.getColumnIndex("fio"));
-                                MainParentUUID = cursor.getLong(cursor.getColumnIndex("uuid_tabel"));
-                                CurrenrsСhildUUID = cursor.getLong(cursor.getColumnIndex("uuid"));
-                                String ФИО =cursor.getString(cursor.getColumnIndex("name")).trim();
-                                @SuppressLint("Range") Boolean Getcarried_out =
-                                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("status_carried_out")));
-
-                                // TODO: 09.04.2023 Заполяем Данными MainActivityListPeoples.java
-                                Bundle bundleItemsListPeople=new Bundle();
-                                bundleItemsListPeople.putLong("MainParentUUID",MainParentUUID);
-                                bundleItemsListPeople.putLong("CurrenrsSelectFio",CurrenrsSelectFio);
-                                bundleItemsListPeople.putLong("CurrenrsСhildUUID",CurrenrsСhildUUID);
-                                bundleItemsListPeople.putInt("Position",          cursor.getPosition());
-                                bundleItemsListPeople.putString("ФИО",ФИО);
-                                bundleItemsListPeople.putInt("ГодТабелей",ГодТабелей);
-                                bundleItemsListPeople.putInt("МЕсяцТабелей",МЕсяцТабелей);
-                                bundleItemsListPeople.putInt("DigitalNameCFO",DigitalNameCFO);
-                                bundleItemsListPeople.putString("FullNameCFO",FullNameCFO);
-                                bundleItemsListPeople.putString("ИмесяцвИГодСразу",ИмесяцвИГодСразу);
-                                bundleItemsListPeople.putBoolean("carried_out",Getcarried_out);
-
-
-                                // TODO: 26.09.2023  Часы Отработынные
-                                Long ЧасыОтработанные=       controllerSumChasy.metodSumChasi(cursor);
-
-                                MaterialTextViewPeople.setTag(bundleItemsListPeople);
-                                MaterialTextViewPeople.setText(ФИО.trim() );
-                                // TODO: 26.09.2023  КЛИК ПО ДАННЫМ
-                                // TODO: 20.04.2023  Слушатели Клика и перехода
-                                методСотрудникаItemsList(MaterialTextViewPeople);
-                                // TODO: 26.09.2023 Слушатель Удание
-                                МетодУдаленияСотрудникаLongClick(MaterialTextViewPeople);
-
-
-
-                                // TODO: 26.09.2023 СМЕНЫ
-                                MaterialTextViewPeopeChasy.setText( ЧасыОтработанные.toString());
-
-
-                                // TODO: 09.04.2023 Внешинй Вид
-                                MaterialTextViewPeople.startAnimation(animation);
-                                // TODO: 30.01.2022  офрмления на цетр маркеруем
-
-                                Log.d(this.getClass().getName(),"\n" + " class " +
-                                        Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
-
-                                Drawable icon = null;
-                                Boolean ПолученныйСтатусПроведенныйТаьельИлиНЕт =
-                                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("status_carried_out")));
-                                if (ПолученныйСтатусПроведенныйТаьельИлиНЕт==true) {
-                                    icon = getResources().getDrawable(R.mipmap.icon_dsu1_tabel_emloes_error);
-                                    if(ФлагУжеСообщалиЧтоСообщениеЧТоТАбельПроведетБыло==false) {
-                                        ФлагУжеСообщалиЧтоСообщениеЧТоТАбельПроведетБыло=true;
-                                    }
-                                }else{
-                                    icon = getResources().getDrawable(R.drawable.icon_newlistpeoples);
-                                }
-                                ImageViewPeople.setImageDrawable(icon);
-                                Log.d(this.getClass().getName(),"\n" + " class " +
-                                        Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                                        " MainParentUUID "+MainParentUUID);
-                                return true;
-
-                        }
+//                        LinearLayout linearLayout=(LinearLayout) view;
+//                        ImageView ImageViewPeople=  linearLayout.findViewById(R.id.ImageViewPeople);
+//                        MaterialTextView MaterialTextViewPeople=   linearLayout.findViewById(R.id.MaterialTextViewPeople);
+//                        MaterialTextView MaterialTextViewPeopeChasy=   linearLayout.findViewById(R.id.MaterialTextViewPeopeChasy);
+//                        switch (view.getId()) {
+//                            case android.R.id.text1:
+//                                ПолученыеКоличествоСторочек = cursor.getCount();
+//                                ////TODO ДДАНЫЕ ИЗ БАЗЫ САМИ ФИО
+//                                CurrenrsSelectFio = cursor.getLong(cursor.getColumnIndex("fio"));
+//                                MainParentUUID = cursor.getLong(cursor.getColumnIndex("uuid_tabel"));
+//                                CurrenrsСhildUUID = cursor.getLong(cursor.getColumnIndex("uuid"));
+//                                String ФИО =cursor.getString(cursor.getColumnIndex("name")).trim();
+//                                @SuppressLint("Range") Boolean Getcarried_out =
+//                                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("status_carried_out")));
+//
+//                                // TODO: 09.04.2023 Заполяем Данными MainActivityListPeoples.java
+//                                Bundle bundleItemsListPeople=new Bundle();
+//                                bundleItemsListPeople.putLong("MainParentUUID",MainParentUUID);
+//                                bundleItemsListPeople.putLong("CurrenrsSelectFio",CurrenrsSelectFio);
+//                                bundleItemsListPeople.putLong("CurrenrsСhildUUID",CurrenrsСhildUUID);
+//                                bundleItemsListPeople.putInt("Position",          cursor.getPosition());
+//                                bundleItemsListPeople.putString("ФИО",ФИО);
+//                                bundleItemsListPeople.putInt("ГодТабелей",ГодТабелей);
+//                                bundleItemsListPeople.putInt("МЕсяцТабелей",МЕсяцТабелей);
+//                                bundleItemsListPeople.putInt("DigitalNameCFO",DigitalNameCFO);
+//                                bundleItemsListPeople.putString("FullNameCFO",FullNameCFO);
+//                                bundleItemsListPeople.putString("ИмесяцвИГодСразу",ИмесяцвИГодСразу);
+//                                bundleItemsListPeople.putBoolean("carried_out",Getcarried_out);
+//
+//
+//                                // TODO: 26.09.2023  Часы Отработынные
+//                                Long ЧасыОтработанные=       controllerSumChasy.metodSumChasi(cursor);
+//
+//                                MaterialTextViewPeople.setTag(bundleItemsListPeople);
+//                                MaterialTextViewPeople.setText(ФИО.trim() );
+//                                // TODO: 26.09.2023  КЛИК ПО ДАННЫМ
+//                                // TODO: 20.04.2023  Слушатели Клика и перехода
+//                                методСотрудникаItemsList(MaterialTextViewPeople);
+//                                // TODO: 26.09.2023 Слушатель Удание
+//                                МетодУдаленияСотрудникаLongClick(MaterialTextViewPeople);
+//
+//
+//
+//                                // TODO: 26.09.2023 СМЕНЫ
+//                                MaterialTextViewPeopeChasy.setText( ЧасыОтработанные.toString());
+//
+//
+//                                // TODO: 09.04.2023 Внешинй Вид
+//                                MaterialTextViewPeople.startAnimation(animation);
+//                                // TODO: 30.01.2022  офрмления на цетр маркеруем
+//
+//                                Log.d(this.getClass().getName(),"\n" + " class " +
+//                                        Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+//                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+//                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+//
+//                                Drawable icon = null;
+//                                Boolean ПолученныйСтатусПроведенныйТаьельИлиНЕт =
+//                                        Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("status_carried_out")));
+//                                if (ПолученныйСтатусПроведенныйТаьельИлиНЕт==true) {
+//                                    icon = getResources().getDrawable(R.mipmap.icon_dsu1_tabel_emloes_error);
+//                                    if(ФлагУжеСообщалиЧтоСообщениеЧТоТАбельПроведетБыло==false) {
+//                                        ФлагУжеСообщалиЧтоСообщениеЧТоТАбельПроведетБыло=true;
+//                                    }
+//                                }else{
+//                                    icon = getResources().getDrawable(R.drawable.icon_newlistpeoples);
+//                                }
+//                                ImageViewPeople.setImageDrawable(icon);
+//                                Log.d(this.getClass().getName(),"\n" + " class " +
+//                                        Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+//                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+//                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+//                                        " MainParentUUID "+MainParentUUID);
+//                                return true;
+//
+//                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" +
