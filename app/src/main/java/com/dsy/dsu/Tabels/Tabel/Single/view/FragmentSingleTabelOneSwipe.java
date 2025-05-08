@@ -287,6 +287,10 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             // TODO: 21.06.2023 Смещения Курсоора
             singleTabelRecycreView.МетодСлушательКурсора(cursorSingleTabels);
             singleTabelRecycreView.  методСчитаемЧасы(cursorSingleTabels );
+            // TODO: 04.04.2023  ФИО
+            SubClassSingleTabelRecycreView subClassSingleTabelRecycreView=new SubClassSingleTabelRecycreView();
+            subClassSingleTabelRecycreView.МетодЗаполняемФИОRow(cursorSingleTabels);
+
             // TODO: 26.06.2023  созданнй CallBack
             singleTabelRecycreView.методДляSimpeCallbacks( );
             singleTabelRecycreView.МетодСлушательRecycleView();
@@ -1048,12 +1052,16 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                 Cursor cursorSwipeViewPagerLeft=      singleTabelRecycreView.      методScrollsLeftRecyreView();
                                 getLeftAndRightRecyreVieData.методПереРоденияRevireViewScroll(cursorSwipeViewPagerLeft);
                                 методСчитаемЧасы(cursorSwipeViewPagerLeft,cursorSwipeViewPagerLeft.getPosition());
+                                // TODO: 04.04.2023  ФИО
+                                    МетодЗаполняемФИОRow( cursorSwipeViewPagerLeft);
                             }
                             else if (swipeDir == ItemTouchHelper.RIGHT){
                                 Log.i("Swipe direction : ","Right");
                                 Cursor cursorSwipeViewPagerRight=      singleTabelRecycreView.      методScrollsRightRecyreView();
                                 getLeftAndRightRecyreVieData.методПереРоденияRevireViewScroll(cursorSwipeViewPagerRight);
                                 методСчитаемЧасы(cursorSwipeViewPagerRight,cursorSwipeViewPagerRight.getPosition());
+                                // TODO: 04.04.2023  ФИО
+                                   МетодЗаполняемФИОRow( cursorSwipeViewPagerRight);
                             }
 
 
@@ -1382,7 +1390,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 Log.d(this.getClass().getName(), "  ЧасыТекущегоСОтрудника " + ЧасыТекущегоСОтрудника);
                  Integer getHortsCurrentpostion=     listpeoplesposition+1;
                 String ЧасыТекущегоСотрудника="(" + ЧасыТекущегоСОтрудника + "/часы)" +
-                        ""+"\n"+"("+getHortsCurrentpostion+ "/поз.)";
+                        ""+"\n"+"("+getHortsCurrentpostion+")";
 
              // TODO: 20.11.2023  заполение часов
 
@@ -1781,9 +1789,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                             getLoopValueRecycreViewSingleTable(holder, cursor);
                         });
 
-
-                        // TODO: 04.04.2023  ФИО
-                        new  SubClassChanegeSetNameProffesio().    МетодЗаполняемФИОRow( cursor);
                         // TODO: 16.04.2023 Професии Професии Професии Професии
                         МетодаКликаTableRowФИО( );
 
@@ -3285,9 +3290,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
         }
 
+
         @SuppressLint("Range")
-        class SubClassChanegeSetNameProffesio{
-            private String МетодЗаполняемФИОRow( @NonNull  Cursor   cursor  ) {
+             String МетодЗаполняемФИОRow( @NonNull  Cursor   cursor  ) {
                 try {
                     // TODO: 16.04.2023  посик по ФИО
                  Integer ПрофессияИзФИо = cursor.getInt(cursor.getColumnIndex("fio_prof"));
@@ -3336,6 +3341,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
 
             // TODO: 20.11.2023  устанвливаем фпросию
+            @SuppressLint("Range")
             private void metodSetProfesfionSingleTabel(@NotNull Cursor КурсорПрофессия) {
                 try{
                 if (КурсорПрофессия.getCount()>0) {
@@ -3343,7 +3349,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                     // TODO: 20.11.2023
                     if (   Профессия.length()> 0 && !Профессия.trim().matches("(.*)Должность не заполнена(.*)")) {
                         new SetFioAndProfessionDisayn(ФИО.length()).методПерегрузкаВидаПрофесии(ФИО.trim() , materialTextViewfio);
-                        new SetFioAndProfessionDisayn(0).методПерегрузкаВидаПрофесии("("+Профессия.trim()+")" , materialTextViewprofession);
+                        new SetFioAndProfessionDisayn(0).методПерегрузкаВидаПрофесии("("+Профессия.trim()+")" ,
+                                materialTextViewprofession);
                         // TODO: 20.11.2023  когда не професии
                     }else {
                         metodDontPresesssion();
@@ -3371,7 +3378,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 new SetFioAndProfessionDisayn(ФИО.length()).методПерегрузкаВидаПрофесии(ФИО.trim() , materialTextViewfio);
                 new SetFioAndProfessionDisayn(0).методПерегрузкаВидаПрофесии("("+Профессия.trim()+")" , materialTextViewprofession);
             }
-        }
+
 
         public    class SubClassGetCursor{
             Cursor          cursor = null;
