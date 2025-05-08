@@ -282,11 +282,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     public void onStart() {
         super.onStart();
         try{
-
+            // TODO: 08.05.2025   главный курсор
             cursorSingleTabels =   singleTabelRecycreView.  new SubClassGetCursor().МетодSwipesКурсор();
-            // TODO: 08.05.2025
-            cursorSingleTabels.move(listpeoplesposition);
-
             // TODO: 21.06.2023 Смещения Курсоора
             singleTabelRecycreView.МетодСлушательКурсора(cursorSingleTabels);
             singleTabelRecycreView.  методСчитаемЧасы(cursorSingleTabels );
@@ -298,7 +295,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " listpeoplesposition " +listpeoplesposition);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :"
@@ -349,7 +346,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
         try{
 
 
-            metodReebotDataForFragmentSingleTabel();
+            //metodReebotDataForFragmentSingleTabel();
 
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -1383,9 +1380,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 //TODO ЗАПОЛЯНЕМ ПОЛУЧЕННЫЙ МЕСЯ Ц ПЛУС КОЛИЧЕСТВО ЧАСОВ СОТРУДНИКА КОНКРЕТНОГО
                 Integer   ЧасыТекущегоСОтрудника = new BunesslogicSingleTabel(getContext()).getemployeeHoursCounting(cursor);
                 Log.d(this.getClass().getName(), "  ЧасыТекущегоСОтрудника " + ЧасыТекущегоСОтрудника);
-
+                 Integer getHortsCurrentpostion=     listpeoplesposition+1;
                 String ЧасыТекущегоСотрудника="(" + ЧасыТекущегоСОтрудника + "/часы)" +
-                        ""+"\n"+"("+listpeoplesposition+")";
+                        ""+"\n"+"("+getHortsCurrentpostion+ "/поз.)";
 
              // TODO: 20.11.2023  заполение часов
 
@@ -1396,8 +1393,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                     }
                 }
                 new SpinerЧасы().metodAddDataSpinersHasyAndMotch(spinnerchasy,ЧасыТекущегоСотрудника);
-
-
 
 
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -1419,9 +1414,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 //TODO ЗАПОЛЯНЕМ ПОЛУЧЕННЫЙ МЕСЯ Ц ПЛУС КОЛИЧЕСТВО ЧАСОВ СОТРУДНИКА КОНКРЕТНОГО
                 Integer   ЧасыТекущегоСОтрудника = new BunesslogicSingleTabel(getContext()).getemployeeHoursCounting(cursor);
                 Log.d(this.getClass().getName(), "  ЧасыТекущегоСОтрудника " + ЧасыТекущегоСОтрудника);
-
+                Integer getHortsCurrentpostion=     gerRecyreViewPosion+1;
                 String ЧасыТекущегоСотрудника="(" + ЧасыТекущегоСОтрудника + "/часы)" +
-                        ""+"\n"+"("+gerRecyreViewPosion+")";
+                        ""+"\n"+"("+getHortsCurrentpostion+")";
 
                 // TODO: 20.11.2023  заполение часов
 
@@ -3395,6 +3390,13 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         bundleГлавныйКурсорMultiДанныеSwipes.putStringArray("УсловияВыборки" ,УсловияВыборки);
                         bundleГлавныйКурсорMultiДанныеSwipes.putString("Таблица","viewtabel");
                         cursor =      (Cursor)    new SubClassCursorLoader(). CursorLoaders(getContext(), bundleГлавныйКурсорMultiДанныеSwipes);
+                        // TODO: 08.05.2025
+                        // TODO: 08.05.2025
+                        if ( myRecycleViewAdapter.cursor==null) {
+                            cursor.moveToPosition(listpeoplesposition);
+                        }else {
+                            cursor.moveToPosition(myRecycleViewAdapter.cursor.getPosition());
+                        }
                         // TODO: 13.04.2023 делаем смещение по курсору
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
