@@ -9,7 +9,7 @@
         app:cardElevation="10dp"
         app:cardMaxElevation="10dp"
         android:layout_centerInParent="true"
-        app:strokeWidth="1dp"
+        app:strokeWidth="0dp"
         android:translationZ="5dp"
         android:animateLayoutChanges="true"
         app:cardBackgroundColor="@color/actionbar_text_color"
@@ -41,7 +41,7 @@
                 app:cardElevation="2dp"
                 app:cardMaxElevation="1dp"
                 app:strokeColor="@color/icon_dashdornd_tabel2_background"
-                app:strokeWidth="1dp">
+                app:strokeWidth="0dp">
 
 
                 <RelativeLayout
@@ -139,7 +139,7 @@
             android:id="@+id/materialcardviewrow2"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_margin="2dp"
+            android:layout_margin="5dp"
             android:padding="2dp"
             android:animateLayoutChanges="true"
             android:layout_below="@+id/materialcardviewrow1"
@@ -150,7 +150,7 @@
             app:cardElevation="2dp"
             app:cardMaxElevation="1dp"
             app:strokeColor="@color/icon_dashdornd_tabel2_background"
-            app:strokeWidth="1dp">
+            app:strokeWidth="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                     app:cardCornerRadius="5dp"
                     android:layout_above= "@+id/materialcardViewlastrow"
                     android:layout_below="@+id/materialcardviewrow2"
-                    android:layout_margin="2dp"
+                    android:layout_margin="5dp"
                     android:padding="2dp"
                     android:animateLayoutChanges="true"
                     android:gravity="center"
@@ -246,7 +246,7 @@
                     app:cardElevation="2dp"
                     app:cardMaxElevation="1dp"
                     android:translationZ="4dp"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="0dp">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -307,7 +307,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     app:cardCornerRadius="5dp"
-                    android:layout_margin="2dp"
+                    android:layout_margin="5dp"
                     android:padding="2dp"
                     android:animateLayoutChanges="true"
                     android:gravity="center"
@@ -318,15 +318,13 @@
                     app:cardElevation="2dp"
                     app:cardMaxElevation="1dp"
                     android:translationZ="4dp"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="0dp">
 
 
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:padding="2dp">
+                        android:layout_height="wrap_content">
 
 
      <com.google.android.material.textview.MaterialTextView

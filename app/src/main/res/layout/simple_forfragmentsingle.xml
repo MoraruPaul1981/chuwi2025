@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F4F4F4"
     android:gravity="center"
     android:layout_margin="2dp"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
@@ -29,7 +29,7 @@
                 app:cardElevation="2dp"
                 app:cardMaxElevation="1dp"
                 android:translationZ="4dp"
-                app:strokeWidth="1dp">
+                app:strokeWidth="0dp">
 
 
                 <RelativeLayout
@@ -75,10 +75,10 @@
         android:layout_below="@+id/materialcarviewrow1"
         app:cardBackgroundColor="@color/actionbar_text_color"
         app:strokeColor="@color/icon_dashdornd_tabel2_background"
-        app:cardElevation="1dp"
-        app:cardMaxElevation="1dp"
-        android:translationZ="2dp"
-        app:strokeWidth="1dp">
+        app:cardElevation="10dp"
+        app:cardMaxElevation="10dp"
+        android:translationZ="5dp"
+        app:strokeWidth="0dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -180,7 +180,7 @@
         app:cardElevation="2dp"
         app:cardMaxElevation="1dp"
         android:translationZ="4dp"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
 
 
@@ -296,8 +296,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
-        android:layout_margin="1dp"
-        android:padding="1dp"
+        android:layout_margin="2dp"
+        android:padding="2dp"
         android:layout_centerHorizontal="true"
         android:animateLayoutChanges="true"
         android:layout_below="@+id/materialcarviewrow3"
@@ -305,9 +305,9 @@
         app:cardBackgroundColor="@color/actionbar_text_color"
         app:strokeColor="@color/icon_dashdornd_tabel2_background"
         app:cardElevation="2dp"
-        app:cardMaxElevation="1dp"
+        app:cardMaxElevation="5dp"
         android:translationZ="4dp"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
 
 
@@ -366,7 +366,7 @@
         app:cardElevation="2dp"
         app:cardMaxElevation="1dp"
         android:translationZ="4dp"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -376,11 +376,10 @@
                 android:id="@+id/spinnerdepartament_single"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/disayn_line_tablerow5"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
+                android:layout_margin="2dp"
                 android:padding="2dp"
-                android:layout_margin="3dp"
                 android:tooltipText="Название цфо" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
