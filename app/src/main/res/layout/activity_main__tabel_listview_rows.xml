@@ -35,13 +35,13 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:translationZ="4dp"
+                android:translationZ="10dp"
                 app:cardBackgroundColor="@color/actionbar_text_color"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="2dp"
+                app:cardElevation="5dp"
                 app:cardMaxElevation="1dp"
                 app:strokeColor="@color/icon_dashdornd_tabel2_background"
-                app:strokeWidth="0dp">
+                app:strokeWidth="1dp">
 
 
                 <RelativeLayout
@@ -305,7 +305,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialcardViewlastrow"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="90dp"
                     app:cardCornerRadius="5dp"
                     android:layout_margin="5dp"
                     android:padding="2dp"
@@ -367,9 +367,9 @@
      <Spinner
          android:id="@+id/СпинерТабельДепратамент"
          android:layout_width="match_parent"
-         android:layout_height="60dp"
+         android:layout_height="55dp"
          android:padding="2dp"
-         android:layout_marginStart="25dp"
+         android:layout_marginStart="20dp"
          android:layout_marginEnd="5dp"
          android:layout_marginBottom="2dp"
          android:layout_centerHorizontal="true"

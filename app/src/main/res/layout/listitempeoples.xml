@@ -79,7 +79,6 @@
                                     android:textStyle="bold"
                                     android:visibility="visible"
                                     app:cardCornerRadius="20dp"
-                                    android:tooltipText="фио"
                                     app:cardElevation="10dp"
                                     app:strokeColor="#F5FFFA" />
 
