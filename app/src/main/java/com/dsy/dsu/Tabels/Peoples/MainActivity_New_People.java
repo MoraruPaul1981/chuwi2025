@@ -1,5 +1,6 @@
 package com.dsy.dsu.Tabels.Peoples;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -12,6 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,27 +51,35 @@ import com.google.android.material.snackbar.Snackbar;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+
+import javax.inject.Inject;
 
 import dagger.hilt.EntryPoints;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-
 
 
 @AndroidEntryPoint
@@ -97,7 +107,8 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
     private  LinkedHashMap<String,Integer> ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи;
     private   Activity activity;
 
-    private SQLiteDatabase sqLiteDatabase ;
+   @Inject
+    protected SQLiteDatabase sqLiteDatabase ;
     private Context КонтекстДляАктивтиСозданиеНовогоСотрудника;
     private  Spinner СпинерВыборОрганизацииПриСозданииНовогоСотрудника;/////спинеры для создание табеля
     private    String ПолученноеТекущееЗначениеСпинераОрганизация;
@@ -570,7 +581,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
 
     ///todo данный метод начальный для создание нового сотрудника с кнопки
        void МетодЗапускаКодаПоСозданиюНовогоСотрудникаДляДвухТаблицФиоиДатаТабеля()  throws  InterruptedException{
-           final Long[] РезультатВставкиDataTabels = {0l};
+           final AtomicLong РезультатВставкиDataTabels = new AtomicLong(0l);
            try{
             КнопкаСозданиеНовогоСотрудника.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -582,14 +593,12 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                     int ТекущаяПозиция=СпинерВыборОрганизацииПриСозданииНовогоСотрудника.getSelectedItemPosition();
                     Integer ПубличноеID=    new SubClassGetPublicId().ПубличныйID(getApplicationContext());
                     ПолученноеТекущееЗначениеСпинераОрганизация=( СпинерВыборОрганизацииПриСозданииНовогоСотрудника.getItemAtPosition(ТекущаяПозиция).toString());
-                    ReentrantLock reentrantLock=new ReentrantLock();
-                    Condition condition= reentrantLock.newCondition();
                     Log.d(this.getClass().getName(), " ПолученноеТекущееЗначениеСпинераОрганизация  "+ ПолученноеТекущееЗначениеСпинераОрганизация);
 
 
-                    if (ЗначениеФИОСозданиеСотрудника.length() > 4
-                            && ЗначениеДеньРожденияСозданиеСотрудника.length() > 4
-                            && ЗначениеСНИЛССозданиеСотрудника.length()==11 &&
+                    if (ЗначениеФИОСозданиеСотрудника.length() > 0
+                            && ЗначениеДеньРожденияСозданиеСотрудника.length() > 0
+                            && ЗначениеСНИЛССозданиеСотрудника.length()>0 &&
                             ТекущаяПозиция!=0 &&
                             СпинерВыборОрганизацииПриСозданииНовогоСотрудника.getItemAtPosition(ТекущаяПозиция).toString()!=null &&
                             СпинерВыборОрганизацииПриСозданииНовогоСотрудника.getItemAtPosition(ТекущаяПозиция).toString()!="") {
@@ -598,7 +607,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                         Completable.fromAction(new Action() {
                                     @Override
                                     public void run() throws Throwable {
-                                        Long РезультатВставкивТаблицуФИО = 0l;
+                                        Integer РезультатВставкивТаблицуФИО = 0;
                                         final Long  РезультатВставкивТаблицуDataTabels = 0l;
 /////TODO перед созданием определяем не пустые ли значения
                                         //TODO внешний вид
@@ -615,48 +624,35 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                                             constraintLayout.setClickable(false);
                                         });
 
-                                        reentrantLock.lock();
+
                                         Long   UUIDGenetetorNewCustoner= (Long) new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
                                         // TODO: 23.09.2021  получение из даты месяц и год
                                         Log.d(this.getClass().getName(), " ИмесяцвИГодСразу  " + ИмесяцвИГодСразу);
                                         // TODO: 22.09.2021 обработка ТАБЛИЦА ФИО
 
-                                        РезультатВставкивТаблицуФИО = new Class_Generator_New_Customer_In_Table_Fio().методВставкиВТАблицуФИО(ТекущаяПозиция,UUIDGenetetorNewCustoner,ПубличноеID);
+                                        РезультатВставкивТаблицуФИО = new Class_Generator_New_Customer_In_Table_Fio()
+                                                .методВставкиВТАблицуФИО(ТекущаяПозиция,UUIDGenetetorNewCustoner,ПубличноеID);
                                         // TODO: 22.09.2021 ПОСЛЕ ДВУХ ОБРАБОТКАХ  ФИО И ДАТА_ТАБЕЛЬ ПЕРЕРХОДИМ НА ДРГОЕ АКТИВТИ
                                         Log.d(this.getClass().getName(), " РезультатВставкивТаблицуФИО  " + РезультатВставкивТаблицуФИО);
 
-                                        if (РезультатВставкивТаблицуФИО >0) {
-                                            condition.await(200, TimeUnit.MILLISECONDS);
-                                            condition.signal();
-                                        }
+
 
                                         if (РезультатВставкивТаблицуФИО >0) {
                                             // TODO: 22.09.2021  ТАБЛИЦА ДАТА_ТАБЕЛЯ
-                                            РезультатВставкиDataTabels[0] = new Class_Generator_New_Customer_In_Table_Data_Tables().
+                                            РезультатВставкиDataTabels.addAndGet( new Class_Generator_New_Customer_In_Table_Data_Tables().
                                                     методСозданиеНовогоСотрудникаDataTabels(UUIDGenetetorNewCustoner,
                                                             МЕсяцТабелей,
-                                                            ГодТабелей,ПубличноеID);
-                                            // TODO: 22.09.2021 ПОСЛЕ ДВУХ ОБРАБОТКАХ  ФИО И ДАТА_ТАБЕЛЬ ПЕРЕРХОДИМ НА ДРГОЕ АКТИВТИ
-                                            Log.d(this.getClass().getName(), " РезультатВставкивТаблицуDataTabels  "+РезультатВставкивТаблицуDataTabels);
-                                            if (  РезультатВставкиDataTabels[0] >0) {
-                                                condition.await(200, TimeUnit.MILLISECONDS);
-                                                condition.signal();
-                                            }else {
-                                                getApplicationContext().getMainExecutor().execute(()->{
-                                                    Snackbar.make(v, "Сотрунидник не был создан !!! ", Snackbar.LENGTH_LONG).show();
-                                                    Log.d(this.getClass().getName(), " РезультатВставкиDataTabels[0]  "+РезультатВставкиDataTabels[0]);
-                                                });
-                                            }
+                                                            ГодТабелей,ПубличноеID));
 
-                                        }else {
-                                            getApplicationContext().getMainExecutor().execute(()->{
-                                                Snackbar.make(v, "Сотрунидник не был создан !!!", Snackbar.LENGTH_LONG).show();
-                                                Log.d(this.getClass().getName(), " РезультатВставкиDataTabels[0]  "+РезультатВставкиDataTabels[0]);
-                                            });
+                                            Log.d(this.getClass().getName(),"\n" + " class " +
+                                                    Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                                                     " РезультатВставкиDataTabels " +РезультатВставкиDataTabels.get());
+
                                         }
-                                        Log.d(this.getClass().getName(), " РезультатВставкиDataTabels[0]  "+РезультатВставкиDataTabels[0]);
 
-                                        reentrantLock.unlock();
+
 
                                     }
                                 })
@@ -668,7 +664,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                                         constraintLayout.forceLayout();
                                         progressDialog.setProgress(1);
 
-                                        if (РезультатВставкиDataTabels[0]>0) {
+                                        if (РезультатВставкиDataTabels.get()>0) {
                                             // TODO: 17.04.2023 переходим на обратно в активити выбор сотрудников
                                             if (progressDialog!=null) {
                                                 progressDialog.setIndeterminate(false);
@@ -677,6 +673,26 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                                             }
 
                                             методBackActivityListPeoples();
+
+
+                                            Log.d(this.getClass().getName(),"\n" + " class " +
+                                                    Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                                                    " РезультатВставкиDataTabels " +РезультатВставкиDataTabels.get());
+                                        }else {
+
+                                            ЗначениеФИОСозданиеСотрудника.setError("ошибка!!!");
+
+                                           Snackbar.make(v, "Сотрудник не создан !!!",Snackbar.LENGTH_LONG).setAction("Action",null).show();
+
+
+                                            Log.d(this.getClass().getName(),"\n" + " class " +
+                                                    Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                                                    " РезультатВставкиDataTabels " +РезультатВставкиDataTabels.get());
+
                                         }
                                         // TODO: 17.04.2023  //////////20.15
                                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -1002,49 +1018,69 @@ private void МетодВозврещениеНаПредыдущуюАктив�
 
 
 
-      protected Long методВставкиВТАблицуФИО(@NotNull  int ТекущееЗначение,
+      protected Integer методВставкиВТАблицуФИО(@NotNull  int ТекущееЗначение,
                                              @NotNull Long   UUIDGenetetorNewCustoner
                                              ,@NotNull Integer ПубличноеID) throws InterruptedException {
 
-            Long РезультаВставкиВТАблицуФИО=0l;
+            Integer РезультаВставкиВТАблицуФИО=0;
             try {
                 ContentValues АдаптерДляСозданиеНовогоСотрудаТАблицаФИО = new ContentValues();////контрейнер для нового табеля
                 String НазваниеФИО=ЗначениеФИОСозданиеСотрудника.getText().toString();
                 String ЗначениеДеньРождения=ЗначениеДеньРожденияСозданиеСотрудника.getText().toString();
                 Object  ПолученныйСНИЛСНовогоСотрудникаПереход=ЗначениеСНИЛССозданиеСотрудника.getText().toString().replaceAll("[^0-9]","").trim();
                 Long ПолученныйСНИЛСНовогоСотрудника=Long.parseLong(ПолученныйСНИЛСНовогоСотрудникаПереход.toString());
+
+
+                // TODO: 08.05.2025 ВСавка новго сотржника
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("name",НазваниеФИО);
-        Integer ЕслиПробел=        НазваниеФИО.indexOf(" ");
-                Log.w(getApplicationContext().getClass().getName(), "    ЕслиПробел    " +ЕслиПробел);
-                if (ЕслиПробел>=0) {
-                    int КоличествоПробелов = НазваниеФИО.length() - НазваниеФИО.replace(" ", "").length();
-                    Log.w(getApplicationContext().getClass().getName(), "    occurrencesCount    " +КоличествоПробелов);
-                    String s1[]=НазваниеФИО.split("\\s+");
-                    if (КоличествоПробелов==1) {
-                        if (s1[0]!=null) {
-                            АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("f",s1[0]);
-                        }
-                        if (s1[1]!=null) {
-                            АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("n",s1[1]);
-                        }
+                Flowable.just(НазваниеФИО).map(new Function<String, Object>() {
+                    @SuppressLint("NewApi")
+                    @Override
+                    public Object apply(String s) throws Throwable {
+                        String[] words = s.split(" ");
+                        // TODO: 08.05.2025
+                        List<String> stringsNameFio = Arrays.asList(words);
+                        AtomicInteger atomicInteger=new AtomicInteger(0);
+                        stringsNameFio.forEach(new java.util.function.Consumer<String>() {
+                            @Override
+                            public void accept(String splitfio) {
+                                // TODO: 08.05.2025
+                                if (atomicInteger.get()==0) {
+                                    АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("f",splitfio);
+                                }
+                                if (atomicInteger.get()==1) {
+                                    АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("n",splitfio);
+                                }
+                                if (atomicInteger.get()==2) {
+                                    АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("o",splitfio);
+                                }
+                                // TODO: 08.05.2025
+                                atomicInteger.incrementAndGet();
 
-                    }else {
+                                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                        + " atomicInteger.get()"
+                                        +atomicInteger.get());
+                            }
+                        });
 
-                        if (КоличествоПробелов>=2) {
-                            /////
-                            if (s1[0]!=null) {
-                                АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("f",s1[0]);
-                            }
-                            if (s1[1]!=null) {
-                                АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("n",s1[1]);
-                            }
+                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                + " words"
+                                +words);
 
-                            if (s1[2]!=null) {
-                                АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("o",s1[2]);
-                            }
-                        }
+
+                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                + " РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО"
+                                +РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
+                            return words;
                     }
-                }
+                }).blockingSubscribe();
+
                 Log.d(this.getClass().getName(), "  АдаптерДляСозданиеНовогоСотрудаТАблицаФИО " + АдаптерДляСозданиеНовогоСотрудаТАблицаФИО);
                 Long РезультатВычисляемВреисюДанных =
                         new VersionCurentTable(getApplicationContext()).upVersionCurentTable(    "fio"  );
@@ -1062,42 +1098,57 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                 class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеПоиска1",ПолученныйСНИЛСНовогоСотрудника);
                 class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеСортировки", "date_update DESC");
                 class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеЛимита", "1");
+
                 SQLiteCursor     Курсор_ИщемЕслиТАкойСнилсУже = (SQLiteCursor) class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.
-                        new GetData(getApplicationContext()).getdata(class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор,
+                        new GetData(getApplicationContext()).getdata(class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.
+                                concurrentHashMapНабор,
                         Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, sqLiteDatabase);
                 Log.d(this.getClass().getName(), "Курсор_ИщемЕслиТАкойСнилсУже " + Курсор_ИщемЕслиТАкойСнилсУже);
                 // TODO: 01.11.2021
                 if( Курсор_ИщемЕслиТАкойСнилсУже.getCount()==0){
+                    // TODO: 08.05.2025
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("uuid",UUIDGenetetorNewCustoner);
                 String ДатаПРиСозданииНовогоСотрудника=null;
                 String СгенерированованныйДатаДляДаннойОперации=     new Class_Generation_Data(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
                 ДатаПРиСозданииНовогоСотрудника = СгенерированованныйДатаДляДаннойОперации;
                 Log.d(this.getClass().getName(), " ДатаПРиСозданииНовогоСотрудника" + ДатаПРиСозданииНовогоСотрудника);
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("date_update",ДатаПРиСозданииНовогоСотрудника);
+                АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("user_update", ПубличноеID);
 
-                if (DigitalNameCFO >0) {
-                Integer ПолученныйIDОрганизации=  (Integer)  ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи.get(ПолученноеТекущееЗначениеСпинераОрганизация);
-                    Log.d(this.getClass().getName(), "ПолученныйIDОрганизации "+ПолученныйIDОрганизации   + " ТекущееЗначение " +ТекущееЗначение);
-                    АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("current_organization",ПолученныйIDОрганизации); ///1
-                    // TODO: 22.04.2021  srart JOBschedele
-                    Log.d(this.getClass().getName(), "ПолученноеТекущееЗначениеСпинераОрганизация "+ПолученноеТекущееЗначениеСпинераОрганизация +
-                            "  ПолученныйIDОрганизации " +ПолученныйIDОрганизации);
-                        АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("user_update", ПубличноеID);
-                    final int[] ТекущуюОрганизацию = {0};
-                    final Cursor[] Курсор_ИщемТекущуюОрганизациюКоторуюВыбраСОтрудник = {null};
-                    Log.d(this.getClass().getName(),"ТекущуюОрганизацию[0] " + ТекущуюОрганизацию[0] );
-                    //// TODO  СамаВставка нового сотрудника в новый табель
-                }else{
-                    Log.e(this.getClass().getName(), " нет данных из предцдуещго табеля");
-                }
+
                 // TODO: 23.09.2021  повышаем верисю таблицы фио
                 // TODO: 08.092021  метод после заполения данными
                 РезультаВставкиВТАблицуФИО=       new Class_Generations_New_Customers_For_Tabels(getApplicationContext()).
-                        МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(АдаптерДляСозданиеНовогоСотрудаТАблицаФИО,activity);
-                Log.w(this.getClass().getName(), " РезультаВставкиВТАблицуФИО  "+РезультаВставкиВТАблицуФИО);
+                        МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(АдаптерДляСозданиеНовогоСотрудаТАблицаФИО,activity,sqLiteDatabase);
+
+                    Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                            + " РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО"
+                            +РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
+
                 }else{
-                    Toast.makeText(getApplicationContext(), "Ошибка данный сотрудник уже есть в таблице СНИЛС : "+ПолученныйСНИЛСНовогоСотрудника , Toast.LENGTH_LONG).show();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Такой  СНИЛС уже есть !!!"
+                                    +ПолученныйСНИЛСНовогоСотрудника , Toast.LENGTH_LONG).show();
+
+                            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                    + " РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО"
+                                    +РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
+                        }
+                    });
+
+
                 }
+                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                        + " РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО"
+                        +РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
 //TODO ОКОНЧИАЕМ ВСТАВКУ ДАННЫХ
             } catch (Exception e) {
                 e.printStackTrace();

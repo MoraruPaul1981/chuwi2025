@@ -40,71 +40,39 @@ public class Class_Generations_New_Customers_For_Tabels {
 
     // TODO: 26.03.2021 финальная вствка данных новго сотружника
 
-    public Long МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(ContentValues АдаптерДляСозданиеНовогоСотрудаТАблицаФИО, Activity activity) {
-
+    public Integer МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(ContentValues АдаптерДляСозданиеНовогоСотрудаТАблицаФИО,
+                                                                    Activity activity,
+                                                                    SQLiteDatabase sqLiteDatabase) {
         ///todo САМА ВСТВКА ТАБЛИЦА ФИО
-
-        ////
-        String ТекущаяТаблицаОбработки = "fio";
-//////
-
-        Long РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО = 0l;
+        Integer getcreatingAnewEmployee = 0;
         try {
-
-            ///TODO  КОНЕЦ сами данные таблица FIO только при вставке данных и ТОЛЬКО
-
-            ///todo САМА ВСТВКА ТАБЛИЦА ФИО
+            String ТекущаяТаблицаОбработки = "fio";
 
 
             // TODO: 25.03.2021 вставка фио
-           РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО = new Class_MODEL_synchronized(activity).
+            getcreatingAnewEmployee = new Class_MODEL_synchronized(activity,sqLiteDatabase).
                     ВставкаДанныхЧерезКонтейнерТолькоПриСозданииНовогоСотрудникаУниверсальная(ТекущаяТаблицаОбработки,
                             АдаптерДляСозданиеНовогоСотрудаТАблицаФИО  );
 
 
 
-            // TODO: 25.03.2021 успешное вставка в таблицу ФИО
-
-
-            // TODO: 22.04.2021  srart JOBschedele
-            Log.d(this.getClass().getName(), "РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО "+РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
-
-
-
-///TODO метод запуска формы после вставки
-
-                    //////
-
-
-                    ///////////////////////////todo не был создан сотрудник за за ТОГО ЧТО НЕ БЫЛА ВИБРАНА ОРГАНИЗЦИЯ В НАСТРОЙКАХ
-
-
-
-
-
-            АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.clear();
-
-                // UUIDТабеляВКоторомИНадоСоздатьНовогоСотрудника=null;
-
-
-                //////////////////////////////////
-                Log.d(this.getClass().getName(), "РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО  " + РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
-
-                // TODO: 25.03.2021 вставка таблицы ТАБЕЛЬ ПОСЛЕ ТАБЛИЦЫ ФИО
-
+            // TODO: 30.01.2022 Сообщеам Observer что изменилибьс данные в адаптере AdapterCursor
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " getcreatingAnewEmployee"
+                    +getcreatingAnewEmployee);
 
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
             new RecordNewErros(activity).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
 
-        return  РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО;
+        return  getcreatingAnewEmployee;
     }
 
 
@@ -149,7 +117,7 @@ public class Class_Generations_New_Customers_For_Tabels {
         try{
             String ТекущаяОбрабатываемаяТаблица="data_tabels";
             // TODO: 25.03.2021 вставка табель
-            РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыТабель = new Class_MODEL_synchronized(activity).
+            РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыТабель = new Class_MODEL_synchronized(activity,sqLiteDatabase).
                     ВставкаДанныхЧерезКонтейнерТолькоПриСозданииНовогоСотрудникаУниверсальная(ТекущаяОбрабатываемаяТаблица,
                             АдаптерДляСозданиеНовогоСотрудаТАблицаТабель  );
 
@@ -179,17 +147,19 @@ public class Class_Generations_New_Customers_For_Tabels {
                 // TODO: 24.05.2021 КОД ДЛЯ АВТОМАТИЧЕСКОГО ВЫСТАВЛЕНИЯ ВЫХОДНЫХ ДНЕЙ В ТАБЕЛЬ
                 if (РезультатКакойРежимЗаписанвБазеВЫходныеДни.contentEquals("Включить")) {
                     ContentValues КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные=
-                            new Class_MODEL_synchronized(activity). МетодВычисляемВыходныеДниПриСозданииНовогоТабеляАвтоРЕжим(activity,
+                            new Class_MODEL_synchronized(activity,sqLiteDatabase). МетодВычисляемВыходныеДниПриСозданииНовогоТабеляАвтоРЕжим(activity,
                             ГодПриВставкеНовогоСотрудника,МЕсяцПриВставкеНовогоСотрудника);
-                    Log.w(activity.getClass().getName(), " КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные  " + "--" +КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные);/////
+                    Log.w(activity.getClass().getName(), " КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные  " + "--"
+                            +КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные);/////
                         // TODO: 25.03.2021 вставка табель
-                    Integer          РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель  = new Class_MODEL_synchronized(activity)
+                    Integer          РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель  = new Class_MODEL_synchronized(activity,sqLiteDatabase)
                             .ЛокальногоОбновлениеДанныхЧерезКонтейнерУниверсальная(ТекущаяОбрабатываемаяТаблица,
                                 КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные,
                                 UUIDgenetarForData_tabels,
                                 "uuid");
 
-                        Log.d(activity.getClass().getName(), " РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель  " + "--" +РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель);/////
+                        Log.d(activity.getClass().getName(), " РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель  " + "--"
+                                +РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель);/////
 
                 }
 
