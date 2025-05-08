@@ -234,8 +234,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
             singleTabelRecycreView.metodДизайнRecycreView();
 
-            // TODO: 16.06.2023  перегрузка экрана
-            singleTabelRecycreView.   методПерегрузкиRecycreView();
+
 
 
 
@@ -294,7 +293,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             singleTabelRecycreView.методДляSimpeCallbacks( );
             singleTabelRecycreView.МетодСлушательRecycleView();
             // TODO: 16.06.2023  перегрузка экрана
-            singleTabelRecycreView.   методПерегрузкиRecycreView();
+
 
         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -320,7 +319,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 //singleTabelRecycreView.metodAddCurcorRecyreview(cursorForViewPager );
                   singleTabelRecycreView.  методRebootRecyreview(cursorSingleTabels);
                 // TODO: 16.06.2023  перегрузка экрана
-                singleTabelRecycreView.   методПерегрузкиRecycreView();
+
 
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -373,7 +372,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 myRecycleViewAdapter.notifyDataSetChanged();
                 recycleviewsingletabel.getAdapter().notifyDataSetChanged();
                 // TODO: 26.06.2023  перегрузка
-                singleTabelRecycreView.  методПерегрузкиRecycreView();
+
                 // TODO: 10.08.2023
             }
             if (disposableAfterTextChangeEvent!=null) {
@@ -1192,38 +1191,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             }
         }
 
-        private void методПерегрузкиRecycreView() {
-            try{
-                recycleviewsingletabel.setFocusable(true);
-                recycleviewsingletabel.setClickable(true);
-                recycleviewsingletabel.smoothScrollToPosition(0);
 
-
-                spinnerchasy.refreshDrawableState();
-                spinnerchasy.requestLayout();
-
-
-                recycleviewsingletabel.refreshDrawableState();
-                recycleviewsingletabel.requestLayout();
-
-                spinnerdepartament.refreshDrawableState();
-                spinnerdepartament.requestLayout();
-
-                spinnermesazyear.refreshDrawableState();
-                spinnermesazyear.requestLayout();
-
-                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"  );
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                        Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-        }
 
         // TODO: 14.04.2023  слушатель Recycreviwe
         void МетодСлушательRecycleView() {  // TODO: 04.03.2022  класс в котором находяться слушатели
@@ -1791,8 +1759,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         // TODO: 16.04.2023 Професии Професии Професии Професии
                         МетодаКликаTableRowФИО( );
 
-                        // TODO: 26.06.2023  перегрузка
-                        методПерегрузкиRecycreView();
+
 
                     }
 
@@ -1949,6 +1916,8 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             public void onBindViewHolder(@NonNull  MyViewHolder holder, int position) {
                 try {
                     holder.itemView.startAnimation(animation1);
+                    holder.itemView.refreshDrawableState();
+                    holder.itemView.requestLayout();
                     Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " cursorForViewPager " +cursor +
@@ -2751,18 +2720,12 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                     spinnerdepartament.setClickable(false);
                     spinnerdepartament.setFocusable(false);
 
-// TODO: 16.06.2023  ПРОИЗВОДИМ САМ СВАЙП
-                    message.getTarget().postDelayed(()->{
-                        materialTextViewprofession.startAnimation(animationFromRecyReview);
-                        materialTextViewfio.startAnimation(animationFromRecyReview);
-                    },50);
-
                     Vibrator v2 = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     v2.vibrate(VibrationEffect.createOneShot(65, VibrationEffect.EFFECT_HEAVY_CLICK));
                         // TODO: 22.06.2023
                         fragmentSingleTabel.new SubClassBungleSingle().методGETДанныеRunTimeИзCursor(cursorSwipeViewPager );
                         // TODO: 16.06.2023  после переполуение данныз перегрузка экрана
-                        singleTabelRecycreView.     методПерегрузкиRecycreView();
+
 
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -3494,8 +3457,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
             SpannableString ss=new SpannableString(Профессия);
             ss.setSpan(new UnderlineSpan(), ДлинаПодчерникания, Профессия.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             materialTextView.setText(ss);
-
-                materialTextView.startAnimation(animation1);
                 materialTextView.refreshDrawableState();
                 materialTextView.requestLayout();
 
