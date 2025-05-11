@@ -128,7 +128,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     private  long CurrenrsСhildUUID =0l;
     private  long CurrenrsSelectFio =0l;
     private  long MainParentUUID =0l;
-    private  Integer listpeoplesposition =0;
+
     private  String ФИО;
     private Message message;
     private      Message messageRows;
@@ -144,7 +144,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
     // TODO: 12.10.2022  для одного сигг табеля сотрудника
     private  SubClassBisscessFragmentSingleTabel fragmentSingleTabel;
     private  SubClassSingleTabelRecycreView singleTabelRecycreView;
-    private  Integer GetPosition;
+    private  Integer getlistpeoplesposition;
   private      Animation animation1;
   private      Animation animationFromRecyReview;
   private CopyOnWriteArrayList<Disposable>  disposableAfterTextChangeEvent=new CopyOnWriteArrayList<>();
@@ -259,12 +259,12 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
         try{
 
             if (myRecycleViewAdapter!=null) {
-                GetPosition=myRecycleViewAdapter.cursor.getPosition();
+                getlistpeoplesposition =myRecycleViewAdapter.cursor.getPosition();
             }
 
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " GetPosition " +GetPosition);
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " GetPosition " + getlistpeoplesposition);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :"
@@ -297,7 +297,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " listpeoplesposition " +listpeoplesposition);
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " getlistpeoplesposition " +getlistpeoplesposition);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :"
@@ -716,7 +716,6 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                     // TODO: 10.04.2023
                     if (bundleИзMainActitivy_List_Tables!=null) {
                         // TODO: 23.06.2023  NEW
-                        GetPosition =bundleИзMainActitivy_List_Tables.getInt("Position",0);
                         MainParentUUID=    bundleИзMainActitivy_List_Tables.getLong("MainParentUUID", 0l);
                         ГодТабелей=  bundleИзMainActitivy_List_Tables.getInt("ГодТабелей", 0);
                         МЕсяцТабелей=  bundleИзMainActitivy_List_Tables.getInt("МЕсяцТабелей",0);
@@ -726,7 +725,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         CurrenrsСhildUUID= bundleИзMainActitivy_List_Tables.getLong("CurrenrsСhildUUID", 0l);
                         ФИО= bundleИзMainActitivy_List_Tables.getString("ФИО", "").trim();
                         CurrenrsSelectFio= bundleИзMainActitivy_List_Tables.getLong("CurrenrsSelectFio", 0l);
-                        listpeoplesposition=  bundleИзMainActitivy_List_Tables.getInt("listpeoplesposition", 0);
+                        getlistpeoplesposition =  bundleИзMainActitivy_List_Tables.getInt("listpeoplesposition", 0);
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
@@ -734,7 +733,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                 + " ГодТабелей " +ГодТабелей +" МЕсяцТабелей " +МЕсяцТабелей   + " DigitalNameCFO "+DigitalNameCFO+
                                 " CurrentFragmentMaxItem " + CurrentFragmentMaxItem
                                 + " ИмесяцвИГодСразу " +ИмесяцвИГодСразу
-                                + "  cursorForViewPager " + cursorSingleTabels);
+                                + "  cursorForViewPager " + cursorSingleTabels + " getPositionSingle " + getlistpeoplesposition);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -869,6 +868,9 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 if (!cursorSwipeViewPager.isFirst()){
                     cursorSwipeViewPager.moveToPrevious();
                 }
+                // TODO: 11.05.2025
+                myRecycleViewAdapter.  onAttachedToRecyclerView(recycleviewsingletabel);
+
                 myRecycleViewAdapter.cursor= cursorSwipeViewPager;
                 // TODO: 15.06.2023 перегрузка данныех
                 myRecycleViewAdapter.notifyDataSetChanged();
@@ -905,6 +907,11 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 if (!cursorSwipeViewPager.isLast()){
                     cursorSwipeViewPager.moveToNext();
                 }
+
+
+                // TODO: 11.05.2025
+                myRecycleViewAdapter.  onAttachedToRecyclerView(recycleviewsingletabel);
+
                 myRecycleViewAdapter.cursor= cursorSwipeViewPager;
                 // TODO: 15.06.2023 перегрузка данныех
                 myRecycleViewAdapter.notifyDataSetChanged();
@@ -1047,7 +1054,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                                 Log.i("Swipe direction : ","Left");
                                 // TODO: 06.03.2025
                                 // TODO: 16.06.2023
-                                Cursor cursorSwipeViewPagerLeft=      singleTabelRecycreView.      методScrollsLeftRecyreView();
+                               Cursor cursorSwipeViewPagerLeft=      singleTabelRecycreView.      методScrollsLeftRecyreView();
                                 getLeftAndRightRecyreVieData.методПереРоденияRevireViewScroll(cursorSwipeViewPagerLeft);
                                 методСчитаемЧасы(cursorSwipeViewPagerLeft,cursorSwipeViewPagerLeft.getPosition());
                                 // TODO: 04.04.2023  ФИО
@@ -1355,7 +1362,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 //TODO ЗАПОЛЯНЕМ ПОЛУЧЕННЫЙ МЕСЯ Ц ПЛУС КОЛИЧЕСТВО ЧАСОВ СОТРУДНИКА КОНКРЕТНОГО
                 Integer   ЧасыТекущегоСОтрудника = new BunesslogicSingleTabel(getContext()).getemployeeHoursCounting(cursor);
                 Log.d(this.getClass().getName(), "  ЧасыТекущегоСОтрудника " + ЧасыТекущегоСОтрудника);
-                 Integer getHortsCurrentpostion=     listpeoplesposition+1;
+                 Integer getHortsCurrentpostion=     getlistpeoplesposition+1;
                 String ЧасыТекущегоСотрудника="(" + ЧасыТекущегоСОтрудника + "/часы)" +
                         ""+"\n"+"("+getHortsCurrentpostion+")";
 
@@ -1562,13 +1569,14 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 Intent intentПереХодНаМеткиТабеля = new Intent();
                 intentПереХодНаМеткиТабеля.setClass(getContext(), MainActivity_Metki_Tabel.class);
                 Bundle bundleToMainActitivyMetkiTabel= (Bundle) editTextЯчейка.getTag();
+                bundleToMainActitivyMetkiTabel.putInt("listpeoplesposition",myRecycleViewAdapter.cursor.getPosition());
 
                 if (bundleToMainActitivyMetkiTabel!=null) {
                     intentПереХодНаМеткиТабеля.putExtras(bundleToMainActitivyMetkiTabel);
                     message.getTarget().postDelayed(()->{
                         // TODO: 10.04.2023  переход ИЗ MAINaCTITyTabelSingle Peolpe
                         // TODO: 10.04.2023  ОТПРАВЛЯЕММ ПЕРЕМЕННЫЕ
-                        startActivity(intentПереХодНаМеткиТабеля);
+                      startActivity(intentПереХодНаМеткиТабеля);
                     },100);
                 }
 
@@ -2236,11 +2244,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                     dataRowData.putString("День", НазваниеДляДень);
                     // TODO: 13.04.2023  дополнительные
                     dataRowData.putLong("MainParentUUID", MainParentUUID);
-
-                    Integer ПолощениеДанных=myRecycleViewAdapter.cursor.getPosition();
-
-
-                    dataRowData.putInt("Position",ПолощениеДанных );
+                    dataRowData.putInt("listpeoplesposition",getlistpeoplesposition );
                     dataRowData.putInt("ГодТабелей",   ГодТабелей);
                     dataRowData.putInt("МЕсяцТабелей", МЕсяцТабелей);
                     dataRowData.putInt("DigitalNameCFO", DigitalNameCFO);
@@ -3384,14 +3388,14 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         // TODO: 08.05.2025
                         // TODO: 08.05.2025
                         if ( myRecycleViewAdapter.cursor==null) {
-                            cursor.moveToPosition(listpeoplesposition);
+                            cursor.moveToPosition(getlistpeoplesposition);
                         }else {
                             cursor.moveToPosition(myRecycleViewAdapter.cursor.getPosition());
                         }
                         // TODO: 13.04.2023 делаем смещение по курсору
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "listpeoplesposition " +listpeoplesposition );
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "getlistpeoplesposition " +getlistpeoplesposition );
                     }else {
                         // TODO: 13.04.2023 делаем смещение по курсору
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
