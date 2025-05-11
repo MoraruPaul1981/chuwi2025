@@ -66,7 +66,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialcarviewrow2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="72dp"
         app:cardCornerRadius="5dp"
         android:layout_margin="3dp"
         android:layout_centerHorizontal="true"
@@ -84,8 +84,8 @@
                     android:layout_height="wrap_content">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/imageButtonbackotsingletabel"
-                        android:layout_width="45dp"
-                        android:layout_height="57dp"
+                        android:layout_width="48dp"
+                        android:layout_height="60dp"
                         android:backgroundTint="#F1F4F4"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
@@ -315,8 +315,6 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:fillViewport="true"
-                android:layout_margin="1dp"
-                android:padding="1dp"
                 android:scrollbars="horizontal|vertical"
                 android:stackFromBottom="true"
                 android:transcriptMode="alwaysScroll"
