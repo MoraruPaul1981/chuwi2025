@@ -45,6 +45,7 @@ import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.SubClassWriterPUBLICIDtoDatabase;
 
+import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 import com.dsy.dsu.R;
@@ -56,6 +57,7 @@ import com.jakewharton.rxbinding4.view.RxView;
 
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -99,6 +101,10 @@ public class MainActivityPasswords extends AppCompatActivity {
     @QualifiergetsslSocketFactory2
     SSLSocketFactory getsslSocketFactory2;
 
+
+    @Inject
+    @QualifierJbossServer3
+    public LinkedHashMap<Integer,String> getHiltPortJboss;
 
 
     //////////////////////TODO SERVICE
@@ -682,7 +688,7 @@ public class MainActivityPasswords extends AppCompatActivity {
                 if (ВыбранныйРежимСети == true) {
                     // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                     Boolean   СтатусРаботыСервера =
-                            new GetPingServerJboss(). pingServerJbossSuccessfulOrNot(getApplicationContext(),getsslSocketFactory2 );
+                            new GetPingServerJboss(getApplicationContext()). pingServerJbossSuccessfulOrNot( getsslSocketFactory2 ,sqLiteDatabase,getHiltPortJboss);
 
                     // TODO: 07.10.2023 пинг сервера
                     if (СтатусРаботыСервера == true) {

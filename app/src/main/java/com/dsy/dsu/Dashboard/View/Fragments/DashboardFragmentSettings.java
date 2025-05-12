@@ -705,9 +705,8 @@ public class DashboardFragmentSettings extends  DialogFragment {
                             try {
                                 // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                          Boolean   СтатусРаботыСервера =
-                                        new GetPingServerJboss(). pingServerJbossSuccessfulOrNot(getActivity(),getsslSocketFactory2,
-                                                getHiltPortJboss,
-                                                getsqLiteDatabase);
+                                        new GetPingServerJboss(getContext()).
+                                                pingServerJbossSuccessfulOrNot(getsslSocketFactory2, getsqLiteDatabase,getHiltPortJboss);
 
                                 if (СтатусРаботыСервера == true) {
                                     String ПолученыйТекущееИмяПользователя = new Class_MODEL_synchronized(getContext())

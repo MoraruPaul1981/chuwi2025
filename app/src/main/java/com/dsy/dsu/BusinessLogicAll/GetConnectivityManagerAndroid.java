@@ -20,7 +20,8 @@ public class GetConnectivityManagerAndroid {
         Boolean КакойТипПодключения = false;
         try {
             // TODO: 02.09.2021  проверяем какое подключение
-            android.net.ConnectivityManager connManager = (android.net.ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            android.net.ConnectivityManager connManager = (android.net.ConnectivityManager)
+                    context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(android.net.ConnectivityManager.TYPE_WIFI);
             if (mWifi.isConnected()) {
                 // Do whatever

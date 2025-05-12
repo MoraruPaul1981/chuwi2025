@@ -13,12 +13,14 @@ import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import javax.inject.Inject;
 import javax.net.ssl.SSLSocketFactory;
 
 import dagger.hilt.EntryPoints;
@@ -51,10 +53,10 @@ public class GetPingServerJboss implements  GetPingServer {
 
     @Override
     public Boolean pingServerJbossSuccessfulOrNot(@NotNull SSLSocketFactory getsslSocketFactory2,
-                                                  @NotNull SQLiteDatabase sqLiteDatabase) {
+                                                  @NotNull SQLiteDatabase sqLiteDatabase,
+                                                  @NotNull  LinkedHashMap<Integer,String> getHiltPortJboss) {
         Boolean результатПрозвонаСокетом = false;
         try {
-            LinkedHashMap<Integer,String> getHiltPortJboss=   EntryPoints.get(context, getHiltPortJbossInterface.class).getHiltPortJboss();
             // TODO: 02.04.2024  цикл пинг
             Integer   ИмяПорта =    getHiltPortJboss.entrySet().stream().mapToInt(m->m.getKey()).findAny().getAsInt();
             String     ИмяСервера=       getHiltPortJboss.entrySet().stream().map(m->m.getValue()).findAny().get();
@@ -165,7 +167,7 @@ public class GetPingServerJboss implements  GetPingServer {
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
 
-        return   БуферПолучениеДанныхРЕальныйСтатусРАботыSQLServer
+        return   БуферПолучениеДанныхРЕальныйСтатусРАботыSQLServer;
     }
 
 

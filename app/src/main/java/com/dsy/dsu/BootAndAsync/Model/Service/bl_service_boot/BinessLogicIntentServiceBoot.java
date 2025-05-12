@@ -19,6 +19,7 @@ import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusUpdatePO;
 import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
+import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJbossNotActivity;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
 import com.dsy.dsu.Services.Service_For_Remote_Async_Binary;
@@ -566,7 +567,7 @@ public class BinessLogicIntentServiceBoot {
         Boolean СтатусРаботыСервера =false;
         try {
             // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
-              СтатусРаботыСервера = new GetPingServerJboss(). pingServerJbossSuccessfulOrNot(context,getsslSocketFactory2);
+              СтатусРаботыСервера = new GetPingServerJbossNotActivity(context). pingServerJbossSuccessfulOrNot(getsslSocketFactory2);
 
    Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
