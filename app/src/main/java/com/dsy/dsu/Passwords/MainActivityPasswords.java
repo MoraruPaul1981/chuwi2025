@@ -33,7 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dsy.dsu.BootAndAsync.View.MainActivityBootAndAsync;
 
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
-import com.dsy.dsu.BusinessLogicAll.Class_Connections_Server;
+import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
 import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassDeleteErrorFile;
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
@@ -682,7 +682,7 @@ public class MainActivityPasswords extends AppCompatActivity {
                 if (ВыбранныйРежимСети == true) {
                     // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                     Boolean   СтатусРаботыСервера =
-                            new Class_Connections_Server(). pingServerJbossSuccessfulOrNot(getApplicationContext(),getsslSocketFactory2 );
+                            new GetPingServerJboss(). pingServerJbossSuccessfulOrNot(getApplicationContext(),getsslSocketFactory2 );
 
                     // TODO: 07.10.2023 пинг сервера
                     if (СтатусРаботыСервера == true) {

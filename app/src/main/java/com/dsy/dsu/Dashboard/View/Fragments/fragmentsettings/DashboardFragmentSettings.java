@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -42,7 +42,7 @@ import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.GetComponentActivi
 
 
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
-import com.dsy.dsu.BusinessLogicAll.Class_Connections_Server;
+import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
@@ -125,6 +125,9 @@ public class DashboardFragmentSettings extends  DialogFragment {
     @Inject
     @QualifierJbossServer3
     public LinkedHashMap<Integer,String> getHiltPortJboss;
+
+    @Inject
+    protected SQLiteDatabase getsqLiteDatabase;
 
     // TODO: Rename and change types and number of parameters
     public static DashboardFragmentSettings newInstance( ) {
@@ -702,7 +705,8 @@ public class DashboardFragmentSettings extends  DialogFragment {
                             try {
                                 // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                          Boolean   СтатусРаботыСервера =
-                                        new Class_Connections_Server(). pingServerJbossSuccessfulOrNot(getActivity(),getsslSocketFactory2,getHiltPortJboss);
+                                        new GetPingServerJboss().
+                                                pingServerJbossSuccessfulOrNot(getActivity(),getsslSocketFactory2,getHiltPortJboss,getsqLiteDatabase);
 
                                 if (СтатусРаботыСервера == true) {
                                     String ПолученыйТекущееИмяПользователя = new Class_MODEL_synchronized(getContext())

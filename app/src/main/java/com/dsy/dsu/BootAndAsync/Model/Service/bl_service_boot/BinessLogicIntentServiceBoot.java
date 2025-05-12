@@ -11,16 +11,13 @@ import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 
-import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.CallBackBusUpdatePO;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusAppAfterSyncing;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusNetworkStatuses;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusUpdatePO;
 import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
-import com.dsy.dsu.BusinessLogicAll.Class_Connections_Server;
-import com.dsy.dsu.Dashboard.Model.endingasynsdashboard.LaunchMainAppAfterSyncing;
+import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
@@ -35,7 +32,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.net.ssl.SSLSocketFactory;
 
 import dagger.Module;
@@ -43,11 +39,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.internal.observers.BlockingBaseObserver;
-import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
@@ -574,7 +566,7 @@ public class BinessLogicIntentServiceBoot {
         Boolean СтатусРаботыСервера =false;
         try {
             // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
-              СтатусРаботыСервера = new Class_Connections_Server(). pingServerJbossSuccessfulOrNot(context,getsslSocketFactory2);
+              СтатусРаботыСервера = new GetPingServerJboss(). pingServerJbossSuccessfulOrNot(context,getsslSocketFactory2);
 
    Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
