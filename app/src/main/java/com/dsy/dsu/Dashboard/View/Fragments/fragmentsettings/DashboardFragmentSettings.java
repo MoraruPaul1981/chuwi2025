@@ -723,8 +723,7 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                         Intent Интент_Меню = new Intent();
                                         try {
                                             // TODO: 24.04.2023  запуск смены Пользоватедя Данные
-                                            ProgressDialog prograssbarСменаДанныхПользователя;
-                                            prograssbarСменаДанныхПользователя = new ProgressDialog(getActivity());
+                                            ProgressDialog    prograssbarСменаДанныхПользователя = new ProgressDialog(getActivity());
                                             prograssbarСменаДанныхПользователя.setTitle("Смена данных");
                                             prograssbarСменаДанныхПользователя.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                             prograssbarСменаДанныхПользователя.setProgress(0);
@@ -742,7 +741,8 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                                         handlerAsync,
                                                         prograssbarСменаДанныхПользователя);
 
-                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(), Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, getActivity());
+                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(),
+                                                          Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, getActivity());
 
 
 
