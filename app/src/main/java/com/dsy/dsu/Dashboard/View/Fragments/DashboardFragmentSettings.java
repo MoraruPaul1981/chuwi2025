@@ -742,7 +742,7 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                                         handlerAsync,
                                                         prograssbarСменаДанныхПользователя);
 
-                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(), Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, getActivity());
+                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(),   getActivity());
 
 
 

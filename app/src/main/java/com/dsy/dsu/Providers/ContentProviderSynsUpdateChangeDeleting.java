@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 
+import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
@@ -31,6 +32,7 @@ import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
@@ -54,48 +56,13 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
     private SharedPreferences preferences;
     public ContentProviderSynsUpdateChangeDeleting() throws InterruptedException {
         try{
-        CopyOnWriteArrayList<String> ИменаТаблицыОтАндройда=
-                new SubClassCreatingMainAllTables().getWorkerTablesALl(getContext());
-        Log.d(this.getClass().getName(), " ИменаТаблицыОтАндройда "+ИменаТаблицыОтАндройда );
-     uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(ИменаТаблицыОтАндройда.size());
-            ИменаТаблицыОтАндройда.forEach(new Stream.Builder() {
-         @Override
-         public void accept(Object ЭлементТаблица) {
-             uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerdatachangedeleting",ЭлементТаблица.toString(),ТекущаяСтрокаПриДОбавлениииURL);
-             Log.d(this.getClass().getName(), " ЭлементТаблица "+ЭлементТаблица + " ТекущаяСтрокаПриДОбавлениииURL " +ТекущаяСтрокаПриДОбавлениииURL);
-             ТекущаяСтрокаПриДОбавлениииURL++;
-         }
-         @Override
-         public Stream.Builder add(Object o) {
-             return Stream.Builder.super.add(o);
-         }
 
-         @Override
-         public Stream build() {
-             return null;
-         }
-     });
-        Log.d(this.getClass().getName(),  " uriMatcherДЛяПровайдераКонтентБазаДанных" +uriMatcherДЛяПровайдераКонтентБазаДанных );
+            Log.d(this.getClass().getName(),"\n"
+                    + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
 
 
-        handler=          new Handler(Looper.getMainLooper(),new Handler.Callback(){
-            @Override
-            public boolean handleMessage(@NonNull android.os.Message  msg) {
-                try{
-                    Log.d(this.getClass().getName(), " msg  "+msg);
-                    Bundle bundle=        msg.getData();
-                    Log.d(this.getClass().getName(), " bundle  "+bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("  Ошибка в самом классе записи ошибок нет КОНТЕКСТА RecordNewBackErros");
-                    ///метод запись ошибок в таблицу
-                    Log.e(getContext().getClass().getName(),
-                            "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                }
-                return true;
-            }
-        });
         // TODO: 04.10.2022
     } catch (Exception e) {
         e.printStackTrace();
@@ -114,19 +81,44 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
         try {
             // TODO: 02.09.2023  CREATE get SQLITE
             // TODO: 02.09.2023  CREATE get SQLITE
-/*            new GetSqlite().методGetSqlite(getContext());
-            sqlite=    GetSQLiteDatabase.SqliteDatabase();*/
+// TODO: 13.05.2025 ПРОВАЙДЕР   ContentProviderForAdminissionMaterial
+            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
 
-            sqlite = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+            preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
+            // TODO: 13.05.2025
+            // TODO: 17.01.2025
+            CopyOnWriteArrayList<String> getWorkerTablesALl=     EntryPoints.get(getContext(), HiltWorkerTableCoreApp.class).getWorkerTablesALl();
+            Log.d(getContext().getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 
+            Log.d(this.getClass().getName(), " getWorkerTablesALl "+getWorkerTablesALl );
+            uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(getWorkerTablesALl.size());
+            getWorkerTablesALl.forEach(new java.util.function.Consumer<String>() {
+                @Override
+                public void accept(String ЭлементТаблица) {
+                    uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerdatachangedeleting",ЭлементТаблица.toString(),ТекущаяСтрокаПриДОбавлениииURL);
+                    Log.d(this.getClass().getName(), " ЭлементТаблица "+ЭлементТаблица + " ТекущаяСтрокаПриДОбавлениииURL " +ТекущаяСтрокаПриДОбавлениииURL);
+                    ТекущаяСтрокаПриДОбавлениииURL++;
+                }
+            });
+            Log.d(this.getClass().getName(),  " uriMatcherДЛяПровайдераКонтентБазаДанных" +uriMatcherДЛяПровайдераКонтентБазаДанных );
+            if (sqlite!=null) {
+                Log.d(this.getClass().getName(),"\n"
+                        + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()  +
+                        " sqlite " +sqlite);
+                return  true;
 
+            }
             Log.d(this.getClass().getName(),"\n"
                     + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
-
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -134,7 +126,7 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
         new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                 Thread.currentThread().getStackTrace()[2].getLineNumber());
     }
-        return  true;
+        return  false;
     }
 
 

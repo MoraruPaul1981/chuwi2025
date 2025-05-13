@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -14,9 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -39,49 +34,17 @@ import dagger.hilt.EntryPoints;
 public class ContentProviderForSystemTables extends ContentProvider  {
     private   UriMatcher uriMatcherДЛяПровайдераКонтентБазаДанных;
 
-    private  SQLiteDatabase sqliteManager;
+    private  SQLiteDatabase sqlite;
 
-
-    private Handler handler;
-    private     ContentResolvers contentResolvers;
     public ContentProviderForSystemTables() throws InterruptedException {
         try{
-            uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(1);
 
-            uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerforsystemtables","successlogin",0);
-            uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerforsystemtables","settings_tabels",1);
-
-
-            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+            Log.d(this.getClass().getName(),"\n"
+                    + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
-                    " uriMatcherДЛяПровайдераКонтентБазаДанных " +uriMatcherДЛяПровайдераКонтентБазаДанных);
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
 
 
-            handler=          new Handler(Looper.getMainLooper(),new Handler.Callback(){
-                @Override
-                public boolean handleMessage(@NonNull android.os.Message  msg) {
-                    try{
-                        Log.d(this.getClass().getName(), " msg  "+msg);
-                        Bundle bundle=        msg.getData();
-                        Log.d(this.getClass().getName(), " bundle  "+bundle);
-
-                        Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"  );
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.err.println("  Ошибка в самом классе записи ошибок нет КОНТЕКСТА RecordNewBackErros");
-                        ///метод запись ошибок в таблицу
-                        Log.e(getContext().getClass().getName(),
-                                "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    }
-                    return true;
-                }
-            });
-            // TODO: 04.10.2022
-            contentResolvers=new ContentResolvers(getContext());
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -91,46 +54,44 @@ public class ContentProviderForSystemTables extends ContentProvider  {
         }
     }
 
-    /*@Override
-    public int delete(@NonNull Uri uri, @Nullable Bundle extras) {
-        Integer РезультатУдалениеСтатуса=0;
+
+    @Override
+    public boolean onCreate() {
         try{
-            sqLiteDatabase=new CREATE_DATABASE(getContext()).getССылкаНаСозданнуюБазуORM();
-            if (!sqLiteDatabase.inTransaction()) {
-                sqLiteDatabase.beginTransaction();
+            // TODO: 02.09.2023  CREATE get SQLITE
+            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+
+            uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(1);
+
+            uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerforsystemtables","successlogin",0);
+            uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerforsystemtables","settings_tabels",1);
+
+            if (sqlite!=null) {
+                Log.d(this.getClass().getName(),"\n"
+                        + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()  +
+                        " sqlite " +sqlite);
+                return  true;
+
             }
-      String selection =      extras.getString("selection");
-      String[] selectionArgs =      extras.getStringArray("selectionArgs");
-            Log.d(this.getClass().getName(), " uri"+uri );
-            // TODO: 14.10.2022 метод определения текущней таблицы
-            String table = МетодОпределяемТаблицу(uri);
-            if (table!=null) {
-                Integer РезультатУдаления  = sqLiteDatabase.delete(table, selection, selectionArgs);
-                // TODO: 30.10.2021
-                Log.w(getContext().getClass().getName(), " РезультатУдаления  " + РезультатУдаления);/////
-                Uri ОтветВставкиДанных  = Uri.parse("content://"+РезультатУдаления.toString());
-                String ответОперцииВставки=    Optional.ofNullable(ОтветВставкиДанных).map(Emmeter->Emmeter.toString().replace("content://","")).get();
-                РезультатУдалениеСтатуса= Integer.parseInt(ответОперцииВставки);
-                    if (РезультатУдалениеСтатуса>0) {
-                        getContext().getContentResolver().notifyChange(uri, null);
-                    }
-            }else {
-                Log.w(getContext().getClass().getName(), " table  " + table);/////
-            }
-            if (sqLiteDatabase.inTransaction()) {
-                sqLiteDatabase.setTransactionSuccessful();
-                sqLiteDatabase.endTransaction();
-            }
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
+                    " uriMatcherДЛяПровайдераКонтентБазаДанных " +uriMatcherДЛяПровайдераКонтентБазаДанных);
+
         } catch (Exception e) {
             e.printStackTrace();
-            sqLiteDatabase.endTransaction();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewBackErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+            new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
+                    Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
-        return РезультатУдалениеСтатуса;
-    }*/
+        return  false;
+    }
+
+
 
 
 
@@ -142,14 +103,14 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                 @Override
                 public Integer get() {
                     Integer РезультатУдаления=0;
-                    if (!sqliteManager.inTransaction()) {
-                        sqliteManager.beginTransaction();
+                    if (!sqlite.inTransaction()) {
+                        sqlite.beginTransaction();
                     }
                     Log.d(this.getClass().getName(), " uri"+uri );
                     // TODO: 14.10.2022 метод определения текущней таблицы
                     String table = МетодОпределяемТаблицу(uri);
                     if (table!=null) {
-                        РезультатУдаления  = sqliteManager.delete(table, selection, selectionArgs);
+                        РезультатУдаления  = sqlite.delete(table, selection, selectionArgs);
                         // TODO: 30.10.2021
                         Log.w(getContext().getClass().getName(), " РезультатУдаления  " + РезультатУдаления);/////
                         Uri ОтветВставкиДанных  = Uri.parse("content://"+РезультатУдаления.toString());
@@ -161,12 +122,12 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                     }else {
                         Log.w(getContext().getClass().getName(), " table  " + table);/////
                     }
-                    if (sqliteManager.inTransaction()) {
+                    if (sqlite.inTransaction()) {
 
-                        sqliteManager.setTransactionSuccessful();
+                        sqlite.setTransactionSuccessful();
                     }
-                    if (sqliteManager.inTransaction()) {
-                        sqliteManager.endTransaction();
+                    if (sqlite.inTransaction()) {
+                        sqlite.endTransaction();
                     }
                     return РезультатУдаления;
                 }
@@ -225,8 +186,8 @@ public class ContentProviderForSystemTables extends ContentProvider  {
         // TODO: Implement this to handle requests to insert a new row.
         final Uri[] ОтветInserts = {null};
         try {
-            if (!sqliteManager.inTransaction()) {
-                sqliteManager.beginTransaction();
+            if (!sqlite.inTransaction()) {
+                sqlite.beginTransaction();
             }
             Log.d(this.getClass().getName(), " uri"+uri );
             // TODO: 14.10.2022 метод определения текущней таблицы
@@ -237,7 +198,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                       // TODO: 08.10.2024
                     case  "settings_tabels":
                         // TODO: 08.10.2024
-                        SettingAndLoginBinesslogicSettingsTabels settingAndLoginBinesslogicSettingsTabels  =  new SettingAndLoginBinesslogicSettingsTabels(getContext(),sqliteManager);
+                        SettingAndLoginBinesslogicSettingsTabels settingAndLoginBinesslogicSettingsTabels  =  new SettingAndLoginBinesslogicSettingsTabels(getContext(), sqlite);
 
                         SQLiteStatement sqLiteStatementInsertSettingsTabels=       settingAndLoginBinesslogicSettingsTabels.sqLiteStatementInsertSettingsTabels(table,values);
                         // TODO: 08.10.2024
@@ -248,17 +209,17 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             // TODO: 08.10.2024
                             getContext().getContentResolver().notifyChange(uri, null);
                             // TODO: 08.10.2024
-                            sqliteManager.setTransactionSuccessful();
+                            sqlite.setTransactionSuccessful();
                         }
-                        if (sqliteManager.inTransaction()) {
-                            sqliteManager.endTransaction();
+                        if (sqlite.inTransaction()) {
+                            sqlite.endTransaction();
                         }
                         break;
 
                     // TODO: 08.10.2024
                     case  "successlogin":
 // TODO: 08.10.2024
-                        SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =  new SettingAndLoginBinesslogicSuccessLogin(getContext(),sqliteManager);
+                        SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =  new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
 
                         SQLiteStatement sqLiteStatementInsertSuccessLogin=       settingAndLoginBinesslogicSuccessLogin.sqLiteStatementInsertSuccessLogin(table,values);
                         // TODO: 08.10.2024
@@ -269,10 +230,10 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             // TODO: 08.10.2024
                             getContext().getContentResolver().notifyChange(uri, null);
                             // TODO: 08.10.2024
-                            sqliteManager.setTransactionSuccessful();
+                            sqlite.setTransactionSuccessful();
                         }
-                        if (sqliteManager.inTransaction()) {
-                            sqliteManager.endTransaction();
+                        if (sqlite.inTransaction()) {
+                            sqlite.endTransaction();
                         }
 
 
@@ -304,8 +265,8 @@ public class ContentProviderForSystemTables extends ContentProvider  {
         ArrayList<Integer> РезультатВнутренаяbulk = new ArrayList<>();
         try {
           //  sqLiteDatabase=new CREATE_DATABASE(getContext()).getССылкаНаСозданнуюБазуORM();
-            if (!sqliteManager.inTransaction()) {
-                sqliteManager.beginTransaction();
+            if (!sqlite.inTransaction()) {
+                sqlite.beginTransaction();
             }
             Log.d(this.getClass().getName(), " uri"+uri );
             String table = МетодОпределяемТаблицу(uri);
@@ -318,7 +279,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                     try{
                         Long     id  = 0l;
                         if (ТекущаяСтрочкаИзМассо.size()>0 ) {
-                            id = sqliteManager.insertOrThrow(table, null, ТекущаяСтрочкаИзМассо);
+                            id = sqlite.insertOrThrow(table, null, ТекущаяСтрочкаИзМассо);
                         }
                         Log.w(this.getClass().getName(), " Вставка массовая через burkInsert   id " +  id);
                         if (0 < id) РезультатВнутренаяbulk.add( Integer.parseInt(id.toString()) );
@@ -338,12 +299,12 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                 }
             });
             // TODO: 09.11.2022 закрывает ТРАНЗАКЦИИ ВНУТРИ
-            if (sqliteManager.inTransaction()) {
+            if (sqlite.inTransaction()) {
 
-                sqliteManager.setTransactionSuccessful();
+                sqlite.setTransactionSuccessful();
             }
-            if (sqliteManager.inTransaction()) {
-                sqliteManager.endTransaction();
+            if (sqlite.inTransaction()) {
+                sqlite.endTransaction();
             }
           РезультатМассовогоВсатвкиДанныхФинал=РезультатВнутренаяbulk.size();
             // TODO: 09.11.2022  получаем результаты
@@ -361,27 +322,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
 
 
 
-    @Override
-    public boolean onCreate() {
-        try{
-            // TODO: 02.09.2023  CREATE get SQLITE
-            sqliteManager = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
 
-
-            Log.d(this.getClass().getName(),"\n"
-                    + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
-    } catch (Exception e) {
-        e.printStackTrace();
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                Thread.currentThread().getStackTrace()[2].getMethodName(),
-                Thread.currentThread().getStackTrace()[2].getLineNumber());
-    }
-   return  true;
-    }
 
 
 
@@ -392,7 +333,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
         try {
             Log.d(this.getClass().getName(), " uri"+uri  + "selection "+selection );
             String table = МетодОпределяемТаблицу(uri);
-                        cursor=     sqliteManager.rawQuery(selection,selectionArgs);
+                        cursor=     sqlite.rawQuery(selection,selectionArgs);
             // TODO: 16.04.2025
             // TODO: 17.04.2023
             Log.d(this.getClass().getName(),"\n" + " class FaceAPp "
@@ -456,8 +397,8 @@ public class ContentProviderForSystemTables extends ContentProvider  {
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         Integer РезультатUpdates=0;
         try{
-            if (!sqliteManager.inTransaction()) {
-                sqliteManager.beginTransaction();
+            if (!sqlite.inTransaction()) {
+                sqlite.beginTransaction();
             }
             Log.d(this.getClass().getName(), " uri"+uri );
             // TODO: 14.10.2022 метод определения текущней таблицы
@@ -469,7 +410,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                     // TODO: 08.10.2024
                     case  "settings_tabels":
                         // TODO: 08.10.2024
-                        SettingAndLoginBinesslogicSettingsTabels settingAndLoginBinesslogicSettingsTabels  =  new SettingAndLoginBinesslogicSettingsTabels(getContext(),sqliteManager);
+                        SettingAndLoginBinesslogicSettingsTabels settingAndLoginBinesslogicSettingsTabels  =  new SettingAndLoginBinesslogicSettingsTabels(getContext(), sqlite);
 
                         SQLiteStatement sqLiteStatementInsertSettingsTabels=       settingAndLoginBinesslogicSettingsTabels.sqLiteStatementUpdateSettingsTabels(table,values);
                         // TODO: 08.10.2024
@@ -480,10 +421,10 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             // TODO: 08.10.2024
                             getContext().getContentResolver().notifyChange(uri, null);
                             // TODO: 08.10.2024
-                            sqliteManager.setTransactionSuccessful();
+                            sqlite.setTransactionSuccessful();
                         }
-                        if (sqliteManager.inTransaction()) {
-                            sqliteManager.endTransaction();
+                        if (sqlite.inTransaction()) {
+                            sqlite.endTransaction();
                         }
                         break;
 
@@ -503,7 +444,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             case "firststartapp" :
                                 // TODO: 09.10.2024
                                 SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =
-                                        new SettingAndLoginBinesslogicSuccessLogin(getContext(),sqliteManager);
+                                        new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
                                 SQLiteStatement sqLiteStatementInsertSuccessLogin=       settingAndLoginBinesslogicSuccessLogin
                                         .getsqLiteStatementUpdateSuccessLogin(table,values);
                                 // TODO: 08.10.2024
@@ -514,7 +455,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             case "mode_ssl" :
                                 // TODO: 09.10.2024
                                 SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLoginSLL  =
-                                        new SettingAndLoginBinesslogicSuccessLogin(getContext(),sqliteManager);
+                                        new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
                                 SQLiteStatement sqLiteStatementInsertSuccessLoginSLL=       settingAndLoginBinesslogicSuccessLoginSLL
                                         .getsqLiteStatementChangeSSLUpdateSuccessLogin(table,values);
                                 // TODO: 08.10.2024
@@ -532,10 +473,10 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                             // TODO: 08.10.2024
                             getContext().getContentResolver().notifyChange(uri, null);
                             // TODO: 08.10.2024
-                            sqliteManager.setTransactionSuccessful();
+                            sqlite.setTransactionSuccessful();
                         }
-                        if (sqliteManager.inTransaction()) {
-                            sqliteManager.endTransaction();
+                        if (sqlite.inTransaction()) {
+                            sqlite.endTransaction();
                         }
 
                         break;
@@ -596,42 +537,46 @@ public class ContentProviderForSystemTables extends ContentProvider  {
     */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    class ContentResolvers extends  ContentResolver{
-
-        /**
-         * Note: passing a {@code null} context here could lead to unexpected behavior in certain
-         * ContentResolver APIs so it is highly recommended to pass a non-null context here.
-         *
-         * @param context
-         */
-        public ContentResolvers(@Nullable Context context) {
-            super(context);
+        /*@Override
+    public int delete(@NonNull Uri uri, @Nullable Bundle extras) {
+        Integer РезультатУдалениеСтатуса=0;
+        try{
+            sqLiteDatabase=new CREATE_DATABASE(getContext()).getССылкаНаСозданнуюБазуORM();
+            if (!sqLiteDatabase.inTransaction()) {
+                sqLiteDatabase.beginTransaction();
+            }
+      String selection =      extras.getString("selection");
+      String[] selectionArgs =      extras.getStringArray("selectionArgs");
+            Log.d(this.getClass().getName(), " uri"+uri );
+            // TODO: 14.10.2022 метод определения текущней таблицы
+            String table = МетодОпределяемТаблицу(uri);
+            if (table!=null) {
+                Integer РезультатУдаления  = sqLiteDatabase.delete(table, selection, selectionArgs);
+                // TODO: 30.10.2021
+                Log.w(getContext().getClass().getName(), " РезультатУдаления  " + РезультатУдаления);/////
+                Uri ОтветВставкиДанных  = Uri.parse("content://"+РезультатУдаления.toString());
+                String ответОперцииВставки=    Optional.ofNullable(ОтветВставкиДанных).map(Emmeter->Emmeter.toString().replace("content://","")).get();
+                РезультатУдалениеСтатуса= Integer.parseInt(ответОперцииВставки);
+                    if (РезультатУдалениеСтатуса>0) {
+                        getContext().getContentResolver().notifyChange(uri, null);
+                    }
+            }else {
+                Log.w(getContext().getClass().getName(), " table  " + table);/////
+            }
+            if (sqLiteDatabase.inTransaction()) {
+                sqLiteDatabase.setTransactionSuccessful();
+                sqLiteDatabase.endTransaction();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqLiteDatabase.endTransaction();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
+                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewBackErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
+        return РезультатУдалениеСтатуса;
+    }*/
 
-        @NonNull
-        @Override
-        public ContentProviderResult[] applyBatch(@NonNull String authority, @NonNull ArrayList<ContentProviderOperation> operations) throws OperationApplicationException, RemoteException {
-            return new ContentProviderResult[]{};
-        }
-    }
 }
 

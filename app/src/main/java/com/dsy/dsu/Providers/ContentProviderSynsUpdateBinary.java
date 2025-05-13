@@ -50,6 +50,7 @@ import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.Сhat_usersJsonDes
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СhatsJsonDeserializer;
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СompanylJsonDeserializer;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
@@ -58,6 +59,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -76,7 +78,7 @@ import io.reactivex.rxjava3.functions.Predicate;
 
 public class ContentProviderSynsUpdateBinary extends ContentProvider {
   private   UriMatcher uriMatcherДЛяПровайдераКонтентБазаДанных;
-    @Inject
+
      SQLiteDatabase sqlite;
 
     private  PUBLIC_CONTENT public_contentМенеджерПотоковМассвойОперацииВставки;
@@ -86,48 +88,11 @@ public class ContentProviderSynsUpdateBinary extends ContentProvider {
     private SharedPreferences preferences;
     public ContentProviderSynsUpdateBinary() throws InterruptedException {
         try{
-        CopyOnWriteArrayList<String> ИменаТаблицыОтАндройда=
-                new SubClassCreatingMainAllTables().getWorkerTablesALl(getContext());
-        Log.d(this.getClass().getName(), " ИменаТаблицыОтАндройда "+ИменаТаблицыОтАндройда );
-     uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(ИменаТаблицыОтАндройда.size());
-            ИменаТаблицыОтАндройда.forEach(new Stream.Builder() {
-         @Override
-         public void accept(Object ЭлементТаблица) {
-             uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerdatabasemirrorbinary",ЭлементТаблица.toString(),ТекущаяСтрокаПриДОбавлениииURL);
-             Log.d(this.getClass().getName(), " ЭлементТаблица "+ЭлементТаблица + " ТекущаяСтрокаПриДОбавлениииURL " +ТекущаяСтрокаПриДОбавлениииURL);
-             ТекущаяСтрокаПриДОбавлениииURL++;
-         }
-         @Override
-         public Stream.Builder add(Object o) {
-             return Stream.Builder.super.add(o);
-         }
 
-         @Override
-         public Stream build() {
-             return null;
-         }
-     });
-        Log.d(this.getClass().getName(),  " uriMatcherДЛяПровайдераКонтентБазаДанных" +uriMatcherДЛяПровайдераКонтентБазаДанных );
-
-
-        handler=          new Handler(Looper.getMainLooper(),new Handler.Callback(){
-            @Override
-            public boolean handleMessage(@NonNull android.os.Message  msg) {
-                try{
-                    Log.d(this.getClass().getName(), " msg  "+msg);
-                    Bundle bundle=        msg.getData();
-                    Log.d(this.getClass().getName(), " bundle  "+bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("  Ошибка в самом классе записи ошибок нет КОНТЕКСТА RecordNewBackErros");
-                    ///метод запись ошибок в таблицу
-                    Log.e(getContext().getClass().getName(),
-                            "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                }
-                return true;
-            }
-        });
+            Log.d(getContext().getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);
         // TODO: 04.10.2022
     } catch (Exception e) {
         e.printStackTrace();
@@ -145,19 +110,38 @@ public class ContentProviderSynsUpdateBinary extends ContentProvider {
     public boolean onCreate() {
         try {
             // TODO: 02.09.2023  CREATE get SQLITE
-
-            sqlite = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
-
+            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+          // TODO: 13.05.2025
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
+            // TODO: 13.05.2025
+            // TODO: 17.01.2025
+            CopyOnWriteArrayList<String> getWorkerTablesALl=     EntryPoints.get(getContext(), HiltWorkerTableCoreApp.class).getWorkerTablesALl();
+
+            Log.d(this.getClass().getName(), " getWorkerTablesALl "+getWorkerTablesALl );
+            uriMatcherДЛяПровайдераКонтентБазаДанных=new UriMatcher(getWorkerTablesALl.size());
+            getWorkerTablesALl.forEach(new java.util.function.Consumer<String>() {
+                @Override
+                public void accept(String ЭлементТаблица) {
+                    uriMatcherДЛяПровайдераКонтентБазаДанных.addURI("com.dsy.dsu.providerdatabasemirrorbinary",ЭлементТаблица.toString(),ТекущаяСтрокаПриДОбавлениииURL);
+                    Log.d(this.getClass().getName(), " ЭлементТаблица "+ЭлементТаблица + " ТекущаяСтрокаПриДОбавлениииURL " +ТекущаяСтрокаПриДОбавлениииURL);
+                    ТекущаяСтрокаПриДОбавлениииURL++;
+                }
+            });
+            if (sqlite!=null) {
+                Log.d(this.getClass().getName(),"\n"
+                        + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()  +
+                        " sqlite " +sqlite);
+                return  true;
+
+            }
 
 
             Log.d(this.getClass().getName(),"\n"
                     + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
-
-
-
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -165,7 +149,7 @@ public class ContentProviderSynsUpdateBinary extends ContentProvider {
         new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                 Thread.currentThread().getStackTrace()[2].getLineNumber());
     }
-        return  true;
+        return  false;
 
     }
 

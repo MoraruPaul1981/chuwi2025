@@ -59,6 +59,7 @@ public class ProviderBackAsync extends ContentProvider  {
     @Override
     public boolean onCreate() {
         try{
+            // TODO: 13.05.2025 ПРОВАЙДЕР   фор ProviderBackAsync
              sqliteBAck = EntryPoints.get(getContext(), ModuleBackAsyncSQLlite.class).getModuleBackAsyncSQLlite();
             // TODO: 17.01.2025
             // TODO: 17.01.2025
