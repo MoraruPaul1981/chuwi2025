@@ -135,7 +135,7 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
         Log.d(this.getClass().getName(), " constraintLayout   "+constraintLayout);
 ///////TODO
             // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +

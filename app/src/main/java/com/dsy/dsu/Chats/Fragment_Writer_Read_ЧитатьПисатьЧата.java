@@ -103,7 +103,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
         super.onCreate(savedInstanceState);
         try{
             // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
@@ -189,7 +189,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
             ПолученыйIDДляЧата = getArguments().getLong("ПолученыйIDДляЧата", 0);
             ПолученыйФИОIDДляЧата = new String();
             ПолученыйФИОIDДляЧата = getArguments().getString("ПолученыйФИОIDДляЧата", "");
-            ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             ПолученыйУжеСуществующийUUIDИзПерепискиДляЧата = getArguments().getLong("ПолученыйUUIDУжеСуществующийПерепискиПользоватлейДляЧата", 0);
 
 

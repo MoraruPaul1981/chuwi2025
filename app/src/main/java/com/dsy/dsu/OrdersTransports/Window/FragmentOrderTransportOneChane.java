@@ -160,7 +160,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
             lifecycleOwnerОдноразовая =this;
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
-            ПубличныйID = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйID = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
 
             subClassOrdersTransport.   МетодHandlerCallBack();
 
@@ -585,7 +585,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
                             progressBarСканирование.setVisibility(View.VISIBLE);
                             МетодЗапускаАнимацииКнопок(v);
 
-                            Integer ПубличныйIDДляФрагмента =EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+                            Integer ПубличныйIDДляФрагмента =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
                             // TODO: 16.11.2022  запуск синхронизации однорозовая
 
 

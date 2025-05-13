@@ -156,7 +156,7 @@ public class Fragment1_One_Tasks extends Fragment {
         super.onCreate(savedInstanceState);
      try{
          // TODO: 16.04.2025
-         sqLiteDatabase = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+         sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
          Log.d(getContext().getClass().getName(), "\n"
                  + " время: " + new Date() + "\n+" +
                  " Класс в процессе... " + this.getClass().getName() + "\n" +

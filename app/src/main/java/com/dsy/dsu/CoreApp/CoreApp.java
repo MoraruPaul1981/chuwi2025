@@ -2,6 +2,8 @@ package com.dsy.dsu.CoreApp;
 
 
 import android.app.Application;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
@@ -64,6 +66,12 @@ public class CoreApp extends Application {
 
 /*  @Inject
   ModuleTabels moduleTabels;*/
+
+
+//  @Inject
+// public SQLiteDatabase coreAppSqLiteDatabase ;
+
+
 
   @Override
   public void onCreate() {

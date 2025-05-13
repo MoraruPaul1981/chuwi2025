@@ -3227,7 +3227,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                         ContentValues valuesСменаПрофесси=new ContentValues();
                         Integer ПолучаемIDПрофессии=      bundleСменаПрофессии.getInt("ПолучаемIDПрофессии",0);
                         valuesСменаПрофесси.put("prof",ПолучаемIDПрофессии);
-                        Long ВерсияДанныхUp = new VersionCurentTable(getContext(),sqLiteDatabaseSingle).upVersionCurentTable(ТаблицаОбработки );
+                        Long ВерсияДанныхUp = new VersionCurentTable(getContext()).upVersionCurentTable(ТаблицаОбработки );
                         valuesСменаПрофесси.put("current_table",ВерсияДанныхUp);
                         String ДатаОбновления=     new Class_Generation_Data(getContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
                         valuesСменаПрофесси.put("date_update",ДатаОбновления);

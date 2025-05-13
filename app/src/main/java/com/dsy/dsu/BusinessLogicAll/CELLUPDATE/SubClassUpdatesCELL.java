@@ -136,7 +136,7 @@ public class SubClassUpdatesCELL {
             String Дата =     new Class_Generation_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанныхДОП();
             contentValuesОбноленияЯчейкиSingleTanel.put("date_update", Дата);
 
-            Long Версия = new VersionCurentTable(context,sqLiteDatabase).upVersionCurentTable(    ТаблицаОбработки);
+            Long Версия = new VersionCurentTable(context).upVersionCurentTable(    ТаблицаОбработки);
             contentValuesОбноленияЯчейкиSingleTanel.put("current_table", Версия);
 
 

@@ -66,7 +66,7 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main_history_chat);
             // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
@@ -1060,7 +1060,7 @@ try{
 
         try {
             // TODO: 28.12.2021  ЗАПУСК ОДНОРАЗОВОЙ СЛУЖБЫ
-            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             if (!WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().isEmpty()) {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая =
                         WorkManager.getInstance(getApplicationContext().getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().get(0);

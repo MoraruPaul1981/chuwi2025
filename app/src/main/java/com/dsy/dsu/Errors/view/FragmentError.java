@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
 import com.dsy.dsu.Errors.model.bl_fragment_errors.BinessLogicFragmentError;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.model.BinessLogicGetDataFragmentError;
@@ -141,7 +142,9 @@ public class FragmentError extends DialogFragment {
             sharedPreferencesХранилище=  getContext().getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
             animationv3 = AnimationUtils.loadAnimation(getContext(),R.anim.slide_singletable2);
 
-
+            // TODO: 04.10.2023 разрешения для всего
+            GrandPermissions grandPermissions = new GrandPermissions(getActivity());
+            grandPermissions.checkPermissions();
             // TODO: 12.12.2023  staring biscce logic
 
 

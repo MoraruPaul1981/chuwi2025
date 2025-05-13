@@ -117,7 +117,7 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
 /*            new GetSqlite().методGetSqlite(getContext());
             sqlite=    GetSQLiteDatabase.SqliteDatabase();*/
 
-            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqlite = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 

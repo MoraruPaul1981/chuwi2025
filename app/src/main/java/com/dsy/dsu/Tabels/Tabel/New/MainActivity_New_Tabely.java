@@ -120,7 +120,7 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
 
             // TODO: 01.11.2022 методы до начало запуска
             // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
@@ -1179,7 +1179,7 @@ while(iterator.hasNext()){
     protected   Cursor МетодДляНовогоТабеляПолучаемДанные(@NonNull String  ФлагКакаяТаблицаОбработки){
         Cursor cursor = null;
         try{
-         Integer   ПубличныйIDДляФрагмента     =EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+         Integer   ПубличныйIDДляФрагмента     =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();
@@ -1210,7 +1210,7 @@ while(iterator.hasNext()){
     protected   Cursor МетодДляНовогоТабеляПолучаемДанные(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
         Cursor cursor = null;
         try{
-            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();
@@ -1239,7 +1239,7 @@ while(iterator.hasNext()){
     protected  Cursor МетодДляНовогоТабеляПолучаемДанныеИзНовогоПоиска(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
         Cursor cursor = null;
         try{
-            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

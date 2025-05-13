@@ -573,7 +573,7 @@ public class FragmentDetailingMaterials extends Fragment {
 
                     МетодЗапускаАнимацииКнопок(GetNameSingleAsync1c);
                     handler.postDelayed(()->{
-                                Integer ПубличныйIDДляФрагмента = EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+                                Integer ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
                     },
                             500);
                     Log.d(this.getClass().getName(), " GetNameSingleAsync1c  " + GetNameSingleAsync1c);
@@ -957,7 +957,7 @@ public class FragmentDetailingMaterials extends Fragment {
     , @NonNull Integer НомерВыбраногоМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     =  EntryPoints.get(getContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента     =  EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

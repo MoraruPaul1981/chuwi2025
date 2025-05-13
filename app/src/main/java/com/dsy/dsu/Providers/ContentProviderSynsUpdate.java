@@ -120,7 +120,7 @@ public class ContentProviderSynsUpdate extends ContentProvider {
     public boolean onCreate() {
         try {
             // TODO: 02.09.2023  CREATE get SQLITE
-            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqlite = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 

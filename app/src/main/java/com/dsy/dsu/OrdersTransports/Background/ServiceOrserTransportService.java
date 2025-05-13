@@ -63,7 +63,7 @@ public class ServiceOrserTransportService extends IntentService {
     public void onCreate() {
         super.onCreate();
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(getApplicationContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(getApplicationContext().getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +

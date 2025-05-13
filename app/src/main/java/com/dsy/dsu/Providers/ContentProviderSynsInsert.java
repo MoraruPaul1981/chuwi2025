@@ -329,7 +329,7 @@ public class ContentProviderSynsInsert extends ContentProvider {
     public boolean onCreate() {
         try {
             // TODO: 02.09.2023  CREATE get SQLITE
-            sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqlite = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
 
             Log.d(this.getClass().getName(),"\n"
                     + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

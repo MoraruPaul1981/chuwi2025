@@ -365,7 +365,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
     public boolean onCreate() {
         try{
             // TODO: 02.09.2023  CREATE get SQLITE
-            sqliteManager = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
+            sqliteManager = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
 
 
             Log.d(this.getClass().getName(),"\n"
