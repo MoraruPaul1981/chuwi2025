@@ -37,14 +37,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.BusinessLogicAll.SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзПоявилосЛИПуббличныйUUIDМеждуУчасникамиЧата;
 
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.Services.Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет;
 import com.dsy.dsu.R;
@@ -78,8 +78,8 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     protected Activity ActivityДляСинхронизацииОбмена = null;
     private SQLiteDatabase sqLiteDatabase ;
     protected String ПолученыйФИОIDДляЧата = new String();
-    protected Class_MODEL_synchronized modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного;
-    protected PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    protected CoreBinessLogics modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного;
+    protected BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     protected LinkedBlockingQueue<String> ЛистЗапускаемТолькоТаблицыЧатаВСинхронизации = new LinkedBlockingQueue();
     protected WorkInfo WorkInfoИнформацияОЗапущенойСлужбеОдноразовая;
     protected Integer ПубличныйIDДляФрагмента = 0;
@@ -181,8 +181,8 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
             class_grud_sql_operations = new Class_GRUD_SQL_Operations(getContext());
             recordNewErros =new RecordNewErros(getContext());
 
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(getContext());
-            modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного = new Class_MODEL_synchronized(getContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getContext());
+            modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного = new CoreBinessLogics(getContext());
 
 
 

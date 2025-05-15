@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Jakson.GeneratorJSON1CPayCommitSerializer;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -46,7 +47,7 @@ import okhttp3.Response;
 
 ///////////--------------------------TODO ЭТО ТРЕТИЙ  КОНТРОЛЛЕР ТОЛЬКО ДЛЯ ПОЛУЧЕНИЯ  ТОЛЬКО JSON ПОЛЕЙ  И СКОЛЬКО ТАБЛИЦ НУЖНО БЕЗ  СИНХРОНИЗАЦИИИ---
 
-public class Class_Get_Json_1C extends Class_MODEL_synchronized {
+public class Class_Get_Json_1C extends CoreBinessLogics {
   private   Context context;
     private  String АдресСервера;
     public Class_Get_Json_1C(Context context, String АдресСервера) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
@@ -635,7 +636,7 @@ public InputStream   МетодПолучемJSONОт1СДляСогласова
                     new Class_Get_Json_1C(context,АдресСервера)//TODO
                             .МетодПолучемJSONОт1СДляСогласования(ПубличныйIDДляФрагмента,"sog");//
             //TODO БУфер JSON от Сервера
-          //  ObjectMapper jsonGenerator = new PUBLIC_CONTENT(context).getGeneratorJackson();
+          //  ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
 
             if (  inputStream1cСогласования !=null) {
                 if (inputStream1cСогласования.available()>0 ) {
@@ -676,7 +677,7 @@ public InputStream   МетодПолучемJSONОт1СДляСогласова
           linkedHashMapОтпавркаНа1с.put("dsu1number",НомерТекущегоДокумента);
           // TODO: 10.11.2023 starting Jakson JSON
           StringWriter stringWriterJSONAndroid=    new StringWriter();
-          //ObjectMapper jsonGenerator = new PUBLIC_CONTENT(context).getGeneratorJackson();
+          //ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
           SimpleModule module = new SimpleModule();
           // TODO: 11.09.2023  какая текущап таблица
 

@@ -47,8 +47,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity_Dashboard extends AppCompatActivity {
 
-    @Inject
-    SQLiteDatabase sqlite;
 
     @Inject
     RegisterBroadcastForWorkManager registerBroadcastForWorkManager;

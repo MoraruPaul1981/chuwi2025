@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -62,11 +61,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.CELLUPDATE.SubClassUpdatesCELL;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
@@ -100,8 +99,6 @@ import java.util.function.IntConsumer;
 import java.util.function.ToIntFunction;
 import java.util.stream.IntStream;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -119,8 +116,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @AndroidEntryPoint
 public class FragmentSingleTabelOneSwipe extends Fragment {
 
-    @Inject
-    SQLiteDatabase sqLiteDatabaseSingle;
+
     private MaterialTextView spinnerchasy,spinnermesazyear,spinnerdepartament;/////спинеры для создание табеля
     private    String Профессия;
     private  Integer DigitalNameCFO=0;
@@ -1413,7 +1409,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
 
 
 
-                Log.d(Class_MODEL_synchronized.class.getName()," RowNumber  " + " cursorForViewPager " +cursor.getPosition()
+                Log.d(CoreBinessLogics.class.getName()," RowNumber  " + " cursorForViewPager " +cursor.getPosition()
                         +"myViewHolder.getLayoutPosition()   "+myViewHolder.getLayoutPosition() +
                         "CurrentFragmentMaxItem  " + CurrentFragmentMaxItem);
 
@@ -2561,7 +2557,7 @@ public class FragmentSingleTabelOneSwipe extends Fragment {
                 Integer РезультатОбновлениеЯчейки=0;
                 try{
                         // TODO: 11.04.2023 Оперция Обновлнения ЯЧЕЕК
-                        SubClassUpdatesCELL subClassUpdateSingletabel = new SubClassUpdatesCELL(getContext(),sqLiteDatabaseSingle);
+                        SubClassUpdatesCELL subClassUpdateSingletabel = new SubClassUpdatesCELL(getContext());
                         // TODO: 10.05.2023  ЗАВПИСЫАЕМ НОВЫЕ ДАННЫВЕ В БАЗУ
                           РезультатОбновлениеЯчейки = subClassUpdateSingletabel.МетодВалидацияЯчеекSaveCell(editTextRowКликПоДАнными,getNewValueCell);
                         // TODO: 10.05.2023 После операции Сохранение в Ячкейке

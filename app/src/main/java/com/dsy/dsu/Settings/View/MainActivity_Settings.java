@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,12 +24,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Settings.Model.ChangeSSLForSettings;
 import com.google.android.material.button.MaterialButton;
@@ -45,8 +44,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 
@@ -57,8 +54,7 @@ public class MainActivity_Settings extends AppCompatActivity {
      private      Map<String, String> ХэшДанныеИзБазыДляЗАполенияСпинеровыОрганизация = Collections.synchronizedMap(new LinkedHashMap<String, String>());
 
 
-     @Inject
-      SQLiteDatabase sqLiteDatabase ;
+
     private Spinner СпинерВыборОрганизации;
     private     Cursor Курсор_СамиДанные_Logins=null;
             private int ЕстьСтроки;
@@ -77,7 +73,7 @@ public class MainActivity_Settings extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
-    PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
 
 
 
@@ -97,7 +93,7 @@ public class MainActivity_Settings extends AppCompatActivity {
 
 
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new  PUBLIC_CONTENT(getApplicationContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                     | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -110,7 +106,7 @@ public class MainActivity_Settings extends AppCompatActivity {
             Log.d(context.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
 
 
 
@@ -121,7 +117,7 @@ public class MainActivity_Settings extends AppCompatActivity {
 
             Log.d(this.getClass().getName(), "  textViewВерсияПрограммы " + textViewВерсияПрограммы.getText());
             textViewТекущийПользователь  =(TextView) findViewById(R.id.textViewТекущийПользователь);
-            String ПолученыйТекущееИмяПользователя=new Class_MODEL_synchronized(getApplicationContext()).МетодПолучениеИмяСистемыДляСменыПользователя(getApplicationContext());
+            String ПолученыйТекущееИмяПользователя=new CoreBinessLogics(getApplicationContext()).МетодПолучениеИмяСистемыДляСменыПользователя(getApplicationContext());
             Log.d(this.getClass().getName(), "  ПолученыйТекущееИмяПользователя  "+ПолученыйТекущееИмяПользователя);
             textViewТекущийПользователь.setText("Пользователь: "+ПолученыйТекущееИмяПользователя.toUpperCase());
             textViewВремяПоследнееСинхронизации =(TextView) findViewById(R.id.textViewВремяПоследнееСинхронизации);
@@ -413,7 +409,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
                 //////TODO ЕСЛИ РЕЖИМ TRUE  MOBILE ВПИСЫВАЕМ КАК В БАЗУ MOBILE
                 if (isChecked) {
                     // The toggle is enabled mobile
-         Integer РезультатЗаписиНовогоРЕжима=    new Class_MODEL_synchronized(getApplicationContext())
+         Integer РезультатЗаписиНовогоРЕжима=    new CoreBinessLogics(getApplicationContext())
                  .МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("Mobile", getApplicationContext()
                      ,"SuccessLogin","mode_connection" );
                     Log.d(this.getClass().getName(), "РезультатЗаписиНовогоРЕжима " +РезультатЗаписиНовогоРЕжима );
@@ -429,7 +425,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
                         }});
                 } else {
                     // The toggle is disabled
-                    Integer РезультатЗаписиНовогоРЕжима=            new Class_MODEL_synchronized(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("WIFI", getApplicationContext()
+                    Integer РезультатЗаписиНовогоРЕжима=            new CoreBinessLogics(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("WIFI", getApplicationContext()
                             ,"SuccessLogin","mode_connection" );
                     Log.d(this.getClass().getName(), "РезультатЗаписиНовогоРЕжима " +РезультатЗаписиНовогоРЕжима );
                     ///TODO принудительно устанвливаем редим работы синхронизации
@@ -460,7 +456,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
             //TODO флажек WIFI MObile /// =  МетодПолучениеЗначенияРежимаРаботыИнтернетаWifiИлиInternet(КонтекстКоторыйДляСинхронизации);
           String РезультатКакойРежимЗаписанвБазеВЫходныеДни = new String();
 
-        /*    РезультатКакойРежимЗаписанвБазеВЫходныеДни =  new Class_MODEL_synchronized(getApplicationContext()).
+        /*    РезультатКакойРежимЗаписанвБазеВЫходныеДни =  new CoreBinessLogics(getApplicationContext()).
                     МетодПолучениеЗначенияРежимаРаботыИнтернетаWifiИлиInternet(getApplicationContext() ,"SuccessLogin","mode_weekend");*/
             Class_GRUD_SQL_Operations concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийДляПолучениеСтатусаВключенРЕжимВыходныхДней;
 
@@ -557,7 +553,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
                     //////TODO ЕСЛИ РЕЖИМ TRUE  MOBILE ВПИСЫВАЕМ КАК В БАЗУ MOBILE
                     if (isChecked) {
                         // The toggle is enabled mobile
-                        new Class_MODEL_synchronized(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("Включить", getApplicationContext()
+                        new CoreBinessLogics(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("Включить", getApplicationContext()
                                 ,"SuccessLogin","mode_weekend");
 
                         ///TODO принудительно устанвливаем редим работы синхронизации
@@ -577,7 +573,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
                         //////TODO ЕСЛИ РЕЖИМ TRUE  MOBILE ВПИСЫВАЕМ КАК В БАЗУ ТОЛЬКО WIFI
                     } else {
                         // The toggle is disabled
-                        new Class_MODEL_synchronized(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("Выключить", getApplicationContext()
+                        new CoreBinessLogics(getApplicationContext()).МетодКоторыйЗаписываемВыбранныйРежимИнтрернетаWifiИлиMobile("Выключить", getApplicationContext()
                                 ,"SuccessLogin","mode_weekend");
 
                         ///TODO принудительно устанвливаем редим работы синхронизации
@@ -658,7 +654,7 @@ Class_GRUD_SQL_Operations class_grud_sql_operationsВычисляетПосле�
 
 ///TODO ВСТАВКА НОВГО ТАБЕЛЯ В ТАБЛИЦУ
 
-                        РезультатВставкиНовогоСотрудникарезКонтрейнер[0] = new Class_MODEL_synchronized(getApplicationContext()).
+                        РезультатВставкиНовогоСотрудникарезКонтрейнер[0] = new CoreBinessLogics(getApplicationContext()).
                                 ВставкаДанныхЧерезКонтейнерОрганизацияДляТекущегоСотрудникаУниверсальная("settings_tabels",
                                         АдаптерВставкиВыбраноеОрганизации[0], "settings_tabels",
                                         "",
@@ -796,7 +792,7 @@ return (int) РезультатВставкиНовогоСотрудникар�
 
             // TODO: 07.09.2021  _______________old
             Курсор_ИщемПУбличныйIDКогдаегоНетВстатике =
-                    new Class_MODEL_synchronized(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("SuccessLogin",
+                    new CoreBinessLogics(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("SuccessLogin",
                             new String[]{"id"}, " id IS NOT NULL", null, null, null, "date_update", "1");//
 */
 
@@ -1018,7 +1014,7 @@ return (int) РезультатВставкиНовогоСотрудникар�
 
     /*        // TODO: 07.09.2021       _______________old
 
-            Курсор_ЗагружаетДанныеПриСозданииТабеля =  new Class_MODEL_synchronized(getApplicationContext()).КурсорУниверсальныйДляБазыДанных(ИмяТаблицыДляСпинера, new String[]
+            Курсор_ЗагружаетДанныеПриСозданииТабеля =  new CoreBinessLogics(getApplicationContext()).КурсорУниверсальныйДляБазыДанных(ИмяТаблицыДляСпинера, new String[]
                                         {СтолбикДляЗагурзкиВСпинер}, null,
                                 null, null, null,null, null);///"SELECT name  FROM MODIFITATION_Client WHERE name=?",НазваниеТаблицНаСервере
 
@@ -1226,7 +1222,7 @@ return (int) РезультатВставкиНовогоСотрудникар�
             // TODO: 07.09.2021     _______________old
 
                         ////TODO ИЩЕМ ОРГАНИЗАЦИЮ КОТРОУЮ ВЫБРАЛ СОТРУДНИК УЖЕ ЗАХОДИЛ И ВЫБРАЛ НА АКТИВТИ цифра один ставитсья всегда каторую выбрали
-            Курсор_ИщемВыбраннуюОрганизацию =  new Class_MODEL_synchronized(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("organization", new String[]
+            Курсор_ИщемВыбраннуюОрганизацию =  new CoreBinessLogics(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("organization", new String[]
                                 {"name","chosen_organization"}, "chosen_organization=?",new String[] {"1"}, null, null,null, null);///"SELECT name  FROM MODIFITATION_Client WHERE name=?",НазваниеТаблицНаСервере
 
 */

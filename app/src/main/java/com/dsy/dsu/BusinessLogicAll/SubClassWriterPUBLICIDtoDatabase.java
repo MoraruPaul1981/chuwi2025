@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
@@ -42,7 +43,7 @@ public class SubClassWriterPUBLICIDtoDatabase {
 
             //////todo САМА НЕ ПОСТРЕДВСТВЕНА ЗАПИС ДАННЫХ В ТАБЛИЦУ НАСТЙКИ СИТЕМЫ
             результатЗаписиНовогоПароляПользователявБазцуsuccesslogin =
-                    new Class_MODEL_synchronized(context).
+                    new CoreBinessLogics(context).
                             wewillsetupanewPublicidaftersuccessfulsynchronizationSuccessLogin("successlogin",
                                     NewPublicWitnSussecLogin,ПолученинныйПубличныйIDДлчЗаписиВБАзу);
 

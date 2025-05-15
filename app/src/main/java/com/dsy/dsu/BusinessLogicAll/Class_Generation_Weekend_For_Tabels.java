@@ -3,29 +3,24 @@ package com.dsy.dsu.BusinessLogicAll;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.Date;
-
-import dagger.hilt.EntryPoints;
 
 
 public class Class_Generation_Weekend_For_Tabels {
     Context context;
-    private SQLiteDatabase sqLiteDatabase ;
     public Class_Generation_Weekend_For_Tabels(Context context) {
         this.context =context;
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
     }
 
 
@@ -42,7 +37,7 @@ public class Class_Generation_Weekend_For_Tabels {
             concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы","SuccessLogin");
             concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.concurrentHashMapНабор.put("СтолбцыОбработки","mode_weekend");
             // TODO: 12.10.2021  Ссылка Менеджер Потоков
-            PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
+            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
             // TODO: 02.09.2021 exe sql
             SQLiteCursor КурсорУзнаемСохраненыйРежимРаботыССетью= (SQLiteCursor)  concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.
                     new GetData(context).getdata(concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.
@@ -60,14 +55,14 @@ public class Class_Generation_Weekend_For_Tabels {
             // TODO: 24.05.2021 КОД ДЛЯ АВТОМАТИЧЕСКОГО ВЫСТАВЛЕНИЯ ВЫХОДНЫХ ДНЕЙ В ТАБЕЛЬ
             if (РезультатКакойРежимЗаписанвБазеВЫходныеДни.contentEquals("Включить")) {
                 // TODO: 24.05.2021 вычисляем дни
-                ContentValues КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные = new Class_MODEL_synchronized(context)
+                ContentValues КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные = new CoreBinessLogics(context)
                         .МетодВычисляемВыходныеДниПриСозданииНовогоТабеляАвтоРЕжим(context,
                                 МЕсяцПриВставкеНовогоСотрудника , ГодПриВставкеНовогоСотрудника);
                 // TODO: 24.05.2021 сама вставка  выходних дней
                 Log.d(this.getClass().getName()," КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные " + КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные);
 
                 // TODO: 25.03.2021 вставка табель
-                РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель = new Class_MODEL_synchronized(context)
+                РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель = new CoreBinessLogics(context)
                         .ЛокальногоОбновлениеДанныхЧерезКонтейнерУниверсальная("data_tabels",
                                 КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные,
                                 UUIDGeneratorINset,
@@ -86,7 +81,7 @@ public class Class_Generation_Weekend_For_Tabels {
         } catch (Exception e) {///////ошибки
             e.printStackTrace();
             ///метод запись ошибок в таблицу
-            Log.e(Class_MODEL_synchronized.class.getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+            Log.e(CoreBinessLogics.class.getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
             // TODO: 01.09.2021 метод вызова
             new RecordNewErros(context).recordnewerror(e.toString(),

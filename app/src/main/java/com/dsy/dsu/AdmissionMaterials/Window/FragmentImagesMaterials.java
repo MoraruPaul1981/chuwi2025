@@ -518,7 +518,8 @@ public class FragmentImagesMaterials extends Fragment {
                         progressBarСканирование.setVisibility(View.VISIBLE);
                         МетодЗапускаАнимацииКнопок(v);
                         message.getTarget().postDelayed(()->{
-                                    Integer ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                                    Integer ПубличныйIDДляФрагмента =     new GetPublicID().getPublicIDAllApp(getContext());
+
                                     // TODO: 16.11.2022  запуск синхронизации однорозовая
                                     },
                                 500);
@@ -844,7 +845,8 @@ public class FragmentImagesMaterials extends Fragment {
     , @NonNull Integer ТекущаяНомерМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента     =     new GetPublicID().getPublicIDAllApp(getContext());
+
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

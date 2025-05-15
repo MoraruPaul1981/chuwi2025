@@ -2,31 +2,26 @@ package com.dsy.dsu.BusinessLogicAll;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.Date;
-
-import dagger.hilt.EntryPoints;
 
 
 public class Class_Search_Changes_Data {
     Context context;
     ///////TODO
-    private SQLiteDatabase sqLiteDatabase ;
+
     ////
     public Class_Search_Changes_Data(Context context) {
         this.context =context;
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
     }
     //функция получающая время операции ДАННАЯ ФУНКЦИЯ ВРЕМЯ ПРИМЕНЯЕТЬСЯ ВО ВСЕЙ ПРОГРАММЕ
 
@@ -60,7 +55,7 @@ public class Class_Search_Changes_Data {
             /// class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеЛимита","1");*/
         ////
         // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
-            PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
+            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
             SQLiteCursor    Курсор_ВычислемБылиЛиИзмененияВТаблицеТабель = (SQLiteCursor) class_grud_sql_operationsВычислемБылиЛиИзмененияВТаблицеТабель.
                 new GetData(context).getdata(class_grud_sql_operationsВычислемБылиЛиИзмененияВТаблицеТабель.concurrentHashMapНабор,
                 Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,sqLiteDatabase);
@@ -145,7 +140,7 @@ public class Class_Search_Changes_Data {
 
             // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-            PUBLIC_CONTENT  Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (context);
+            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(context);
 
             ///
 
@@ -166,7 +161,7 @@ public class Class_Search_Changes_Data {
             // TODO: 09.09.2021  ___old
 
            Курсор_ВычислемБылиЛиИзмененияВТаблицеТабель=
-                    new Class_MODEL_synchronized(Контекст).КурсорУниверсальныйБазыДанных("SELECT localversionandroid,versionserveraandroid FROM MODIFITATION_Client WHERE name = 'tabels' ");
+                    new CoreBinessLogics(Контекст).КурсорУниверсальныйБазыДанных("SELECT localversionandroid,versionserveraandroid FROM MODIFITATION_Client WHERE name = 'tabels' ");
 
 
 */

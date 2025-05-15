@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -14,8 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,8 +20,7 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.ArrayList;
@@ -44,7 +39,7 @@ public class ContentProviderForDataBaseCurrentOperations extends ContentProvider
 
     private  SQLiteDatabase sqlite;
 
-    private  PUBLIC_CONTENT public_contentМенеджерПотоковМассвойОперацииВставки;
+    private BinessLogicPublicContent binessLogicPublicContentМенеджерПотоковМассвойОперацииВставки;
     private AsyncTaskLoader<?> asyncTaskLoader;
     private Handler handler;
     private Integer ТекущаяСтрокаПриДОбавлениииURL=0;

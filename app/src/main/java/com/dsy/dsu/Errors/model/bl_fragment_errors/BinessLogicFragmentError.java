@@ -44,17 +44,14 @@ public class BinessLogicFragmentError {
 
     private Context context;
 
-    private SQLiteDatabase sqLiteDatabase_error;
-
     private String fileName = "Sous-Avtodor-ERROR.txt";
     private   String patchFileName="SousAvtoFile";
 
     private  ModuleQuety moduleQuety;
 
-    public BinessLogicFragmentError(@NonNull  Context context, @NonNull SQLiteDatabase sqLiteDatabase_error,  @NonNull  ModuleQuety moduleQuety) {
+    public BinessLogicFragmentError(@NonNull  Context context,  @NonNull  ModuleQuety moduleQuety) {
         this.moduleQuety = moduleQuety;
         this.context = context;
-        this.sqLiteDatabase_error = sqLiteDatabase_error;
         // TODO: 17.01.2025
 
 

@@ -36,7 +36,7 @@ import androidx.work.WorkerParameters;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.BusinessLogicAll.SubClass_Starting_Tasks_ЗапускДЛяЗадач;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
@@ -72,7 +72,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
     private   Intent ИнтентДляЗапускаСлужбыПолсеАнализа;
     private   Boolean РезультатНужноЗапускатьУведомленияИлиНет=false;
     private String PROCESS_ID_УведомленияПлановая="12";
-    private   PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
     private  ArrayList БуферСамиУведомленияЛинкСамиУведомления;
     private  NotificationCompat.MessagingStyle messagingStyleДля_ОбщихУведомлений;
     private Person.Builder person;
@@ -84,7 +84,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
         super(context, workerParams);
         this.context = context;
         workerParams = workerParams;
-        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
+        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
         messagingStyleДля_ОбщихУведомлений = new NotificationCompat.MessagingStyle(getApplicationContext().getResources().getString(R.string.action_settings)).setConversationTitle("Задачи");
         Log.i(this.context.getClass().getName(),
                 " messagingStyleДля_ОбщихУведомлений " + "\n" + messagingStyleДля_ОбщихУведомлений.getMessages());
@@ -925,7 +925,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
         Integer  ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали= (Integer)  class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.
                 new UpdateData(getApplicationContext()).updatedata(class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.concurrentHashMapНабор,
                 class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.contentValuesДляSQLBuilder_Для_GRUD_Операций,
-                new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков,   sqLiteDatabase);
+                new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков,   sqLiteDatabase);
 
         Log.d(this.getClass().getName(), " ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали  " +ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали
                 +" UUIDРочитаногоЗаданиеДляКотрогоДалееБудетПроизведенаСменаСтсусаНАОзнакомленный "+UUIDРочитаногоЗаданиеДляКотрогоДалееБудетПроизведенаСменаСтсусаНАОзнакомленный);
@@ -999,7 +999,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
                             new ChangesVesionData(getApplicationContext()).
                             changesvesiondata(classGrudSqlOperationsДляОперацииСозданеиНовойЗадачи.
                                             concurrentHashMapНабор,
-                                    new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
+                                    new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
                                     , sqLiteDatabaseДляНовгоЗадания);
 //
             Log.d(getApplicationContext().getClass().getName(), "Результат_ПриписиИзменнийВерсииДанныхВФонеПриСменеОрганизации "
@@ -1053,7 +1053,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
             ///
             Class_GRUD_SQL_Operations   class_grud_sql_operationsПолучаемПубличныйIDЛокальноИеСЛИЕгоНЕтНАчинаемЕгоИСктьВНИтренете=new Class_GRUD_SQL_Operations(getApplicationContext());
             // TODO: 03.11.2021
-            PUBLIC_CONTENT public_contentменеджер=new PUBLIC_CONTENT(getApplicationContext());
+            BinessLogicPublicContent public_contentменеджер=new BinessLogicPublicContent(getApplicationContext());
 
             ///
             class_grud_sql_operationsПолучаемПубличныйIDЛокальноИеСЛИЕгоНЕтНАчинаемЕгоИСктьВНИтренете.

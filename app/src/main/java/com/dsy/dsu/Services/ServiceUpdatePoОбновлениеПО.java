@@ -22,9 +22,9 @@ import androidx.appcompat.app.AlertDialog;
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.DeletingFiles.GetDeletingFilesJsonAndApk;
 
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusNetworkStatuses;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 
 import org.greenrobot.eventbus.EventBus;
@@ -274,12 +274,12 @@ public class ServiceUpdatePoОбновлениеПО extends IntentService {////
             ConnectivityManager cm = (ConnectivityManager) КонтекстКоторыйДляСинхронизации.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if ( wifiInfo.isConnected()) {
-                Log.d(Class_MODEL_synchronized.class.getName(), " подключние к интренту через wifi");
+                Log.d(CoreBinessLogics.class.getName(), " подключние к интренту через wifi");
                 return "WIFI";
             }else{
                 NetworkInfo wifiInfoMObile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                 if (wifiInfoMObile.isConnected()) {
-                    Log.d(Class_MODEL_synchronized.class.getName(), " подключние к интренту через mobile");
+                    Log.d(CoreBinessLogics.class.getName(), " подключние к интренту через mobile");
                     return "Mobile";
                 }
             }
@@ -320,8 +320,8 @@ public class ServiceUpdatePoОбновлениеПО extends IntentService {////
             Integer    ПортСерверИзХранилица = getHiltPortJboss.keySet().stream().mapToInt(m->m).findFirst().getAsInt();
 
             // TODO: 08.01.2022 Полученм JSON File  для анализа
-            File ФайлJsonОтСервера = new Class_MODEL_synchronized(getApplicationContext()).
-                    МетодЗагрузкиОбновлениеПОсСервера(new PUBLIC_CONTENT(getApplicationContext()).getСсылкаНаРежимСервераОбновлениеПО(),
+            File ФайлJsonОтСервера = new CoreBinessLogics(getApplicationContext()).
+                    МетодЗагрузкиОбновлениеПОсСервера(new BinessLogicPublicContent(getApplicationContext()).getСсылкаНаРежимСервераОбновлениеПО(),
                             getApplicationContext(), ИмяСерверИзХранилица ,ПортСерверИзХранилица,"FileJsonUpdatePO",
                             "update_dsu1.json","application/json",getsslSocketFactory2);
 

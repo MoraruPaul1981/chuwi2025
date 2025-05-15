@@ -29,13 +29,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassMONTHONLY_ТолькоАнализ;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassYEARONLY;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassYearHONLY_ТолькоАнализ;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassMONTHONLY;
 
 
@@ -489,7 +489,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
                 //todo ДАННЫЕ ЗА ПРОШЛЫЙ МЕСЯЦ ТАБЕЛЬ
                 SQLiteCursor Курсор_ВытаскиваемПоследнийМесяцТабеля = (SQLiteCursor) class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.
                         new GetData(getApplicationContext()).getdata(class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор,
-                        new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
+                        new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
                         ,   sqLiteDatabase);
                 Log.d(this.getClass().getName(), "Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount() " + Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount());
                 class_grud_sql_operationЗаполнениеИзПрошлогоМесяца = new Class_GRUD_SQL_Operations(getApplicationContext());

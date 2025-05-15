@@ -592,7 +592,8 @@ public class FragmentAdmissionMaterials extends Fragment {
                             try {
                                 progressBarСканирование.setVisibility(View.VISIBLE);
                                 МетодЗапускаАнимацииКнопок(v);
-                                Integer ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                                Integer getPublicIdForError =   new GetPublicID().getPublicIDAllApp(getContext());
+
                                 // TODO: 16.11.2022  запуск синхронизации однорозовая
                                 Log.d(this.getClass().getName(), "  v  " + v);
                             } catch (Exception e) {
@@ -968,7 +969,8 @@ public class FragmentAdmissionMaterials extends Fragment {
     // TODO: 02.08.2022
     protected   Cursor методGetCFOCursorFirst(@NonNull String  ФлагКакиеДанныеНужныПолучениеМатериалов, @NonNull Integer ТекущаяЦФО ){
         try{
-            ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента      =  new GetPublicID().getPublicIDAllApp(getContext());
+
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

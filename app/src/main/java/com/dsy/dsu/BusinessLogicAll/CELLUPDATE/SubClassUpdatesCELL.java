@@ -28,17 +28,14 @@ import dagger.hilt.EntryPoints;
 public class SubClassUpdatesCELL {
     Context context;
     private LongToIntFunction longToIntFunction;
-    private SQLiteDatabase sqLiteDatabase ;
-    public SubClassUpdatesCELL( @NonNull  Context context,@NonNull SQLiteDatabase sqLiteDatabase ) {
-
+    public SubClassUpdatesCELL( @NonNull  Context context ) {
         this.context = context;
-        this.sqLiteDatabase = sqLiteDatabase;
         // TODO: 16.04.2025
 
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
     }
 
 

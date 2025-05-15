@@ -189,11 +189,7 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
 
               InsertingNewErorr =    moduleInserting.getModuleInsert("errordsu1",contentValuesNewError);
 
-/*     Long   pезультатВставкиНовойОшибки = (Long) classGrudSqlOperationsОшибки.
-                new InsertData(context).insertdata(classGrudSqlOperationsОшибки.concurrentHashMapНабор,
-                classGrudSqlOperationsОшибки.contentValuesДляSQLBuilder_Для_GRUD_Операций,
-                new PUBLIC_CONTENT(context).МенеджерПотоков,
-                sqLiteDatabase);*/
+
             Log.d(this.getClass().getName(),"\n" + " class CoreApp    " + Thread.currentThread().getStackTrace()[2].getClassName()
                     + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

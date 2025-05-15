@@ -5,12 +5,10 @@ import static java.util.Calendar.getInstance;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -19,22 +17,17 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import dagger.hilt.EntryPoints;
-
 public class Class_Generation_UUID {
  private    Context context;
     private  Integer ПубличныйID =0;
 
-    private SQLiteDatabase sqLiteDatabase ;
+
     public Class_Generation_UUID(Context context) {
         this.context = context;
-///////TODO
-        // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
     public Long МетодГенерацииUUID() {
         Long UUID = 0l;
@@ -55,7 +48,7 @@ public class Class_Generation_UUID {
                 class_grud_sql_operationsПолучаемНаБазуUUIDфиоПолучаемИзТаблицыФИОИМЯ.concurrentHashMapНабор.put("СамFreeSQLКОд",
                         " SELECT id  FROM successlogin  ORDER BY date_update DESC ;");
                 // TODO: 12.10.2021  Ссылка Менеджер Потоков
-                PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
+                BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
 
                 SQLiteCursor            Курсор_Получаемsuccesslogin= (SQLiteCursor) class_grud_sql_operationsПолучаемНаБазуUUIDфиоПолучаемИзТаблицыФИОИМЯ.
                         new GetаFreeData(context).getfreedata(class_grud_sql_operationsПолучаемНаБазуUUIDфиоПолучаемИзТаблицыФИОИМЯ.concurrentHashMapНабор,

@@ -13,7 +13,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -49,12 +48,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Services.Service_For_Public;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
@@ -81,8 +80,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -111,14 +108,14 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
     private   Context context;
 
     private   Button backFaceApp;
-    private SQLiteDatabase sqLiteDatabase ;
+
 
     private  TextView textViewКоличествоТабелей;
     private  FloatingActionButton КруглаяКнопкаСамТабель;
     private  Activity activity;
     private   Integer   ПубличноеIDПолученныйИзСервлетаДляUUID=0;
     private Class_GRUD_SQL_Operations class_grud_sql_operationsДляАктивтиТабель ;
-    private   PUBLIC_CONTENT  Class_Engine_SQLГдеНаходитьсяМенеджерПотоков ;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков ;
     private Long MainParentUUIDFromTabel =0l;
     private SharedPreferences sharedPreferencesХранилище;
     private  Animation     animation;
@@ -143,8 +140,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
 
     private   Cursor Курсор_ДанныеСпиннера;
 
-    @Inject
-    public   SQLiteDatabase getSqlLiteCoreApp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,10 +157,10 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
             Log.d(context.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
 
 
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (getApplicationContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -1048,11 +1044,11 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
                     class_grud_sql_operationsДляАктивтиТабель.concurrentHashMapНабор.put("УсловиеПоиска1","Удаленная");
                     class_grud_sql_operationsДляАктивтиТабель.concurrentHashMapНабор.put("УсловиеСортировки","current_table ");//DESC
                     ////
-                    PUBLIC_CONTENT         Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT (getApplicationContext());
+                    BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getApplicationContext());
                     Курсор_КоторыйЗагружаетГотовыеТабеляМаксимальнаяДатаДляСпинера= (SQLiteCursor) class_grud_sql_operationsДляАктивтиТабель.
                             new GetData(getApplicationContext()).getdata(class_grud_sql_operationsДляАктивтиТабель.
                                     concurrentHashMapНабор,
-                            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, sqLiteDatabase);
+                            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,  );
                     Log.d(this.getClass().getName(), "GetData " +Курсор_КоторыйЗагружаетГотовыеТабеляМаксимальнаяДатаДляСпинера );
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1559,7 +1555,7 @@ try{
 
         } catch (Exception e) {///////ошибки
             e.printStackTrace();
-            Log.e(Class_MODEL_synchronized.class.getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+            Log.e(CoreBinessLogics.class.getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
             // TODO: 01.09.2021 метод вызова
             new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(),
@@ -1755,7 +1751,7 @@ try{
             class_grud_sql_operationsДляАктивтиТабель.concurrentHashMapНабор.put("УсловиеЛимита",1);
             class_grud_sql_operationsДляАктивтиТабель.concurrentHashMapНабор.put("УсловиеСортировки","date_update DESC");
             // TODO: 12.10.2021  Ссылка Менеджер Потоков
-            PUBLIC_CONTENT  Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (getApplicationContext());
+            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
             // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
             Курсор_ИщемПроведенЛиТАбельИлиНЕт= (SQLiteCursor) class_grud_sql_operationsДляАктивтиТабель.
                     new GetData(getApplicationContext()).getdata(class_grud_sql_operationsДляАктивтиТабель.concurrentHashMapНабор,
@@ -1901,7 +1897,7 @@ try{
                                     public void accept(Object o) throws Throwable {
                                         // TODO: 22.11.2022  первая часть
                                     Long    ДляУдалениеUUID=     cursor.getLong(0);
-                                   Integer     Удаление = new Class_MODEL_synchronized(getApplicationContext()).УдалениеТолькоПустогоТабеляЧерезКонтейнерУниверсальная(ИзКакойТаблицыУдалять,
+                                   Integer     Удаление = new CoreBinessLogics(getApplicationContext()).УдалениеТолькоПустогоТабеляЧерезКонтейнерУниверсальная(ИзКакойТаблицыУдалять,
                                                     "uuid", ДляУдалениеUUID);
                                             Log.d(this.getClass().getName(), " ДляУдалениеUUID " + ДляУдалениеUUID);
                                         if (Удаление>0) {
@@ -1983,7 +1979,7 @@ try{
                         @Override
                         public void accept(Object o) throws Throwable {
                             // TODO: 22.11.2022  первая часть
-                            Integer     Удаление = new Class_MODEL_synchronized(getApplicationContext()).УдалениеТолькоПустогоТабеляЧерезКонтейнерУниверсальная(ИзКакойТаблицыУдалять,
+                            Integer     Удаление = new CoreBinessLogics(getApplicationContext()).УдалениеТолькоПустогоТабеляЧерезКонтейнерУниверсальная(ИзКакойТаблицыУдалять,
                                     "uuid", ДляУдалениеUUID);
                             Log.d(this.getClass().getName(), " ДляУдалениеUUID " + ДляУдалениеUUID);
                             if (Удаление>0) {

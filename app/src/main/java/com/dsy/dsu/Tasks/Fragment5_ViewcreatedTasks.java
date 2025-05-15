@@ -38,9 +38,9 @@ import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.Services.Service_For_Task_Для_Задания_СменаСатуса;
 import com.dsy.dsu.R;
@@ -393,7 +393,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                 // TODO: 03.03.2022  глаВНЫЙ КУРСОР ДЛЯ ЗАДАЧ
                 Курсор_ГлавныйКурсорДляЗадач = (SQLiteCursor) class_grud_sql_operationsIDпользоввателяДляСлужб.
                         new GetData(getContext()).getdata(class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор,
-                        new PUBLIC_CONTENT(context).МенеджерПотоков,sqLiteDatabase);
+                        new BinessLogicPublicContent(context).МенеджерПотоков,sqLiteDatabase);
                 // TODO: 02.03.2022
                 if (Курсор_ГлавныйКурсорДляЗадач.getCount() > 0) {
                     // TODO: 03.03.2022
@@ -688,7 +688,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                 // TODO: 03.03.2022  глаВНЫЙ КУРСОР ДЛЯ ЗАДАЧ
                 Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе = (SQLiteCursor) class_grud_sql_operationsIDпользоввателяДляСлужб.
                         new GetData(getContext()).getdata(class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор,
-                        new PUBLIC_CONTENT(getContext()).МенеджерПотоков, sqLiteDatabase);
+                        new BinessLogicPublicContent(getContext()).МенеджерПотоков, sqLiteDatabase);
                 // TODO: 02.03.2022
                 if (Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе.getCount() > 0) {
                     // TODO: 03.03.2022
@@ -1417,7 +1417,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
 
                     Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал = (SQLiteCursor) class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.
                             new GetData(getContext()).getdata(class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор,
-                            new PUBLIC_CONTENT(getContext()).МенеджерПотоков,sqLiteDatabase);
+                            new BinessLogicPublicContent(getContext()).МенеджерПотоков,sqLiteDatabase);
 
                     ////////
 
@@ -1529,7 +1529,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                     // TODO: 03.03.2022  глаВНЫЙ КУРСОР ДЛЯ ЗАДАЧ
                     sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание = (SQLiteCursor) class_grud_sql_operationsIDпользоввателяДляСлужб.
                             new GetData(getContext()).getdata(class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор,
-                            new PUBLIC_CONTENT(context).МенеджерПотоков, sqLiteDatabase);
+                            new BinessLogicPublicContent(context).МенеджерПотоков, sqLiteDatabase);
                     // TODO: 02.03.2022
               /*      if (sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание.getCount() > 0) {
                         // TODO: 03.03.2022
@@ -1627,7 +1627,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                                     new ChangesVesionData(getContext()).
                                     changesvesiondata(classGrudSqlOperationsДляОперацииСозданеиНовойЗадачи.
                                                     concurrentHashMapНабор,
-                                            new PUBLIC_CONTENT(getContext()).МенеджерПотоков
+                                            new BinessLogicPublicContent(getContext()).МенеджерПотоков
                                             , sqLiteDatabaseДляНовгоЗадания);
 //
                     Log.d(getContext().getClass().getName(), "Результат_ПриписиИзменнийВерсииДанныхВФонеПриСменеОрганизации "

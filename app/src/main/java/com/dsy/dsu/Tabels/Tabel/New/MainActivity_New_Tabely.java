@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -40,6 +39,7 @@ import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.loader.content.AsyncTaskLoader;
 
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
@@ -47,9 +47,7 @@ import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
@@ -80,8 +78,7 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
     private Button КнопкаСозданиеТабеля;
     private  Button КнопкаНазадПриСозданииНовогоТабеля;
     private  Context Контекст;
-    private SQLiteDatabase sqLiteDatabase ;
-    private  PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
     private   Cursor CursorДляСпиноровЦФО;
     private  Handler handler;
@@ -105,7 +102,7 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             getSupportActionBar().hide(); ///скрывать тул бар
             Контекст=this;
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT(getApplicationContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                     | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -119,12 +116,11 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             // TODO: 01.11.2022 методы до начало запуска
-            // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
+
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
 
 
 
@@ -412,7 +408,7 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
                     new GetData(getApplicationContext()).getdata(class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
                             concurrentHashMapНабор,
                     МенеджерПотоковВнутри
-                    ,  sqLiteDatabase);
+                    ,   );
             Log.d(this.getClass().getName(), "GetData "  +Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет);
         if (   Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет.getCount() > 0) {
             Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет.close();
@@ -1107,7 +1103,7 @@ while(iterator.hasNext()){
             //    АдаптерВставкиНовгоТабеля.  putNull("_id");
 
                 // TODO: 14.12.2022  само создание нового табеля 
-            long   РезультатВставкиНовогоТабеляЧерезКонтрейнер = new Class_MODEL_synchronized(Контекст).
+            long   РезультатВставкиНовогоТабеляЧерезКонтрейнер = new CoreBinessLogics(Контекст).
                             ВставкаДанныхЧерезКонтейнерТолькоПриСозданииНовогоСотрудникаУниверсальная("tabel",
                                     АдаптерВставкиНовгоТабеля );
 

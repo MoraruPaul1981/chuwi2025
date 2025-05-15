@@ -5,10 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Settings.Model.GetSettingTableSaves;
 
@@ -198,7 +197,7 @@ class WriterNewKeyOneSignal {
             РЕзультаПосикаИУдаления = (Integer) class_grud_sql_operationclass_grud_sql_operationsОчисткаsОчистакаталиц.
                     new DeleteData(context).deletedata(class_grud_sql_operationclass_grud_sql_operationsОчисткаsОчистакаталиц.
                             concurrentHashMapНабор,
-                    new PUBLIC_CONTENT(context).МенеджерПотоков, sqLiteDatabase);
+                    new BinessLogicPublicContent(context).МенеджерПотоков, sqLiteDatabase);
 
 
             Log.i(this.getClass().getName(), "  РЕзультаПосикаИУдаления" +

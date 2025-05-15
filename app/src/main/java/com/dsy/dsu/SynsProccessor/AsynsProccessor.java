@@ -8,7 +8,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
@@ -30,7 +30,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import dagger.hilt.EntryPoints;
 
-public class AsynsProccessor extends Class_MODEL_synchronized {
+public class AsynsProccessor extends CoreBinessLogics {
     // TODO: 28.07.2022  переменые
     public Context context;
 
@@ -250,7 +250,7 @@ public class AsynsProccessor extends Class_MODEL_synchronized {
 
 
                     //TODO Таблицы ОТ  Андройда
-                 //   CopyOnWriteArrayList<String>      getMainTabelAllAndroid = new PUBLIC_CONTENT(context).getWorkerTablesALl(context);
+                 //   CopyOnWriteArrayList<String>      getMainTabelAllAndroid = new BinessLogicPublicContent(context).getWorkerTablesALl(context);
 
                     Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

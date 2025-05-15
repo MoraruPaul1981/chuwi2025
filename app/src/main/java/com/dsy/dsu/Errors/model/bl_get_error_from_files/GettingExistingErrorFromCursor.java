@@ -25,7 +25,7 @@ public class GettingExistingErrorFromCursor    implements GettingExistingErrorsI
      * @return
      */
     @Override
-    public StringBuffer gettingExistingErrors(@NonNull Context context,ModuleQuety moduleQuety,SQLiteDatabase sqLiteDatabase_error) {
+    public StringBuffer gettingExistingErrors(@NonNull Context context,ModuleQuety moduleQuety ) {
         // TODO: 17.04.2023
         StringBuffer gettingExistingErrors=new StringBuffer();
         try {

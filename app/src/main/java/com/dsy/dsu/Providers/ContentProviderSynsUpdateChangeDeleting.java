@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,10 +23,9 @@ import androidx.loader.content.AsyncTaskLoader;
 
 
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
@@ -35,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -49,7 +46,7 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
   private   UriMatcher uriMatcherДЛяПровайдераКонтентБазаДанных;
     @Inject
      SQLiteDatabase sqlite;
-    private  PUBLIC_CONTENT public_contentМенеджерПотоковМассвойОперацииВставки;
+    private BinessLogicPublicContent binessLogicPublicContentМенеджерПотоковМассвойОперацииВставки;
     private AsyncTaskLoader<?> asyncTaskLoader;
     private Handler handler;
     private Integer ТекущаяСтрокаПриДОбавлениииURL=0;
@@ -79,9 +76,7 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
     @Override
     public boolean onCreate() {
         try {
-            // TODO: 02.09.2023  CREATE get SQLITE
-            // TODO: 02.09.2023  CREATE get SQLITE
-// TODO: 13.05.2025 ПРОВАЙДЕР   ContentProviderForAdminissionMaterial
+            // TODO: 13.05.2025 ПРОВАЙДЕР
             sqlite = EntryPoints.get(getContext(), AppModuleSQLlite.class).getAppModuleSQLlite();
 
             preferences =getContext(). getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);

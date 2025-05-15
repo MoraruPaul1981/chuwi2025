@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 
 public class Class_Start_Update_Soft {
 
@@ -12,7 +12,7 @@ public class Class_Start_Update_Soft {
     // TODO: 12.11.2021
 
     Activity activity;
-    PUBLIC_CONTENT public_contentПО;
+    BinessLogicPublicContent binessLogicPublicContentПО;
 
     public Class_Start_Update_Soft(Context context, Activity activity) {
 
@@ -21,7 +21,7 @@ public class Class_Start_Update_Soft {
         this.activity = activity;
 
 
-        public_contentПО = new PUBLIC_CONTENT(context);
+        binessLogicPublicContentПО = new BinessLogicPublicContent(context);
 
         Log.d(this.getClass().getName(), " context " + context + "\n" +
                 "  activity " + activity);

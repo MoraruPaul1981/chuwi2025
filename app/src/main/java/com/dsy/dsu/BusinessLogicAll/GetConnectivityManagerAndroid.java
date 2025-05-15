@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 public class GetConnectivityManagerAndroid {
@@ -27,7 +28,7 @@ public class GetConnectivityManagerAndroid {
                 // Do whatever
                 // TODO: 13.01.2025
                 КакойТипПодключения=true;
-                Log.d(Class_MODEL_synchronized.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
+                Log.d(CoreBinessLogics.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
             }else{
                 // TODO: 29.09.2021
                 NetworkInfo mMOBILE = connManager.getNetworkInfo(android.net.ConnectivityManager.TYPE_MOBILE);
@@ -35,10 +36,10 @@ public class GetConnectivityManagerAndroid {
                 if (mMOBILE.isConnected()) {
                     // TODO: 13.01.2025
                     КакойТипПодключения=true;
-                    Log.d(Class_MODEL_synchronized.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
+                    Log.d(CoreBinessLogics.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
                 }
             }
-            Log.d(Class_MODEL_synchronized.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
+            Log.d(CoreBinessLogics.class.getName()," КакойТипПодключения"+ КакойТипПодключения);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"

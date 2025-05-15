@@ -26,9 +26,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 
@@ -60,7 +60,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
 
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-    PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
 
 
     ///////TODO
@@ -105,7 +105,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
             viewДляКонтактов= inflater.inflate(R.layout.fragment2_layout, container, false);// viewДляКонтактов= inflater.inflate(R.layout.fragment2_layout, container, false);
             ////
             ЛистВьюДляКонтактыЧата = (ListView) viewДляКонтактов.findViewById(R.id.list);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new     PUBLIC_CONTENT(getActivity());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getActivity());
             // TODO ////////////////////////////МОДЕЛЬ MVC ////////////////////////////////////////////////////////////////////////////////////////////////
             new Fragment_Contacts_КонтактыЧата. MODEL(getActivity()).   МетодЗагрузкиДанныхДляФрагентаКонтакты();
             new Fragment_Contacts_КонтактыЧата.VIEW(getActivity());
@@ -669,7 +669,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
 /*
 
                 // TODO: 08.09.2021  _____old
-                Курсор_ВычисляемПУбличныйID=new Class_MODEL_synchronized(getContext()).КурсорУниверсальныйБазыДанных("SELECT id FROM SuccessLogin LIMIT 1 ");
+                Курсор_ВычисляемПУбличныйID=new CoreBinessLogics(getContext()).КурсорУниверсальныйБазыДанных("SELECT id FROM SuccessLogin LIMIT 1 ");
 */
 
                 /////todo  результат
@@ -746,7 +746,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
 
 /*
                 // TODO: 08.09.2021   _____old
-            КурсорДанныеДляКонтактовЧата= МетодПолучениеДанныхДляФрагментаСообщенияЧата(" SELECT  DISTINCT *  FROM  Chat_Users   WHERE _id !="+PUBLIC_CONTENT.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+" ORDER BY name "); ///Chat_Users /fio
+            КурсорДанныеДляКонтактовЧата= МетодПолучениеДанныхДляФрагментаСообщенияЧата(" SELECT  DISTINCT *  FROM  Chat_Users   WHERE _id !="+BinessLogicPublicContent.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+" ORDER BY name "); ///Chat_Users /fio
 
             //////*/
 

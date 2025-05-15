@@ -12,16 +12,14 @@ import javax.net.ssl.SSLSocketFactory;
 public interface GetPingServer {
 
 
-      Boolean pingServerJbossSuccessfulOrNot(@NotNull SSLSocketFactory getsslSocketFactory2
-              ,@NotNull SQLiteDatabase sqLiteDatabase ,  LinkedHashMap<Integer,String> getHiltPortJboss) ;
+      Boolean pingServerJbossSuccessfulOrNot(@NotNull SSLSocketFactory getsslSocketFactory2,LinkedHashMap<Integer,String> getHiltPortJboss) ;
 
 
 
 
 
     Long pingingJbossServer(@androidx.annotation.NonNull SSLSocketFactory getsslSocketFactory2,
-                            Integer ИмяПорта, String ИмяСервера,
-                            @NotNull SQLiteDatabase sqLiteDatabase  );
+                            Integer ИмяПорта, String ИмяСервера);
 
 
 }

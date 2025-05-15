@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 import com.example.tabels.model.launtch.ModuleTabels;
@@ -68,10 +69,12 @@ public class CoreApp extends Application {
   ModuleTabels moduleTabels;*/
 
 
-//  @Inject
-// public SQLiteDatabase coreAppSqLiteDatabase ;
+   @Inject
+  protected SQLiteDatabase coreAppSqLiteDatabase ;
 
 
+  @Inject
+  protected  CoreBinessLogics coreBinessLogics;
 
   @Override
   public void onCreate() {

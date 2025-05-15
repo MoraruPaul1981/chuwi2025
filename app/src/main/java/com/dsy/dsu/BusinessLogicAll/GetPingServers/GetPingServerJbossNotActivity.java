@@ -2,14 +2,10 @@ package com.dsy.dsu.BusinessLogicAll.GetPingServers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.loader.content.AsyncTaskLoader;
-
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
@@ -101,7 +97,7 @@ public class GetPingServerJbossNotActivity implements  GetPingServerNotActivity 
 
                 }else{
                     результатПрозвонаСокетом = false;
-                    Log.e(Class_MODEL_synchronized.class.getName(), " ОШИБКА НЕТ СВЯЗИ С СЕВРЕРОМ  результатПрозвонаСокетом[0] " + результатПрозвонаСокетом);
+                    Log.e(CoreBinessLogics.class.getName(), " ОШИБКА НЕТ СВЯЗИ С СЕВРЕРОМ  результатПрозвонаСокетом[0] " + результатПрозвонаСокетом);
                 }
 
                 //todo old code
@@ -139,7 +135,7 @@ public class GetPingServerJbossNotActivity implements  GetPingServerNotActivity 
         // TODO: 12.01.2024
             // TODO: 10.11.2022  пинг к сервера
             БуферПолучениеДанныхРЕальныйСтатусРАботыSQLServer =
-                    new Class_MODEL_synchronized(context).
+                    new CoreBinessLogics(context).
                             МетодУниверсальногоПинга(new String(), "application/gzip",
                                     "Хотим Получить Статус Реальной Работы SQL SERVER"
                                     ,0l,

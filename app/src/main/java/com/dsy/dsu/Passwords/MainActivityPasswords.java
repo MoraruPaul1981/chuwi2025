@@ -32,17 +32,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dsy.dsu.BootAndAsync.View.MainActivityBootAndAsync;
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
 import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassDeleteErrorFile;
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.CoreApp.Model.BunessLogicCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.SubClassWriterPUBLICIDtoDatabase;
 
 import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
@@ -86,7 +86,7 @@ public class MainActivityPasswords extends AppCompatActivity {
     private Activity activity;
 
     private Context КонтекстСинхроДляАунтификации;
-    private PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     private String ПубличноеЛогин = new String();
     private String ПубличноеПароль = new String();
     private SQLiteDatabase sqLiteDatabase;
@@ -122,7 +122,7 @@ public class MainActivityPasswords extends AppCompatActivity {
             activity = this;
             ((Activity) КонтекстСинхроДляАунтификации).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             ((Activity) КонтекстСинхроДляАунтификации).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(getApplicationContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getApplicationContext());
 
 
 
@@ -301,7 +301,7 @@ public class MainActivityPasswords extends AppCompatActivity {
         try{
         Integer PublicID;
         //TODO запукаем метод Афторизаиция по ЛОГИНУ И ПАРОЛЮ
-        PublicID = new Class_MODEL_synchronized(getApplicationContext()).
+        PublicID = new CoreBinessLogics(getApplicationContext()).
                 методАвторизацииЛогинИПаполь(getApplicationContext(), preferences, ПубличноеЛогин, ПубличноеПароль,getsslSocketFactory2);
         Log.d(this.getClass().getName(), " PublicID " + PublicID);
 

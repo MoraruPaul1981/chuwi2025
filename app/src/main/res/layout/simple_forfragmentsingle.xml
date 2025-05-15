@@ -101,12 +101,12 @@
                         app:iconSize="25dp"
                         app:cardCornerRadius="5dp"
                         app:cardElevation="20dp"
-                        app:strokeColor="#B52240"
+                        app:strokeColor="#F4F4F4"
                         app:cardMaxElevation="2dp"
                         app:strokeWidth="3dp"
                         android:translationZ="5dp"
-                        app:iconTint="#B52240"
-                        app:rippleColor="#494546"
+                        app:iconTint="#171617"
+                        app:rippleColor="#E1DCDC"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <com.google.android.material.textview.MaterialTextView

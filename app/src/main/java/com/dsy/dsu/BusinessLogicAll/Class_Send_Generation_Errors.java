@@ -3,35 +3,27 @@ package com.dsy.dsu.BusinessLogicAll;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
-
-import dagger.hilt.EntryPoints;
 
 public class Class_Send_Generation_Errors {
     Context context;
     Activity activity;
     //
-    private SQLiteDatabase sqLiteDatabase ;
 
     public Class_Send_Generation_Errors(Context context, String СамаОшибка, Activity activityВнутри) {
-
         this.context =context;
-
         activity=   activityВнутри;
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
 
         StringBuffer БуферОшибкаПриПодключениекСерверуДляАунтификацииПользователяПриВходе=new StringBuffer(СамаОшибка);
 
@@ -47,7 +39,7 @@ public class Class_Send_Generation_Errors {
 
         // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-        PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(this.context);
+        BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(this.context);
 
 
         ///////

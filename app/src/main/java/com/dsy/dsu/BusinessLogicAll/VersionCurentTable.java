@@ -31,7 +31,6 @@ import javax.inject.Inject;
 import dagger.hilt.EntryPoints;
 
 public class VersionCurentTable {
-    SQLiteDatabase   sqLiteDatabase;
     Context context;
 
     public VersionCurentTable(@NonNull Context context) {
@@ -40,17 +39,15 @@ public class VersionCurentTable {
         try {
             this.context = context;
                 // TODO: 16.04.
-                sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
                 Log.d(context.getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +
                         " Класс в процессе... " + this.getClass().getName() + "\n" +
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
             // TODO: 11.02.2025
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +
-                    "  sqLiteDatabase   " + sqLiteDatabase);
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" );
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(context.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"

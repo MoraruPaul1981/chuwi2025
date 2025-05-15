@@ -12,12 +12,10 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -36,8 +34,6 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -51,11 +47,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_Find_Peoples;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_New_People;
@@ -117,7 +113,6 @@ public class MainActivity_New_Templates extends AppCompatActivity {
     protected View КонтентТабеляКоторыйМыИБудемЗаполнятьВнутриЦикла;
     private  LinkedHashMap<Integer, String> ХЭШНазваниеДнейНедели = new LinkedHashMap<>();
     private  int ПолученыеКоличествоСторочек = 0;
-    private SQLiteDatabase sqLiteDatabase ;
     private  String МесяцДляЗагрузкиТабелей = "";
     private  String ГодДляЗагрузкиТабелей = "";
     private  String ПубличноеIDЗагрузкиТабелей = "";
@@ -1342,7 +1337,7 @@ public class MainActivity_New_Templates extends AppCompatActivity {
 
 
                /*         Курсор_КоторыйВЫгружемНазваниеОрганизацииДляЭтогоСотркдникаТекущего =
-                                new Class_MODEL_synchronized(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("settings_tabels",
+                                new CoreBinessLogics(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("settings_tabels",
                                         new String[]{"organizations"}, "organizations IS NOT NULL", null,
                                         null, null, "date_update DESC", "1");//"settings_tabels", "date_update","id=","1",null,null,null,null
 */
@@ -1381,13 +1376,13 @@ public class MainActivity_New_Templates extends AppCompatActivity {
                 ////
                 // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-                PUBLIC_CONTENT  Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (getApplicationContext());
+                BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
                 // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
 
 
                 Курсор_КоторыйВЫгружемНазваниеОрганизацииДляЭтогоСотркдникаТекущего= (SQLiteCursor)  class_grud_sql_operationsОрганизацииНепосрдственодляДанногоСОтрудника.
                         new GetData(getApplicationContext()).getdata(class_grud_sql_operationsОрганизацииНепосрдственодляДанногоСОтрудника.concurrentHashMapНабор,
-                        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,  sqLiteDatabase);
+                        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,   );
                 ///////
 
                 Log.d(this.getClass().getName(), "GetData "+Курсор_КоторыйВЫгружемНазваниеОрганизацииДляЭтогоСотркдникаТекущего  );
@@ -1500,12 +1495,12 @@ public class MainActivity_New_Templates extends AppCompatActivity {
                     concurrentHashMapНабор.put("УсловиеЛимита","1");
 
             // TODO: 12.10.2021  Ссылка Менеджер Потоков
-            PUBLIC_CONTENT  Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new PUBLIC_CONTENT (getApplicationContext());
+            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
             // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
             Cursor  Курсор_ИщемПроведенЛиТАбельИлиНЕт= (SQLiteCursor)  class_grud_sql_operations.
                     new GetData(getApplicationContext()).getdata(class_grud_sql_operations.
                             concurrentHashMapНабор,
-                    Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,  sqLiteDatabase);
+                    Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,   );
             Log.d(this.getClass().getName(), "GetData " +Курсор_ИщемПроведенЛиТАбельИлиНЕт );
             if(Курсор_ИщемПроведенЛиТАбельИлиНЕт.getCount()>0){
                 Курсор_ИщемПроведенЛиТАбельИлиНЕт.moveToFirst();
@@ -1644,7 +1639,7 @@ public class MainActivity_New_Templates extends AppCompatActivity {
                             Log.w(this.getClass().getName(),   "РЕЗУЛЬТАТ УДАЛДЕНИЕ ОДНОГО СОТРУДНИКА РезультатУвеличинаяВерсияВнутриСамогоТабелСтрудника  "
                                     + РезультатУвеличинаяВерсияВнутриСамогоТабелСтрудника);
                             /////
-                            РезультатУдалениеСотрудникаИзТаблея[0] = new Class_MODEL_synchronized(getApplicationContext()).
+                            РезультатУдалениеСотрудникаИзТаблея[0] = new CoreBinessLogics(getApplicationContext()).
                                     УдалениеДанныхЧерезКонтейнерУниверсальная(ТаблицыДляОбработкиУдалние, СтолбикУдалениея, СамоЗначениеUUID,
                                             "status_send", "Удаленная");
                             if (РезультатУдалениеСотрудникаИзТаблея[0] > 0) {
@@ -1679,7 +1674,7 @@ public class MainActivity_New_Templates extends AppCompatActivity {
                                                 new ChangesVesionData(getApplicationContext()).
                                                 changesvesiondata(classGrudSqlOperationsУдалениеСотрудникаИзТаблея.
                                                                 concurrentHashMapНабор,
-                                                        new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
+                                                        new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
                                                         ,  sqLiteDatabase);
 //
                                 Log.d(getApplicationContext().getClass().getName(), "Результат_ПриписиИзменнийВерсииДанныхВФонеПриСменеОрганизации "

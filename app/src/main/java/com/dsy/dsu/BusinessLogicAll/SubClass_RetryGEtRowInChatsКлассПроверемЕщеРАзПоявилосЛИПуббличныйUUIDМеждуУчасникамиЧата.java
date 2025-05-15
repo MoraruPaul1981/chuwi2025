@@ -21,8 +21,7 @@ public class SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзП
            @NonNull Context context,
          @Nonnull Long ПолученыйIDДляЧата,
            @Nonnull    Integer ПубличныйIDДляФрагмента,
-           @Nonnull     CompletionService completionServiceНОваяЗадача,
-           @Nonnull      SQLiteDatabase sqLiteDatabaseНоваяЗадача) {
+           @Nonnull     CompletionService completionServiceНОваяЗадача) {
 
         Long РезультатПроверикПолучлиЛИUUIDМеждуУчасникамиПереписки = 0l;
 
@@ -87,8 +86,7 @@ public class SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзП
                     new GetаFreeData(context)
                     .getfreedata(class_grud_sql_operations_ДляПовторногоПоискаПуцбличногоUUIDМеждуУчасникамиперпискиЧатаТекущего
                                     .concurrentHashMapНабор,
-                            completionServiceНОваяЗадача,
-                            sqLiteDatabaseНоваяЗадача);
+                            completionServiceНОваяЗадача);
 
 
             if (КурсорДанныеИщемНЕПоявильсяЛиПубличныйUUIDМеджуУчасникамиПереписки.getCount() > 0) {
@@ -132,8 +130,7 @@ public class SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзП
 
             , Integer ПолученыйIDДляЧата,
                                                                      Integer   ПубличныйIDДляФрагмента,
-                                                                     CompletionService completionServiceНОваяЗадача,
-                                                                     SQLiteDatabase sqLiteDatabaseНоваяЗадача) {
+                                                                     CompletionService completionServiceНОваяЗадача) {
 
         Long РезультатПроверикПолучлиЛИUUIDМеждуУчасникамиПереписки = 0l;
 
@@ -198,8 +195,7 @@ public class SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзП
                     new GetаFreeData(context)
                     .getfreedata(class_grud_sql_operations_ДляПовторногоПоискаПуцбличногоUUIDМеждуУчасникамиперпискиЧатаТекущего
                                     .concurrentHashMapНабор,
-                            completionServiceНОваяЗадача,
-                            sqLiteDatabaseНоваяЗадача);
+                            completionServiceНОваяЗадача);
 
 
             if (КурсорДанныеИщемЕслиУжеUUIDМенждуУчастикамиНовойЗАДАЧ_Task.getCount() > 0) {

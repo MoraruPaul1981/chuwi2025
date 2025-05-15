@@ -11,7 +11,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.FirebaseAndOneSignal.Firebase.MyFirebaseInstanceIDService;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
@@ -77,7 +77,7 @@ public class ClassOneSingnalGenerator {
 
         try {
             Class_GRUD_SQL_Operations listIDДляOneSignal=new Class_GRUD_SQL_Operations(context);
-            PUBLIC_CONTENT public_contentменеджер=new PUBLIC_CONTENT(context);
+            BinessLogicPublicContent public_contentменеджер=new BinessLogicPublicContent(context);
 
             // TODO: 23.12.2021 ЧЕТЫРЕ ПОПЫТКИ ПОДКЛЮЧЕНИЕ В СЕВРЕРУONESIGNAL
             Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.single())
@@ -185,7 +185,7 @@ public class ClassOneSingnalGenerator {
 
 
     private void методЗаписиNewKeyOneSignal(@NonNull   Class_GRUD_SQL_Operations AllListIDДляOneSignal,
-            @NonNull     PUBLIC_CONTENT public_contentменеджер,
+            @NonNull BinessLogicPublicContent public_contentменеджер,
             @NonNull String НовыйКлючОтOneSingnal) {
         try{
 

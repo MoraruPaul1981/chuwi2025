@@ -22,9 +22,9 @@ import androidx.work.WorkManager;
 
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.SubClass_ДляСменыСтатусаНаЗадачиВыполненыйОтказОтмененный;
 import com.dsy.dsu.Tasks.MainActivity_Tasks;
 
@@ -47,7 +47,7 @@ public class Service_For_Task_Для_Задания_СменаСатуса exten
     // TODO: 07.02.2022
     private    HashMap<String, String> hashMapХэшДляЗапоминиялUUID = new HashMap();
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
-    private PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     // TODO: 07.02.2022
     private  Long UUIDДляЗапускСогласованияПришедшегоЗАДАНИЕ;
     // TODO: 07.02.2022
@@ -385,7 +385,7 @@ public class Service_For_Task_Для_Задания_СменаСатуса exten
             try{
                 Log.i(context.getClass().getName(), "SubClass_FindПоискIDОтКогоЗаданияДляКогоЗапускатFirebase"+new Date());
                 Class_GRUD_SQL_Operations      class_grud_sql_operations = new Class_GRUD_SQL_Operations(getApplicationContext());
-                Class_Engine_SQLГдеНаходитьсяМенеджерПотоков=new PUBLIC_CONTENT(getApplicationContext());
+                Class_Engine_SQLГдеНаходитьсяМенеджерПотоков=new BinessLogicPublicContent(getApplicationContext());
                  class_grud_sql_operations.
                          concurrentHashMapНабор.put("ПодЗапросНомер1",
                                 " SELECT  user_update FROM view_tasks   WHERE uuid  =" + UUIDДляЗапускСогласованияПришедшегоЗАДАНИЕ + " ;" );// current_table    ///   date_update current_table     ASC

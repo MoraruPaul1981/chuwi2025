@@ -20,9 +20,9 @@ import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 
@@ -206,7 +206,7 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
                         ///////
                         Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения = (SQLiteCursor) class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.
                                 new GetаFreeData(getApplicationContext()).getfreedata(class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор,
-                                new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
+                                new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
                                 , new CREATE_DATABASE(getApplicationContext()).getССылкаНаСозданнуюБазуORM());
 
                         Log.d(this.getClass().getName(), "GetData " + Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения);
@@ -249,7 +249,7 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
                         Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ =
                                 (SQLiteCursor) class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.
                                         new GetаFreeData(getApplicationContext()).getfreedata(class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор,
-                                        new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
+                                        new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
                                         ,     sqLiteDatabase);
 
 

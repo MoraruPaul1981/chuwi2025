@@ -11,7 +11,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Jakson.GeneratorBinarySONSerializer;
 import com.dsy.dsu.BusinessLogicAll.Jakson.GeneratorJSONSerializer;
 import com.dsy.dsu.BusinessLogicAll.SharedPreferences.GetSharedPreferences;
@@ -36,10 +36,8 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.IntBinaryOperator;
 import java.util.function.IntPredicate;
 import java.util.function.LongBinaryOperator;
 import java.util.stream.IntStream;
@@ -1172,7 +1170,7 @@ try{
                     + " ИмяСерверИзХранилица " + ИмяСерверИзХранилица+
                     " ПортСерверИзХранилица " +ПортСерверИзХранилица+"\n"+ " ВерсииНаАндройдеСерверная " +ВерсииНаАндройдеСерверная );
             // TODO: 10.11.2022  Получение JSON-потока
-            byte[] BufferGetData =new Class_MODEL_synchronized(context). методGetByteFromServerAsync(
+            byte[] BufferGetData =new CoreBinessLogics(context). методGetByteFromServerAsync(
                     ИмяТаблицы,
                     "application/gzip",
                     "Хотим Получить  JSON"
@@ -1217,7 +1215,7 @@ try{
         try {
             Log.d(this.getClass().getName(), " имяТаблицаAsync " + имяТаблицаAsync + " БуферGetByteJson " +БуферGetByteJson.length );
             //TODO БУфер JSON от Сервера
-            //  ObjectMapper jsonGenerator = new PUBLIC_CONTENT(context).getGeneratorJackson();
+            //  ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
 
             final JsonParser jsonParser= jsonGenerator.createParser(БуферGetByteJson,0,БуферGetByteJson.length);
             JsonNode jsonNodeParentMAP= jsonParser.readValueAsTree();
@@ -1328,7 +1326,7 @@ try{
                             + " КурсорДляОтправкиДанныхНаСерверОтАндройда "+КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount() );
 
 
-                    //   ObjectMapper jsonGenerator = new PUBLIC_CONTENT(context).getGeneratorJackson();
+                    //   ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
                     SimpleModule module = new SimpleModule();
                     // TODO: 11.09.2023  какая текущапя таблица
                     if (Таблицы.equalsIgnoreCase("materials_databinary")

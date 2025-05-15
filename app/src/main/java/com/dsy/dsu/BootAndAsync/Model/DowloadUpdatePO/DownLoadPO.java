@@ -24,15 +24,14 @@ import androidx.core.content.FileProvider;
 
 
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.DeletingFiles.GetDeletingFilesJsonAndApk;
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
 import com.dsy.dsu.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.util.concurrent.AtomicDouble;
 
 import java.io.File;
 import java.util.Date;
@@ -43,9 +42,6 @@ import javax.net.ssl.SSLSocketFactory;
 import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.MaybeObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class DownLoadPO {
@@ -357,8 +353,8 @@ public     void МетодСообщениеАнализПО( ) {
 
             // TODO: 08.01.2022 Полученм JSON File  для анализа
 
-            FileAPK = new Class_MODEL_synchronized(context).
-                    МетодЗагрузкиОбновлениеПОсСервера(new PUBLIC_CONTENT(context).getСсылкаНаРежимСервераОбновлениеПО(),
+            FileAPK = new CoreBinessLogics(context).
+                    МетодЗагрузкиОбновлениеПОсСервера(new BinessLogicPublicContent(context).getСсылкаНаРежимСервераОбновлениеПО(),
                            context, ИмяСерверИзХранилица ,ПортСерверИзХранилица,
                             "FileAPKUpdatePO","update_dsu1.apk",
                             "application/octet-stream",getsslSocketFactory2);

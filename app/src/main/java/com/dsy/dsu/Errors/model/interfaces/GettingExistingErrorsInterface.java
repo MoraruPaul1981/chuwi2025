@@ -9,5 +9,5 @@ import com.sous.backasync.launch.ModuleQuety;
 
 public interface GettingExistingErrorsInterface {
 
-    StringBuffer gettingExistingErrors(@NonNull Context context, ModuleQuety moduleQuety, SQLiteDatabase sqLiteDatabase_error);
+    StringBuffer gettingExistingErrors(@NonNull Context context, ModuleQuety moduleQuety );
 }

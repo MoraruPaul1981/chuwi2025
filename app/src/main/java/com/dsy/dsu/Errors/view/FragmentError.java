@@ -55,8 +55,7 @@ public class FragmentError extends DialogFragment {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    @Inject
-   SQLiteDatabase getSqlLiteCoreApp;
+
 
     // TODO: 14.10.2022 настйрока хранилища
     private  SharedPreferences sharedPreferencesХранилище;

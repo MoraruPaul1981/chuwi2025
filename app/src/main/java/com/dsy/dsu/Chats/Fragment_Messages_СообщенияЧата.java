@@ -36,10 +36,10 @@ import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.SubClassGET_FIO;
 
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -71,7 +71,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
     private Long ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески;
     private TextView textViewФрагментСообщенияНазваниеЧАты;
     private View viewФрагментСообщенияНазваниеЧАты;
-    private   PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;///
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;///
     private SQLiteDatabase sqLiteDatabase ;
     private Integer ПубличноеIDПолученныйИзСервлетаДляUUID = 0;
     private   String ФИОдляпервогоФрагмента;
@@ -122,7 +122,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
             ТекстВиюВьюДляСообщенийЧатаКогдаНетДанных = (TextView) viewДляСообщений.findViewById(R.id.TextviewКогдаНетДанных);
             ТекстВиюВьюДляСообщенийЧатаКогдаНетДанных.setVisibility(View.GONE);
             floatingActionButtonФрагментСообщение = (FloatingActionButton) viewДляСообщений.findViewById(R.id.floatingActionButtonФрагментСообщение);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(getActivity());///
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getActivity());///
             textViewФрагментСообщенияНазваниеЧАты = (TextView) viewДляСообщений.findViewById(R.id.textViewФрагментСообщенияНазваниеЧАты);
             viewФрагментСообщенияНазваниеЧАты = (View) viewДляСообщений.findViewById(R.id.viewФрагментСообщенияНазваниеЧАты);
 
@@ -356,7 +356,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
             Class_GRUD_SQL_Operations       class_grud_sql_operationsCтатусХотьестьОДинНольНЕПрочттаноеСообщениевЧате=new Class_GRUD_SQL_Operations(getContext());
 
             // TODO: 11.02.2022
-            PUBLIC_CONTENT public_contentCompletionService=new PUBLIC_CONTENT(getContext());
+            BinessLogicPublicContent binessLogicPublicContentCompletionService =new BinessLogicPublicContent(getContext());
 
             // TODO: 11.02.2022
             // TODO: 18.02.2022
@@ -413,7 +413,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
 
                                        МетодГлавныйЗаполняемДаннымиНашSimpleCursorAdapter((TextView) view,
                                             cursor,subClassGET_fio,ПубличноеIDПолученныйИзСервлетаДляUUID
-                                               ,public_contentCompletionService );
+                                               , binessLogicPublicContentCompletionService);
                                     ///
                                     // TODO: 21.12.2021
 
@@ -498,7 +498,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
                     protected  View МетодГлавныйЗаполняемДаннымиНашSimpleCursorAdapter(TextView view, Cursor cursor,
                                                                                        SubClassGET_FIO subClassGET_fio,
                                                                                        Integer ПубличноеIDПолученныйИзСервлетаДляUUID,
-                                                                                       PUBLIC_CONTENT public_contentCompletionService) {
+                                                                                       BinessLogicPublicContent public_contentCompletionService) {
 
 
 
@@ -802,7 +802,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
                     private void МетодВычисляемЕслиХотьОдноСообщениеНеПрочитаноДляТекущегоПользоватеялСтрочки(Long ПолученныйUUIDСтчрокиКтоМнеНАписал,
                                                                                                               Integer ПубличноеIDПолученныйИзСервлетаДляUUID
 
-                            ,PUBLIC_CONTENT public_contentCompletionService) {
+                            , BinessLogicPublicContent public_contentCompletionService) {
                         ///
 // TODO: 11.02.2022
 
@@ -1594,7 +1594,7 @@ try {
 
 
        /*         // TODO: 08.09.2021  _old
-                Курсор_ВычисляемПУбличныйID=new Class_MODEL_synchronized(getContext()).КурсорУниверсальныйБазыДанных("SELECT id FROM SuccessLogin LIMIT 1 ");
+                Курсор_ВычисляемПУбличныйID=new CoreBinessLogics(getContext()).КурсорУниверсальныйБазыДанных("SELECT id FROM SuccessLogin LIMIT 1 ");
                 /////
 */
                 // TODO: 08.09.2021 resultat
@@ -1775,8 +1775,8 @@ try {
                 КурсорДанныеДляСообщенийЧата= МетодПолучениеДанныхДляФрагментаСообщенияЧата("SELECT " +
                         " DISTINCT  * FROM viewchat   GROUP BY id_user HAVING COUNT(*) >= 1   ORDER BY date_update DESC");//бышвий user_for
                 ////*/
-                /*КурсорДанныеДляСообщенийЧата= МетодПолучениеДанныхДляФрагментаСообщенияЧата("SELECT * FROM ViewChat WHERE user_update ="+PUBLIC_CONTENT.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+
-                        " OR user_update="+PUBLIC_CONTENT.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+"   GROUP BY user_update ORDER BY date_update DESC");*/
+                /*КурсорДанныеДляСообщенийЧата= МетодПолучениеДанныхДляФрагментаСообщенияЧата("SELECT * FROM ViewChat WHERE user_update ="+BinessLogicPublicContent.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+
+                        " OR user_update="+BinessLogicPublicContent.ПУбличныйДанныеПришёлЛиIDДЛяГенерацииUUID+"   GROUP BY user_update ORDER BY date_update DESC");*/
 
                 //////
 
@@ -1853,7 +1853,7 @@ try {
 
                 // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-                PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(getContext());
+                BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getContext());
 
 
                 ///////

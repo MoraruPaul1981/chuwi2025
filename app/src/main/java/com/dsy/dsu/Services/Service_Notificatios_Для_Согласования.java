@@ -14,7 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.Class_Get_Json_1C;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Date;
@@ -30,7 +30,7 @@ public class Service_Notificatios_Для_Согласования extends Intent
     private Integer PROCESS_IDСогласования;
     private  String ИмяСлужбыУведомленияДляСогласование;
     private  HashMap<String, String> hashMapХэшДляЗапоминиялUUID = new HashMap();
-    private   PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
 
     public LocalBinderДляСогласования localBinderДляСогласования = new LocalBinderДляСогласования();
     private  Context context;

@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.Chats.MainActivity_List_Chats;
 
 import java.util.Date;
@@ -29,7 +29,7 @@ public class Service_Notifocations_Для_Чата extends Service {////Service
     String ИмяСлужбыУведомленияДляЧата;
     HashMap<String, String> hashMapХэшДляЗапоминиялUUID = new HashMap();
     // TODO: 07.02.2022
-    PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
     Long UUIDДляЗапускСогласованияПришедшегоЗАДАНИЕ;
 

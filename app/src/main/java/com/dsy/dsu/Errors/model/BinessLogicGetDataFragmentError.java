@@ -43,18 +43,15 @@ import io.reactivex.rxjava3.core.Flowable;
 final public class BinessLogicGetDataFragmentError {
 
     private Context context;
-    private SQLiteDatabase sqLiteDatabase_error;
     private  ModuleQuety moduleQuety;
 
     
     
     
     public BinessLogicGetDataFragmentError(@NonNull  Context context,
-                                           @NonNull SQLiteDatabase sqLiteDatabase_error,
                                            @NonNull  ModuleQuety moduleQuety) {
         this.moduleQuety = moduleQuety;
         this.context = context;
-        this.sqLiteDatabase_error = sqLiteDatabase_error;
         // TODO: 17.04.2023
         Log.d(this.getClass().getName(),"\n" + " class FaceAPp " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -68,7 +65,7 @@ final public class BinessLogicGetDataFragmentError {
        StringBuffer getDataFragmentError=new StringBuffer();
        try{
 
-       getDataFragmentError=  gettingExistingErrorsInterface.gettingExistingErrors(context,  moduleQuety,  sqLiteDatabase_error);
+       getDataFragmentError=  gettingExistingErrorsInterface.gettingExistingErrors(context,  moduleQuety);
 
 
        // TODO: 17.04.2023

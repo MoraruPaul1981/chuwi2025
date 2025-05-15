@@ -15,7 +15,7 @@ public interface RecordNewErrorsInterface {
 
         String patchFileName="SousAvtoFile";
 
-     // SQLiteDatabase sqLiteDatabase =    GetSQLiteDatabase.SqliteDatabase();
+
      void recordnewerror(@NonNull String ТекстОшибки,
                    @NonNull String КлассГнерацииОшибки,
                    @NonNull String МетодаОшибки,

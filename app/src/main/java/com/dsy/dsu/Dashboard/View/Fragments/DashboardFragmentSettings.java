@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -39,15 +38,11 @@ import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.StartServiceBootAn
 import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.GetComponentActivityBootService;
 
 
-
-
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-
-import com.dsy.dsu.BusinessLogicAll.Class_MODEL_synchronized;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 
 import com.dsy.dsu.Errors.model.BinessLogicLaunchFragmenrError;
 import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
@@ -126,8 +121,7 @@ public class DashboardFragmentSettings extends  DialogFragment {
     @QualifierJbossServer3
     public LinkedHashMap<Integer,String> getHiltPortJboss;
 
-    @Inject
-    protected SQLiteDatabase getsqLiteDatabase;
+
 
     // TODO: Rename and change types and number of parameters
     public static DashboardFragmentSettings newInstance( ) {
@@ -706,10 +700,10 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                 // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                          Boolean   СтатусРаботыСервера =
                                         new GetPingServerJboss(getContext()).
-                                                pingServerJbossSuccessfulOrNot(getsslSocketFactory2, getsqLiteDatabase,getHiltPortJboss);
+                                                pingServerJbossSuccessfulOrNot(getsslSocketFactory2,getHiltPortJboss);
 
                                 if (СтатусРаботыСервера == true) {
-                                    String ПолученыйТекущееИмяПользователя = new Class_MODEL_synchronized(getContext())
+                                    String ПолученыйТекущееИмяПользователя = new CoreBinessLogics(getContext())
                                             .МетодПолучениеИмяСистемыДляСменыПользователя(getActivity());
 
                                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity())
@@ -737,12 +731,12 @@ public class DashboardFragmentSettings extends  DialogFragment {
 
 
 
-                                                PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(getActivity());
+
                                                 Class_Clears_Tables class_clears_tables=     new Class_Clears_Tables(getActivity(),
                                                         handlerAsync,
                                                         prograssbarСменаДанныхПользователя);
 
-                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(),   getActivity());
+                                                  class_clears_tables.методСменаДанныхПользователя(getContext(),getActivity() );
 
 
 
