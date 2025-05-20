@@ -1,5 +1,5 @@
 include ':app'
 rootProject.name='DSU'
-include ':back'
-include ':backasync'
-include ':app:tabels'
+include ':module-back'
+include ':module-database-op'
+include ':app:module-tabels'

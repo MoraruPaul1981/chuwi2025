@@ -20,7 +20,7 @@ buildscript {
 }
 
 ext {
-    myValue = 'C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks'
+    myValue = '.../certificates/dsu1_keys.jks'
 }
 
 allprojects {

@@ -172,7 +172,7 @@ dependencies {
     /////TODO Workmanager
     implementation 'androidx.work:work-runtime:2.9.1'
     implementation 'androidx.work:work-runtime-ktx:2.9.1'
-    implementation project(':app:tabels')
+    implementation project(':app:module-tabels')
     implementation 'androidx.cardview:cardview:1.0.0'
     testImplementation 'androidx.work:work-testing:2.9.1'
     implementation "androidx.work:work-multiprocess:2.9.1"
@@ -296,6 +296,12 @@ dependencies {
     implementation 'io.github.sgpublic:MultiWaveHeader:1.0.2'
 
     implementation "androidx.cardview:cardview:1.0.0"
+    api project(path: ':module-database-op')
+    implementation implementation(project(path: ':module-database-op'))
+    api project(path: ':module-back')
+    implementation implementation(project(path: ':module-back'))
+    api project(path: ':app:module-tabels')
+    implementation implementation(project(path: ':app:module-tabels'))
 
 //TODO new MOdules
 /*    implementation project(':back')
@@ -306,13 +312,7 @@ dependencies {
     //TODO new MOdules
 /*    implementation project(':app') // 'app' depends on 'app' !!!*/
     // ...
-    api project(path: ':backasync')
-    implementation(project(path: ':backasync'))
-    api project(path: ':back')
-    implementation(project(path: ':back'))
 
-    api project(path: ':app:tabels')
-    implementation(project(path: ':app:tabels'))
 
 }
 

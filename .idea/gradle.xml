@@ -10,9 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/app/tabels" />
-            <option value="$PROJECT_DIR$/back" />
-            <option value="$PROJECT_DIR$/backasync" />
+            <option value="$PROJECT_DIR$/app/module-tabels" />
+            <option value="$PROJECT_DIR$/module-back" />
+            <option value="$PROJECT_DIR$/module-database-op" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
