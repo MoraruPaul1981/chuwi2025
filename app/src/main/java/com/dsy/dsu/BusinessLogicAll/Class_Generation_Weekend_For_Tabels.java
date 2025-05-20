@@ -2,12 +2,12 @@ package com.dsy.dsu.BusinessLogicAll;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteCursor;
+import android.database.Cursor;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.sous.backasync.launch.ModuleQuety;
 
 import java.util.Date;
 
@@ -27,31 +27,30 @@ public class Class_Generation_Weekend_For_Tabels {
     /////////////////////////////
     // TODO: 24.05.2021 метод автоматической вставки выходных дней
     public Integer МетодТретийАвтоматическаяВставкаВыходныхДней(Long UUIDGeneratorINset, int ГодПриВставкеНовогоСотрудника, int МЕсяцПриВставкеНовогоСотрудника) {
-        // TODO: 24.05.2021 КОД ДЛЯ АВТОМАТИЧЕСКОГО ВЫСТАВЛЕНИЯ ВЫХОДНЫХ ДНЕЙ В ТАБЕЛЬ
+
         Integer РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель = 0;
+        String  РезультатКакойРежимЗаписанвБазеВЫходныеДни=null;
         try {
-            Class_GRUD_SQL_Operations concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней;
-            String  РезультатКакойРежимЗаписанвБазеВЫходныеДни=new String();
-            // TODO: 24.05.2021 ТРЕТИЙ КОД ЕСЛИ ПОЛЬЗОВАТЕЛЬ ЗАХОДТЕ АВТОМАТИЧЕСКОЙ УСВТУКУ В ВЫХОДЫНЕ ДНИ
-            concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней=new Class_GRUD_SQL_Operations(context);
-            concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы","SuccessLogin");
-            concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.concurrentHashMapНабор.put("СтолбцыОбработки","mode_weekend");
-            // TODO: 12.10.2021  Ссылка Менеджер Потоков
-            BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
-            // TODO: 02.09.2021 exe sql
-            SQLiteCursor КурсорУзнаемСохраненыйРежимРаботыССетью= (SQLiteCursor)  concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.
-                    new GetData(context).getdata(concurrentHashMapНаборПараментовSQLBuilder_Для_GRUD_ОперацийВставкиВыходныхДней.
-                            concurrentHashMapНабор,
-                    Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков,sqLiteDatabase);
-            Log.d(this.getClass().getName(), "GetData " +КурсорУзнаемСохраненыйРежимРаботыССетью );
-            //////
+            // TODO: 14.05.2025
+            String Текущаятаблицы="SuccessLogin";
+            ModuleQuety moduleQuety=new ModuleQuety(context);
+            Cursor КурсорУзнаемСохраненыйРежимРаботыССетью= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT  D.mode_weekend FROM "+Текущаятаблицы+" AS D " ,null);
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " КурсорУзнаемСохраненыйРежимРаботыССетью " +КурсорУзнаемСохраненыйРежимРаботыССетью);
             if (КурсорУзнаемСохраненыйРежимРаботыССетью.getCount() > 0) {
                 КурсорУзнаемСохраненыйРежимРаботыССетью.moveToFirst();
-                РезультатКакойРежимЗаписанвБазеВЫходныеДни = КурсорУзнаемСохраненыйРежимРаботыССетью.getString(0);
+                 РезультатКакойРежимЗаписанвБазеВЫходныеДни = КурсорУзнаемСохраненыйРежимРаботыССетью.getString(0);
                 ///
                 Log.d(context.getClass().getName(), " РезультатКакойРежимЗаписанвБазеВЫходныеДни  " + "--" +РезультатКакойРежимЗаписанвБазеВЫходныеДни);/////
             }
-            Log.d(this.getClass().getName()," РезультатКакойРежимЗаписанвБазеВЫходныеДни " + РезультатКакойРежимЗаписанвБазеВЫходныеДни);
+
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " КурсорУзнаемСохраненыйРежимРаботыССетью " +КурсорУзнаемСохраненыйРежимРаботыССетью);
+
             // TODO: 24.05.2021 КОД ДЛЯ АВТОМАТИЧЕСКОГО ВЫСТАВЛЕНИЯ ВЫХОДНЫХ ДНЕЙ В ТАБЕЛЬ
             if (РезультатКакойРежимЗаписанвБазеВЫходныеДни.contentEquals("Включить")) {
                 // TODO: 24.05.2021 вычисляем дни
@@ -68,19 +67,10 @@ public class Class_Generation_Weekend_For_Tabels {
                                 UUIDGeneratorINset,
                                 "uuid");
                 Log.d(this.getClass().getName()," РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель " + РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель);
-                //////
-                if (РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель > 0) {
-                    //todo ВО ВРЕМЯ СИНХРОНИЗХАЦИИ В ФОНЕ ИЗМЕНЯЕМ ДАТЫ ТАБЛИЦ ТОЛЬКО ПО ТАБЛИЦАМ КОГДА ИДЕМ
-                    long Результат_ПриписиИзменнийВерсииДанныхВФонеПослеОбработкиТекущийТаблицыТабель = 0;
-                    long Результат_ПриписиИзменнийВерсииДанныхВФонеПослеОбработкиТекущийТаблицыФИОФИНАЛ = 0;
-                    // TODO: 03.09.2021 дата дял ТЕКУЩЕЙ ОПЕРАЦИИ
-                }
-                КонтрейнерДляВставкиВВыходныеДниМЕткиВыходные.clear();
             }
-            //////
-        } catch (Exception e) {///////ошибки
+
+        } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(CoreBinessLogics.class.getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
             // TODO: 01.09.2021 метод вызова
@@ -91,7 +81,4 @@ public class Class_Generation_Weekend_For_Tabels {
 
         return  РезультатВставкиВЫходнихДнейЧерезКонтрейнерТаблицыТабель;
     }
-
-    //функция получающая время операции ДАННАЯ ФУНКЦИЯ ВРЕМЯ ПРИМЕНЯЕТЬСЯ ВО ВСЕЙ ПРОГРАММЕ
-
 }

@@ -2,36 +2,27 @@ package com.dsy.dsu.Errors.WriteErrorForAll;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.os.Environment;
 import android.util.AtomicFile;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.DeviceName.ModulegetDeviceName;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.CoreApp.CoreApp;
 import com.dsy.dsu.Errors.model.bl_writer_errors_app.WewriteallApplicationErrorstoaFile;
 import com.dsy.dsu.Errors.model.interfaces.RecordNewErrorsInterface;
 import com.sous.backasync.launch.ModuleInserting;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import dagger.Module;
-import dagger.hilt.EntryPoints;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
@@ -164,9 +155,9 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
 
             Long getVersionForError  = new VersionCurentTable(context).upVersionCurentTable("errordsu1");
             Long UUIDForError = (Long)
-                    new Class_Generation_UUID(context).МетодГенерацииUUID();
+                    new GreatUuidGeneration(context).greatUuidGeneration();
      
-            //Integer getPublicIdForError = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+
             Integer getPublicIdForError =   new GetPublicID().getPublicIDAllApp(context);
 
 

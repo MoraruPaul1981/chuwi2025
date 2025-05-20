@@ -6,8 +6,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
@@ -21,12 +21,11 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class GetPingServerJboss implements  GetPingServer {
     private Context context ;
-    private Class_GRUD_SQL_Operations class_grud_sql_operations=null;
+
     private SharedPreferences preferences;
 
     public GetPingServerJboss(@NotNull  Context context ) {
         this.context=context;
-        class_grud_sql_operations=new Class_GRUD_SQL_Operations(context);
     }
     ///////// TODO ПРОВЕРЯЕТ ЕСЛИ ПОДКЛЧБЕНИ В ИНТРЕНТУ
 
@@ -79,7 +78,7 @@ public class GetPingServerJboss implements  GetPingServer {
 
             if (ВыбранныйРежимСети==true) {
                 // TODO: 13.01.2025
-                БуферПолучениеДанныхРЕальныйСтатусРАботыSQLServer = pingingJbossServer(  getsslSocketFactory2, ИмяПорта, ИмяСервера,sqLiteDatabase);
+                БуферПолучениеДанныхРЕальныйСтатусРАботыSQLServer = pingingJbossServer(  getsslSocketFactory2, ИмяПорта, ИмяСервера);
             }
 
 

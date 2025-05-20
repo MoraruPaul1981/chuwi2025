@@ -61,7 +61,7 @@ public class MainActivity_Tasks extends FragmentActivity {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая=   WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get() .get(0);
             if (WorkInfoИнформацияОЗапущенойСлужбеОдноразовая.getState().compareTo(WorkInfo.State.RUNNING)!=0) {
 // TODO: 02.03.2022
-                Integer ПубличныйIDДляФрагмента = EntryPoints.get(getApplicationContext(), HiltInterfacesPublicID.class).getPublicIDAllApp();
+                Integer ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getApplicationContext());
 
 
 

@@ -8,8 +8,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
@@ -35,11 +35,6 @@ public class AsynsProccessor extends CoreBinessLogics {
     public Context context;
 
 
-
-
-
-
-    public SQLiteDatabase sqLiteDatabase ;
     public SharedPreferences preferences;
     public Integer  ПубличныйIDДляФрагмента=0;
 
@@ -59,11 +54,10 @@ public class AsynsProccessor extends CoreBinessLogics {
         super(context);
         this.context=context;
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.jsonGenerator=    jsonGenerator;
         this.getsslSocketFactory2=    getsslSocketFactory2;
         this.getHiltPublicId=    getHiltPublicId;
@@ -135,14 +129,11 @@ public class AsynsProccessor extends CoreBinessLogics {
         Long результатСинхрониазции=0l;
         try {
             ////САМАЯ ПЕРВАЯ КОМАНДА НАЧАЛА ОБМНЕНА ДАННЫМИ///// TODO ГЛАВНЫЙ МЕТОД ОБМЕНА ДАНЫМИ  НА АКТИВИТИ FACE_APP
-            Integer getPublicID = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer getPublicID = new GetPublicID().getPublicIDAllApp(context);
             //TODO
             if (getPublicID > 0) {
-
                 результатСинхрониазции = МетодПолучениеСпискаТаблицДляОбменаДанными(getPublicID);
             }
-
-
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"

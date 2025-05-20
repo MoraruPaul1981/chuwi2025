@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
@@ -32,8 +30,6 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,8 +59,7 @@ public class Service_For_Task_Для_Задания_СменаСатуса exten
     private Context context;
 
 
-    @Inject
-    public   SQLiteDatabase sqLiteDatabase;
+
 
     public Service_For_Task_Для_Задания_СменаСатуса() {
         //TODO

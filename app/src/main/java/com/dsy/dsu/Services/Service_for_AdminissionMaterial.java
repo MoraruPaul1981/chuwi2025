@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Binder;
@@ -26,17 +25,12 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassMONTHONLY_ТолькоАнализ;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassYEARONLY;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassYearHONLY_ТолькоАнализ;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassMONTHONLY;
+import com.sous.backasync.launch.ModuleInserting;
 
 
 import java.io.ByteArrayOutputStream;
@@ -47,14 +41,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
-import dagger.hilt.EntryPoints;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.functions.Action;
@@ -77,8 +65,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
     private Context context;
     private String ПолученныйПоследнийМесяцДляСортировкиЕгоВСпиноре;
 
-    @Inject
-    public   SQLiteDatabase sqLiteDatabase;
+
 
     public Service_for_AdminissionMaterial() {
         super(
@@ -441,113 +428,10 @@ public class Service_for_AdminissionMaterial extends IntentService {
     // TODO: 28.09.2022  класс заполнения из прошлых месяцев
 
     class SibClassApplyFromBackPeriodof_ЗаполененияТабеляИзПрошлогоМесяца {
-        public SibClassApplyFromBackPeriodof_ЗаполененияТабеляИзПрошлогоМесяца() {
-        }
-        private void МетодЗапускЗаполенеияИзПрошлыхМесяцев(@NonNull Context context, @NonNull Intent intent) {
-            try {
-                Log.w(this.getClass().getName(), "   context  " + context);
-                Integer ПубличныйIDДляЗаполененияИзПрошлогоМесяца = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
-                Bundle bundleПолучаемДанных = intent.getExtras();
-                Long UUIDРОДИТЕЛЬСКАЯУжеСозданогоТАбеля = bundleПолучаемДанных.getLong("UUIDРОДИТЕЛЬСКАЯУжеСозданогоТАбеля", 0l);
-                Integer СФОУжеСозданогоТАбеля = bundleПолучаемДанных.getInt("СФО", 0);
-                ПолученныйПоследнийМесяцДляСортировкиЕгоВСпиноре = bundleПолучаемДанных.getString("ДепартаментТабеляПослеПодбораBACK", "");
-                //  Long ГенерироватьUUIDРОДИТЕЛЬСКАЯ = (Long) new Class_Generation_UUIDBack(getApplicationContext()).МетодГенерацииUUID(getApplicationContext());
-                // TODO: 21.09.2022
-                String ПолученяМесяцПростоАнализа = new SubClassMONTHONLY_ТолькоАнализ(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
-                Integer МесяцПростоАнализа = Optional.ofNullable(ПолученяМесяцПростоАнализа).map(Integer::new).orElse(0);
-                String ПолученаяДатаТолькоГод;
-                Integer ГодНазадДляЗаполнени = 0;
-                Integer РезультатВставкиДатаТабельИзПрошлогоМесяца = 0;
-                Integer РезультатТолькоДляОтображениеХодПроццесс = 1;
-                Log.d(this.getClass().getName(), "ПолученяМесяцПростоАнализа " + ПолученяМесяцПростоАнализа);
-                switch (МесяцПростоАнализа) {
-                    case 12:
-                        ПолученаяДатаТолькоГод = new SubClassYEARONLY(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
-                        ГодНазадДляЗаполнени = Optional.ofNullable(ПолученаяДатаТолькоГод).map(Integer::new).orElse(0);
-                        break;
-                    default:
-                        ПолученаяДатаТолькоГод = new SubClassYearHONLY_ТолькоАнализ(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
-                        ГодНазадДляЗаполнени = Optional.ofNullable(ПолученаяДатаТолькоГод).map(Integer::new).orElse(0);
-                        break;
-                }
-                String ПолученаяДатаИзПрошлогоМесяца = new SubClassMONTHONLY(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
-                Integer МесяцИзПрошлогоМесяца = Optional.ofNullable(ПолученаяДатаИзПрошлогоМесяца).map(Integer::new).orElse(0);
-                // TODO: 22.09.2022
-                Log.d(this.getClass().getName(), "МесяцИзПрошлогоМесяца " + МесяцИзПрошлогоМесяца + " ГодНазадДляЗаполнени " + ГодНазадДляЗаполнени);
-                //TODO ВЫЧИСЛЯЕМ ДАННЫЕ КОТОРЫЕ НА ВСТАВИТЬ
-                // TODO: 21.09.2022
-                Class_GRUD_SQL_Operations class_grud_sql_operationЗаполнениеИзПрошлогоМесяца = new Class_GRUD_SQL_Operations(getApplicationContext());
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы", "viewtabel");
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("СтолбцыОбработки", "*");//name ,BirthDate ,snils
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("ФорматПосика", "user_update=? AND month_tabels=? " +
-                        " AND year_tabels=? AND status_send!=? AND cfo=?");
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("УсловиеПоиска1", ПубличныйIDДляЗаполененияИзПрошлогоМесяца);
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("УсловиеПоиска2", МесяцИзПрошлогоМесяца);//МесяцИзПрошлогоМесяца
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("УсловиеПоиска3", ГодНазадДляЗаполнени);//ГодНазадДляЗаполнени
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("УсловиеПоиска4", "Удаленная");//ГодНазадДляЗаполнени
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор.put("УсловиеПоиска5", СФОУжеСозданогоТАбеля);//ГодНазадДляЗаполнени
-                //todo ДАННЫЕ ЗА ПРОШЛЫЙ МЕСЯЦ ТАБЕЛЬ
-                SQLiteCursor Курсор_ВытаскиваемПоследнийМесяцТабеля = (SQLiteCursor) class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.
-                        new GetData(getApplicationContext()).getdata(class_grud_sql_operationЗаполнениеИзПрошлогоМесяца.concurrentHashMapНабор,
-                        new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
-                        ,   sqLiteDatabase);
-                Log.d(this.getClass().getName(), "Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount() " + Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount());
-                class_grud_sql_operationЗаполнениеИзПрошлогоМесяца = new Class_GRUD_SQL_Operations(getApplicationContext());
-                // TODO: 22.09.2022
-                if (Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount() > 0) {
-                    Курсор_ВытаскиваемПоследнийМесяцТабеля.moveToFirst();
-                    // TODO: 22.09.2022 первая часть вставка в таблицу ФИО
-                    ReentrantLock reentrantLock = new ReentrantLock();
-                    Condition condition = reentrantLock.newCondition();
-                    // TODO: 21.09.2022 цикл
-                    do {
-                        try {
-                            reentrantLock.lock();
-                            // TODO: 23.09.2022 сама вставка
-                            РезультатВставкиДатаТабельИзПрошлогоМесяца = МетодВставкивТаблицуДата_Табель(context, UUIDРОДИТЕЛЬСКАЯУжеСозданогоТАбеля,
-                                    class_grud_sql_operationЗаполнениеИзПрошлогоМесяца, Курсор_ВытаскиваемПоследнийМесяцТабеля);
-                            Log.d(this.getClass().getName(), "РезультатВставкиДатаТабель" + РезультатВставкиДатаТабельИзПрошлогоМесяца);
-
-                            // TODO: 21.09.2022 отображаем
-                            МетодОтображениеОперации(context, "В процесс", РезультатТолькоДляОтображениеХодПроццесс++);
-                            if (РезультатВставкиДатаТабельИзПрошлогоМесяца > 0) {
-                                condition.await(250, TimeUnit.MILLISECONDS);
-                                condition.signal();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                            new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(),
-                                    Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                            Log.e(getApplicationContext().getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
-                        } finally {
-                            Log.d(this.getClass().getName(), "linkedBlockingQueueДляСозданиеШаблона.take()   ");
-                            reentrantLock.unlock();
-                        }
-                        Log.d(this.getClass().getName(), "insertData   ");
-                    } while (Курсор_ВытаскиваемПоследнийМесяцТабеля.moveToNext());//TODO конец цикла заполения даными
-                    // TODO: 22.09.2022  выход после обработки
-                    МетодОтображениеОперации(context, "Выход", РезультатВставкиДатаТабельИзПрошлогоМесяца);
-                    Log.d(this.getClass().getName(), "Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount()   " + Курсор_ВытаскиваемПоследнийМесяцТабеля.getCount());
-                }
-                // TODO: 22.09.2022  выход после обработки когда курсор вообще пустой
-                МетодОтображениеОперации(context, "Выход", РезультатВставкиДатаТабельИзПрошлогоМесяца);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(),
-                        Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                Log.e(getApplicationContext().getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
-            }
-        }
-
         private Integer МетодВставкивТаблицуДата_Табель(@NonNull Context context,
                                                         @NonNull Long ГенерироватьUUIDРОДИТЕЛЬСКАЯ,
-                                                        @NonNull Class_GRUD_SQL_Operations class_grud_sql_operationЗаполнениеИзПрошлогоМесяца,
                                                         @NonNull SQLiteCursor Курсор_ВытаскиваемПоследнийМесяцТабеля) {
-            String ответОперцииВставки = null;
+            Integer   getответОперцииВставки=0;
             try {
                 String НазваниеОбрабоатываемойТаблицы = "data_tabels";
                 ContentValues contentValuesДляДатаТабель = new ContentValues();
@@ -569,16 +453,16 @@ public class Service_for_AdminissionMaterial extends IntentService {
                 // TODO: 18.11.2022
                 contentValuesДляДатаТабель.put("current_table", РезультатУвеличиваемВерсияДатаТАбель);
                 // TODO: 22.09.2022
-                Long ГенерироватьUUIDДляТаблицыДАТАТАБЕЛЬ = (Long) new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+                Long ГенерироватьUUIDДляТаблицыДАТАТАБЕЛЬ = (Long) new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
                 contentValuesДляДатаТабель.put("uuid", ГенерироватьUUIDДляТаблицыДАТАТАБЕЛЬ);
-                // TODO: 30.08.2021  ОРМИРУЕМ КОРКАТ БУДЩЕЙ ВСТАВКИ ДАННЫХ
-                Uri uri = Uri.parse("content://com.dsy.dsu.providerdatabase/" + НазваниеОбрабоатываемойТаблицы + "");
-                //  Uri uri = Uri.parse("content://MyContentProviderDatabase/" +НазваниеОбрабоатываемойТаблицы + "");
-                ContentResolver resolver = context.getContentResolver();
-                // TODO: 22.09.2022 Само выполенение
-                Uri insertData = resolver.insert(uri, contentValuesДляДатаТабель);
-                ответОперцииВставки = Optional.ofNullable(insertData).map(Emmeter -> Emmeter.toString().replace("content://", "")).get();
-                Log.d(this.getClass().getName(), "insertData   " + insertData + "  ответОперцииВставки " + ответОперцииВставки);
+
+                // TODO: 14.05.2025
+                ModuleInserting moduleInserting=new ModuleInserting(context);
+                // TODO: 14.05.2025
+                 getответОперцииВставки =    moduleInserting.getModuleInsert(НазваниеОбрабоатываемойТаблицы,contentValuesДляДатаТабель);
+                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " getответОперцииВставки "+getответОперцииВставки );
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
@@ -587,8 +471,13 @@ public class Service_for_AdminissionMaterial extends IntentService {
                         Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
                 Log.e(getApplicationContext().getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
             }
-            return Integer.parseInt(ответОперцииВставки);
+            return getответОперцииВставки;
         }
+
+
+
+
+
 
         // TODO: 25.11.2022  визуальнае отображение добавление сотрудников из проглого месяца
         private void МетодОтображениеОперации(@NonNull Context context, String Статус, Integer Значение) {
@@ -873,7 +762,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
                         contentValuesСозданиеНовогоМатериала.put("count", data.getLong("count"));
                         contentValuesСозданиеНовогоМатериала.put("ttn", data.getString("ttn"));
                         contentValuesСозданиеНовогоМатериала.put("datattn", data.getString("datattn"));
-                        Integer  ПубличныйIDДляФрагмента =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                        Integer  ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getApplicationContext());
                         contentValuesСозданиеНовогоМатериала.put("user_update", ПубличныйIDДляФрагмента);
                         String СгенерированованныйДатаДляДаннойОперации = new Class_Generation_Data(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
                         contentValuesСозданиеНовогоМатериала.put("date_update", СгенерированованныйДатаДляДаннойОперации);
@@ -887,7 +776,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
 
                         contentValuesСозданиеНовогоМатериала.put("current_table", РезультатУвеличиваемВерсияПолучениеНовогоМатериала);
                         // TODO: 22.09.2022
-                        ГенерироватьUUIDДляНовойЗадачи[0] = (Long) new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+                        ГенерироватьUUIDДляНовойЗадачи[0] = (Long) new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
                         contentValuesСозданиеНовогоМатериала.put("uuid", ГенерироватьUUIDДляНовойЗадачи[0]);
                         // TODO: 27.12.2022  для новых двух полей Автомобили и Котрагенеты
                         contentValuesСозданиеНовогоМатериала.put("tracks", data.getInt("tracks"));
@@ -961,7 +850,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
                                     // TODO: 21.10.2022 Записываем Новые ФОтографии Image CAmera
                                     ContentValues contentValuesСозданиеНовогоМатериала = new ContentValues();
 
-                                    Integer  ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                                    Integer  ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getApplicationContext());
                                     contentValuesСозданиеНовогоМатериала.put("user_update", ПубличныйIDДляФрагмента);
 
                                     String СгенерированованныйДатаДляДаннойОперации = new Class_Generation_Data(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
@@ -981,7 +870,7 @@ public class Service_for_AdminissionMaterial extends IntentService {
                                     // TODO: 22.09.2022  UUID Новый Для Новой Записи
                                     //    Long  UUIDNewImage =    integerBitmapLinkedHashMap.value().keySet().stream().findFirst().get();
                                     Long UUIDForUpImage = (Long)
-                                            new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+                                            new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
 
                                     contentValuesСозданиеНовогоМатериала.put("uuid", UUIDForUpImage);
                                     // TODO: 27.12.2022  для новых двух полей Автомобили и Котрагенеты

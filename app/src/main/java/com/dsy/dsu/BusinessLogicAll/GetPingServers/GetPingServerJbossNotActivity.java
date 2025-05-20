@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
@@ -22,11 +22,11 @@ import dagger.hilt.EntryPoints;
 
 public class GetPingServerJbossNotActivity implements  GetPingServerNotActivity {
     private Context context;
-    private Class_GRUD_SQL_Operations class_grud_sql_operations=null;
+
     private SharedPreferences preferences;
     public GetPingServerJbossNotActivity(@NotNull Context context ) {
         this.context=context;
-        class_grud_sql_operations=new Class_GRUD_SQL_Operations(context);
+
     }
     ///////// TODO ПРОВЕРЯЕТ ЕСЛИ ПОДКЛЧБЕНИ В ИНТРЕНТУ
 

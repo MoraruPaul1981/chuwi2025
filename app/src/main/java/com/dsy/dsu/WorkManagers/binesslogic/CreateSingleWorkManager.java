@@ -32,7 +32,7 @@ public class CreateSingleWorkManager {
 
         try{
             // TODO: 08.10.2023
-            Integer PublicId = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer PublicId = new GetPublicID().getPublicIDAllApp(context);
 
             Data myDataSingleWorker = new Data.Builder()
                     .putInt("ПубличныйID", PublicId)

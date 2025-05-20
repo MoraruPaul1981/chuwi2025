@@ -223,7 +223,7 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
             Log.d(this.getClass().getName(), " отработоатл new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент1 imageView  Fragment1_One_Tasks  onStart");
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов();
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодПодключенияКСлужбеБиндингом();
-            ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getContext());
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодИнициализациHandlerCallBack();
             БуферОт1ССписокЦФО = subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодОбобщенныйДляПервогоЭтапаПолучаемСпискЦфоОт1С();
             Log.d(this.getClass().getName(), " нет данных  БуферРезультатПолучениеДанныхОт1СПервыйЭтап  " + БуферОт1ССписокЦФО);

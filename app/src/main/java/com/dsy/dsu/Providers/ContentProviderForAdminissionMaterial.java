@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
@@ -332,8 +331,6 @@ public class ContentProviderForAdminissionMaterial extends ContentProvider {
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
         ArrayList<Integer> РезультатОперацииBurkUPDATE = new ArrayList<>();
         try {
-            Class_GRUD_SQL_Operations.ClassRuntimeExeGRUDOpertions class_engine_sqlПовышаемВерсиюДанных=
-                    new Class_GRUD_SQL_Operations(getContext()) .new ClassRuntimeExeGRUDOpertions(getContext());
             LinkedBlockingQueue<ContentValues>      ДанныеДляВторогоЭтапаBulkINSERT=new LinkedBlockingQueue<ContentValues>(Arrays.asList(values));
             String     table = МетодОпределяемТаблицу(uri);
             String ФлагКакойСинхронизацияПерваяИлиНет=         preferences.getString("РежимЗапускаСинхронизации", "");

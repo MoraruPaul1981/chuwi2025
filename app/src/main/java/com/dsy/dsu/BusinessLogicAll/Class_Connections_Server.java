@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.loader.content.AsyncTaskLoader;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
 
@@ -22,23 +22,10 @@ import dagger.hilt.EntryPoints;
 
 public class Class_Connections_Server  {
     private Context context1;
-    private  Class_GRUD_SQL_Operations class_grud_sql_operations=null;
+
     private SharedPreferences preferences;
-    private AsyncTaskLoader<Boolean> asyncTaskLoader;
-    public Class_Connections_Server( ) {
-        class_grud_sql_operations=new Class_GRUD_SQL_Operations(context1);
-    }
+
     ///////// TODO ПРОВЕРЯЕТ ЕСЛИ ПОДКЛЧБЕНИ В ИНТРЕНТУ
-
-
-
-
-
-
-
-
-
-
     ///////// TODO ПРОВЕРЯЕТ ЕСЛИ ПОДКЛЧБЕНИ В ИНТРЕНТУ
     public Boolean pingServerJbossSuccessfulOrNot(@NotNull Context context,
                                                   @NotNull SSLSocketFactory getsslSocketFactory2) {

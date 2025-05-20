@@ -13,7 +13,6 @@ import java.util.Date;
 
 public class Class_GenerationsBack_PUBLIC_CURRENT_ID {
     Context context;
-    private SQLiteDatabase sqLiteDatabase ;
 
     public Class_GenerationsBack_PUBLIC_CURRENT_ID( ) {
         //sqLiteDatabase=    GetSQLiteDatabase.SqliteDatabase();

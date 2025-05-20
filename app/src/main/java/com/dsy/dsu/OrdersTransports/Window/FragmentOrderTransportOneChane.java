@@ -160,7 +160,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
             lifecycleOwnerОдноразовая =this;
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
-            ПубличныйID = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
 
             subClassOrdersTransport.   МетодHandlerCallBack();
 
@@ -585,13 +585,15 @@ public class FragmentOrderTransportOneChane extends Fragment {
                             progressBarСканирование.setVisibility(View.VISIBLE);
                             МетодЗапускаАнимацииКнопок(v);
 
-                            Integer ПубличныйIDДляФрагмента =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                            Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
                             // TODO: 16.11.2022  запуск синхронизации однорозовая
 
 
 
                         });
-                            Log.d(this.getClass().getName(), "  v  " + v);
+                            Log.d(this.getClass().getName(),"\n" + " class FaceAPp " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.e(getContext().getClass().getName(),

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -37,9 +36,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.BusinessLogicAll.SubClass_RetryGEtRowInChatsКлассПроверемЕщеРАзПоявилосЛИПуббличныйUUIDМеждуУчасникамиЧата;
@@ -76,7 +74,6 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     protected FloatingActionButton floatingActionButtonВФагментеReadandWrite;
     protected EditText editTextТелоНаписаногоСообщенияДругимСотрудникам;
     protected Activity ActivityДляСинхронизацииОбмена = null;
-    private SQLiteDatabase sqLiteDatabase ;
     protected String ПолученыйФИОIDДляЧата = new String();
     protected CoreBinessLogics modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного;
     protected BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
@@ -189,7 +186,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
             ПолученыйIDДляЧата = getArguments().getLong("ПолученыйIDДляЧата", 0);
             ПолученыйФИОIDДляЧата = new String();
             ПолученыйФИОIDДляЧата = getArguments().getString("ПолученыйФИОIDДляЧата", "");
-            ПубличныйIDДляФрагмента = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getApplicationContext());
             ПолученыйУжеСуществующийUUIDИзПерепискиДляЧата = getArguments().getLong("ПолученыйUUIDУжеСуществующийПерепискиПользоватлейДляЧата", 0);
 
 

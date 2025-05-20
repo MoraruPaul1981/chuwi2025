@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -34,8 +33,7 @@ import androidx.lifecycle.Observer;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.SubClassGET_FIO;
@@ -72,7 +70,6 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
     private TextView textViewФрагментСообщенияНазваниеЧАты;
     private View viewФрагментСообщенияНазваниеЧАты;
     private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;///
-    private SQLiteDatabase sqLiteDatabase ;
     private Integer ПубличноеIDПолученныйИзСервлетаДляUUID = 0;
     private   String ФИОдляпервогоФрагмента;
     private   Long UUIDдляпервогоФрагментаДляСообщенияTagДляПередачиВоДругиеФрагменты;
@@ -1657,7 +1654,7 @@ try {
                 ////
                 // TODO: 30.09.2021 МЕТОД ЗАПУСКА СИНХРОНИЗАЦИИ ЧАТА ПО РАСПИСАНИЮ , НЕ ВЗАВИСИМОСТИ ОТ СОЗДАВАЛ ЛИ СООБЩЕНИЕ ИЛИ НЕТ
 
-                Integer ПубличныйIDДляФрагмента =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getApplicationContext());
 
 
                 Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента " + ПубличныйIDДляФрагмента);

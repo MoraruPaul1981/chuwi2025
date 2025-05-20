@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -32,18 +31,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.BusinessLogicAll.Class_Generations_New_Customers_For_Tabels;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.BusinessLogicAll.SubClassGetPublicId;
 import com.dsy.dsu.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.sous.backasync.launch.ModuleQuety;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,9 +53,6 @@ import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -185,7 +180,7 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
     protected void onStart() {
         super.onStart();
         try{
-            МетодСозданиеСпинеровОрганизации(Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков);
+            МетодСозданиеСпинеровОрганизации();
             МетодЗапускаКодаПоСозданиюНовогоСотрудникаДляДвухТаблицФиоиДатаТабеля();
             МетодПолучениеДатыРожденияЧерезКалендарь();
             МетодВозврещениеНаПредыдущуюАктивтиBACK();
@@ -214,126 +209,52 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
 
 
 
-    protected void МетодСозданиеСпинеровОрганизации(CompletionService МенеджерПотоковВнутри) {
-        
-        // TODO: 24.03.2021 ЕслиВубличногоНЕтТоНАходим ЕГо
-        
-        ArrayList<String> ЛистДляАдаптераСпинерОрганизация = new ArrayList<>();
-
-
-         ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи = new LinkedHashMap<>();
-
-        SQLiteCursor    Курсор_ИщемВсеОрганизации=null;
-        //
-        Class_GRUD_SQL_Operations class_grud_sql_operationsСозданиеСпинеровОрганизации;
-
+    protected void МетодСозданиеСпинеровОрганизации() {
+        // TODO: 15.05.2025  
         try{
-            // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-            ///
-            class_grud_sql_operationsСозданиеСпинеровОрганизации=new Class_GRUD_SQL_Operations(getApplicationContext());
+            // TODO: 24.03.2021 ЕслиВубличногоНЕтТоНАходим ЕГо
+            ArrayList<String> ЛистДляАдаптераСпинерОрганизация = new ArrayList<>();
+            ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи = new LinkedHashMap<>();
+            // TODO: 14.05.2025
+            String Текущаятаблицы="organization";
+            ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
+            Cursor   Курсор_ИщемВсеОрганизации= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT *  FROM "+Текущаятаблицы+" AS D" +
+                    "  WHERE D.name IS NOT NULL  " ,null);
 
-            ///
-            class_grud_sql_operationsСозданиеСпинеровОрганизации.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы","organization");
-            ///////
-            class_grud_sql_operationsСозданиеСпинеровОрганизации.concurrentHashMapНабор.put("СтолбцыОбработки","*");
-            //
-            class_grud_sql_operationsСозданиеСпинеровОрганизации.concurrentHashMapНабор.put("ФорматПосика"," name IS NOT NULL");
-                    ///"_id > ?   AND _id< ?"
-                    //////
-/*
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска1",finalПолученныйUUID);
-                    ///
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска2","Удаленная");
-                    ///
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска3",МЕсяцДляКурсораТабелей);
-                    //
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска4",ГодДляКурсораТабелей);////УсловиеПоискаv4,........УсловиеПоискаv5 ....                  class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска1",finalПолученныйUUID);
-*/
-            ////TODO другие поля
-
-            ///classGrudSqlOperations. concurrentHashMapНабор.put("ПоляГрупировки",null);
-            ////
-            //class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеГрупировки",null);
-            ////
-          //  class_grud_sql_operationsПолучениеИмяСистемы. concurrentHashMapНабор.put("УсловиеСортировки","date_update");
-            ////
-            /// class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеЛимита","1");
-            ////
-
-            // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
-
-            Курсор_ИщемВсеОрганизации= (SQLiteCursor)  class_grud_sql_operationsСозданиеСпинеровОрганизации.
-                    new GetData(getApplicationContext()).getdata(class_grud_sql_operationsСозданиеСпинеровОрганизации.concurrentHashMapНабор,
-                    МенеджерПотоковВнутри,sqLiteDatabase);
-            ////////////
-
-            Log.d(this.getClass().getName(), "GetData " +Курсор_ИщемВсеОрганизации );
-
-/*
-
-
-// TODO: 07.09.2021    _old
-                Курсор_ИщемВсеОрганизации =
-                        new CoreBinessLogics(getApplicationContext()).КурсорУниверсальныйДляБазыДанных("organization",
-                                new String[]{"*"}, " name IS NOT NULL", null, null, null, null, null);//
-
-
-*/
-
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " Курсор_ИщемВсеОрганизации " +Курсор_ИщемВсеОрганизации);
             // TODO: 07.09.2021  полученный результат
 
                 if(Курсор_ИщемВсеОрганизации.getCount()>0){
-
-
                     Курсор_ИщемВсеОрганизации.moveToFirst();
-
                     ЛистДляАдаптераСпинерОрганизация=new ArrayList<>();
-
                  ЛистДляАдаптераСпинерОрганизация.add("") ;
-
-
 // TODO: 07.09.2021 _old по данным
                     do{
-
                         Log.d(this.getClass().getName(), " Курсор_ИщемПУбличныйIDКогдаегоНетВстатике " + Курсор_ИщемВсеОрганизации.getCount());
-
-
                         int ПолощениеСамаОрганизация=Курсор_ИщемВсеОрганизации.getColumnIndex("name");
-
                         String          СамаОрганизация =Курсор_ИщемВсеОрганизации.getString(ПолощениеСамаОрганизация);
-
                         Log.d(this.getClass().getName(), "  СамаОрганизация" +  СамаОрганизация);
-
                         ЛистДляАдаптераСпинерОрганизация.add(СамаОрганизация) ;
-
                         // TODO: 02.11.2021   ВтораяЧасть ПолученияID ДЛЯВставка
-
-
-
                         int ПолощениеСамаОрганизацияIDДЛяЗаписи=Курсор_ИщемВсеОрганизации.getColumnIndex("id");
-
                         Integer         СамаОрганизацияIDЗаписи =Курсор_ИщемВсеОрганизации.getInt(ПолощениеСамаОрганизацияIDДЛяЗаписи);
-
                         Log.d(this.getClass().getName(), "  СамаОрганизацияIDЗаписи" +  СамаОрганизацияIDЗаписи);
-
-
                         ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи.put(СамаОрганизация,СамаОрганизацияIDЗаписи);
-
-
-                        Log.d(this.getClass().getName(), "  ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи" +  ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи.values());
-
+                        // TODO: 15.05.2025  
+                        Log.d(this.getClass().getName(), "\n"
+                                + " время: " + new Date() + "\n+" +
+                                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи.values() " +ЛистДляАдаптераСпинерОрганизацияСамоЗначениеIDДляЗаписи.values());
+                        
                     } while (Курсор_ИщемВсеОрганизации.moveToNext());
-                    ////
-
                 }
             // TODO: 07.09.2021 exit
             Курсор_ИщемВсеОрганизации.close();
 
-
-
-
-
-// Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+// TODO: 15.05.2025  
         ArrayAdapter<String> АдаптерДляСпинераОрганизация = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1,
                 ЛистДляАдаптераСпинерОрганизация);
         // Определяем разметку для использования при выборе элемента
@@ -613,7 +534,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                                         });
 
 
-                                        Long   UUIDGenetetorNewCustoner= (Long) new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+                                        Long   UUIDGenetetorNewCustoner= (Long) new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
                                         // TODO: 23.09.2021  получение из даты месяц и год
                                         Log.d(this.getClass().getName(), " ИмесяцвИГодСразу  " + ИмесяцвИГодСразу);
                                         // TODO: 22.09.2021 обработка ТАБЛИЦА ФИО
@@ -716,105 +637,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
     }
     }
 
-// TODO: 22.09.2021  ОБРАБОТКА ТАБЛИЦЫ ДАТА_ТАБЕЛЯ
-    @NotNull
-    private Cursor МетодПроверяетПустойЛиТабельПервыйЗапускТабеляЧтоДелатьОбновлятьИлиВставлять()
-            throws ExecutionException, InterruptedException, TimeoutException {
-        //
-        Class_GRUD_SQL_Operations class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем;
-        SQLiteCursor Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем =null;
-        try{
 
-
-        //todo табель еще есть м ыв уже сущетсвещющеуй табель не всталяем  а обнолвяем
-////TODO КУРСОР ПРОВЕЯЕТ ПЕРВЫЙ ЭТО ЗАПУСК ИЛИ НЕТ
-
-            // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-
-            ///
-            class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем=
-                    new Class_GRUD_SQL_Operations(getApplicationContext());
-
-            ///
-            class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы","tabels");
-            ///////
-            class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    concurrentHashMapНабор.put("СтолбцыОбработки","fio");
-            //
-            class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    concurrentHashMapНабор.put("ФорматПосика","uuid=? ");
-                    ///"_id > ?   AND _id< ?"
-                    //////
-            class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    concurrentHashMapНабор.put("УсловиеПоиска1",MainParentUUID);
-                    ///
-        /*            class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска2","Удаленная");
-                    ///
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска3",МЕсяцДляКурсораТабелей);
-                    //
-                    class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеПоиска4",ГодДляКурсораТабелей);////УсловиеПоискаv4,........УсловиеПоискаv5 .......
-*/
-            ////TODO другие поля
-
-            ///classGrudSqlOperations. concurrentHashMapНабор.put("ПоляГрупировки",null);
-            ////
-            //class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеГрупировки",null);
-            ////
-      /*      class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    concurrentHashMapНабор.put("УсловиеСортировки","date_update");*/
-            ////
-            /// class_grud_sql_operations. concurrentHashMapНабор.put("УсловиеЛимита","1");
-            ////
-
-            // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
-
-            //
-       Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем =null;
-
-   /////
-            Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем
-                    = (SQLiteCursor)  class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                    new GetData(getApplicationContext()).getdata(class_grud_sql_operationsПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.
-                            concurrentHashMapНабор,
-                    Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков
-                    ,sqLiteDatabase);
-
-            Log.d(this.getClass().getName(), "GetData "  +Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем);
-
-
-
-
-/*
-
-            // TODO: 07.09.2021   _old
- Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем =
-                new CoreBinessLogics(this).КурсорУниверсальныйДляБазыДанных("tabels",
-                        new String[]{"fio"}, "uuid=?", new String[]{УниверсальныйUUIDДляСОзданиеНовогоСотрудникаНаКонкретныйТабель}, null, null, null, null);//"SuccessLogin", "date_update","id=","1",null,null,null,null
-        ///TODO УДАЛЕМ ПАМЯТЬ*/
-
-
-//todo определяем есть uuid в строчке или нет
-        Log.d(this.getClass().getName(), "Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем " +
-                Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем.getCount());
-        /////s
-
-
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        ///метод запись ошибок в таблицу
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-
-    }
-
-        return Курсор_КоторыйПроверяетЭтоПустаяЯчейкаUUIDЕслиПустоеНоЭтоНовыйТабельБезСотрудниковиМыНеВставляемАОбновлем;
-    }
-
-    ////////todo
 
 
 
@@ -1075,23 +898,17 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("current_table",РезультатВычисляемВреисюДанных);
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("BirthDate",ЗначениеДеньРождения);
                 АдаптерДляСозданиеНовогоСотрудаТАблицаФИО.put("snils",ПолученныйСНИЛСНовогоСотрудника);
-                // TODO: 01.11.2021  ПРОВЛДИМ АНАЛИЗ НЕТ ЛИ СЛУЧАЙНО СОЗДАВАЕМОГО СОТРУДНИКА В ТАБЛИЦЕ ФИО
-                Class_GRUD_SQL_Operations class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника=new Class_GRUD_SQL_Operations( getApplicationContext());
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы", "fio");
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("СтолбцыОбработки", "snils");
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("ФорматПосика",
-                        " snils=?  ");
-                ///"_id > ?   AND _id< ?"
-                //////
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеПоиска1",ПолученныйСНИЛСНовогоСотрудника);
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеСортировки", "date_update DESC");
-                class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.concurrentHashMapНабор.put("УсловиеЛимита", "1");
 
-                SQLiteCursor     Курсор_ИщемЕслиТАкойСнилсУже = (SQLiteCursor) class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.
-                        new GetData(getApplicationContext()).getdata(class_grud_sql_operationsИщемВТАблицеФИОНЕтЛИСлучайноТАковожеСотрудника.
-                                concurrentHashMapНабор,
-                        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков);
-                Log.d(this.getClass().getName(), "Курсор_ИщемЕслиТАкойСнилсУже " + Курсор_ИщемЕслиТАкойСнилсУже);
+                // TODO: 14.05.2025 поиск Снилса
+                String Текущаятаблицы="fio";
+                ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
+                Cursor    Курсор_ИщемЕслиТАкойСнилсУже= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT D.snils  FROM "+Текущаятаблицы+" AS D" +
+                        "   D.date_update DESC  LIMIT 1  " ,null);
+
+                Log.d(this.getClass().getName(), "\n"
+                        + " время: " + new Date() + "\n+" +
+                        " Класс в процессе... " + this.getClass().getName() + "\n" +
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " Курсор_ИщемЕслиТАкойСнилсУже " +Курсор_ИщемЕслиТАкойСнилсУже);
                 // TODO: 01.11.2021
                 if( Курсор_ИщемЕслиТАкойСнилсУже.getCount()==0){
                     // TODO: 08.05.2025
@@ -1107,13 +924,13 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                 // TODO: 23.09.2021  повышаем верисю таблицы фио
                 // TODO: 08.092021  метод после заполения данными
                 РезультаВставкиВТАблицуФИО=       new Class_Generations_New_Customers_For_Tabels(getApplicationContext()).
-                        МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(АдаптерДляСозданиеНовогоСотрудаТАблицаФИО,activity,sqLiteDatabase);
+                        МетодЗаписиСозданогоСотрудникаВБазуПоТаблицы_ФИО(АдаптерДляСозданиеНовогоСотрудаТАблицаФИО,activity);
 
                     Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                            + " РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО"
-                            +РезультатВставкиНовогоТабеляЧерезКонтрейнерТаблицыФИО);
+                            + " РезультаВставкиВТАблицуФИО"
+                            +РезультаВставкиВТАблицуФИО);
 
                 }else{
                     activity.runOnUiThread(new Runnable() {
@@ -1146,129 +963,15 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                         Thread.currentThread().getStackTrace()[2].getLineNumber());
             }
             return  РезультаВставкиВТАблицуФИО;
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-        // TODO: 22.09.2021  МЕТОД НЕПОСТРЕДВСТЕННОЙ ЗАПИСИ ДАННЫХ В ТАБЛИЦУ ФИО
-
-
-
-
     }
 
-// TODO: 22.09.2021
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // TODO: 22.09.2021   KLASS GENERATOR NEW CUSTOMERS  IN TABLE data_tabels
     // TODO: 22.09.2021   KLASS GENERATOR NEW CUSTOMERS  IN TABLE data_tabels
     // TODO: 22.09.2021   KLASS GENERATOR NEW CUSTOMERS  IN TABLE data_tabels
-
-
     class   Class_Generator_New_Customer_In_Table_Data_Tables   {
-        ///////
-
-
-        public Class_Generator_New_Customer_In_Table_Data_Tables() {
-
-
-        }
-
     // TODO: 22.09.2021  ТАБЛИЦА ДАТА_ТАБЕЛЬ
-
-
-
-
-
-
-
     // TODO: 22.09.2021  ЗАПИСЬ НОВОГО СОТДУНИКА ВТОРОЕ ДЕЙСТИЕ ЗАПИСЬВ ТАБЛИЦУ ДАТА_ТАБЕЛЯ
-
-
-
-
-
-    //TODO метод записи нового сотрудника в базу
    protected Long методСозданиеНовогоСотрудникаDataTabels(@NotNull  Long UUIDGenetetorNewCustoner,
                                                           int ГодПриВставкеНовогоСотрудника,
                                                           int  МЕсяцПриВставкеНовогоСотрудника,
@@ -1295,7 +998,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
             // TODO: 23.09.2021
             Log.d(this.getClass().getName(), " ДатаПРиСозданииНовогоСотрудника" + ДатаПРиСозданииНовогоСотрудника);
 
-          Long UUidGeneratorDataTabels =  (Long)  new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+          Long UUidGeneratorDataTabels =  (Long)  new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
             АдаптерДляСозданиеНовогоСотрудаТАблицаТабель.put("uuid",UUidGeneratorDataTabels);
                 // TODO: 24.03.2021 ЕслиВубличногоНЕтТоНАходим ЕГо
 
@@ -1313,7 +1016,11 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                     ГодПриВставкеНовогоСотрудника,
                     МЕсяцПриВставкеНовогоСотрудника, UUidGeneratorDataTabels);/////TODO НОВЫЙ НУЖЕН НЕ ДЛЯ ВСТАВКИ А ДЛЯ ВТОРОГО ДЕЙСТВИЯ ЗАПОЛЕНИЯ ВЫХОДНЫМИ ЕСЛИ НВ НАСТРОЙКАХ ЕСТЬ КАКАЯ ФУЕНКЦИЯ И ОНА ВКЛЮЧЕН
 
-            Log.e(this.getClass().getName(), " РезультатВставкиВтаблицу_Дата_табеля" + РезультатВставкиВтаблицу_Дата_табеля);
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " РезультатВставкиВтаблицу_Дата_табеля " +РезультатВставкиВтаблицу_Дата_табеля);
+
 
         } catch (Exception e) {
             e.printStackTrace();

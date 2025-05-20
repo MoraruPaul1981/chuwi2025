@@ -32,7 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dsy.dsu.BootAndAsync.View.MainActivityBootAndAsync;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
@@ -89,7 +89,6 @@ public class MainActivityPasswords extends AppCompatActivity {
     private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     private String ПубличноеЛогин = new String();
     private String ПубличноеПароль = new String();
-    private SQLiteDatabase sqLiteDatabase;
     private SharedPreferences preferences;
     private String ОшибкиПришлиПослеПингаОтСервера = null;
     private Message message;
@@ -130,14 +129,10 @@ public class MainActivityPasswords extends AppCompatActivity {
             // TODO: 04.10.2023 разрешения для всего
             GrandPermissions grandPermissions=   new GrandPermissions(this );
             grandPermissions.checkPermissions();
-
-            /* TODO: 06.09.2023 tabase */
-            // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
 // TODO   запускам бизнес логику CoreApp
             new BunessLogicCoreApp(getApplicationContext()).getBunessLogicCoreApp();
@@ -301,8 +296,7 @@ public class MainActivityPasswords extends AppCompatActivity {
         try{
         Integer PublicID;
         //TODO запукаем метод Афторизаиция по ЛОГИНУ И ПАРОЛЮ
-        PublicID = new CoreBinessLogics(getApplicationContext()).
-                методАвторизацииЛогинИПаполь(getApplicationContext(), preferences, ПубличноеЛогин, ПубличноеПароль,getsslSocketFactory2);
+        PublicID = new CoreBinessLogics(getApplicationContext()).методАвторизацииЛогинИПаполь( ПубличноеЛогин, ПубличноеПароль,getsslSocketFactory2);
         Log.d(this.getClass().getName(), " PublicID " + PublicID);
 
         // TODO: 24.08.2023 УСПЕШНЫЙ КОД ЛОГИРОВАНИЕ И ПАРОЛЬ
@@ -688,9 +682,9 @@ public class MainActivityPasswords extends AppCompatActivity {
                 if (ВыбранныйРежимСети == true) {
                     // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                     Boolean   СтатусРаботыСервера =
-                            new GetPingServerJboss(getApplicationContext()). pingServerJbossSuccessfulOrNot( getsslSocketFactory2 ,sqLiteDatabase,getHiltPortJboss);
+                            new GetPingServerJboss(getApplicationContext()). pingServerJbossSuccessfulOrNot( getsslSocketFactory2 ,getHiltPortJboss);
 
-                    // TODO: 07.10.2023 пинг сервера
+                    // TODO: 07.10.2023 пинг сервера//
                     if (СтатусРаботыСервера == true) {
                             // TODO: 15.09.2023 ОБРАБОТКА ПАРОЛИ
                             методGetПарольОбработка(КнопкаВходавСистему);

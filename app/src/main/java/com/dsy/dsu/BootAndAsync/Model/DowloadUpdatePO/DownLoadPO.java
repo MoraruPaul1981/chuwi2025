@@ -24,7 +24,7 @@ import androidx.core.content.FileProvider;
 
 
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.DeletingFiles.GetDeletingFilesJsonAndApk;
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;

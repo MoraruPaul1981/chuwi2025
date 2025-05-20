@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -27,7 +28,9 @@ import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.IOUtils;
+import com.sous.backasync.launch.ModuleDeleting;
 import com.sous.backasync.launch.ModuleQuety;
+import com.sous.backasync.launch.ModuleСalled;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -179,8 +182,10 @@ public class BinessLogicFragmentError {
 
                     // TODO: 07.04.2025 Удаление ОШИБОК
                     v.getHandler().postDelayed(()->{
+                        // TODO: 17.05.2025
                               removingErrorsinFile();
-                                //clearingTableError();
+                        // TODO: 17.05.2025
+                                clearingTableError();
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
@@ -317,30 +322,16 @@ public class BinessLogicFragmentError {
     // TODO: 28.06.2023 Запись Ошибков
     public void removingErrorsinFile()   {
         try {
+            // TODO: 14.05.2025
+            ModuleСalled moduleСalled = new ModuleСalled(context);
+            // TODO: 03.02.2025 update new back
+            Bundle bundleCall=new Bundle();
+            bundleCall.putString("getxecSQL", "DELETE FROM errordsu1");
 
-            if (!sqLiteDatabase_error.inTransaction()) {
-                sqLiteDatabase_error.beginTransaction();
-            }
-            sqLiteDatabase_error.execSQL("DELETE FROM errordsu1 ");
-
-            // TODO: 22.09.2023
-// TODO: 17.04.2023
+            Bundle gatCall=  moduleСalled.getModuleСalled(Thread.currentThread().getStackTrace()[2].getMethodName(),"errordsu1",bundleCall );
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" );
-
-            sqLiteDatabase_error.setTransactionSuccessful();
-
-            if (sqLiteDatabase_error.inTransaction()) {
-                sqLiteDatabase_error.endTransaction();
-            }
-
-
-
-            Log.d(this.getClass().getName(),"\n" + " class FaceAPp " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
-
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " gatCall "+gatCall );
         } catch (Exception e) {
             e.printStackTrace();
             new RecordNewErros(context).recordnewerror(e.toString(),

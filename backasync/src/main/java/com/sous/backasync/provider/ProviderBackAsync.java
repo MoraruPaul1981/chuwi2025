@@ -11,6 +11,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CancellationSignal;
@@ -194,6 +195,15 @@ public class ProviderBackAsync extends ContentProvider  {
     }
 
 
+
+
+
+
+
+
+
+
+
     @NonNull
     private String МетодОпределяемТаблицу(Uri uri) {
         String table = new String();
@@ -363,22 +373,51 @@ public class ProviderBackAsync extends ContentProvider  {
 
     @Nullable
     @Override
-    public Bundle call(@NonNull String authority, @NonNull String method, @Nullable String arg, @Nullable Bundle extras) {
-        // TODO: 28.03.2023
-        try{
-            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErroBack(getContext()).recordnewerrorBack(e.toString(),
-                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+    public Bundle call(@NonNull String method, @Nullable String table, @Nullable Bundle bundleCall) {
+       // return super.call(method, arg, extras);
+            // TODO: 17.05.2025
+            try{
+                if (!sqliteBAck.inTransaction()) {
+                    sqliteBAck.beginTransaction();
+                }
+                String getxecSQL=     bundleCall.getString("getxecSQL").trim();
+                if (table!=null) {
+                    // TODO: 17.05.2025
+                    SQLiteStatement sqLiteStatementgetxecSQL= sqliteBAck.compileStatement(getxecSQL);
+                    sqLiteStatementgetxecSQL.execute();
+
+                    Log.d(this.getClass().getName(),"\n" + " class FaceAPp "
+                            + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                            " getxecSQL " + getxecSQL);
+                }else {
+                    Log.w(getContext().getClass().getName(), " table  " + table);/////
+                }
+                if (sqliteBAck.inTransaction()) {
+                    sqliteBAck.setTransactionSuccessful();
+                }
+                if (sqliteBAck.inTransaction()) {
+                    sqliteBAck.endTransaction();
+                }
+                Log.d(this.getClass().getName(),"\n" + " class FaceAPp " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                        " bundleCall " + bundleCall);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
+                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
+                new RecordNewErroBack(getContext()).recordnewerrorBack(e.toString(),
+                        this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                        Thread.currentThread().getStackTrace()[2].getLineNumber());
+            }
+            return bundleCall;
+
         }
-        return extras;
-    }
+
+
+
 
 
 

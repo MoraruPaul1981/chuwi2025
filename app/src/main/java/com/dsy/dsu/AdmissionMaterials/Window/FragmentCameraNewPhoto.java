@@ -41,7 +41,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 import com.google.android.material.button.MaterialButton;
@@ -547,7 +547,7 @@ try{
                         patchFile.setWritable(true);
                     }
                     Long UUID = (Long)
-                            new Class_Generation_UUID(getContext()).МетодГенерацииUUID();
+                            new GreatUuidGeneration(getContext()).greatUuidGeneration();
                     String NameNewPhotosCamerax=UUID.toString() +".jpg";
             File fileNewPhotoFromCameraX = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                     +File.separator+patchFileName +File.separator+NameNewPhotosCamerax);

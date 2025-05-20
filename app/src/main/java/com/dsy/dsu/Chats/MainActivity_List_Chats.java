@@ -2,6 +2,7 @@ package com.dsy.dsu.Chats;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,13 +19,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+
+import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
+import com.sous.backasync.launch.ModuleQuety;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,85 +41,49 @@ import dagger.hilt.EntryPoints;
 
 public class MainActivity_List_Chats extends FragmentActivity {
 
-
-    FragmentManager fragmentManager;
-    ///
-    FragmentTransaction fragmentTransaction;
-
-String РежимЗапускаАктивтиЧата=new String();
-////
-Long ПолученыйIDДляЧата=0l;
-
-String ПолученыйФИОIDДляЧата=new String();
-
-Long ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески=0l;
-
-
-HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=null;
-// TODO: 29.06.2022
-
+    private  FragmentManager fragmentManager;
+    private  FragmentTransaction fragmentTransaction;
+    private String РежимЗапускаАктивтиЧата=new String();
+   private Long ПолученыйIDДляЧата=0l;
+    private String ПолученыйФИОIDДляЧата=new String();
+    private Long ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески=0l;
+    private HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=null;
+// TODO: 29.06.20
     final  private  String ИмяСлужбыСинхронизацииОдноразовая = "WorkManager Synchronizasiy_Data Disposable";
     private WorkInfo WorkInfoИнформацияОЗапущенойСлужбеОдноразовая;
 
 
-    private SQLiteDatabase sqLiteDatabase ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main_history_chat);
             // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
 
-
-            ////
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
-            /////
-
-
-
-
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                     | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
             МетодгенерируемВходящиеДанныеЧтоБЫПрередатьИхДаллеВдругиеАктивтиЛистЧат();
-
-
-// TODO: 27.04.2021 формируем внешний вид Чата через фрагменты
-
-
+            // TODO: 27.04.2021 формируем внешний вид Чата через фрагменты
             // TODO: 22.12.2021  rEGISTA OENSIGMAL
-
-
             МетододеноразовойСлужбыСинхрониазции();
-
-            //////////
-
-
             fragmentManager=getSupportFragmentManager();
-            ///
             fragmentTransaction=fragmentManager.beginTransaction();
 
-// TODO: 11.03.2022
-
-            // initialization code
-
-
-            /////////////
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"  );
         } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
             new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
@@ -125,166 +92,58 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
 
     }
 
-    private void МетодгенерируемВходящиеДанныеЧтоБЫПрередатьИхДаллеВдругиеАктивтиЛистЧат() throws ExecutionException, InterruptedException {
 
 
-        Intent ОбменДаннымиСДругимиАктивити = getIntent();
-
-        // TODO: 10.02.2022
-
-
+    private void МетодгенерируемВходящиеДанныеЧтоБЫПрередатьИхДаллеВдругиеАктивтиЛистЧат() {
         try{
-        /////
+            Intent ОбменДаннымиСДругимиАктивити = getIntent();
         ХэщЗапусАктивтиИзФрагмента = (HashMap<String, Object>)ОбменДаннымиСДругимиАктивити.getSerializableExtra("ОбменМеждуАктивти");
-
         // TODO: 21.12.2021
-
         if (ХэщЗапусАктивтиИзФрагмента!=null) {
             // TODO: 21.12.2021
-
-
             // TODO: 04.11.2021   ЗАПУСКАЕМ СИНХРОНИАХЦИИЮ  через ONESIGNAL
             Log.d(this.getClass().getName(), "ClassOneSingnalGenerator ХэщЗапусАктивтиИзФрагмента "+ХэщЗапусАктивтиИзФрагмента.keySet().toArray());
             ////
             Log.d(this.getClass().getName(), "   ХэщЗапусАктивтиИзФрагмента "+ХэщЗапусАктивтиИзФрагмента.values());
 
-            ///
-
             РежимЗапускаАктивтиЧата=   ХэщЗапусАктивтиИзФрагмента.get("ЗапускАктивтиЧатИзФрагмента").toString();
 
-
             Log.d(this.getClass().getName(), "   РежимЗапускаАктивтиЧата "+РежимЗапускаАктивтиЧата);
-
             ////////////////////////ID приповтроном входет
-
             if (!РежимЗапускаАктивтиЧата.equalsIgnoreCase("Повторный Запск Фрагмента Контактов")) {
                 //////
                 if (РежимЗапускаАктивтиЧата.length()>0) {
                     ///
                     ПолученыйIDДляЧата= (Long) ХэщЗапусАктивтиИзФрагмента.get("ПолученыйIDДляЧата");
-
-
                     Log.d(this.getClass().getName(), "   ПолученыйIDДляЧата "+ПолученыйIDДляЧата);
-
-                    ///
                     ПолученыйФИОIDДляЧата= (String) ХэщЗапусАктивтиИзФрагмента.get("ПолученыйФИОIDДляЧата");
-
-
-
                     Log.d(this.getClass().getName(), "   ПолученыйФИОIDДляЧата "+ПолученыйФИОIDДляЧата);
-
                     ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески=0l;
-                    ///
                     ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески= (Long) ХэщЗапусАктивтиИзФрагмента.get("ПолученыйUUIDУжеСуществующийПерепискиПользоватлейДляЧата");
-
                     Log.d(this.getClass().getName(), "   ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески "+ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески);
-
-
-
                     // TODO: 27.12.2021
                     if(ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески==null){
+                        // TODO: 15.05.202
+                        String Текущаятаблицы="chats";
+                        ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
+                        Cursor Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT uuid_parent FROM "+Текущаятаблицы+"" +
+                                " WHERE id_user   =  "+ПолученыйIDДляЧата   +" AND uuid_parent  IS NOT NULL " ,null);
 
-
-              /*          // TODO: 27.12.2021
-
-                        ///TODO --первая вставка
-
-                        SQLiteCursor Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения = null;
-
-
-                        // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-
-                        // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-                        Class_GRUD_SQL_Operations class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть = new Class_GRUD_SQL_Operations(getApplicationContext());
-                        ///
-                        class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор.put("СамFreeSQLКОд",
-                                " SELECT id FROM SuccessLogin ORDER BY date_update DESC LIMIT 1 ");
-
-
-                        ////
-                        Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения = null;
-                        ///////
-                        Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения = (SQLiteCursor) class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.
-                                new GetаFreeData(getApplicationContext()).getfreedata(class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор,
-                                new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
-                                , new CREATE_DATABASE(getApplicationContext()).getССылкаНаСозданнуюБазуORM());
-
-                        Log.d(this.getClass().getName(), "GetData " + Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения);
-
-
-                        Integer ПубличныйIDДляФрагмента=0;
-                        // TODO: 09.09.2021 resultat
-                        /////
-                        if (Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения.getCount() > 0) {
-                            //////////
-                            Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения.moveToFirst();
-                            //////////////
-                            ПубличныйIDДляФрагмента = Курсор_ВычисляемПУбличныйIDПриСозданииНовогоСообщения.getInt(0);
-                        }*/
-
-                        // TODO: 21.12.2021  Ищем Вообще Уже ЕстьТабкой UUD ИЛИ нет между Пользователями
-                        SQLiteCursor Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ = null;
-
-                        // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-
-                        // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-                        Class_GRUD_SQL_Operations class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть = new Class_GRUD_SQL_Operations(getApplicationContext());
-                        ///
-
-                        ///
-                        class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор.put("СамFreeSQLКОд",
-                                " SELECT uuid_parent FROM chats " +
-                                        " WHERE id_user   =  " +ПолученыйIDДляЧата   +" AND uuid_parent  IS NOT NULL ");//ПубличныйIDДляФрагмента
-
-
-                        ////
-             /*           " SELECT uuid FROM chats " +
-                                " WHERE user_update  =  " + ПубличныйIDДляФрагмента + " AND  id_user = " + ПолученыйIDДляЧата +
-                                " UNION  " +
-                                " SELECT uuid FROM chats " +
-                                " WHERE   user_update =   " + ПолученыйIDДляЧата  + " AND  id_user  = " + ПубличныйIDДляФрагмента);
-*/
-
-                        ///////
-                        Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ =
-                                (SQLiteCursor) class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.
-                                        new GetаFreeData(getApplicationContext()).getfreedata(class_grud_sql_operationsРабоатемВФрагментечитатьПисатьШестаяЧасть.concurrentHashMapНабор,
-                                        new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
-                                        ,     sqLiteDatabase);
-
-
-                        Log.d(this.getClass().getName(), "Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ " + Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ);
-
-
+                        Log.d(this.getClass().getName(), "\n"
+                                + " время: " + new Date() + "\n+" +
+                                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
+                                + " Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ " +Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ);
                         // TODO: 21.12.2021  Если Есть Есть Хоть есть одна строчка значит пользоватми есть Чат и Создавать НЕ надо Еще Одну строчку
-
-
-                        String ДатаПриСоздаенииНовгоСообщениявЧате;
-
-                        Long РезультатВставки_НовойЗаписиВТаблицуЧАТ = null;
-
-                        // TODO: 21.12.2021
-
-
-
                         Log.d(this.getClass().getName(), "Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.getCount() " + Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.getCount());
-
-
                         // TODO: 21.12.2021  СОЗДАЕМ НОВОЕ СООБЩЕНИ  ИЗ ДВУХ ЧАСТЬЕЙ СОЗДАНИЕ В ДВУХ ТАБЛИЦАХ СТРОЧЕК CHATS AND DATA_CHATS ВТОРОЙ ХОД
-
                         if (Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ!=null) {
                             // TODO: 10.02.2022
-
                             if (Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.getCount() > 0) {
-
                                 // TODO: 22.12.2021
-
                                 Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.moveToFirst();
-    // TODO: 22.12.2021
-
                                 ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески= Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.getLong(0);
                                 // TODO: 21.12.2021
-
                                 Log.d(this.getClass().getName(), "Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ "  + Курсор_ПосикUUIDУжеСозданныйУжеЧатМеждуользователсиИЛНЕТ.getCount()+"\n"+
                                         "  ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески " +ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески);
 
@@ -300,34 +159,18 @@ HashMap<String, Object> ХэщЗапусАктивтиИзФрагмента=nul
 
                                 if (ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески==null){
                                     // TODO: 10.02.2022
-
-
                                     ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески=0l;
                                 }
 
-
-
-
                     Log.d(this.getClass().getName(), "   ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески "+ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески);
-
-
-
 
                 }
             }
 
-            ///
-
-
-
-
         }
 
-
-        /////////////
     } catch (Exception e) {
         e.printStackTrace();
-        ///метод запись ошибок в таблицу
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                 " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
         new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
@@ -1060,7 +903,7 @@ try{
 
         try {
             // TODO: 28.12.2021  ЗАПУСК ОДНОРАЗОВОЙ СЛУЖБЫ
-            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   new GetPublicID().getPublicIDAllApp(getApplicationContext());
             if (!WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().isEmpty()) {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая =
                         WorkManager.getInstance(getApplicationContext().getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().get(0);

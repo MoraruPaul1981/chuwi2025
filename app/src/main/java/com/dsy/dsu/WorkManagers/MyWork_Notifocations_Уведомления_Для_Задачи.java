@@ -13,7 +13,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -33,10 +32,9 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
 import com.dsy.dsu.BusinessLogicAll.SubClass_Starting_Tasks_ЗапускДЛяЗадач;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
@@ -65,14 +63,13 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
     private   WorkInfo ИнформацияОЗапущенойСлужбе_Уведомления_Одноразовая;
     private  Integer ОбщееКоличествоНЕпрочитанныхСтрок = 0;
     private NotificationCompat.Builder builder_Для_Задачи = null;
-    private SQLiteDatabase sqLiteDatabase ;
     private Class_GRUD_SQL_Operations class_grud_sql_operationsIDпользоввателяДляСлужб;
     private  SimpleDateFormat ФоорматДат ;
     private    int     ID_ТаблицаУвендомлений;
     private   Intent ИнтентДляЗапускаСлужбыПолсеАнализа;
     private   Boolean РезультатНужноЗапускатьУведомленияИлиНет=false;
     private String PROCESS_ID_УведомленияПлановая="12";
-    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    private   PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
     private  ArrayList БуферСамиУведомленияЛинкСамиУведомления;
     private  NotificationCompat.MessagingStyle messagingStyleДля_ОбщихУведомлений;
     private Person.Builder person;
@@ -84,7 +81,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
         super(context, workerParams);
         this.context = context;
         workerParams = workerParams;
-        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(context);
+        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
         messagingStyleДля_ОбщихУведомлений = new NotificationCompat.MessagingStyle(getApplicationContext().getResources().getString(R.string.action_settings)).setConversationTitle("Задачи");
         Log.i(this.context.getClass().getName(),
                 " messagingStyleДля_ОбщихУведомлений " + "\n" + messagingStyleДля_ОбщихУведомлений.getMessages());
@@ -925,7 +922,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
         Integer  ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали= (Integer)  class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.
                 new UpdateData(getApplicationContext()).updatedata(class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.concurrentHashMapНабор,
                 class_grud_sql_operationsПослеУдаленияДобавляемДатуВерсии.contentValuesДляSQLBuilder_Для_GRUD_Операций,
-                new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков,   sqLiteDatabase);
+                new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков,   sqLiteDatabase);
 
         Log.d(this.getClass().getName(), " ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали  " +ОбновляемСтатусЗадачиУведомленияЧТоЕЕУжеПоказывали
                 +" UUIDРочитаногоЗаданиеДляКотрогоДалееБудетПроизведенаСменаСтсусаНАОзнакомленный "+UUIDРочитаногоЗаданиеДляКотрогоДалееБудетПроизведенаСменаСтсусаНАОзнакомленный);
@@ -964,7 +961,6 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
 
     private Integer МетодПослеУспешнойЗаписиЗначенияВТаблицуПоднимаемВерсиюДанных
             (Class_GRUD_SQL_Operations classGrudSqlOperationsДляОперацииСозданеиНовойЗадачи,
-             SQLiteDatabase sqLiteDatabaseДляНовгоЗадания,
              Long РезультатУвеличинаяВерсияВнутриСамогоТабелСтрудника, String таблицаОбработкиПослеУспешнойВсатвкиНовойЗадачи) throws ExecutionException, InterruptedException {
 
         // TODO: 21.03.2022
@@ -999,7 +995,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
                             new ChangesVesionData(getApplicationContext()).
                             changesvesiondata(classGrudSqlOperationsДляОперацииСозданеиНовойЗадачи.
                                             concurrentHashMapНабор,
-                                    new BinessLogicPublicContent(getApplicationContext()).МенеджерПотоков
+                                    new PUBLIC_CONTENT(getApplicationContext()).МенеджерПотоков
                                     , sqLiteDatabaseДляНовгоЗадания);
 //
             Log.d(getApplicationContext().getClass().getName(), "Результат_ПриписиИзменнийВерсииДанныхВФонеПриСменеОрганизации "
@@ -1053,7 +1049,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
             ///
             Class_GRUD_SQL_Operations   class_grud_sql_operationsПолучаемПубличныйIDЛокальноИеСЛИЕгоНЕтНАчинаемЕгоИСктьВНИтренете=new Class_GRUD_SQL_Operations(getApplicationContext());
             // TODO: 03.11.2021
-            BinessLogicPublicContent public_contentменеджер=new BinessLogicPublicContent(getApplicationContext());
+            PUBLIC_CONTENT public_contentменеджер=new PUBLIC_CONTENT(getApplicationContext());
 
             ///
             class_grud_sql_operationsПолучаемПубличныйIDЛокальноИеСЛИЕгоНЕтНАчинаемЕгоИСктьВНИтренете.

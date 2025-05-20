@@ -8,7 +8,6 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -39,14 +38,13 @@ import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.loader.content.AsyncTaskLoader;
 
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
 import com.dsy.dsu.R;
@@ -55,6 +53,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.sous.backasync.launch.ModuleQuety;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,11 +62,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
-import dagger.hilt.EntryPoints;
 import dagger.hilt.android.AndroidEntryPoint;
 
 
@@ -376,40 +371,23 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
     //TODO метод провереям если название табеля в базе
     private boolean МетодПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть(@NotNull  Long UUIDНазваниеЦФО,
                                                                       @NotNull  Integer МесяцДляАнализаиВставкиЕслиТакогоНет,
-                                                                      @NotNull Integer ГодляАнализаиВставкиЕслиТакогоНет,
-                                                                      @NotNull  CompletionService МенеджерПотоковВнутри)
-            throws InterruptedException, ExecutionException, TimeoutException, ParseException {
-        Class_GRUD_SQL_Operations class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть;
+                                                                      @NotNull Integer ГодляАнализаиВставкиЕслиТакогоНет) {
+
         try {
-            Log.d(this.getClass().getName(), " МесяцДляАнализаиВставкиЕслиТакогоНет " + МесяцДляАнализаиВставкиЕслиТакогоНет
-                    + " ГодляАнализаиВставкиЕслиТакогоНет " + ГодляАнализаиВставкиЕслиТакогоНет);
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть=new Class_GRUD_SQL_Operations(getApplicationContext());
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы","tabel");
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("СтолбцыОбработки","cfo, month_tabels ,year_tabels");
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("ФорматПосика","cfo= ? AND month_tabels=? " +
-                    "AND year_tabels=? AND status_send!=? ");
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеПоиска1",UUIDНазваниеЦФО);
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеПоиска2",МесяцДляАнализаиВставкиЕслиТакогоНет);
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеПоиска3",ГодляАнализаиВставкиЕслиТакогоНет);
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеПоиска4","Удаленная");////УсловиеПоискаv4,........УсловиеПоискаv5 .......
-            ////TODO другие поля
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеСортировки","date_update DESC" );
-            class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    concurrentHashMapНабор.put("УсловиеЛимита","1");
-            SQLiteCursor    Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет= (SQLiteCursor)  class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                    new GetData(getApplicationContext()).getdata(class_grud_sql_operationsПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть.
-                            concurrentHashMapНабор,
-                    МенеджерПотоковВнутри
-                    ,   );
-            Log.d(this.getClass().getName(), "GetData "  +Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет);
+            // TODO: 14.05.2025
+            String Текущаятаблицы="tabel";
+            ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
+            Cursor    Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT D.cfo, D.month_tabels ,D.year_tabels FROM "+Текущаятаблицы+" AS D" +
+                    "  WHERE D.cfo= "+UUIDНазваниеЦФО
+                    +" AND D.month_tabels="+МесяцДляАнализаиВставкиЕслиТакогоНет
+                    +" AND D.year_tabels="+ГодляАнализаиВставкиЕслиТакогоНет+
+                    "   AND D.status_send!=Удаленная" +
+                    "   D.date_update DESC   " ,null);
+
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет " +Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет);
         if (   Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет.getCount() > 0) {
             Курсор_ПроверяемЕслиТакоеНазваниеТабеляУжеЕстьИлиНет.close();
             return true;
@@ -1056,8 +1034,7 @@ while(iterator.hasNext()){
             boolean РезультатЕслиТакоеНазвание =
                     МетодПроверяемЕслиТакойНазваниеТабеляВБазеУжеЕсть(UUIDНазваниеЦФО
                             ,НовыйМесяц
-                            ,НовыйГод
-                            ,Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков);
+                            ,НовыйГод);
             Log.d(this.getClass().getName(), " РезультатЕслиТакоеНазвание" +РезультатЕслиТакоеНазвание );
 
 
@@ -1072,7 +1049,7 @@ while(iterator.hasNext()){
                 ContentValues АдаптерВставкиНовгоТабеля = new ContentValues();
 
 
-         Long   СгенерированныйUUIDДляНовогоТабеля=  (Long)   new Class_Generation_UUID(getApplicationContext()).МетодГенерацииUUID();
+         Long   СгенерированныйUUIDДляНовогоТабеля=  (Long)   new GreatUuidGeneration(getApplicationContext()).greatUuidGeneration();
             АдаптерВставкиНовгоТабеля.put("uuid", СгенерированныйUUIDДляНовогоТабеля);
 
 
@@ -1175,7 +1152,7 @@ while(iterator.hasNext()){
     protected   Cursor МетодДляНовогоТабеляПолучаемДанные(@NonNull String  ФлагКакаяТаблицаОбработки){
         Cursor cursor = null;
         try{
-         Integer   ПубличныйIDДляФрагмента     =EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+         Integer   ПубличныйIDДляФрагмента     =new GetPublicID().getPublicIDAllApp(getApplicationContext());
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();
@@ -1206,7 +1183,7 @@ while(iterator.hasNext()){
     protected   Cursor МетодДляНовогоТабеляПолучаемДанные(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
         Cursor cursor = null;
         try{
-            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer   ПубличныйIDДляФрагмента     =new GetPublicID().getPublicIDAllApp(getApplicationContext());
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();
@@ -1235,7 +1212,7 @@ while(iterator.hasNext()){
     protected  Cursor МетодДляНовогоТабеляПолучаемДанныеИзНовогоПоиска(@NonNull String  ФлагКакаяТаблицаОбработки, @NotNull String Фильтр){
         Cursor cursor = null;
         try{
-            Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            Integer   ПубличныйIDДляФрагмента     = new GetPublicID().getPublicIDAllApp(getApplicationContext());
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();

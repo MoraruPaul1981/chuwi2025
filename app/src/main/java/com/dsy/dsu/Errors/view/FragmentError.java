@@ -147,7 +147,7 @@ public class FragmentError extends DialogFragment {
             // TODO: 12.12.2023  staring biscce logic
 
 
-            logicFragmentError =new BinessLogicFragmentError( getContext(),getSqlLiteCoreApp,moduleQuety);
+            logicFragmentError =new BinessLogicFragmentError( getContext(),moduleQuety);
 
             // TODO: 07.04.2025 exit fromFragment ERROR 
             logicFragmentError.BackFragmentSettings(imageViewBack,fragmentManager);
@@ -155,12 +155,12 @@ public class FragmentError extends DialogFragment {
             // TODO: 17.01.2025  Получаем Ошибку двумя разными способами из файла и из курсора
               //77777BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
             // BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromCursor() );
-             BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
+             BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
 
             Log.d(this.getClass().getName(),"\n" + " class "
                 + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"   +  "getSqlLiteCoreApp " +getSqlLiteCoreApp +
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
                     " BufferGetError " +BufferGetError);
     } catch (Exception e) {
         e.printStackTrace();

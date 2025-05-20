@@ -3,7 +3,7 @@ package com.dsy.dsu.BusinessLogicAll;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import java.text.DecimalFormat;

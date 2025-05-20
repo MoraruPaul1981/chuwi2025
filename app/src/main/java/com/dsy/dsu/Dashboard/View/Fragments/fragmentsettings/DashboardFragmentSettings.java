@@ -38,7 +38,7 @@ import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.StartServiceBootAn
 import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.GetComponentActivityBootService;
 
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.Class_Clears_Tables;
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
@@ -638,7 +638,7 @@ public class DashboardFragmentSettings extends  DialogFragment {
                         // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                         Boolean   СтатусРаботыСервера =
                                 new GetPingServerJboss(getContext()).
-                                        pingServerJbossSuccessfulOrNot( getsslSocketFactory2, getsqLiteDatabase,getHiltPortJboss);
+                                        pingServerJbossSuccessfulOrNot( getsslSocketFactory2,getHiltPortJboss);
                         if (СтатусРаботыСервера) {
                             handlerAsync.post(() -> {
                                 progressDialogДляСинхронизации.setTitle("Обмен данными");
@@ -695,10 +695,10 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                 // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                          Boolean   СтатусРаботыСервера =
                                         new GetPingServerJboss(getContext()).
-                                                pingServerJbossSuccessfulOrNot( getsslSocketFactory2, getsqLiteDatabase,getHiltPortJboss);
+                                                pingServerJbossSuccessfulOrNot( getsslSocketFactory2, getHiltPortJboss);
 
                                 if (СтатусРаботыСервера == true) {
-                                    String ПолученыйТекущееИмяПользователя = new CoreBinessLogics(getContext(),getsqLiteDatabase)
+                                    String ПолученыйТекущееИмяПользователя = new CoreBinessLogics(getContext())
                                             .МетодПолучениеИмяСистемыДляСменыПользователя(getActivity());
 
                                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity())
@@ -709,7 +709,6 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                              .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent Интент_Меню = new Intent();
                                         try {
                                             // TODO: 24.04.2023  запуск смены Пользоватедя Данные
                                             ProgressDialog    prograssbarСменаДанныхПользователя = new ProgressDialog(getActivity());
@@ -719,36 +718,13 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                             prograssbarСменаДанныхПользователя.setCanceledOnTouchOutside(false);
                                             prograssbarСменаДанныхПользователя.setMessage("в процессе...");
                                             prograssbarСменаДанныхПользователя.show();
-
-                                            try{
-
-
-
-
-                                                BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getActivity());
+                                            // TODO: 17.05.2025  Запускаем
                                                 Class_Clears_Tables class_clears_tables=     new Class_Clears_Tables(getActivity(),
                                                         handlerAsync,
                                                         prograssbarСменаДанныхПользователя);
 
-                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(),
-                                                          Class_Engine_SQLГдеНаходитьсяМенеджерПотоков.МенеджерПотоков, getActivity());
+                                                  class_clears_tables.методСменаДанныхПользователя(getActivity(), getActivity());
 
-
-
-                                                Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
-
-
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                                        + " Линия  :"
-                                                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                                new RecordNewErros(getContext()).recordnewerror(e.toString(),
-                                                        this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                                                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                            }
                                             Log.d(this.getClass().getName(), "\n" + " class " +
                                                     Thread.currentThread().getStackTrace()[2].getClassName()
                                                     + "\n" +
@@ -869,7 +845,7 @@ public class DashboardFragmentSettings extends  DialogFragment {
                            // TODO: 16.12.2021 НЕПОСРЕДСТВЕННЫЙ ПИНГ СИСТЕНМ ИНТРЕНАТ НА НАЛИЧЕНИ СВАЗИ С БАЗОЙ SQL SERVER
                            Boolean   СтатусРаботыСервера =
                                    new GetPingServerJboss(getContext()).
-                                           pingServerJbossSuccessfulOrNot( getsslSocketFactory2, getsqLiteDatabase,getHiltPortJboss);
+                                           pingServerJbossSuccessfulOrNot( getsslSocketFactory2,getHiltPortJboss);
 // TODO: 10.07.2023  запуск обновление ПО
                            if (СтатусРаботыСервера) {
                                startServiceBootAndAsync.startServiceBootAndAsync("lanchUpdatePO");

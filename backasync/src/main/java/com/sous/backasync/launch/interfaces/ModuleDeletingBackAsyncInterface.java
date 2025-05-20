@@ -18,4 +18,6 @@ public interface ModuleDeletingBackAsyncInterface {
 
     @SuppressLint("NewApi")
     Integer getModuleDelete(@NonNull String Таблица,@NonNull Bundle bungleModuleBack);
+
+
 }

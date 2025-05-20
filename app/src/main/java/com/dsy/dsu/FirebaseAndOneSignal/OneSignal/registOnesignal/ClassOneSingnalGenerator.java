@@ -10,7 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.FirebaseAndOneSignal.Firebase.MyFirebaseInstanceIDService;
@@ -34,20 +34,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ClassOneSingnalGenerator {
      private Context context;
-     private SQLiteDatabase sqLiteDatabase ;
-    public ClassOneSingnalGenerator(@NonNull  Context context) {
-        this.context=context;
-        try{
-        if (context!=null) {
-            // TODO: 16.04.2025
-            sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
-            Log.d(context.getClass().getName(), "\n"
-                    + " время: " + new Date() + "\n+" +
-                    " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
-            Log.d(this.getClass().getName(), "sqLiteDatabase"+sqLiteDatabase);
-        }
 
+    public ClassOneSingnalGenerator(@NonNull  Context context) {
+        try{
+            this.context=context;
         Log.d(context.getClass().getName(), "\n"
                 + " время: " + new Date()+"\n+" +
                 " Класс в процессе... " +  this.getClass().getName()+"\n"+
@@ -60,14 +50,7 @@ public class ClassOneSingnalGenerator {
                 Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
 
     }
-
     }
-    // TODO: 14.11.2021  ПОВТОРЫЙ ЗАПУСК ВОРК МЕНЕДЖЕР СИНХРОГНИАЗУИЯ ДАННЫ
-
-
-
-
-
 
 
 
@@ -76,11 +59,9 @@ public class ClassOneSingnalGenerator {
     public void getGetRegistaziyNewKeyForOnoSignal(@NonNull String КлючДляFirebaseNotification) {
 
         try {
-            Class_GRUD_SQL_Operations listIDДляOneSignal=new Class_GRUD_SQL_Operations(context);
             BinessLogicPublicContent public_contentменеджер=new BinessLogicPublicContent(context);
-
             // TODO: 23.12.2021 ЧЕТЫРЕ ПОПЫТКИ ПОДКЛЮЧЕНИЕ В СЕВРЕРУONESIGNAL
-            Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.single())
+            Observable.interval(0, 20, TimeUnit.SECONDS, Schedulers.single())
                     .timeInterval()
                     .take(1,TimeUnit.MINUTES)
                   .doOnError(new Consumer<Throwable>() {
@@ -104,7 +85,7 @@ public class ClassOneSingnalGenerator {
                           if (   НовыйКлючОтOneSingnal !=null) {
 
                               // TODO: 06.01.2022
-                              методЗаписиNewKeyOneSignal(listIDДляOneSignal, public_contentменеджер,НовыйКлючОтOneSingnal );
+                              методЗаписиNewKeyOneSignal( НовыйКлючОтOneSingnal );
 
 
                               Log.d(this.getClass().getName(),"\n"
@@ -184,11 +165,8 @@ public class ClassOneSingnalGenerator {
     }
 
 
-    private void методЗаписиNewKeyOneSignal(@NonNull   Class_GRUD_SQL_Operations AllListIDДляOneSignal,
-            @NonNull BinessLogicPublicContent public_contentменеджер,
-            @NonNull String НовыйКлючОтOneSingnal) {
+    private void методЗаписиNewKeyOneSignal(@NonNull String НовыйКлючОтOneSingnal) {
         try{
-
 
             setWriterNewKeyInSqlLite(НовыйКлючОтOneSingnal);
 
@@ -213,7 +191,7 @@ public class ClassOneSingnalGenerator {
          // TODO: 10.12.2022 проверка условия сстоит записывать ключновый или нет от SINGONE FIREBASE
          if (НовыйКлючОтOneSingnal !=null   ) {
                  // TODO: 04.01.2022  ПРИШЕЛ НОВЫЙ КЛЮЧ И ЕГО НАДО ЗАПИСАТЬ ДЛЯ ONESINGNAL
-                 new WriterNewKeyOneSignal(sqLiteDatabase,context ,НовыйКлючОтOneSingnal ).writeingNewOneSingle();
+                 new WriterNewKeyOneSignal( context ,НовыйКлючОтOneSingnal ).writeingNewOneSingle();
 
                  Log.d(this.getClass().getName(),"\n"
                          + " bremy: " + new Date()+"\n+"

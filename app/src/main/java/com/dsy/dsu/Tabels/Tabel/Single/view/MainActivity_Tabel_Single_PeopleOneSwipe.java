@@ -1,10 +1,8 @@
 package com.dsy.dsu.Tabels.Tabel.Single.view;
 
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -15,15 +13,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
 import com.dsy.dsu.R;
 
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
-
-
 
 @AndroidEntryPoint
 public class MainActivity_Tabel_Single_PeopleOneSwipe extends AppCompatActivity  {

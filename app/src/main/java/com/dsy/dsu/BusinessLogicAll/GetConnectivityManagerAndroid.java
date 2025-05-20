@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 public class GetConnectivityManagerAndroid {

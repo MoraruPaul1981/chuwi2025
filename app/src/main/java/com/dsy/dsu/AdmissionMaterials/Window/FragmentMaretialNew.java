@@ -1360,7 +1360,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
             Cursor cursor = null;
             LinkedHashMap<String, Object> linkedHashMap=null;
             try{
-                Integer   ПубличныйIDДляФрагмента     = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+                Integer   ПубличныйIDДляФрагмента       =new GetPublicID().getPublicIDAllApp(getContext());
                 Log.d(getContext().getClass().getName(), "\n"
                         + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
                 Bundle bundleДляПЕредачи=new Bundle();

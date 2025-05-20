@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -18,13 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogics.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Class_GRUD_SQL_Operations;
+import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_Generation_UUID;
+import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.FileDescriptor;
@@ -42,7 +40,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 import javax.crypto.NoSuchPaddingException;
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -55,11 +52,10 @@ public class Service_Для_ЧатаСменаСтатусаПрочитаноИ
     // Random number generator
     private Context context;
 
-    private Class_GRUD_SQL_Operations    class_grud_sql_operations ;
 
 
-    @Inject
-    public   SQLiteDatabase sqLiteDatabase;
+
+
     private CoreBinessLogics modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного ;
     private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков ;
     private RecordNewErros recordNewErros;
@@ -357,7 +353,7 @@ private Long МетодЗаписиНовогоСообщенияТольков�
            // contentValuesЗаписьНовогоСообщения_ТаблицаЧат.putNull("_id");////бышвий user_for
 
        Long   ЛокльныйUUIDТОлькоДЛЯОднойТаблицыChats =
-                    (Long) new Class_Generation_UUID(context).МетодГенерацииUUID();
+                    (Long) new GreatUuidGeneration(context).greatUuidGeneration();
             ЛокльныйUUIDТОлькоДЛЯОднойТаблицыChats = ЛокльныйUUIDТОлькоДЛЯОднойТаблицыChats + new Random().nextInt(10);
 
             contentValuesЗаписьНовогоСообщения_ТаблицаЧат.put("uuid", ЛокльныйUUIDТОлькоДЛЯОднойТаблицыChats);// TODO Локальный Сгенерированый UUID
@@ -435,7 +431,7 @@ private Long МетодЗаписиНовогоСообщенияТольков�
                 contentValuesЗаписьНовогоСообщения_ТаблицыDATA_CHAT.put("date_update", СгенерированованныйДатаДляДаннойОперации);
                 contentValuesЗаписьНовогоСообщения_ТаблицыDATA_CHAT.put("user_update", ПубличныйIDДляФрагмента);
                 contentValuesЗаписьНовогоСообщения_ТаблицыDATA_CHAT.put("chat_uuid", НовыйUUIDДляОбеихТаблицЧАТиДАТАЧАТдляПоляPARENT_UUID);
-                Long ЛокальныйUUIDДляТаблицыДатаЧатВтораяТаблица = (Long) new Class_Generation_UUID(context).МетодГенерацииUUID();
+                Long ЛокальныйUUIDДляТаблицыДатаЧатВтораяТаблица = (Long) new GreatUuidGeneration(context).greatUuidGeneration();
                 contentValuesЗаписьНовогоСообщения_ТаблицыDATA_CHAT.put("uuid", ЛокальныйUUIDДляТаблицыДатаЧатВтораяТаблица);
 
                 // TODO: 18.03.2023  получаем ВЕСИЮ ДАННЫХ

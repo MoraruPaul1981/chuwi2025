@@ -51,7 +51,7 @@ import dagger.hilt.EntryPoints;
 public class ServiceOrserTransportService extends IntentService {
 
     private  SubClassOrderTransport subClassOrderTransport;
-    private SQLiteDatabase sqLiteDatabase ;
+
    protected LocalBinderOrderTransport localBinderOrderTransport= new LocalBinderOrderTransport();
     public ServiceOrserTransportService() {
 
@@ -63,11 +63,10 @@ public class ServiceOrserTransportService extends IntentService {
     public void onCreate() {
         super.onCreate();
         // TODO: 16.04.2025
-        sqLiteDatabase = EntryPoints.get(context, AppModuleSQLlite.class).getAppModuleSQLlite();
         Log.d(getApplicationContext().getClass().getName(), "\n"
                 + " время: " + new Date() + "\n+" +
                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqLiteDatabase " +sqLiteDatabase);
+                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
         subClassOrderTransport=new SubClassOrderTransport();
         Log.d(getApplicationContext().getClass().getName(), "\n"
                 + " время: " + new Date()+"\n+" +

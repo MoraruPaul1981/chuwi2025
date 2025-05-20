@@ -134,7 +134,7 @@ public class FragmentOrderTransportOneChaneStory extends Fragment {
             lifecycleOwnerОдноразовая =this;
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
-            ПубличныйID = EntryPoints.get(context, HiltInterfacesPublicID.class).getPublicIDAllApp();
+            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
 
             subClassOrdersTransport.   МетодHandlerCallBack();
             Log.d(getContext().getClass().getName(), "\n"
