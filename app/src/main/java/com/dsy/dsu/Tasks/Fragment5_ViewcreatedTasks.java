@@ -1,13 +1,11 @@
 package com.dsy.dsu.Tasks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,10 +33,9 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.Services.Service_For_Task_Для_Задания_СменаСатуса;
+import com.dsy.dsu.Services.ServiceForTasks;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -99,9 +96,9 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
     private BottomNavigationItemView bottomNavigationПринудительныйОбмен;
     // TODO: 06.07.2022
 
-    private Service_For_Task_Для_Задания_СменаСатуса service_for_task_для_задания_сменаСатуса;
+    private ServiceForTasks service_for_tasks;
     // TODO: 14.07.2022
-    private ServiceConnection connectionДляСменыСтатусаЗадач;
+
 
 
     @SuppressLint("RestrictedApi")
@@ -257,16 +254,8 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
         super.onResume();
         try {
             // TODO: 16.03.2022
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент5(getContext());
-
-
-
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи.  МетодИнициализациHandlerCallBack();
-
-
-            // TODO: 12.03.2022
-
-
+            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи
+                    = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент5(getContext());
             Log.d(this.getClass().getName(), " отработоатл  subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент3ЗаполенияЗадачиДляРедактирования " +
                     "" + subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи);
 
@@ -295,16 +284,9 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
 
             // TODO: 05.03.2022  ДЛЯ ИНИЗАЛИЗАЦИИ НИЖНИХ КНОПОК
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи.МетодСозданиеНавигаторКнопок();
-
-            // TODO: 17.03.2022
-
             // TODO: 05.03.2022  СТАТУС ЗНАЧКА С ДОПОЛНИТЕЛЬНЫЙ СТАТУСОМ
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи.МетодКпопкаСоЗачкомКраснымДополнительныйСтатус(Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе);
-
-
-            // TODO: 06.07.2022 биндинг службы смен статуса
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи.МетодЗапускаетБиндингСлужбыДляЗапускаОдноразовойСинхронизаци();
-
+            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи.
+                    МетодКпопкаСоЗачкомКраснымДополнительныйСтатус(Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе);
 
             Log.d(this.getClass().getName(), " нет данных для отображения " +
                     "отработоатл new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент1  Курсор_ДляПолученияДАнныхДляЗАДАЧTASK  МетодКпопкаСоЗачкомКраснымДополнительныйСтатус  " + Курсор_ГлавныйКурсорДляЗадач +
@@ -1114,7 +1096,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                     intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе.setAction("ЗапускаемИзмененияСатусазадачиВыполнил");
                     intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе.putExtras(bundleДляПередачиВСлужбыСменыСтатуса);
 // TODO: 05.07.2022 меняет статус
-                    РезультатСменыСтатусаНаОзнакомленный=        service_for_task_для_задания_сменаСатуса.МетодpЗапускСлужбыДляЗадач(getContext(),intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе);
+                    РезультатСменыСтатусаНаОзнакомленный=        service_for_tasks.МетодpЗапускСлужбыДляЗадач(getContext(),intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе);
 
                     if (РезультатСменыСтатусаНаОзнакомленный == true) {
                         // TODO: 09.03.2022
@@ -1306,52 +1288,6 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
             }
 
 
-            private SQLiteCursor МетодПолучениеДанныхФИОаОснованииID(Integer КтоНаписалСообщениеФИОдЛПосика) throws ExecutionException, InterruptedException {
-                // TODO: 16.11.2021 find FIO
-                SQLiteCursor Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал = null;
-                try {
-                    ///
-                    Class_GRUD_SQL_Operations class_grud_sql_operationsФИОКтоНАсамомДелеНАписал = new Class_GRUD_SQL_Operations(getContext());
-
-                    ///
-                    class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы", "chat_users");
-                    ///////
-                    class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор.put("СтолбцыОбработки", "name");
-                    //
-                    class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор.put("ФорматПосика", "_id=?   AND name IS NOT NULL ");
-                    ///"_id > ?   AND _id< ?"
-                    //////
-                    class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор.put("УсловиеПоиска1", КтоНаписалСообщениеФИОдЛПосика);
-
-    /*            class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("УсловиеСортировки","date_update DESC");
-                ////
-                class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("УсловиеЛимита","5");*/
-
-                    // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
-                    ///
-
-                    Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал = (SQLiteCursor) class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.
-                            new GetData(getContext()).getdata(class_grud_sql_operationsФИОКтоНАсамомДелеНАписал.concurrentHashMapНабор,
-                            new BinessLogicPublicContent(getContext()).МенеджерПотоков,sqLiteDatabase);
-
-                    ////////
-
-                    Log.d(this.getClass().getName(), "Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал " + Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ///метод запись ошибок в таблицу
-                    Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                            " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                            Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    //   mNotificationManagerДляЧАТА.cancel(1);///.cancelAll();
-                }
-
-                // TODO: 02.03.2022
-                return Курсор_ДляСлужбыУведомлений_ВычисляемНстоящееФИОКтоНаписал;
-            }
 
 
             @Override
@@ -1373,211 +1309,13 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                 recyclerView.getRecycledViewPool().clear();
                 super.onAttachedToRecyclerView(recyclerView);
             }
-
-
-        }//TODO  конец два
-
-
-        // TODO: 17.03.2022  КЛАСС ДЛЯ СПИНЕРА
-
-
-        private class КлассАдаптерДляСпинера {
-            // TODO: 17.03.2022
-            Context context;
-            // TODO: 17.03.2022
-            SQLiteCursor sqLiteCursorКурсорПолучаемВсеФИоДляНовойЗадачиКому;
-
-            public КлассАдаптерДляСпинера(Context context) throws ExecutionException, InterruptedException {
-                // TODO: 17.03.2022
-                this.context = context;
-
-                // TODO: 02.03.2022
-                Log.i(this.getClass().getName(), "  sqLiteCursorКурсорПолучаемВсеФИоДляНовойЗадачиКому " + sqLiteCursorКурсорПолучаемВсеФИоДляНовойЗадачиКому);
-            }
-
-            // TODO: 17.03.2022  ПЕРЕНЕСЕНЫЙ МЕТОД ДЛЯ КУРСОР ДЛЯ ФИО ДЛЯ СПИНЕРА
-
-            // TODO: 28.02.2022 Под Класс порлучение данных для активти
-            SQLiteCursor МетодПолучаемГлавныеДанныеДляSpinnerКомуЗадачаФИО() throws ExecutionException, InterruptedException {
-                // TODO: 26.08.2021 НОВЫЙ ВЫЗОВ НОВОГО КЛАСС GRUD - ОПЕРАЦИИ
-                SQLiteCursor sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание = null;
-                try {
-                    ///
-                    Class_GRUD_SQL_Operations class_grud_sql_operationsIDпользоввателяДляСлужб = new Class_GRUD_SQL_Operations(getContext());
-                    ///
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("НазваниеОбрабоатываемойТаблицы", "chat_users");//old для другой уведомления data_chat
-                    ///////
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("СтолбцыОбработки", "*");
-                    //
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("УсловиеСортировки", "_id");//todo "date_update DESC, status_write DESC"*/
-                    //
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("ФлагНепотораяемостиСтрок", true);//todo "date_update DESC, status_write DESC"*/
-                    //
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("ФорматПосика", "   _id<>? ");
-                    //
-                    class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("УсловиеПоиска1",      ПубличныйIDДляФрагмента);//todo old ID
-
-/*                class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("ФорматПосика", "   user_update=? " +
-                        " AND message IS NOT NULL  ");
-                // TODO: 02.03.2022
-                ///"_id > ?   AND _id< ?"
-              *//*  class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("ФорматПосика","status_write=?  AND id_user=? " +
-                        " AND message IS NOT NULL  ");
-                ///"_id > ?   AND _id< ?"
-*//*
-                     *//*
-                //////
-                class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("УсловиеПоиска1",1);//todo 0*//*
-                //
-
-
-                class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("УсловиеПоиска1", ID);//todo old ID
-                // TODO: 02.03.2022
-                class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор.put("УсловиеСортировки", " status_write, date_update DESC ");//todo "date_update DESC, status_write DESC"*/
-                    ////
-                    // class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("УсловиеЛимита","1");
-                    ////
-                    //class_grud_sql_operationsIDпользоввателяДляСлужб. concurrentHashMapНабор.put("УсловиеЛимита","1");
-                    // TODO: 27.08.2021  ПОЛУЧЕНИЕ ДАННЫХ ОТ КЛАССА GRUD-ОПЕРАЦИИ
-                    ///
-                    sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание = null;
-                    // TODO: 03.03.2022  глаВНЫЙ КУРСОР ДЛЯ ЗАДАЧ
-                    sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание = (SQLiteCursor) class_grud_sql_operationsIDпользоввателяДляСлужб.
-                            new GetData(getContext()).getdata(class_grud_sql_operationsIDпользоввателяДляСлужб.concurrentHashMapНабор,
-                            new BinessLogicPublicContent(context).МенеджерПотоков, sqLiteDatabase);
-                    // TODO: 02.03.2022
-              /*      if (sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание.getCount() > 0) {
-                        // TODO: 03.03.2022
-                        Log.d(this.getClass().getName(), "Курсор_ГлавныйКурсорДляЗадач " + sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание);
-                        // TODO: 03.03.2022
-                        sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание.moveToFirst();
-                    }*/
-                    ////////
-                    Log.d(this.getClass().getName(), "Курсор_ГлавныйКурсорДляЗадач " + sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание);
-
-                    // TODO: 21.03.2022
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ///метод запись ошибок в таблицу
-                    Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                            " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                            Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    //   mNotificationManagerДляЧАТА.cancel(1);///.cancelAll();
-                }
-                return sqLiteCursorКурсорВсеФИОДЛяSpinneraДляКогоЗадание;
-            }
-
-
-/////////////////////////////////////////////
+        }
         }
 
 
         // TODO: 21.03.2022  класс создаения класс после получения данных из  Bungle
 
-        private class SubClass_CreateNewTasks_КлассДляСозданияНовойЗадачи {
-            // TODO: 21.03.2022
-            Bundle bundleПолученныйеДанныеДляСозданияЗадачи;
 
-            // TODO: 21.03.2022
-            public SubClass_CreateNewTasks_КлассДляСозданияНовойЗадачи(@NonNull Context context, @NonNull Bundle bundleПолученныйеДанныеДляСозданияЗадачи) {
-
-                try {
-                    // TODO: 21.03.2022
-                    this.bundleПолученныйеДанныеДляСозданияЗадачи = bundleПолученныйеДанныеДляСозданияЗадачи;
-                    ////////
-                    Log.d(this.getClass().getName(), "bundleПолученныйеДанныеДляСозданияЗадачи " + bundleПолученныйеДанныеДляСозданияЗадачи);
-
-
-                    // TODO: 21.03.2022
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ///метод запись ошибок в таблицу
-                    Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                            " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                            Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                    //   mNotificationManagerДляЧАТА.cancel(1);///.cancelAll();
-                }
-
-
-            }
-
-
-
-        }
-        //TODO метод делает callback с ответом на экран
-        private  void  МетодИнициализациHandlerCallBack(){
-            try{
-                Handler.Callback callback = new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull android.os.Message msg) {
-                        // TODO: 01.02.2022 заПУСКАЕМ сИНХРОНИАЗАЦИЮ С ВСЕХ ЛИСТ ТАБЕЛЕЙ
-
-                        // TODO: 26.06.2022
-                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                                + " ПубличныйIDДляФрагмента "+ПубличныйIDДляФрагмента );
-
-                        Log.d(this.getClass().getName(), " ИЗ ВСЕХ ТАБЕЛЕЙ   ОДНОРАЗОВАЯ СИНХРОНИЗАЦИЯ ФиналРЕзультатКЛЮЧНОВЫЙ  СкемИдётПереписка "
-                                +  СкемИдётПереписка);
-                        msg.getTarget().postDelayed(() -> {
-                            fragmentTransactionляЗадачи = fragmentManagerДляЗадачи.beginTransaction();
-                            fragment_ТекущийФрагмент = new Fragment2_Create_Tasks();
-                            fragmentTransactionляЗадачи.replace(R.id.activity_main_fisrt_for_tasks, fragment_ТекущийФрагмент).commit();//.layout.activity_for_fragemtb_history_tasks
-                            fragmentTransactionляЗадачи.show(fragment_ТекущийФрагмент);
-                            Log.d(this.getClass().getName(), " fragmentTransactionляЗадачи " + fragmentTransactionляЗадачи);
-                            bottomNavigationViewДляTasks.requestLayout();
-                            linearLayou.requestLayout();
-                            recyclerView.requestLayout();
-                            recyclerView.forceLayout();
-                            progressBarTaskFragment5.setVisibility(View.GONE);
-                        }, 1000);
-
-                        Bundle bundle=      msg.getData();
-                        String ОперацияДанныВЧате=bundle.getString("ОперациЯПрошлаЧат","");
-                        msg.getTarget().removeMessages(1);
-                        return true;
-                    }
-                };
-                handlerTaskFragment5= new Handler(callback);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getActivity()).recordnewerror(e.toString(),
-                        this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-        }
-// TODO: 06.07.2022  методы биндинга фрагменты5 службы сменить статуса на отказ
-
-        public void МетодЗапускаетБиндингСлужбыДляЗапускаОдноразовойСинхронизаци() {
-
-            try {
-                //TODO launch broad caset receiver
-                service_for_task_для_задания_сменаСатуса=new Service_For_Task_Для_Задания_СменаСатуса();
-
-                Intent intentЗапускСлужыСменаСтатусаБиндинг = new Intent(getContext(), Service_For_Task_Для_Задания_СменаСатуса.class);
-
-                // TODO: 26.06.2022 созадем биндинг службыы
-                getContext(). bindService(intentЗапускСлужыСменаСтатусаБиндинг, connectionДляСменыСтатусаЗадач, Context.BIND_AUTO_CREATE);
-                // context.startService(intentЗапускСлужюыыСинхрониазцииЧерезСлужбу);
-                // TODO: 27.06.2022  запуск
-            } catch (Exception e) {
-                //  Block of code to handle errors
-                e.printStackTrace();
-                ///метод запись ошибок в таблицу
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-
-        }
-// TODO: 05.07.2022 коннект к биндингу служьы смена статуса задачи
 
 
 
@@ -1586,15 +1324,15 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
             public void onServiceConnected(ComponentName name, IBinder service) {
                 try{
                     // We've bound to LocalService, cast the IBinder and get LocalService instance
-                    Service_For_Task_Для_Задания_СменаСатуса.LocalBinderДляСлужбыСменаСтатуса binder = (Service_For_Task_Для_Задания_СменаСатуса.LocalBinderДляСлужбыСменаСтатуса) service;
+                    ServiceForTasks.LocalBinderДляСлужбыСменаСтатуса binder = (ServiceForTasks.LocalBinderДляСлужбыСменаСтатуса) service;
 
-                    service_for_task_для_задания_сменаСатуса = binder.getService();
+                    service_for_tasks = binder.getService();
 
                     Log.d(context.getClass().getName(), "\n"
                             + " время: " + new Date()+"\n+" +
                             " Класс в процессе... " +  this.getClass().getName()+"\n"+
                             " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                            +"    onServiceDisconnected  service_for_task_для_задания_сменаСатуса" +service_for_task_для_задания_сменаСатуса);
+                            +"    onServiceDisconnected  service_for_tasks" + service_for_tasks);
 
                 } catch (Exception e) {
                     //  Block of code to handle errors
@@ -1618,7 +1356,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                             + " время: " + new Date()+"\n+" +
                             " Класс в процессе... " +  this.getClass().getName()+"\n"+
                             " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                            +"    onServiceDisconnected  service_for_task_для_задания_сменаСатуса" +service_for_task_для_задания_сменаСатуса);
+                            +"    onServiceDisconnected  service_for_tasks" + service_for_tasks);
                 } catch (Exception e) {
                     //  Block of code to handle errors
                     e.printStackTrace();
@@ -1640,10 +1378,6 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
 
 
     // TODO: 28.02.2022 бизнес -логика    для активти
-
-
-}    // TODO: 28.02.2022 конец класса
-
 
 
 

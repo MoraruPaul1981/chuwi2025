@@ -46,10 +46,10 @@ public class ContentProviderForDataBaseCurrentOperations extends ContentProvider
 
     public ContentProviderForDataBaseCurrentOperations() throws InterruptedException {
         try{
-            Log.d(getContext().getClass().getName(), "\n"
+            Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);;
 
             // TODO: 04.10.2022
         } catch (Exception e) {

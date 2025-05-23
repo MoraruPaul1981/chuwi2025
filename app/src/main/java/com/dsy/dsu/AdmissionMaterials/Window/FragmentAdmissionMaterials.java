@@ -44,12 +44,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -64,8 +63,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-
-import dagger.hilt.EntryPoints;
 
 
 // TODO: 29.09.2022 фрагмент для получение материалов
@@ -98,7 +95,7 @@ public class FragmentAdmissionMaterials extends Fragment {
     private  TextView   textViewНазваниеФрагмента;
     long start;
     long startДляОбноразвовной;
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
     private String ИмяСлужбыСинхронизациОдноразовая="WorkManager Synchronizasiy_Data Disposable";
     private String ИмяСлужбыСинхронизацииОбщая="WorkManager Synchronizasiy_Data";
     private  LifecycleOwner lifecycleOwner =this ;
@@ -106,7 +103,7 @@ public class FragmentAdmissionMaterials extends Fragment {
     private  Cursor cursorНомерЦФО;
 
     private  AsyncTaskLoader<Cursor> asyncTaskLoader;
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
 
     // TODO: 27.09.2022 Фрагмент Получение Материалов
     public FragmentAdmissionMaterials() {
@@ -120,7 +117,7 @@ public class FragmentAdmissionMaterials extends Fragment {
             МетодHandlerCallBack();
             Bundle bundle=(Bundle)        getArguments();
             if (bundle!=null) {
-                binderДляПолучениеМатериалов=  (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов)        bundle.getBinder("binder" );
+                binderДляПолучениеМатериалов=  (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов)        bundle.getBinder("binder" );
             }
 
 
@@ -385,7 +382,7 @@ public class FragmentAdmissionMaterials extends Fragment {
                 // TODO: 03.11.2022  ПОСЛЕ ПОЛУЧЕННЫХ ДАННЫХ
                 try{
                 binderДляПолучениеМатериалов=
-                        (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов)
+                        (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов)
                                 result.getBinder("binderДляПолучениеМатериалов");
 
                 методAsyncTask();
@@ -987,7 +984,7 @@ public class FragmentAdmissionMaterials extends Fragment {
             bundleДляПЕредачи.putInt("ТекущаяЦифраЦФО",ТекущаяЦФО);
             bundleДляПЕредачи.putInt("ТекущаяНомерМатериала",ТекущаяНомерМатериала);
             bundleДляПЕредачи.putString("ФлагКакиеДанныеНужныПолучениеМатериалов",ФлагКакиеДанныеНужныПолучениеМатериалов);
-            Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction(ФлагКакиеДанныеНужныПолучениеМатериалов);
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             Log.d(this.getClass().getName(), "   ПубличныйIDДляФрагмента "+ ПубличныйIDДляФрагмента);

@@ -128,149 +128,67 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
       private class VIEW {
 
         public VIEW(Activity  activity) {
-
-            ////
             SimpleCursorAdapter АдаптерДляКонтактовЧата=null;
-            ///
-/*        Class_GRUD_SQL_Operations     class_grud_sql_operations_ФрагментКонтактыЧатаПерваяЧасть=new Class_GRUD_SQL_Operations(getActivity());*/
             try{
-
                 Log.d(this.getClass().getName(), "  VIEW   " );
 
                 if (КурсорДанныеДляКонтактовЧата.getCount()>0) {
                     /////////
                     Log.d(this.getClass().getName(), "  КурсорДанныеДляСообщенийЧата   "  + КурсорДанныеДляКонтактовЧата.getCount());
                 }
-
-
-
                         /////
                 АдаптерДляКонтактовЧата =
                         new SimpleCursorAdapter(getContext(),
                                 R.layout.simple_for_chats_contact, КурсорДанныеДляКонтактовЧата,
                                 new String[]{"name"},
                                 new int[]{android.R.id.text1}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-
-
-
-
-
-                //
                 SimpleCursorAdapter.ViewBinder БиндингДляКонтактовЧата = new SimpleCursorAdapter.ViewBinder() {
                     @Override
                     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                        /////
-
-
-
-
-
-                        ////
                         if (view.getId()==android.R.id.text1) {
-
-
                             МетодЗаполенияДаннымиАдаптераВоВрагментеКонтактыДляЧта(view, cursor);
-
                             // TODO: 22.06.2021 добавляем значёк
-
-
                             МетодОформельнияВизульаноговАдаптереSimpleВоФрагментеКонтакты((TextView) view);
-
                             /////TODO
-
                             return true;
-
-
-
                         }
-
-
-                        //////////////////
-
                         return false;
                     }
 
                     private void МетодЗаполенияДаннымиАдаптераВоВрагментеКонтактыДляЧта(View view, Cursor cursor) {
-
-
                         try{
                         Log.d(this.getClass().getName()," ClassActitytyClassActityty  view.getId() "+ view.getId());
-                        //return true;
-
-
                         // TODO: 22.06.2021 заполняем данными фрагмент
-
                         int ГдеUUID= cursor.getColumnIndex("_id");
-
-
                         // TODO: 29.04.2021
-
                         long ПолученныйUUID=0l;
-
-                        /////////////////
                         ПолученныйUUID = cursor.getLong(ГдеUUID);
-
-
                         Log.d(  this.getClass().getName(), " метод посика уже существующего сотрудника в базе андройжа ПолученныйUUID[0] "
                                 +ПолученныйUUID);
-
-
-                        // view.setTag(String.valueOf(ПолученныйUUID));
                         // TODO: 29.04.2021 Вписываем UUID для конкретного сотрудника
                         if (ПолученныйUUID >0) {
-
                             // TODO: 29.04.2021 ПрисваемваемКАЖДОМУ СОТРУДНИКУ ID
-
                             ((TextView) view).setTag(String.valueOf(ПолученныйUUID));
-
                             Log.d(  this.getClass().getName(), "  ПолученныйUUID iew.getTag() "
                                     +view.getTag());
-
                         }
 
-
                         // TODO: 22.06.2021 заполняем данными фрагмент
-
                         int ГдеФИО= cursor.getColumnIndex("name");
-
-
-                        // TODO: 29.04.2021
-
-
                         /////////////////
                         String   ПолученныйФИО = cursor.getString(ГдеФИО);
-
-
                         Log.d(  this.getClass().getName(), " метод посика уже существующего сотрудника в базе андройжа ПолученныйФИО"
                                 +ПолученныйФИО);
-
-
-                        // view.setTag(String.valueOf(ПолученныйUUID));
                         // TODO: 29.04.2021 Вписываем UUID для конкретного сотрудника
-
                         if (ПолученныйФИО!=null && ПолученныйФИО.length()>0   &&  ПолученныйФИО.trim().matches("[^t,s,v].*")) {
-
                             // TODO: 29.04.2021 ПрисваемваемКАЖДОМУ СОТРУДНИКУ ID
-
                             StringBuffer БуферФИОДляЧатаКонтакты=new StringBuffer(ПолученныйФИО.trim());
-                            ////
-                            /*StringBuffer БуферФИОФинальгоФорматирования=new StringBuffer();
-
-                            // TODO: 24.06.2021 создание названия С первой
-
-                            БуферФИОФинальгоФорматирования.append( БуферФИОДляЧатаКонтакты.substring(0,1).toUpperCase()).append(
-                                    БуферФИОДляЧатаКонтакты.substring(1,БуферФИОДляЧатаКонтакты.length()).toLowerCase())  ;*/
-
                             // TODO: 24.06.2021  устанавливаем значения ФИО внутри SimpleCursorAdapter
 
                             ((TextView) view).setText("    " +БуферФИОДляЧатаКонтакты.toString());
-
-
                         }
-                        /////////////
                     } catch (Exception e) {
                         e.printStackTrace();
-                        ///метод запись ошибок в таблицу
                         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                                 " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
                         new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
@@ -281,77 +199,25 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
                     }
 
                     private void МетодОформельнияВизульаноговАдаптереSimpleВоФрагментеКонтакты(TextView view) {
-    /*   Drawable icon = null;
-
-       icon = getResources().getDrawable(R.drawable.icon_dsu1_for_message_chat);
-
-       icon.setBounds(0, 0, 120, 120);*/
-
                         Drawable icon = null;
                         icon = getResources().getDrawable(R.drawable.icon_dsu1_for_fragment1_chat2);
                         icon.setBounds(10, 0, 90, 85);
-
                         view.setPadding(5, 20,40, 20);
-
                         view.setCompoundDrawables(icon, null, null, null);
-
-
                         view.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-
                         // TODO: 22.06.2021 выравниваем тексвид
-
                         view.setBackgroundResource(R.drawable.style_for_chat_for_fragmaent_contact);
                     }
                 };
-
-
-
-                ////
-                АдаптерДляКонтактовЧата.setViewBinder( БиндингДляКонтактовЧата);
-                ///
-                ЛистВьюДляКонтактыЧата.setAdapter(АдаптерДляКонтактовЧата);
-
-
-                // TODO: 24.06.2021 синхронизациия автоматическая
-/*
-              String url="https://jsoneditoronline.org/";
-
-                RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-                //
-                JsonObjectRequest jsonObjectReques=new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        ///
-                        Log.d(this.getClass().getName(), "ЗАПУСК СЛУЖБА  Синхронизация   " + response.toString());
-
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(this.getClass().getName(), "ЗАПУСК СЛУЖБА  Синхронизация   " + error.toString());
-
-                            }
-                        });
-
-             requestQueue.add(jsonObjectReques);*/
-
-
-
-
-                // TODO: 24.06.2021 синхронизациия автоматическая
-
-
-
+                Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
             } catch (Exception e) {
                 e.printStackTrace();
-                ///метод запись ошибок в таблицу
                 Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                         " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
               new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(),
                         Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                ///
-
 
             }
         }

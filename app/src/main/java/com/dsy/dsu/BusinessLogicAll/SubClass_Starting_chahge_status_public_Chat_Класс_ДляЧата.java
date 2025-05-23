@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.Service_Notifocations_Для_Чата;
+import com.dsy.dsu.Services.ServiceForNotifocations;
 
 public class SubClass_Starting_chahge_status_public_Chat_Класс_ДляЧата {
     Context context;
@@ -48,7 +48,7 @@ public class SubClass_Starting_chahge_status_public_Chat_Класс_ДляЧат
 
             Intent notificationIntentДляУведомленийЗапускЧАТА;
             // TODO: 17.11.2021
-            notificationIntentДляУведомленийЗапускЧАТА = new Intent(context, Service_Notifocations_Для_Чата.class);
+            notificationIntentДляУведомленийЗапускЧАТА = new Intent(context, ServiceForNotifocations.class);
             // TODO: 24.03.2022
 
             notificationIntentДляУведомленийЗапускЧАТА.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -126,7 +126,7 @@ public class SubClass_Starting_chahge_status_public_Chat_Класс_ДляЧат
 
             Intent notificationIntentДляЗапусказаданияИзУведомленияПереход;
             // TODO: 17.11.2021
-            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, Service_Notifocations_Для_Чата.class);
+            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, ServiceForNotifocations.class);
             // TODO: 24.03.2022
             // TODO: 03.03.2022
             notificationIntentДляЗапусказаданияИзУведомленияПереход.setAction(ПримечаниеВыполнилКлиентИлиНетЗадачуПришлиВСлужбу);

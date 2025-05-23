@@ -17,12 +17,11 @@ import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusAppAfterSyncing;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusNetworkStatuses;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusUpdatePO;
 import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
-import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
 
 import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJbossNotActivity;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
-import com.dsy.dsu.Services.Service_For_Remote_Async_Binary;
+import com.dsy.dsu.Services.ServiceForRemoteAsyncBinary;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,12 +48,12 @@ import io.reactivex.rxjava3.subjects.Subject;
 @SuppressLint("Range")
 public class BinessLogicIntentServiceBoot {
 
-    public   Service_For_Remote_Async_Binary.LocalBinderAsync localBinderAsync;//TODO нова\
-    public    ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO нова
+    public   ServiceForRemoteAsyncBinary.LocalBinderAsync localBinderAsync;//TODO нова\
+    public    ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO нова
     private  Context context;
 
- Subject<  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО> publishSubjectlocalBinderОбновлениеПО= ReplaySubject.create();
- Subject< Service_For_Remote_Async_Binary.LocalBinderAsync> publishSubjectLocalBinderAsync= ReplaySubject.create();
+ Subject<  ServiceUpdatesPO.localBinderОбновлениеПО> publishSubjectlocalBinderОбновлениеПО= ReplaySubject.create();
+ Subject< ServiceForRemoteAsyncBinary.LocalBinderAsync> publishSubjectLocalBinderAsync= ReplaySubject.create();
 
 
     public  @Inject BinessLogicIntentServiceBoot(@ApplicationContext Context contextBounding) {
@@ -424,9 +423,9 @@ public class BinessLogicIntentServiceBoot {
 
 
 
-            publishSubjectlocalBinderОбновлениеПО.doOnNext(new Consumer<  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО>() {
+            publishSubjectlocalBinderОбновлениеПО.doOnNext(new Consumer<  ServiceUpdatesPO.localBinderОбновлениеПО>() {
                 @Override
-                public void accept(  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО ser) throws Throwable {
+                public void accept(  ServiceUpdatesPO.localBinderОбновлениеПО ser) throws Throwable {
                     // TODO: 29.04.2025
                     СервернаяВерсия.getAndSet( ser.getService().МетодГлавныйОбновленияПОДоAsync(true,
                             context,getHiltPortJboss ));
@@ -500,9 +499,9 @@ public class BinessLogicIntentServiceBoot {
             } else {
                 // TODO: 30.04.2025
 
-                publishSubjectLocalBinderAsync.doOnNext(new Consumer<   Service_For_Remote_Async_Binary.LocalBinderAsync>() {
+                publishSubjectLocalBinderAsync.doOnNext(new Consumer<   ServiceForRemoteAsyncBinary.LocalBinderAsync>() {
                     @Override
-                    public void accept(  Service_For_Remote_Async_Binary.LocalBinderAsync asy) throws Throwable {
+                    public void accept(  ServiceForRemoteAsyncBinary.LocalBinderAsync asy) throws Throwable {
                         // TODO: 29.04.2025
 
                         completeAsync.getAndSet(  localBinderAsync.getService().metodStartingSync(context));
@@ -645,7 +644,7 @@ public class BinessLogicIntentServiceBoot {
     public void МетодБиндингаRemoteAsync(  @NonNull  Context contextBounding  ) {
         try {
             // TODO: 28.04.2023  запускаем Гланвную Синхрониазцию
-                Intent intentAsync = new Intent(contextBounding, Service_For_Remote_Async_Binary.class);
+                Intent intentAsync = new Intent(contextBounding, ServiceForRemoteAsyncBinary.class);
                 intentAsync.setAction("com.StartingAsyncMainBackgroud");
                 ServiceConnection connectionAsync = new ServiceConnection() {
                     @Override
@@ -653,7 +652,7 @@ public class BinessLogicIntentServiceBoot {
                         try {
                             if (service.isBinderAlive()) {
                                 // TODO: 29.09.2023
-                                 localBinderAsync = (Service_For_Remote_Async_Binary.LocalBinderAsync) service;
+                                 localBinderAsync = (ServiceForRemoteAsyncBinary.LocalBinderAsync) service;
 
                                 // TODO: 30.04.2025
 
@@ -722,7 +721,7 @@ public class BinessLogicIntentServiceBoot {
                         if (service.isBinderAlive()) {
 
                             // TODO: 28.07.2023  Update
-                            localBinderОбновлениеПО = (ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО) service;
+                            localBinderОбновлениеПО = (ServiceUpdatesPO.localBinderОбновлениеПО) service;
                             // TODO: 30.04.2025
                             publishSubjectlocalBinderОбновлениеПО.onNext(localBinderОбновлениеПО);
                             publishSubjectlocalBinderОбновлениеПО.onComplete();
@@ -767,8 +766,8 @@ public class BinessLogicIntentServiceBoot {
                     }
                 }
             };
-            Intent intentЗапускСлужбыОбновлениеПО = new Intent(contextBounding, ServiceUpdatePoОбновлениеПО.class);
-            intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatePoОбновлениеПО");
+            Intent intentЗапускСлужбыОбновлениеПО = new Intent(contextBounding, ServiceUpdatesPO.class);
+            intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatesPO");
 
             if (localBinderОбновлениеПО==null) {
                 //contextBounding. bindService(intentЗапускСлужбыОбновлениеПО,connectionОбновлениеПО,Context.BIND_AUTO_CREATE  );

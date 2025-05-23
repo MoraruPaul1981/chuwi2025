@@ -54,11 +54,10 @@ public class ContentProviderSynsUpdateChangeDeleting extends ContentProvider {
     public ContentProviderSynsUpdateChangeDeleting() throws InterruptedException {
         try{
 
-            Log.d(this.getClass().getName(),"\n"
-                    + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber());
-
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);
 
         // TODO: 04.10.2022
     } catch (Exception e) {

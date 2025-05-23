@@ -61,11 +61,10 @@ import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.AdmissionMaterials.Service.ServiceCameraTake;
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -93,8 +92,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
-
-import dagger.hilt.EntryPoints;
 
 
 public class FragmentMaretialNew extends Fragment implements CameraXInterface{
@@ -131,7 +128,7 @@ public class FragmentMaretialNew extends Fragment implements CameraXInterface{
     private  AsyncTaskLoader<Cursor> asyncTaskLoaderForNewMaterial;
 
     // TODO: 15.12.2022 получение материалов
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
 
     private     DatePickerDialog ДатаДляКалендаря;
 
@@ -161,7 +158,7 @@ public class FragmentMaretialNew extends Fragment implements CameraXInterface{
             fragmentTransaction = fragmentManager.beginTransaction();
             preferencesМатериалы = getContext().getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
             Bundle data=         getArguments();
-            binderДляПолучениеМатериалов=  (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов) data.getBinder("binder");
+            binderДляПолучениеМатериалов=  (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов) data.getBinder("binder");
 
             МетодHandlerCallBack();
             subClassCreateNewImageForMateril=new SubClassCreateNewImageForMateril();
@@ -696,7 +693,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=intent.getExtras();
             bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
-            Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction(ФлагКакаяРаботаНужнаДляВыполнения);
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
                 cursor = (Cursor) binderДляПолучениеМатериалов.getService().МетодCлужбыПолучениеМатериалов(getContext(), intentПолучениеМатериалов);
@@ -1308,7 +1305,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
                 Bundle bundleДляПЕредачи=new Bundle();
                 bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
                 bundleДляПЕредачи.putString("ФильтрДляПоиска",Фильтр);
-                Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+                Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
                 intentПолучениеМатериалов.setAction("ПолучениеМатериалоСозданиеНового");
                 intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
                 if (binderДляПолучениеМатериалов!=null) {
@@ -1337,7 +1334,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
                 Bundle bundleДляПЕредачи=new Bundle();
                 bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
                 bundleДляПЕредачи.putString("ФильтрДляПоиска",Фильтр);
-                Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+                Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
                 intentПолучениеМатериалов.setAction("ПолучениеМатериалоИзНовгоПоиска");
                 intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
                 if (binderДляПолучениеМатериалов!=null) {
@@ -1367,7 +1364,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
                 bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
                 bundleДляПЕредачи.putString("ФильтрДляПоиска",Фильтр);
                 bundleДляПЕредачи.putInt("ЗначениеГруппыМатериаловДляПосика",ЗначениеГруппыМатериаловДляПосика);
-                Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+                Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
                 intentПолучениеМатериалов.setAction("ПолучениеМатериалоИзНовгоПоиска");
                 intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
                 if (binderДляПолучениеМатериалов!=null) {
@@ -2956,7 +2953,7 @@ private  void методСозданиеNewImage(@NonNull MyViewHolder holder){
                                         + " время: " + new Date() + "\n+" +
                                         " Класс в процессе... " + this.getClass().getName() + "\n" +
                                         " onServiceConnected  метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                        + "    onServiceDisconnected  Service_for_AdminissionMaterial" + " service "
+                                        + "    onServiceDisconnected  ServiceForAdminissionMaterial" + " service "
                                         + service.isBinderAlive());
 
                             }

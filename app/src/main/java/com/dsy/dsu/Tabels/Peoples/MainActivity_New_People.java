@@ -829,9 +829,10 @@ private void МетодВозврещениеНаПредыдущуюАктив�
 
 
 
+      @SuppressLint("SuspiciousIndentation")
       protected Integer методВставкиВТАблицуФИО(@NotNull  int ТекущееЗначение,
-                                             @NotNull Long   UUIDGenetetorNewCustoner
-                                             ,@NotNull Integer ПубличноеID) throws InterruptedException {
+                                                @NotNull Long   UUIDGenetetorNewCustoner
+                                             , @NotNull Integer ПубличноеID) throws InterruptedException {
 
             Integer РезультаВставкиВТАблицуФИО=0;
             try {

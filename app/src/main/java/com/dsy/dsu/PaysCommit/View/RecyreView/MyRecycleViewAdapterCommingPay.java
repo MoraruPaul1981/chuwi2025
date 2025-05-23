@@ -30,7 +30,7 @@ import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.FileFrom1CCommitPay;
 import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.FindJson.FindFromJsonNode;
 import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.LiveData.GetLiveDataForrecyreViewPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -64,7 +64,7 @@ public class MyRecycleViewAdapterCommingPay extends RecyclerView.Adapter<MyViewH
 
     Bl_CommintigPay bl_commintigPay;
 
-    Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
     Animation animation1;
     Integer ПубличныйidPay;
     ObjectMapper objectMapper;
@@ -88,7 +88,7 @@ public class MyRecycleViewAdapterCommingPay extends RecyclerView.Adapter<MyViewH
     Activity activity;
     public MyRecycleViewAdapterCommingPay(@NotNull JsonNode jsonNode1сСогласования,
                                           @NonNull Context context,
-                                          @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                          @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                           @NotNull Animation animation1,
                                           @NonNull Integer ПубличныйidPay,
                                           @NonNull ObjectMapper objectMapper,

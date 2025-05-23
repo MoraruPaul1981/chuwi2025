@@ -31,7 +31,7 @@ public class GettingExistingErrorFromCursor    implements GettingExistingErrorsI
         try {
 
 
-            Cursor getbackasyncQueryandWhere=   moduleQuety.getModuleQueryForceLoad("errordsu1",
+            Cursor getbackasyncQueryandWhere=   moduleQuety.getModuleQuery("errordsu1",
                     " SELECT  *   FROM errordsu1 AS er  WHERE er.ERROR IS  NOT NULL  ORDER BY er.id DESC  " ,
                     null);
 

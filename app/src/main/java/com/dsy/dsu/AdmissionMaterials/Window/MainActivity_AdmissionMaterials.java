@@ -21,8 +21,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.R;
 
 import java.util.Date;
@@ -41,10 +41,10 @@ public class MainActivity_AdmissionMaterials extends AppCompatActivity implement
     public static final int ALL_PERSSION_CODE=1;
     public static final int CAMERA_PERSSION_CODE=2;
 
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
 
     private   BusinessLogic businessLogic;
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +190,7 @@ public class MainActivity_AdmissionMaterials extends AppCompatActivity implement
                      Boolean ПингаСлужбы=           service.pingBinder();
 
                                 if (ПингаСлужбы==true) {
-                                    binderДляПолучениеМатериалов = (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов) service;
+                                    binderДляПолучениеМатериалов = (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов) service;
 
 
                                     Bundle bundlebinderДляПолучениеМатериалов=new Bundle();
@@ -203,7 +203,7 @@ public class MainActivity_AdmissionMaterials extends AppCompatActivity implement
                                         + " время: " + new Date() + "\n+" +
                                         " Класс в процессе... " + this.getClass().getName() + "\n" +
                                         " onServiceConnected  метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                        + "    onServiceDisconnected  Service_for_AdminissionMaterial" + " service "
+                                        + "    onServiceDisconnected  ServiceForAdminissionMaterial" + " service "
                                         + service.isBinderAlive()  + " binderДляПолучениеМатериалов "+binderДляПолучениеМатериалов);
 
                             }
@@ -234,8 +234,8 @@ public class MainActivity_AdmissionMaterials extends AppCompatActivity implement
                         }
                     }
                 };
-                Intent intentЗапускБиндингаМатериалы = new Intent(getApplicationContext(), Service_for_AdminissionMaterial.class);
-                intentЗапускБиндингаМатериалы.setAction("com.Service_for_AdminissionMaterial");
+                Intent intentЗапускБиндингаМатериалы = new Intent(getApplicationContext(), ServiceForAdminissionMaterial.class);
+                intentЗапускБиндингаМатериалы.setAction("com.ServiceForAdminissionMaterial");
              Boolean asBoeen=   bindService(intentЗапускБиндингаМатериалы, serviceConnectionМатериалы, Context.BIND_AUTO_CREATE);
 
                 Log.d(getApplicationContext().getClass().getName(), "\n"

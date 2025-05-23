@@ -209,7 +209,7 @@ public class VersionCurentTable {
                                       @NotNull Context context) {
         Long  АнализВерсииMAXCurrentTable=0l;
         ModuleQuety moduleQuety=new ModuleQuety(context);
-            try   (Cursor КурсоАнализVersionCurrentTable   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+            try   (Cursor КурсоАнализVersionCurrentTable   =moduleQuety.getModuleQuery(Текущаятаблицы,
                            " SELECT MAX( current_table  ) " +
                                    "AS MAX_R  FROM   ' " +  Текущаятаблицы.trim()+"'" , null);) {
                 if (КурсоАнализVersionCurrentTable!=null) {
@@ -243,7 +243,7 @@ public class VersionCurentTable {
         Long  ПовышенняВерсия=0l;
 
         ModuleQuety moduleQuety=new ModuleQuety(context);
-        try   (Cursor Курсор_АнализMODIFITATION_Client   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+        try   (Cursor Курсор_АнализMODIFITATION_Client   =moduleQuety.getModuleQuery(Текущаятаблицы,
                 " SELECT *  FROM " +
                         "  MODIFITATION_Client  WHERE  name = '"+Текущаятаблицы+"' ", null);) {
                 if (Курсор_АнализMODIFITATION_Client!=null) {

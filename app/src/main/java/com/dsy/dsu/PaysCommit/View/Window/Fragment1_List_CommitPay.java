@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -36,7 +35,7 @@ import com.dsy.dsu.PaysCommit.Model.BinderService1cCommitPay;
 import com.dsy.dsu.PaysCommit.Model.EventBusPays.MessageEvensBusPays;
 import com.dsy.dsu.PaysCommit.View.RecyreViewIsNull.MyRecycleViewIsNullAdapterPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -77,7 +76,7 @@ public class Fragment1_List_CommitPay extends Fragment   {
     private ProgressBar progressBarCommitPay;
 
     private  Boolean  РезультатИзмененияСтатусаСогласованияОтказаИлиУспешноеСогласования;
-    private Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    private ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
 
     private Boolean ФлагПрошлаХотябыОднаПопыткаПолучитьДанные=false;
    private  Animation animationДляСогласования;

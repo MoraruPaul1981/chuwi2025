@@ -7,20 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.pm.PackageInfoCompat;
 
-
-import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceNameBack;
-import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceVersionBack;
 import com.sous.backasync.businesslogic.errors.RecordNewErroBack;
+import com.sous.backasync.devicename.hilt.QualifiergetDeviceNameBack;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
-import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;

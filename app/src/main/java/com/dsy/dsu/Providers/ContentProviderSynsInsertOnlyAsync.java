@@ -50,7 +50,7 @@ public class ContentProviderSynsInsertOnlyAsync extends ContentProvider {
     public ContentProviderSynsInsertOnlyAsync() throws InterruptedException {
         try {
 
-            Log.d(getContext().getClass().getName(), "\n"
+            Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);

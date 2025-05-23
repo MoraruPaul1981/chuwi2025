@@ -144,7 +144,7 @@ import okio.BufferedSink;
                             String Текущаятаблицы="successlogin";
                             // TODO: 14.05.2025  получение данных
                             ModuleQuety moduleQuety=new ModuleQuety(context);
-                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
                                     "  SELECT success_users,success_login  FROM "+Текущаятаблицы+"  ORDER BY date_update DESC " , null);
 
                             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
@@ -306,7 +306,7 @@ import okio.BufferedSink;
                             String Текущаятаблицы="successlogin";
                             // TODO: 14.05.2025  получение данных
                             ModuleQuety moduleQuety=new ModuleQuety(context);
-                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
                                     "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D ORDER BY date_update DESC " , null);
 
                             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
@@ -470,7 +470,7 @@ import okio.BufferedSink;
                             String Текущаятаблицы="successlogin";
                             // TODO: 14.05.2025  получение данных
                             ModuleQuety moduleQuety=new ModuleQuety(context);
-                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
                                     "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D  ORDER BY date_update DESC " , null);
 
                             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
@@ -616,7 +616,7 @@ import okio.BufferedSink;
                                     String Текущаятаблицы="successlogin";
                                     // TODO: 14.05.2025  получение данных
                                     ModuleQuety moduleQuety=new ModuleQuety(context);
-                                    Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+                                    Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
                                             "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D  ORDER BY date_update DESC " , null);
 
                                     if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
@@ -1300,7 +1300,7 @@ import okio.BufferedSink;
             String Текущаятаблицы="successlogin";
             // TODO: 14.05.2025  получение данных
             ModuleQuety moduleQuety=new ModuleQuety(context);
-            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
+            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
                     "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D  ORDER BY date_update DESC " , null);
 
             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
@@ -1355,8 +1355,9 @@ import okio.BufferedSink;
                             String Текущаятаблицы="successlogin";
                             // TODO: 14.05.2025  получение данных
                             ModuleQuety moduleQuety=new ModuleQuety(context);
-                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQueryForceLoad(Текущаятаблицы,
-                                    "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D   ORDER BY date_update DESC " , null);
+                            Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
+                                    "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D" +
+                                            "   ORDER BY D.date_update DESC " , null);
 
                             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
                                 Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.moveToFirst();

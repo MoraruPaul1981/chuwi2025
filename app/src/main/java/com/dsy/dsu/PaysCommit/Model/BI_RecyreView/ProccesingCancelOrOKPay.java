@@ -27,7 +27,7 @@ import androidx.annotation.UiThread;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyViewHolderPayCommingPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.ByteSource;
@@ -56,14 +56,14 @@ public
 class ProccesingCancelOrOKPay {
     // TODO: 08.11.2023 метод
     Context context;
-    Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
 
     JsonNode jsonNode1сСогласованияAllRows;
     Animation animation1;
     ObjectMapper objectMapper;
 
     public ProccesingCancelOrOKPay(@NonNull Context context,
-                                   @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C) {
+                                   @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C) {
         this.context = context;
         this.  animation1 = AnimationUtils.loadAnimation(context, R.anim.slide_in_scrolls);
         this. binderСогласования1C = binderСогласования1C;
@@ -107,7 +107,7 @@ class ProccesingCancelOrOKPay {
     // TODO: 10.11.2023 get Binary
     @CheckResult
     byte[] proccerGetBinaty1c(@NonNull Intent заданиеНаВыполение,@NonNull View v,
-                              @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                              @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                               @NonNull  String getHiltCommintgPays) {
         byte[] getFileNewOt1cPayCommit = null;
         try{
@@ -378,7 +378,7 @@ class ProccesingCancelOrOKPay {
     private void startdownloadFileOt1cCommintPay(@NonNull TableRow tableRowpaycommit, @NonNull MyViewHolderPayCommingPay holder,
                                                  @NonNull Integer ПубличныйidPay, Handler[] handler,
                                                  @NonNull    TextView textvalueRowpaycommit, Object GettextvalueRowpaycommit,
-                                                 @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                                 @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                                  @NonNull    String getHiltCommintgPays) {
         try{
         handler[0].postDelayed(()->{
@@ -425,7 +425,7 @@ class ProccesingCancelOrOKPay {
                                                   @NonNull  TextView textvalueRowpaycommit,
                                                   @NonNull Object GetNameSingleNewFile1c,
                                                    @NonNull Integer ПубличныйidPay,
-                                                  @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                                  @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                                   @NonNull  String getHiltCommintgPays) {
         try{
             final byte[][] getFileNewOt1cPayCommit = {null};
@@ -607,7 +607,7 @@ class ProccesingCancelOrOKPay {
                                                     @NotNull Object GetNameSingleNewFile1c,
                                                     @NonNull MyViewHolderPayCommingPay holder
                                                    ,@NonNull Integer ПубличныйidPay,
-                                                    @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                                    @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                                     @NonNull  String getHiltCommintgPays) {
         byte[] getFileNewOt1cPayCommit=null;
         try{

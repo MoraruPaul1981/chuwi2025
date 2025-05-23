@@ -51,12 +51,12 @@ import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.Services.ServiceForPublic;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_Find_Peoples;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_New_People;
 import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
 
 import com.dsy.dsu.Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe;
-import com.dsy.dsu.Services.Service_For_Public;
 import com.dsy.dsu.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -159,7 +159,7 @@ public class MainActivity_New_Templates extends AppCompatActivity {
 
     private  Long  CurrenrsSelectFio;
 
-    private Service_For_Public.LocalBinderОбщий localBinderОбщий;
+    private ServiceForPublic.LocalBinderОбщий localBinderОбщий;
     private     ServiceConnection serviceConnection;
 
 
@@ -1582,14 +1582,14 @@ public class MainActivity_New_Templates extends AppCompatActivity {
     }
     public void МетодБиндинuCлужбыPublic() {
         try {
-            Intent intentЗапускPublicService = new Intent(context, Service_For_Public.class);
+            Intent intentЗапускPublicService = new Intent(context, ServiceForPublic.class);
             serviceConnection=        new ServiceConnection() {
                 @Override
                 public void onServiceConnected(ComponentName name, IBinder service) {
                     try {
                         if (service.isBinderAlive()) {
                             // TODO: 16.11.2022
-                            localBinderОбщий = (Service_For_Public.LocalBinderОбщий) service;
+                            localBinderОбщий = (ServiceForPublic.LocalBinderОбщий) service;
                             Log.d(context.getClass().getName(), "\n"
                                     + " время: " + new Date() + "\n+" +
                                     " Класс в процессе... " + this.getClass().getName() + "\n" +

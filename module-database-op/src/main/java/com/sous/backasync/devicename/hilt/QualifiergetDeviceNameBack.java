@@ -1,4 +1,4 @@
-package com.dsy.dsu.BusinessLogicAll.DeviceName.hilt;
+package com.sous.backasync.devicename.hilt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

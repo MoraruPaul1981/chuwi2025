@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.Dashboard.View.Fragments.fragmentsettings.DashboardFragmentSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +54,7 @@ public class LaunchActivityDiaologSettings {
 
     }
 
-    public   void launchADashboardSettings (     @NotNull ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО) {
+    public   void launchADashboardSettings (     @NotNull ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО) {
         try {
             // TODO Запусукаем Фргамент DdshBoard
             DashboardFragmentSettings dashboardFragmentSettings = DashboardFragmentSettings.newInstance();

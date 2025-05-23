@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -40,10 +39,9 @@ import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_For_Task_Для_Задания_СменаСатуса;
+import com.dsy.dsu.Services.ServiceForTasks;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
@@ -99,7 +97,7 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
     private  Context context;
     private  Integer СкемИдётПереписка;
     // TODO: 28.06.2022
-    private Service_For_Task_Для_Задания_СменаСатуса service_for_task_для_задания_сменаСатуса;
+    private ServiceForTasks service_for_tasks;
     @SuppressLint("RestrictedApi")
    private BottomNavigationItemView bottomNavigationПринудительныйОбмен;
     // TODO: 05.07.2022
@@ -1640,11 +1638,11 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
                         intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе.setAction("ЗапускаемИзмененияСатусазадачиВыполнил");
                         intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе.putExtras(bundleДляПередачиВСлужбыСменыСтатуса);
 // TODO: 05.07.2022 меняет статус
-                      РезультатСменыСтатусаНаОзнакомленный=        service_for_task_для_задания_сменаСатуса.МетодpЗапускСлужбыДляЗадач(getContext(),intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе);
+                      РезультатСменыСтатусаНаОзнакомленный=        service_for_tasks.МетодpЗапускСлужбыДляЗадач(getContext(),intentДляЗапускаСлужбыСменыСменыСтатусаВсСлужбе);
 
                         Log.i(this.getClass().getName(),
                                 " ПолучаемUUIDТекущйПозицииВRecyreView " + ПолучаемUUIDТекущйПозицииВRecyreView +
-                                        " service_for_task_для_задания_сменаСатуса " + service_for_task_для_задания_сменаСатуса+" РезультатСменыСтатусаНаОзнакомленный " +РезультатСменыСтатусаНаОзнакомленный);
+                                        " service_for_tasks " + service_for_tasks +" РезультатСменыСтатусаНаОзнакомленный " +РезультатСменыСтатусаНаОзнакомленный);
                         
                         if (РезультатСменыСтатусаНаОзнакомленный==true) {
                             // TODO: 09.03.2022
@@ -1928,8 +1926,8 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
 
            try {
                //TODO launch broad caset receiver
-               service_for_task_для_задания_сменаСатуса=new Service_For_Task_Для_Задания_СменаСатуса();
-               Intent intentЗапускСлужыСменаСтатусаБиндинг = new Intent(getContext(), Service_For_Task_Для_Задания_СменаСатуса.class);
+               service_for_tasks =new ServiceForTasks();
+               Intent intentЗапускСлужыСменаСтатусаБиндинг = new Intent(getContext(), ServiceForTasks.class);
                // TODO: 26.06.2022 созадем биндинг службыы
                  getContext(). bindService(intentЗапускСлужыСменаСтатусаБиндинг, connectionДляСменыСтатусаЗадач, Context.BIND_AUTO_CREATE);
                // context.startService(intentЗапускСлужюыыСинхрониазцииЧерезСлужбу);
@@ -1958,15 +1956,15 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
            public void onServiceConnected(ComponentName name, IBinder service) {
                try{
                    // We've bound to LocalService, cast the IBinder and get LocalService instance
-                   Service_For_Task_Для_Задания_СменаСатуса.LocalBinderДляСлужбыСменаСтатуса binder = (Service_For_Task_Для_Задания_СменаСатуса.LocalBinderДляСлужбыСменаСтатуса) service;
+                   ServiceForTasks.LocalBinderДляСлужбыСменаСтатуса binder = (ServiceForTasks.LocalBinderДляСлужбыСменаСтатуса) service;
 
-                   service_for_task_для_задания_сменаСатуса = binder.getService();
+                   service_for_tasks = binder.getService();
 
                    Log.d(context.getClass().getName(), "\n"
                            + " время: " + new Date()+"\n+" +
                            " Класс в процессе... " +  this.getClass().getName()+"\n"+
                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                           +"    onServiceDisconnected  service_for_task_для_задания_сменаСатуса" +service_for_task_для_задания_сменаСатуса);
+                           +"    onServiceDisconnected  service_for_tasks" + service_for_tasks);
 
                } catch (Exception e) {
                    //  Block of code to handle errors
@@ -1990,7 +1988,7 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
                            + " время: " + new Date()+"\n+" +
                            " Класс в процессе... " +  this.getClass().getName()+"\n"+
                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                           +"    onServiceDisconnected  service_for_task_для_задания_сменаСатуса" +service_for_task_для_задания_сменаСатуса);
+                           +"    onServiceDisconnected  service_for_tasks" + service_for_tasks);
                } catch (Exception e) {
                    //  Block of code to handle errors
                    e.printStackTrace();

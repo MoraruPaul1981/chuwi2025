@@ -52,9 +52,9 @@ public Integer getModuleInsert(@NonNull Bundle bundleModuleBack ){
                 // TODO: 28.01.2025
                 ContentResolver contentProviderInsert=context.getContentResolver();
                 ContentValues contentValuesModuleBackAsync=new ContentValues();
-                Uri InsertingBack= contentProviderInsert.insert(uri,contentValuesModuleBackAsync);
-
-
+                Uri InsertingBack =     contentProviderInsert.acquireContentProviderClient(uri).insert(uri,contentValuesModuleBackAsync);
+                String ответОперцииВставки=    Optional.ofNullable(InsertingBack).map(Emmeter->Emmeter.toString().replace("content://","")).get();
+                getInsert= Integer.parseInt(ответОперцииВставки);
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                         " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "getInsert " +getInsert  );

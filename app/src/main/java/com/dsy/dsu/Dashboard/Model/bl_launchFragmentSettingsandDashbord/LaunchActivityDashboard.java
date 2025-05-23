@@ -1,17 +1,15 @@
 package com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.Dashboard.View.Fragments.dashbordfaceapp.DashboardFaceApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +55,7 @@ public class LaunchActivityDashboard {
 
     }
 
-    public   void launchADashboardFragment(     @NotNull  ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО) {
+    public   void launchADashboardFragment(     @NotNull  ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО) {
         try {
             // TODO Запусукаем Фргамент DdshBoard
             DashboardFaceApp dashboardFaceApp = DashboardFaceApp.newInstance();

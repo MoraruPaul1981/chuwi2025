@@ -49,11 +49,10 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -71,8 +70,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
-
-import dagger.hilt.EntryPoints;
 
 
 // TODO: 29.09.2022 фрагмент для получение материалов
@@ -92,7 +89,7 @@ public class FragmentImagesMaterials extends Fragment {
     private  Message message;
     private MyRecycleViewAdapter myRecycleViewAdapter;
     private MyViewHolder myViewHolder;
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
     private  ViewGroup container;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -116,7 +113,7 @@ public class FragmentImagesMaterials extends Fragment {
             МетодHandlerCallBack();
             bundleForImages=      getArguments();
             if (bundleForImages!=null) {
-                binderДляПолучениеМатериалов=  (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов) bundleForImages.getBinder("binder");
+                binderДляПолучениеМатериалов=  (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов) bundleForImages.getBinder("binder");
                 // TODO: 10.11.2022
                 if(binderДляПолучениеМатериалов!=null){
                     // TODO: 18.07.2023 получение Image для выбраного Материала
@@ -859,7 +856,7 @@ public class FragmentImagesMaterials extends Fragment {
             bundleДляПЕредачи.putInt("ТекущаяЦФО",ТекущаяЦФО);
             bundleДляПЕредачи.putInt("ТекущаяНомерМатериала",ТекущаяНомерМатериала);
             bundleДляПЕредачи.putString("ФлагКакиеДанныеНужныПолучениеМатериалов",ФлагКакиеДанныеНужныПолучениеМатериалов);
-            Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction(ФлагКакиеДанныеНужныПолучениеМатериалов);
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             Log.d(this.getClass().getName(), "   ПубличныйIDДляФрагмента "+ ПубличныйIDДляФрагмента);
@@ -890,7 +887,7 @@ public class FragmentImagesMaterials extends Fragment {
             Bundle bundleДляПЕредачи=new Bundle();
             bundleДляПЕредачи.putString("Таблица","materials_databinary");//TODO сами данные
             bundleДляПЕредачи.putLong("Paren_Image_UUID",Paren_Image_UUID);
-            Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction("GetImageFormaterial");
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             Log.d(this.getClass().getName(), "   ПубличныйIDДляФрагмента "+ ПубличныйIDДляФрагмента);

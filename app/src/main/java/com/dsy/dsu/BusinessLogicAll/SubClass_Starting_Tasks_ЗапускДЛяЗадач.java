@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.Service_For_Task_Для_Задания_СменаСатуса;
+import com.dsy.dsu.Services.ServiceForTasks;
 
 public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
     Context context;
@@ -52,7 +52,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
 
             Intent notificationIntentДляЗадачиВыполнили;
             // TODO: 17.11.2021
-            notificationIntentДляЗадачиВыполнили = new Intent(context, Service_For_Task_Для_Задания_СменаСатуса.class);
+            notificationIntentДляЗадачиВыполнили = new Intent(context, ServiceForTasks.class);
             // TODO: 24.03.2022
             //  notificationIntentДляЗадачиВыполнили.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // TODO: 03.03.2022
@@ -89,7 +89,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
                         3, notificationIntentДляЗадачиВыполнили,
                         PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT); //PendingIntent.FLAG_UPDATE_CURRENT
                 // TODO: 17.11.2021
-                // Service_Notifocations_Для_Чата.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
+                // ServiceForNotifocations.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
 
                 // TODO: 03.03.2022
 
@@ -144,7 +144,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
 
             Intent notificationIntentДляЗадачиОтказ;
             // TODO: 17.11.2021
-            notificationIntentДляЗадачиОтказ = new Intent(context, Service_For_Task_Для_Задания_СменаСатуса.class);
+            notificationIntentДляЗадачиОтказ = new Intent(context, ServiceForTasks.class);
             // TODO: 24.03.2022
             // notificationIntentДляЗадачиОтказ.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // TODO: 03.03.2022
@@ -182,7 +182,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
                         4, notificationIntentДляЗадачиОтказ,
                         PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT); //PendingIntent.FLAG_UPDATE_CURRENT
                 // TODO: 17.11.2021
-                // Service_Notifocations_Для_Чата.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
+                // ServiceForNotifocations.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
 
                 // TODO: 03.03.2022
 
@@ -235,7 +235,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
 
             Intent notificationIntentДляЗапусказаданияИзУведомленияПереход;
             // TODO: 17.11.2021
-            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, Service_For_Task_Для_Задания_СменаСатуса.class);
+            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, ServiceForTasks.class);
             // TODO: 24.03.2022
             // TODO: 03.03.2022
             notificationIntentДляЗапусказаданияИзУведомленияПереход.setAction(СтатусСамойЗадачи);
@@ -278,7 +278,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
                         5, notificationIntentДляЗапусказаданияИзУведомленияПереход,
                         PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT); //PendingIntent.FLAG_UPDATE_CURRENT
                 // TODO: 17.11.2021
-                // Service_Notifocations_Для_Чата.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
+                // ServiceForNotifocations.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
 
                 // TODO: 03.03.2022
 
@@ -328,7 +328,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
 
             Intent notificationIntentДляЗапусказаданияИзУведомленияПереход;
             // TODO: 17.11.2021
-            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, Service_For_Task_Для_Задания_СменаСатуса.class);
+            notificationIntentДляЗапусказаданияИзУведомленияПереход = new Intent(context, ServiceForTasks.class);
             // TODO: 24.03.2022
             // TODO: 03.03.2022
             notificationIntentДляЗапусказаданияИзУведомленияПереход.setAction(СтатусСамойЗадачи);
@@ -369,7 +369,7 @@ public class SubClass_Starting_Tasks_ЗапускДЛяЗадач {
                         10, notificationIntentДляЗапусказаданияИзУведомленияПереход,
                         PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT); //PendingIntent.FLAG_UPDATE_CURRENT
                 // TODO: 17.11.2021
-                // Service_Notifocations_Для_Чата.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
+                // ServiceForNotifocations.enqueueWork(getApplicationContext(),notificationIntentДляУведомленийЗапускПаузы);
 
                 // TODO: 03.03.2022
 

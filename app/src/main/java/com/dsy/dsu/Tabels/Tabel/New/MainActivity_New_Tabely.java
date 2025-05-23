@@ -46,7 +46,7 @@ import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
 import com.google.android.material.button.MaterialButton;
@@ -74,7 +74,7 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
     private  Button КнопкаНазадПриСозданииНовогоТабеля;
     private  Context Контекст;
     private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
     private   Cursor CursorДляСпиноровЦФО;
     private  Handler handler;
     private ProgressBar progressBar;
@@ -167,12 +167,12 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
                 public void onServiceConnected(ComponentName name, IBinder service) {
                     try {
                         if (service.isBinderAlive()) {
-                            binderДляПолучениеМатериалов = (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов) service;
+                            binderДляПолучениеМатериалов = (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов) service;
                             Log.d(getApplicationContext().getClass().getName(), "\n"
                                     + " время: " + new Date() + "\n+" +
                                     " Класс в процессе... " + this.getClass().getName() + "\n" +
                                     " onServiceConnected  метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                    + "    onServiceDisconnected  Service_for_AdminissionMaterial" + " binderДляПолучениеМатериалов "
+                                    + "    onServiceDisconnected  ServiceForAdminissionMaterial" + " binderДляПолучениеМатериалов "
                                     + binderДляПолучениеМатериалов.isBinderAlive());
 
                             progressBar.setVisibility(View.INVISIBLE);
@@ -205,8 +205,8 @@ public class MainActivity_New_Tabely extends AppCompatActivity {
                     }
                 }
             };
-            Intent intentЗапускБиндингаМатериалы = new Intent(getApplicationContext(), Service_for_AdminissionMaterial.class);
-            intentЗапускБиндингаМатериалы.setAction("com.Service_for_AdminissionMaterial");
+            Intent intentЗапускБиндингаМатериалы = new Intent(getApplicationContext(), ServiceForAdminissionMaterial.class);
+            intentЗапускБиндингаМатериалы.setAction("com.ServiceForAdminissionMaterial");
            bindService(intentЗапускБиндингаМатериалы, serviceConnectionМатериалы, Context.BIND_AUTO_CREATE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1157,7 +1157,7 @@ while(iterator.hasNext()){
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
             Bundle bundleДляПЕредачи=new Bundle();
             bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
-            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction("ПолучениеМатериалоСозданиеНового");
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             if (binderДляПолучениеМатериалов!=null) {
@@ -1189,7 +1189,7 @@ while(iterator.hasNext()){
             Bundle bundleДляПЕредачи=new Bundle();
             bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
             bundleДляПЕредачи.putString("ФильтрДляПоиска",Фильтр);
-            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction("ПолучениеМатериалоСозданиеНового");
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             if (binderДляПолучениеМатериалов!=null) {
@@ -1218,7 +1218,7 @@ while(iterator.hasNext()){
             Bundle bundleДляПЕредачи=new Bundle();
             bundleДляПЕредачи.putString("Таблица",ФлагКакаяТаблицаОбработки);
             bundleДляПЕредачи.putString("ФильтрДляПоиска",Фильтр);
-            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getApplicationContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction("ПолучениеМатериалоИзНовгоПоиска");
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             if (binderДляПолучениеМатериалов!=null) {

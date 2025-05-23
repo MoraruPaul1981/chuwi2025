@@ -1,10 +1,16 @@
 package com.sous.backasync.launch;
 
 
+import android.content.AsyncQueryHandler;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +18,8 @@ import androidx.loader.content.CursorLoader;
 
 import com.sous.backasync.businesslogic.errors.RecordNewErroBack;
 import com.sous.backasync.launch.interfaces.ModuleQueryBackAsyncInterface;
+
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -127,21 +135,32 @@ public Cursor getModuleQueryForceLoad(@NonNull Bundle bundleModuleBack){
         Cursor cursor = null;
         try {
             if (СамЗапрос != null) {
-                CursorLoader cursorLoader = new CursorLoader(context);
+
                 Uri uri = Uri.parse("content://" + getNameProvider + "/" + Таблица + "");
-                cursorLoader.setUri(uri);
-                cursorLoader.setSelection(СамЗапрос);
-                cursorLoader.setSelectionArgs(УсловияВыборки);//МесяцПростоАнализа
-                cursor = cursorLoader.loadInBackground();
+                ContentResolver contentProviderInsert=context.getContentResolver();
+                cursor= contentProviderInsert.acquireContentProviderClient(uri).query(uri,null,СамЗапрос,УсловияВыборки,null);
+
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
                         cursor.moveToFirst();
                         Log.d(this.getClass().getName(), "cursor.getCount() "
                                 + cursor.getCount());
+                        // TODO: 23.05.2025
+                        contentProviderInsert.notifyChange(uri, new ContentObserver(new Handler()) {
+                            @Override
+                            public void onChange(boolean selfChange) {
+                                super.onChange(selfChange);
+
+                                Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "cursor ");
+                            }
+                        });
                     }
                 }
-                cursorLoader.commitContentChanged();
+
             }
+
 
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

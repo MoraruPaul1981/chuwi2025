@@ -6,7 +6,7 @@ import android.widget.TableLayout;
 
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyViewHolderPayCommingPay;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,10 +18,10 @@ public class FileFrom1CCommitPay {
     private MyViewHolderPayCommingPay holder;
     private Context context;
 
-    private  Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    private  ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
     public FileFrom1CCommitPay(@NonNull MyViewHolderPayCommingPay holder,
                                @NonNull Context context,
-                               @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C) {
+                               @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C) {
         this.holder = holder;
         this.context = context;
         this.binderСогласования1C = binderСогласования1C;

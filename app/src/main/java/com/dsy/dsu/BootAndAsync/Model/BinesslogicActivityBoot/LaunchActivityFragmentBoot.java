@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.BootAndAsync.View.BootFragment;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,7 +54,7 @@ public class LaunchActivityFragmentBoot {
 
     }
 
-    public   void launchBootFragment(     @NotNull ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО) {
+    public   void launchBootFragment(     @NotNull ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО) {
         try {
             // TODO Запусукаем Фргамент DdshBoard
             BootFragment bootFragment = BootFragment.newInstance();

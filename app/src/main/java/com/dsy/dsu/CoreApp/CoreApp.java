@@ -68,16 +68,16 @@ public class CoreApp extends Application {
   ModuleTabels moduleTabels;*/
 
 
-   @Inject
+  @Inject
   protected SQLiteDatabase coreAppSqLiteDatabase ;
 
 
-  @Inject
-  protected  CoreBinessLogics coreBinessLogics;
+/*   @Inject
+  protected CoreBinessLogics coreBinessLogics;
 
 
   @Inject
-  ModuleСalled moduleСalled;
+  ModuleСalled moduleСalled;*/
 
 
   @Override

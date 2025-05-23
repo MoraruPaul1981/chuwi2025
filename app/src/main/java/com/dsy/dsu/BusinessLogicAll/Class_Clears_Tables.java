@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,13 +20,13 @@ import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 import com.dsy.dsu.BusinessLogicAll.SharedPreferences.GetSharedPreferences;
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Passwords.MainActivityPasswords;
+import com.dsy.dsu.Passwords.View.MainActivityPasswords;
+
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.CompletionService;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -163,9 +164,17 @@ public class Class_Clears_Tables {
         try {
                    Toast.makeText(activity, " Успешное смена данных !!! "    , Toast.LENGTH_SHORT).show();;
                     /////TODO ЗАПУСКАМ ОБНОЛВЕНИЕ ДАННЫХ С СЕРВЕРА ПЕРЕРД ЗАПУСКОМ ПРИЛОЖЕНИЯ ВСЕ ПРИЛОЖЕНИЯ ДСУ-1
-                    Интент_Меню.setClass(activity, MainActivityPasswords.class); //MainActivity_Visible_Async //MainActivity_Face_App_OLd
-                    Интент_Меню.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP  );//////FLAG_ACTIVITY_SINGLE_TOP
-                    activity. startActivity(Интент_Меню);
+            Intent Интент_ЗапускаетPasswords=new Intent();
+            Интент_ЗапускаетPasswords.setClass(activity, MainActivityPasswords.class);
+            Интент_ЗапускаетPasswords.setFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Bundle bundle=new Bundle();
+            Интент_ЗапускаетPasswords.putExtras(bundle);
+            Интент_ЗапускаетPasswords.  addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Интент_ЗапускаетPasswords.  addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            Интент_ЗапускаетPasswords.setAction("MainActivityPasswords.class");
+            activity.startActivity(Интент_ЗапускаетPasswords);//tso
+            // TODO: 11.04.2025 exit
+            activity.finishAffinity();
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread()

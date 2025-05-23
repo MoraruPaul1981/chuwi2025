@@ -185,7 +185,7 @@
 
         </service>
         <service
-            android:name=".Services.Service_For_Public"
+            android:name=".Services.ServiceForPublic"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -216,7 +216,7 @@
         </service>
 
         <service
-            android:name=".Services.Service_For_Remote_Async_Binary"
+            android:name=".Services.ServiceForRemoteAsyncBinary"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -226,7 +226,7 @@
 
         </service>
         <service
-            android:name=".Services.Service_for_AdminissionMaterial"
+            android:name=".Services.ServiceForAdminissionMaterial"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -238,7 +238,7 @@
 
 
         <service
-            android:name=".Services.Service_Notifocations_Для_Чата"
+            android:name=".Services.ServiceForNotifocations"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -249,7 +249,7 @@
 
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.Service_For_Task_Для_Задания_СменаСатуса"
+            android:name=".Services.ServiceForTasks"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -261,7 +261,7 @@
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <!-- todo JOBintenservice -->
         <service
-            android:name=".Services.Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет"
+            android:name=".Services.ServiceForChatten"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -273,7 +273,7 @@
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.Service_Notificatios_Для_Согласования"
+            android:name=".Services.ServiceForApprove"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -283,7 +283,7 @@
 
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.Service_Get1C_ПолучениеДанныхОт1С"
+            android:name=".Services.ServiceFor1C"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -305,7 +305,7 @@
 
         </service>
         <service
-            android:name=".Services.ServiceUpdatePoОбновлениеПО"
+            android:name=".Services.ServiceUpdatesPO"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -417,7 +417,7 @@
 
 
         <activity
-            android:name=".Passwords.MainActivityPasswords"
+            android:name=".Passwords.View.MainActivityPasswords"
             android:exported="true"
             android:label="Аунтификация ДСУ-1"
             android:grantUriPermissions="true"

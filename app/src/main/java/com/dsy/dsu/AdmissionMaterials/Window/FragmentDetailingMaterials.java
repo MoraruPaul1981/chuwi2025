@@ -42,11 +42,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
-import com.dsy.dsu.Services.Service_for_AdminissionMaterial;
+import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -66,7 +65,6 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Predicate;
@@ -92,7 +90,7 @@ public class FragmentDetailingMaterials extends Fragment {
     private  Handler handler;
     private MyRecycleViewAdapterDetalingMaterial myRecycleViewAdapterDetalingMaterial;
     private MyViewHolder myViewHolder;
-    private  Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
+    private  ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов binderДляПолучениеМатериалов;
     private Integer ТекущаяЦФО=0;
     private Integer НомерВыбраногоМатериала =0;
     private Integer Количество =0;
@@ -119,7 +117,7 @@ public class FragmentDetailingMaterials extends Fragment {
             МетодHandlerCallBack();
              data=      getArguments();
             if (data!=null) {
-                binderДляПолучениеМатериалов=  (Service_for_AdminissionMaterial.LocalBinderДляПолучениеМатериалов) data.getBinder("binder");
+                binderДляПолучениеМатериалов=  (ServiceForAdminissionMaterial.LocalBinderДляПолучениеМатериалов) data.getBinder("binder");
                 ТекущаяЦФО= data.getInt("Цфо");
                 НомерВыбраногоМатериала = data.getInt("НомерВыбраногоМатериала");
                 Материал =data.getString("Материал");
@@ -972,7 +970,7 @@ public class FragmentDetailingMaterials extends Fragment {
             bundleДляПЕредачи.putInt("ТекущаяЦФО",ТекущаяЦФО);
             bundleДляПЕредачи.putInt("НомерВыбраногоМатериала",НомерВыбраногоМатериала);
             bundleДляПЕредачи.putString("ФлагКакиеДанныеНужныПолучениеМатериалов",ФлагКакиеДанныеНужныПолучениеМатериалов);
-            Intent intentПолучениеМатериалов = new Intent(getContext(), Service_for_AdminissionMaterial.class);
+            Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction(ФлагКакиеДанныеНужныПолучениеМатериалов);
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
             Log.d(this.getClass().getName(), "   ПубличныйIDДляФрагмента "+ ПубличныйIDДляФрагмента);

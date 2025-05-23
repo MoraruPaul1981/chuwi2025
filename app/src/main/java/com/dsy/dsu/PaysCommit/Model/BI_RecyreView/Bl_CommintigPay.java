@@ -25,14 +25,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsy.dsu.BusinessLogicAll.Class_Get_Json_1C;
-import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.LiveData.GetLiveDataForrecyreViewPay;
 import com.dsy.dsu.PaysCommit.Model.LeftDividerItemDecoratorCommitPay;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyRecycleViewAdapterCommingPay;
 import com.dsy.dsu.PaysCommit.View.RecyreViewIsNull.MyRecycleViewIsNullAdapterPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -596,7 +595,7 @@ public class Bl_CommintigPay {
 
     // TODO: 04.03.2022 прозвомжность Заполения RecycleView
   public   void InitMyAdapterRecyreViewWorker(@NonNull JsonNode jsonNode1сСогласованияAllRows,
-                                              @NonNull   Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                              @NonNull   ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                               @NonNull  String getHiltCommintgPays,@NonNull LifecycleOwner lifecycleOwner) {
         try {
             if (myRecycleViewAdapter==null) {

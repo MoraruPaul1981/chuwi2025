@@ -1,8 +1,8 @@
 package com.dsy.dsu.PaysCommit.Model;
 
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 
 public interface BinderService1cCommitPay {
-    public Service_Notificatios_Для_Согласования.LocalBinderДляСогласования
+    public ServiceForApprove.LocalBinderДляСогласования
     bringBackString( );//
 }

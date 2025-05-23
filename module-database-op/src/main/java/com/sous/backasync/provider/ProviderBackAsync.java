@@ -28,6 +28,7 @@ import com.sous.backasync.businesslogic.hill.ModuleBackAsyncSQLlite;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
@@ -46,9 +47,10 @@ public class ProviderBackAsync extends ContentProvider  {
 
     public ProviderBackAsync() throws InterruptedException {
         try{
-            Log.d(this.getClass().getName(),  " uriMatcherДЛяПровайдераКонтентБазаДанных"
-                    +uriMatcherДЛяПровайдераКонтентБазаДанных
-                    + " sqliteBAck "+ sqliteBAck );
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
             // TODO: 04.10.2022
         } catch (Exception e) {
             e.printStackTrace();

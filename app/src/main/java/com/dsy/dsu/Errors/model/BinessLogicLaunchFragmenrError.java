@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.view.FragmentError;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +56,7 @@ public class BinessLogicLaunchFragmenrError {
 
     }
 
-    public   void launchErrorFragment(     @NotNull ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО) {
+    public   void launchErrorFragment(     @NotNull ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО) {
         try {
             // TODO Запусукаем Фргамент DdshBoard
             FragmentError fragmentError = FragmentError.newInstance();

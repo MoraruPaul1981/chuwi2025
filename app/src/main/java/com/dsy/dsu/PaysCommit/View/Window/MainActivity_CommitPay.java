@@ -18,8 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.PaysCommit.Model.BinderService1cCommitPay;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.R;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -30,12 +30,12 @@ public class MainActivity_CommitPay extends FragmentActivity  implements BinderS
     private FragmentManager fragmentManagerДляСогласование;
     private FragmentTransaction fragmentTransactionляСогласование;
     private Fragment fragment_дляСогласованиеПерваяКнопка;
-   public    Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+   public    ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
     private FragmentManager fragmentManager;
 
 
 
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -84,7 +84,7 @@ public class MainActivity_CommitPay extends FragmentActivity  implements BinderS
 }
 
     @Override
-    public Service_Notificatios_Для_Согласования.LocalBinderДляСогласования
+    public ServiceForApprove.LocalBinderДляСогласования
     bringBackString( ) {
         Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -135,7 +135,7 @@ public class MainActivity_CommitPay extends FragmentActivity  implements BinderS
                         @Override
                         public void onServiceConnected(ComponentName name, IBinder service) {
                             try {
-                                binderСогласования1C = (Service_Notificatios_Для_Согласования.LocalBinderДляСогласования) service;
+                                binderСогласования1C = (ServiceForApprove.LocalBinderДляСогласования) service;
                               if (service.isBinderAlive()) {
                                     Log.i(getApplicationContext().getClass().getName(), "    onServiceConnected  service.isBinderAlive()"
                                             + service.isBinderAlive());
@@ -163,8 +163,8 @@ public class MainActivity_CommitPay extends FragmentActivity  implements BinderS
                             }
                         }
                     };
-                    Intent intentЗапускСлужюыыСинхрониазцииБиндинг1C = new Intent(getApplicationContext(), Service_Notificatios_Для_Согласования.class);
-                    intentЗапускСлужюыыСинхрониазцииБиндинг1C.setAction("com.Service_Notificatios_Для_Согласования");
+                    Intent intentЗапускСлужюыыСинхрониазцииБиндинг1C = new Intent(getApplicationContext(), ServiceForApprove.class);
+                    intentЗапускСлужюыыСинхрониазцииБиндинг1C.setAction("com.ServiceForApprove");
                     bindService(intentЗапускСлужюыыСинхрониазцииБиндинг1C , connectionСогласования, Context.BIND_AUTO_CREATE);
                 } catch (Exception e) {
                     e.printStackTrace();

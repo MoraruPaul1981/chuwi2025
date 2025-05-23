@@ -2,7 +2,6 @@ package com.dsy.dsu.Dashboard.View.Fragments.dashbordfaceapp;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
@@ -20,11 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.room.Transaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dsy.dsu.AdmissionMaterials.Window.MainActivity_AdmissionMaterials;
@@ -40,7 +36,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.OrdersTransports.Window.MainActivityOrdersTransports;
 import com.dsy.dsu.PaysCommit.View.Window.MainActivity_CommitPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -72,7 +68,7 @@ public class DashboardFaceApp extends  DialogFragment  {
 
     private LifecycleOwner lifecycleOwner;
 
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
 
     private AppCompatImageButton imageview_to_settings ;
 
@@ -586,7 +582,7 @@ public class DashboardFaceApp extends  DialogFragment  {
                         try {
                             if (service.isBinderAlive()) {
                                 // TODO: 28.07.2023  Update
-                                localBinderОбновлениеПО = (ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО) service;
+                                localBinderОбновлениеПО = (ServiceUpdatesPO.localBinderОбновлениеПО) service;
                             }
 
                             Log.d(getContext().getClass().getName(), "\n"
@@ -621,8 +617,8 @@ public class DashboardFaceApp extends  DialogFragment  {
                         }
                     }
                 };
-                Intent intentЗапускСлужбыОбновлениеПО = new Intent(getContext(), ServiceUpdatePoОбновлениеПО.class);
-                intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatePoОбновлениеПО");
+                Intent intentЗапускСлужбыОбновлениеПО = new Intent(getContext(), ServiceUpdatesPO.class);
+                intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatesPO");
                 asBoolenОбновлениеПО = getContext().bindService(intentЗапускСлужбыОбновлениеПО, connectionОбновлениеПО, Context.BIND_AUTO_CREATE);
                 // TODO: 28.04.2023
                 Log.d(this.getClass().getName(), "\n" + " class " +

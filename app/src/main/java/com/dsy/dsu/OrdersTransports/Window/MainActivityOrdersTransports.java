@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 
 import java.util.Date;
 
@@ -31,7 +31,7 @@ public class MainActivityOrdersTransports extends AppCompatActivity {
     private Fragment fragment_СозданиеЗаказаТранспорта;
     private LinearLayout linearLayout_root_activity_main;
 
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
     private   SubClassStartingFragmentOrderTran subClassStartingFragmentOrderTran;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

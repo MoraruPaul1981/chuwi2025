@@ -47,8 +47,8 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.model.BinessLogicLaunchFragmenrError;
 import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
+import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.Tabels.Templates.MainActivity_New_Templates;
-import com.dsy.dsu.Services.ServiceUpdatePoОбновлениеПО;
 import com.dsy.dsu.Settings.View.MainActivity_Settings;
 import com.dsy.dsu.R;
 import com.google.android.material.button.MaterialButton;
@@ -96,9 +96,9 @@ public class DashboardFragmentSettings extends  DialogFragment {
     private LifecycleOwner lifecycleOwner;
     private AppCompatImageButton bottonBack;
 
-    private ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
+    private ServiceUpdatesPO.localBinderОбновлениеПО localBinderОбновлениеПО;//TODO новаЯ
 
-    private Subject<ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО> UpdatePublish;
+    private Subject<ServiceUpdatesPO.localBinderОбновлениеПО> UpdatePublish;
 
 
     private   ServiceConnection  connectionОбновлениеПО;
@@ -986,7 +986,7 @@ class BindingSoftwareUpdatePO{
                         try {
                             if (service.isBinderAlive()) {
                                 // TODO: 28.07.2023  Update
-                                localBinderОбновлениеПО = (ServiceUpdatePoОбновлениеПО.localBinderОбновлениеПО) service;
+                                localBinderОбновлениеПО = (ServiceUpdatesPO.localBinderОбновлениеПО) service;
                             }
 
                             Log.d(getContext().getClass().getName(), "\n"
@@ -1021,8 +1021,8 @@ class BindingSoftwareUpdatePO{
                         }
                     }
                 };
-                Intent intentЗапускСлужбыОбновлениеПО = new Intent(getContext(), ServiceUpdatePoОбновлениеПО.class);
-                intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatePoОбновлениеПО");
+                Intent intentЗапускСлужбыОбновлениеПО = new Intent(getContext(), ServiceUpdatesPO.class);
+                intentЗапускСлужбыОбновлениеПО.setAction("com.ServiceUpdatesPO");
                 asBoolenОбновлениеПО = getContext().bindService(intentЗапускСлужбыОбновлениеПО, connectionОбновлениеПО, Context.BIND_AUTO_CREATE);
             // TODO: 28.04.2023
             Log.d(this.getClass().getName(), "\n" + " class " +

@@ -74,17 +74,16 @@ import io.reactivex.rxjava3.functions.Predicate;
 public class ContentProviderSynsUpdateBinary extends ContentProvider {
   private   UriMatcher uriMatcherДЛяПровайдераКонтентБазаДанных;
 
-     SQLiteDatabase sqlite;
+    private  SQLiteDatabase sqlite;
 
-    private BinessLogicPublicContent binessLogicPublicContentМенеджерПотоковМассвойОперацииВставки;
+
     private AsyncTaskLoader<?> asyncTaskLoader;
     private Handler handler;
     private Integer ТекущаяСтрокаПриДОбавлениииURL=0;
     private SharedPreferences preferences;
     public ContentProviderSynsUpdateBinary() throws InterruptedException {
         try{
-
-            Log.d(getContext().getClass().getName(), "\n"
+            Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " sqlite " +sqlite);

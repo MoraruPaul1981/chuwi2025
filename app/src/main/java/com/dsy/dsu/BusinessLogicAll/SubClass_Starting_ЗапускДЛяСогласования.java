@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 
 
 public class SubClass_Starting_ЗапускДЛяСогласования {
@@ -47,7 +47,7 @@ public class SubClass_Starting_ЗапускДЛяСогласования {
             PackageManager pm = context.getPackageManager();
 // TODO: 17.11.2021 БЛОК КОДА РЕАЛИЗАЦИЯ БУДУШЕГО ЗАПУСКА ПРИ НАЖАТИИ НА УВЕДОСЛЕНИЕ ИЛИ НА КНОПКИ ЗАПУСКАЕТ С УВЕДОМЛЕНИЯ РАЗЛИЧНЫЕ ДЕЙСТВИЯ
             Intent notificationIntentДляЗадачиОтказ;
-            notificationIntentДляЗадачиОтказ = new Intent(context, Service_Notificatios_Для_Согласования.class);
+            notificationIntentДляЗадачиОтказ = new Intent(context, ServiceForApprove.class);
             notificationIntentДляЗадачиОтказ.setAction( "ЗапускаемСогласованиеОтказИлилУспешное");
             notificationIntentДляЗадачиОтказ.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             bundleДляПередачиВСлужбуСогласования.putInt("PROCESS_IDСогласования", Integer.parseInt(PROCESS_IDСогласования));

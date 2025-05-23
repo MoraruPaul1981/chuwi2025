@@ -53,7 +53,7 @@ import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.Services.Service_For_Public;
+import com.dsy.dsu.Services.ServiceForPublic;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
 import com.dsy.dsu.Tabels.Tabel.New.MainActivity_New_Tabely;
@@ -383,7 +383,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
             bundle.putString("Таблица","data_tabels");
             Intent intent=new Intent("ДляУдаление");
             intent.putExtras(bundle);
-            Service_For_Public  service_for_public=new Service_For_Public();
+            ServiceForPublic service_for_public=new ServiceForPublic();
         cursor=  service_for_public.МетодПолучениеДанныхЧерезCursorLoader(context,intent);
             Log.d(this.getClass().getName(), " cursor " + cursor);
     } catch (Exception e) {

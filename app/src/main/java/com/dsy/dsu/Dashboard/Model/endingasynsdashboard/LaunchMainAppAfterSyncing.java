@@ -10,7 +10,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Passwords.MainActivityPasswords;
+import com.dsy.dsu.Passwords.View.MainActivityPasswords;
+
 
 import java.util.Date;
 

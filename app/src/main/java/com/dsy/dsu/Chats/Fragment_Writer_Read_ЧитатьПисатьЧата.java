@@ -7,7 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.sqlite.SQLiteCursor;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -43,7 +43,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.SubClassDiffentChats;
 
 import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
-import com.dsy.dsu.Services.Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет;
+import com.dsy.dsu.Services.ServiceForChatten;
 import com.dsy.dsu.R;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,7 +77,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     protected LinkedBlockingQueue<String> ЛистЗапускаемТолькоТаблицыЧатаВСинхронизации = new LinkedBlockingQueue();
     protected WorkInfo WorkInfoИнформацияОЗапущенойСлужбеОдноразовая;
     protected Integer ПубличныйIDДляФрагмента = 0;
-    protected SQLiteCursor КурсорДанныеДлязаписиичтнияЧата = null;
+    protected Cursor КурсорДанныеДлязаписиичтнияЧата = null;
     protected Long ПолученыйIDДляЧата = 0l;
     protected Long ПолученыйУжеСуществующийUUIDИзПерепискиДляЧата = 0l;
 
@@ -89,7 +89,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     protected MyViewHolderДляЧата myViewHolderДляЧата;
     protected   ConstraintLayout constraintLayoutДляЧата;
     // TODO: 15.07.2022
-    protected Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет СсылкаНаСлужбуЧата;
+    protected ServiceForChatten СсылкаНаСлужбуЧата;
 
 
     @Override
@@ -422,10 +422,10 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     void   МетодПодключенияКСлужбеБиндингом(){
         try {
             // TODO: 16.06.2022  тест код
-            СсылкаНаСлужбуЧата=new Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет();
+            СсылкаНаСлужбуЧата=new ServiceForChatten();
 
-            Intent intentЗапускДжоп = new Intent(getContext(), Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет.class);
-            //  Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет.enqueueWork(getContext(), intentЗапускДжоп);
+            Intent intentЗапускДжоп = new Intent(getContext(), ServiceForChatten.class);
+            //  ServiceForChatten.enqueueWork(getContext(), intentЗапускДжоп);
             getContext(). bindService(intentЗапускДжоп, connectionДляЧата, Context.BIND_AUTO_CREATE);
             // int num = service_smenaStatusMessageChat.getRandomNumber();
 
@@ -454,7 +454,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
         public void onServiceConnected(ComponentName name, IBinder service) {
             try{
                 // We've bound to LocalService, cast the IBinder and get LocalService instance
-                Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет.LocalBinderДляЧата binder = (Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет.LocalBinderДляЧата) service;
+                ServiceForChatten.LocalBinderДляЧата binder = (ServiceForChatten.LocalBinderДляЧата) service;
                 СсылкаНаСлужбуЧата = binder.getService();
                 Log.i(getContext().getClass().getName(), "    onServiceConnected  СсылкаНаСлужбуЧата" +СсылкаНаСлужбуЧата);
 
@@ -739,9 +739,9 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
 
     class MyRecycleViewAdapterДляЧата extends RecyclerView.Adapter<MyViewHolderДляЧата> {
         // TODO: 04.03.2022
-        SQLiteCursor ГлавныйКурсорЧатаСообщения;
+     private     Cursor ГлавныйКурсорЧатаСообщения;
         // TODO: 15.03.2022
-        public MyRecycleViewAdapterДляЧата(@NotNull SQLiteCursor ГлавныйКурсорЧатаСообщения) {
+        public MyRecycleViewAdapterДляЧата(@NotNull Cursor ГлавныйКурсорЧатаСообщения) {
             // TODO: 04.03.2022
             this.ГлавныйКурсорЧатаСообщения = ГлавныйКурсорЧатаСообщения;
             // TODO: 29.03.2022

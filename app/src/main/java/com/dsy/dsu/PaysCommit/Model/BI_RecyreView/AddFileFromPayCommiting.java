@@ -12,7 +12,7 @@ import android.widget.TableRow;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyViewHolderPayCommingPay;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.google.android.material.card.MaterialCardView;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,9 +23,9 @@ import io.reactivex.rxjava3.annotations.NonNull;
 
 class AddFileFromPayCommiting{
    private Context context;
-    private  Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    private  ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
 
-    public AddFileFromPayCommiting(Context context, Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C) {
+    public AddFileFromPayCommiting(Context context, ServiceForApprove.LocalBinderДляСогласования binderСогласования1C) {
         this.context = context;
         this.binderСогласования1C = binderСогласования1C;
     }

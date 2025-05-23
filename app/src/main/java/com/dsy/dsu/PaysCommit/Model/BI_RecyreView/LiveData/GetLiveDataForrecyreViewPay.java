@@ -22,7 +22,7 @@ import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.Bl_CommintigPay;
 import com.dsy.dsu.PaysCommit.Model.BI_RecyreView.ProccesingCancelOrOKPay;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyRecycleViewAdapterCommingPay;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyViewHolderPayCommingPay;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.android.material.card.MaterialCardView;
 
@@ -52,7 +52,7 @@ public class GetLiveDataForrecyreViewPay {
                                                      @NonNull RecyclerView recycleviewcommitpays,
                                                      @NonNull  Intent intentзаданиеНаВыполениеSuccess,
                                                      @NonNull String getHiltCommintgPays,
-                                                     @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C,
+                                                     @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C,
                                                      @NonNull    androidx.appcompat.widget.SearchView searchview_commitpay,
                                                      @NonNull Activity activity,
                                                      @NonNull   Integer positionDeleteJsonNodeAll,

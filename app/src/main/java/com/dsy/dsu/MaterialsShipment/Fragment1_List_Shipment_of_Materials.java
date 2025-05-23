@@ -41,12 +41,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.HiltInterfacesPublicID;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Gsons.SubClass_JSON_B_P_GET_1C_shipment_of_materials;
 import com.dsy.dsu.R;
-import com.dsy.dsu.Services.Service_Get1C_ПолучениеДанныхОт1С;
+import com.dsy.dsu.Services.ServiceFor1C;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
@@ -73,7 +72,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.functions.Action;
@@ -111,7 +109,7 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
     private JSONArray ARRAYJSONОт1СсамиДанные =new JSONArray();
     // TODO: 28.06.2022
 
-    private Service_Get1C_ПолучениеДанныхОт1С service_get1C_получениеДанныхОт1С;
+    private ServiceFor1C service_for1C;
 
     private  ArrayList<HashMap<String, Object>> ЛистВнутриХэшМапДляЗаполненияСпинераМатериаловЛеммита;
 
@@ -342,9 +340,9 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 try{
-                    Service_Get1C_ПолучениеДанныхОт1С.LocalBinderДляПолучениеДанных1С binder = ( Service_Get1C_ПолучениеДанныхОт1С.LocalBinderДляПолучениеДанных1С) service;
-                    service_get1C_получениеДанныхОт1С= binder.getService();
-                    Log.i(getContext().getClass().getName(), "    onServiceConnected  service_get1C_получениеДанныхОт1С" +service_get1C_получениеДанныхОт1С);
+                    ServiceFor1C.LocalBinderДляПолучениеДанных1С binder = ( ServiceFor1C.LocalBinderДляПолучениеДанных1С) service;
+                    service_for1C = binder.getService();
+                    Log.i(getContext().getClass().getName(), "    onServiceConnected  service_for1C" + service_for1C);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
@@ -357,7 +355,7 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 try{
-                    Log.i(getContext().getClass().getName(), "    onServiceDisconnected  service_get1C_получениеДанныхОт1С" +service_get1C_получениеДанныхОт1С);
+                    Log.i(getContext().getClass().getName(), "    onServiceDisconnected  service_for1C" + service_for1C);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
@@ -805,7 +803,7 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
                 bundle.putString("ТаблицыДляОбработки1С","dsu1cfo");
                 intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов.putExtras(bundle);
                 БуферРезультатПолучениеДанныхОт1СВторойЭтап =
-                        service_get1C_получениеДанныхОт1С.МетодЗапускаПолучениеДанных1СВторойЭтапЛимитМарериалов(getContext(),intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов);
+                        service_for1C.МетодЗапускаПолучениеДанных1СВторойЭтапЛимитМарериалов(getContext(),intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов);
                 //todo generator json*/
                 Log.d(this.getClass().getName(), "БуферРезультатаПингаИПолучениеДанныхДляGson "+
                         " БуферРезультатПолучениеДанныхОт1СВторойЭтап " + БуферРезультатПолучениеДанныхОт1СВторойЭтап+ " ЦФОДляОтпарвкиЕгоНаСервер1С " +ЦФОДляОтпарвкиЕгоНаСервер1С);
@@ -839,7 +837,7 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
                 intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов.putExtras(bundle);
                 // TODO: 07.07.2022
                 stringBufferОтветПриПервомЭтапе =
-                        service_get1C_получениеДанныхОт1С.МетодЗапускаПолучениеДанных1СПервыйЭтапДЛяЛимитаМатериалов(getContext(),intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов);
+                        service_for1C.МетодЗапускаПолучениеДанных1СПервыйЭтапДЛяЛимитаМатериалов(getContext(),intentДляПолучениеДАнныхот1СДЛяОтгрузкиМатериалов);
                 //todo generator json*/
                 Log.d(this.getClass().getName(), "БуферРезультатаПингаИПолучениеДанныхДляGson "+
                         " БуферРезультатПолучениеДанныхОт1СВторойЭтап " + БуферОт1ССписокЦФО);
@@ -1164,15 +1162,15 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
         private    void   МетодПодключенияКСлужбеБиндингом(){
             try {
                 // TODO: 16.06.2022  тест код
-                service_get1C_получениеДанныхОт1С=new Service_Get1C_ПолучениеДанныхОт1С();
+                service_for1C =new ServiceFor1C();
 
-                Intent intentЗапускДжоп = new Intent(getContext(), Service_Get1C_ПолучениеДанныхОт1С.class);
-                //  Service_Для_ЧатаСменаСтатусаПрочитаноИлиНет.enqueueWork(getContext(), intentЗапускДжоп);
+                Intent intentЗапускДжоп = new Intent(getContext(), ServiceFor1C.class);
+                //  ServiceForChatten.enqueueWork(getContext(), intentЗапускДжоп);
                 getContext(). bindService(intentЗапускДжоп, connectionДляПолучениеДанных1сОтрзукаМатерилатов, Context.BIND_AUTO_CREATE);
                 // int num = service_smenaStatusMessageChat.getRandomNumber();
 
                 Log.i(getContext().getClass().getName(), "    protected void onHandleWork(@NonNull Intent intent) { " + new Date()+ " intentЗапускДжоп " +intentЗапускДжоп+"\n"+
-                        " Thread.currentThread().getName()  " +Thread.currentThread().getName()+ " service_get1C_получениеДанныхОт1С " +service_get1C_получениеДанныхОт1С);
+                        " Thread.currentThread().getName()  " +Thread.currentThread().getName()+ " service_for1C " + service_for1C);
 
             } catch (Exception e) {
                 e.printStackTrace();

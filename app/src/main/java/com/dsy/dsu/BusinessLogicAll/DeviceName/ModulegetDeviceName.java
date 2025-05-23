@@ -9,7 +9,8 @@ import android.util.Log;
 import androidx.core.content.pm.PackageInfoCompat;
 
 import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceName;
-import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceVersionBack;
+import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceName;
+import com.dsy.dsu.BusinessLogicAll.DeviceName.hilt.QualifiergetDeviceVersion;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import javax.inject.Singleton;
@@ -62,7 +63,7 @@ public class ModulegetDeviceName {
 
     @Provides
     @Singleton
-    @QualifiergetDeviceVersionBack
+    @QualifiergetDeviceVersion
     public  Integer getDeviceVersion(@ApplicationContext Context context ){
         // TODO: 18.02.2025
         Integer getDeviceVersion=0;

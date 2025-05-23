@@ -6,7 +6,7 @@ import android.widget.TableLayout;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.PaysCommit.View.RecyreView.MyViewHolderPayCommingPay;
-import com.dsy.dsu.Services.Service_Notificatios_Для_Согласования;
+import com.dsy.dsu.Services.ServiceForApprove;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
@@ -19,12 +19,12 @@ import io.reactivex.rxjava3.annotations.NonNull;
 // TODO: 10.11.2023  класс Самой вставки файлов от 1с
 class AddFilesot1CPaycommitting{
 
-    private  Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C;
+    private  ServiceForApprove.LocalBinderДляСогласования binderСогласования1C;
 
     Context context;
 
     public AddFilesot1CPaycommitting(@NonNull  Context context,
-                                     @NonNull Service_Notificatios_Для_Согласования.LocalBinderДляСогласования binderСогласования1C) {
+                                     @NonNull ServiceForApprove.LocalBinderДляСогласования binderСогласования1C) {
         this.context = context;
         this.binderСогласования1C = binderСогласования1C;
     }
