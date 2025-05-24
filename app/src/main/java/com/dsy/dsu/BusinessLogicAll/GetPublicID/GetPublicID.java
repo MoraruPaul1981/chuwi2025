@@ -80,9 +80,7 @@ public class GetPublicID {
                 //TODO SELECT getpublic id
                 Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + ИмяТаблицы + "");
                 ContentResolver contentResolverPublicID = context.getContentResolver();
-                Cursor getCursorPublicID = contentResolverPublicID.query(uri, new String[]{},
-                        new String(getSql),//TODO " SELECT id FROM successLogin ORDER BY date_update DESC LIMIT 1  "
-                        new String[]{}, null);///   "  //// SELECT * FROM  viewtabel WHERE year_tabels=?  AND month_tabels=?  AND cfo=?  AND status_send!=?
+                Cursor getCursorPublicID = contentResolverPublicID.query(uri, null,getSql,new String[]{},null);///   "  //// SELECT * FROM  viewtabel WHERE year_tabels=?  AND month_tabels=?  AND cfo=?  AND status_send!=?
 
                 if (getCursorPublicID.getCount() > 0) {
                     getCursorPublicID.moveToFirst();

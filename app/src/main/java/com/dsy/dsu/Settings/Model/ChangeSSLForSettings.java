@@ -139,7 +139,7 @@ public class ChangeSSLForSettings {
               // TODO: 08.10.2024 Дополнительное добавление данных
               ContentResolver contentProviderNewPubicID = context.getContentResolver();
               contentValuesChangeModeSLL.put("mode_ssl",getchangeMode);
-              contentValuesChangeModeSLL.put("currenttaskforthecontentprovider","mode_ssl");
+
 
               // TODO: 08.10.2024 Находим если такой  Пользователь
               Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT publicid FROM "+ИмяТаблицы+"  ",ИмяТаблицы);

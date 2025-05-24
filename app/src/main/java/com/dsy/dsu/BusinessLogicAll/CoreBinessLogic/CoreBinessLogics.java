@@ -983,10 +983,6 @@ import okio.BufferedSink;
             Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + ИмяТаблицы + "");
             // TODO: 08.10.2024 Дополнительное добавление данных
             КонтейнерДляВставкиПубличныйID.put("publicid",PublicID);
-            // TODO: 09.10.2024 task for current poeration
-            КонтейнерДляВставкиПубличныйID.put("currenttaskforthecontentprovider","firststartapp");
-
-
 
             // TODO: 08.10.2024 Находим если такой  Пользователь
           Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT user_update FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
@@ -1052,15 +1048,16 @@ import okio.BufferedSink;
             Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + ИмяТаблицы + "");
             // TODO: 08.10.2024 Дополнительное добавление данных
             КонтейнерДляВставкиПубличныйID.put("publicid",PublicID);
-            // TODO: 09.10.2024 task for current poeration
-            КонтейнерДляВставкиПубличныйID.put("currenttaskforthecontentprovider","firststartapp");
-
-
-
             // TODO: 08.10.2024 Находим если такой  Пользователь
-            Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT user_update FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
+            Long getFindPublicIdInApp=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT D.publicid  FROM "+ИмяТаблицы+" AS D  ",ИмяТаблицы);
+
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " getFindPublicIdInApp " +getFindPublicIdInApp);
+
+
             // TODO: 12.04.2023 UPDATER PUBLIC ID
-            if(getuuidLocal>0 ){
+            if(getFindPublicIdInApp>0 ){
                 // TODO: 12.04.2023 UPDATER PUBLIC ID
                 ModuleUpdating moduleUpdating = new ModuleUpdating(context);
                 // TODO: 03.02.2025 update new back
@@ -1086,7 +1083,7 @@ import okio.BufferedSink;
 
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " getuuidLocal " +getuuidLocal);
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ " UpdatingPublicID " +UpdatingPublicID);
 
         } catch (Exception e) {
             e.printStackTrace();

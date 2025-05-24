@@ -329,7 +329,9 @@ public class ContentProviderForSystemTables extends ContentProvider  {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection,
+                        @Nullable String selection,
+                        @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         Cursor cursor = null;
         try {
             Log.d(this.getClass().getName(), " uri"+uri  + "selection "+selection );
@@ -436,24 +438,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                     case  "successlogin":
 // TODO: 08.10.2024
 
-                  String currenttaskforthecontentprovider=      values.getAsString("currenttaskforthecontentprovider" );
 
-
-                        // TODO: 09.10.2024
-                        switch (currenttaskforthecontentprovider){
-                            // TODO: 09.10.2024
-                            case "firststartapp" :
-                                // TODO: 09.10.2024
-                                SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =
-                                        new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
-                                SQLiteStatement sqLiteStatementInsertSuccessLogin=       settingAndLoginBinesslogicSuccessLogin
-                                        .getsqLiteStatementUpdateSuccessLogin(table,values);
-                                // TODO: 08.10.2024
-                                РезультатUpdates=      sqLiteStatementInsertSuccessLogin.executeUpdateDelete();
-                            break;
-
-                            // TODO: 09.10.2024
-                            case "mode_ssl" :
                                 // TODO: 09.10.2024
                                 SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLoginSLL  =
                                         new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
@@ -461,6 +446,15 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                                         .getsqLiteStatementChangeSSLUpdateSuccessLogin(table,values);
                                 // TODO: 08.10.2024
                                 РезультатUpdates=      sqLiteStatementInsertSuccessLoginSLL.executeUpdateDelete();
+// TODO: 24.05.2025
+//                        // TODO: 09.10.2024
+//                        SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =
+//                                new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
+//                        SQLiteStatement sqLiteStatementInsertSuccessLogin=       settingAndLoginBinesslogicSuccessLogin
+//                                .getsqLiteStatementUpdateSuccessLogin(table,values);
+//                        // TODO: 08.10.2024
+//                        РезультатUpdates=      sqLiteStatementInsertSuccessLogin.executeUpdateDelete();
+
 
                                 break;
 
@@ -479,16 +473,7 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                         if (sqlite.inTransaction()) {
                             sqlite.endTransaction();
                         }
-
-                        break;
-
-
-
                 }
-
-
-            }
-
 
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

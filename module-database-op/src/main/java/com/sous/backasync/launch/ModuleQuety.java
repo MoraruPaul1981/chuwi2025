@@ -146,22 +146,9 @@ public Cursor getModuleQueryForceLoad(@NonNull Bundle bundleModuleBack){
                         Log.d(this.getClass().getName(), "cursor.getCount() "
                                 + cursor.getCount());
                         // TODO: 23.05.2025
-                        contentProviderInsert.notifyChange(uri, new ContentObserver(new Handler()) {
-                            @Override
-                            public void onChange(boolean selfChange) {
-                                super.onChange(selfChange);
-
-                                Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "cursor ");
-                            }
-                        });
                     }
                 }
-
             }
-
-
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "cursor "

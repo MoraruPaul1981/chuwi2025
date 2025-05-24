@@ -56,13 +56,9 @@ public class SubClassWriterPUBLICIDtoDatabase {
                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+
                     "результатЗаписиНовогоПароляПользователявБазцуsuccesslogin " + результатЗаписиНовогоПароляПользователявБазцуsuccesslogin+
                     " ПолученинныйПубличныйIDДлчЗаписиВБАзу " +ПолученинныйПубличныйIDДлчЗаписиВБАзу);
-
-       // TODO: 29.12.2021  ВТОРАЯ ЗАПИСЬ В ДРУГУЮ ТАБЛИЦУ ТАБЛИЦА НАСТРОЕК ВТОРАЯ ЧАСТЬ ОПЕРАЦИИ
-       NewPublicWitnSussecLogin.clear();
             // TODO: 08.10.2024  
         } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
             new RecordNewErros(context).recordnewerror(e.toString(),
