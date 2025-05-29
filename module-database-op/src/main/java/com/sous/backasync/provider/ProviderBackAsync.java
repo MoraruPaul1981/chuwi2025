@@ -163,7 +163,7 @@ public class ProviderBackAsync extends ContentProvider  {
                     // TODO: 14.10.2022 метод определения текущней таблицы
                     String table = МетодОпределяемТаблицу(uri);
                     if (table!=null) {
-                        РезультатУдаления  = sqliteBAck.delete(table, selection, selectionArgs);
+                        РезультатУдаления  = sqliteBAck.delete(table, selection+"=?", selectionArgs);
                         // TODO: 30.10.2021
                         Log.w(getContext().getClass().getName(), " РезультатУдаления  " + РезультатУдаления);/////
                         Uri ОтветВставкиДанных  = Uri.parse("content://"+РезультатУдаления.toString());

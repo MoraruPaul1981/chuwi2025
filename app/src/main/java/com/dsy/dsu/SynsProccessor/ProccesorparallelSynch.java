@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.sous.backasync.launch.ModuleQuety;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.IntPredicate;
 import java.util.function.LongBinaryOperator;
@@ -96,9 +98,10 @@ public class ProccesorparallelSynch   {
             // TODO: 20.01.2025 сама синхрониаиця
             switch (РежимЗапускаСинхронизации){
 // TODO: 20.01.2025 сама синхрониаиця
-                case  "СамыйПервыйЗапускСинхронизации":
+               // case  "СамыйПервыйЗапускСинхронизации":
+                case "ПовторныйЗапускСинхронизации2":
                     Flowable.fromIterable(getBufferFromJbossServerAllTables)
-                            .parallel().runOn(Schedulers.io())
+                            .parallel().runOn(Schedulers.from(Executors.newFixedThreadPool(2)))
                             .doOnNext(new Consumer<ConcurrentHashMap<String, String>>() {
                                 @Override
                                 public void accept(ConcurrentHashMap<String, String> operationMulti) throws Throwable {
@@ -157,7 +160,8 @@ public class ProccesorparallelSynch   {
                     break;
 
                 // TODO: 20.01.2025 сама синхрониаиця
-                case "ПовторныйЗапускСинхронизации":
+              case  "СамыйПервыйЗапускСинхронизации":
+              case "ПовторныйЗапускСинхронизации":
 // TODO: 20.01.2025 сама синхрониаиця
                     Flowable.fromIterable(getBufferFromJbossServerAllTables)
                             .onBackpressureBuffer(1)
@@ -170,8 +174,7 @@ public class ProccesorparallelSynch   {
                                     getstartingAsyncParallels.addAndGet(getLooTablesPOSTANDGET(operationSingle));
                                     // TODO: 30.09.2024
                                     // TODO: 15.09.2023
-                                    Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                            " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                    Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +" metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
                                             + " getBufferFromJbossServerAllTables.size() " + getBufferFromJbossServerAllTables.size()
                                             +"\n" +" POOL NAMES "+Thread.currentThread().getName()+"\n"+
@@ -1215,7 +1218,7 @@ try{
         try {
             Log.d(this.getClass().getName(), " имяТаблицаAsync " + имяТаблицаAsync + " БуферGetByteJson " +БуферGetByteJson.length );
             //TODO БУфер JSON от Сервера
-            //  ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
+            //  ObjectMapper jsonGenerator = new JbossContext(context).getGeneratorJackson();
 
             final JsonParser jsonParser= jsonGenerator.createParser(БуферGetByteJson,0,БуферGetByteJson.length);
             JsonNode jsonNodeParentMAP= jsonParser.readValueAsTree();
@@ -1326,7 +1329,7 @@ try{
                             + " КурсорДляОтправкиДанныхНаСерверОтАндройда "+КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount() );
 
 
-                    //   ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
+                    //   ObjectMapper jsonGenerator = new JbossContext(context).getGeneratorJackson();
                     SimpleModule module = new SimpleModule();
                     // TODO: 11.09.2023  какая текущапя таблица
                     if (Таблицы.equalsIgnoreCase("materials_databinary")
@@ -1398,44 +1401,47 @@ try{
     private Cursor методГлавныйGetDataForAsync( @NonNull  String Таблица,
                                                 @NonNull Long ВерсияДанныхДляСравения,
                                                 @NonNull Integer PublicId) {
-        Cursor  cursor=null;
+        Cursor  cursorSendJboss=null;
         try{
-          //  ПубличныйIDДляФрагмента = new Class_GenerationsBack_PUBLIC_CURRENT_ID().getPublicIDAllApp(context);
-
-            Uri uri = Uri.parse("content://com.dsy.dsu.providerdatabaseonlyasync/" + Таблица.trim() + "");
-            ContentResolver resolver = context.getContentResolver();
-            Bundle data=null;
-
+            ModuleQuety moduleQuety=new ModuleQuety(context);
             switch (Таблица.trim()) {
                 // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ____ID    // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ____ID    // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ____ID
                 case "settings_tabels":
-                    data=new Bundle();
-                    data.putString("query","" +
-                            "  SELECT DISTINCT  * FROM settings_tabels   as gett  " +
-                            " WHERE   gett.current_table >   "+ВерсияДанныхДляСравения+" " +
-                            " AND gett.user_update = "+PublicId+" "+";" );
+                    cursorSendJboss   =moduleQuety.getModuleQuery(Таблица,
+                            "  SELECT DISTINCT  * FROM "+Таблица+"   as gett  " +
+                                    " WHERE   gett.current_table >   '"+ВерсияДанныхДляСравения+"' " +
+                                    " AND gett.user_update = '"+PublicId+"';" , null);
 
-                    Log.d(this.getClass().getName(), " Таблица Все остальные  _id " + Таблица);
+                    Log.d(this.getClass().getName(), "\n"
+                            + " время: " + new Date() + "\n+" +
+                            " Класс в процессе... " + this.getClass().getName() + "\n" +
+                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+" Таблица "+Таблица);
+
                     break;
+                // TODO: 27.05.2025
                 case "data_notification":
-                    data=new Bundle();
-                    data.putString("query"," SELECT DISTINCT  * FROM " +Таблица+" as gett" +
-                            " WHERE   gett.current_table >  "+ВерсияДанныхДляСравения+""+";"  );
-                    Log.d(this.getClass().getName(), " Таблица Все остальные  _id " + Таблица);
+                    cursorSendJboss   =moduleQuety.getModuleQuery(Таблица,
+                            " SELECT DISTINCT  * FROM " +Таблица+" as gett" +
+                                    " WHERE   gett.current_table >  '"+ВерсияДанныхДляСравения+"' ;"  , null);
+
+
+                    Log.d(this.getClass().getName(), "\n"
+                            + " время: " + new Date() + "\n+" +
+                            " Класс в процессе... " + this.getClass().getName() + "\n" +
+                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+" Таблица "+Таблица);
                     break;
                 // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID   // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID
                 // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID // TODO: 23.03.2023 ТАБЛИЦЫ С ПОЛЕМ ID
                 default:
-                    data=new Bundle();
-                    data.putString("query"," SELECT DISTINCT  * FROM " +Таблица+" as gett" +
-                            " WHERE   gett.current_table >  "+ВерсияДанныхДляСравения+
-                            " AND gett.user_update = "+PublicId + ""+";" );
+                    cursorSendJboss   =moduleQuety.getModuleQuery(Таблица,
+                            " SELECT DISTINCT  * FROM " +Таблица+" as gett" +
+                                    " WHERE   gett.current_table >  '"+ВерсияДанныхДляСравения+"'" +
+                                    " AND gett.user_update = '"+PublicId + "' ;" , null);
+                    Log.d(this.getClass().getName(), "\n"
+                            + " время: " + new Date() + "\n+" +
+                            " Класс в процессе... " + this.getClass().getName() + "\n" +
+                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()+" Таблица "+Таблица);
                     break;
-            }
-            // TODO: 08.08.2023 ГЛАВНОЕ ПОЛУЧЕНИЕ ДАННЫХ  ДЛя ОТПРАВКИ НА СЕРВЕР
-            // TODO: 16.05.2023
-            if (data.size()>0) {
-                cursor = resolver.query(uri,new String[]{"*"},data,null);// TODO: 13.10.2022 ,"Удаленная"
             }
 
             Log.d(this.getClass().getName(), "\n" + " class " +
@@ -1443,8 +1449,7 @@ try{
                     + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                    "cursor   " + cursor  + "  Таблица " +Таблица
-                            + " data.size() " +data.size());
+                    "cursorSendJboss   " + cursorSendJboss );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1454,7 +1459,7 @@ try{
             new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(),
                     Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
-        return cursor;
+        return cursorSendJboss;
     }
 
 // TODO: 07.04.2024

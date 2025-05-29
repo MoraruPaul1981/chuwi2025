@@ -21,9 +21,9 @@ import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
 
 import com.dsy.dsu.BusinessLogicAll.DeviceName.ModulegetDeviceName;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 import com.dsy.dsu.Hilt.OkhhtpBuilder.GetAsyncOkHttpClientBuilder;
 import com.sous.backasync.launch.ModuleDeleting;
 import com.sous.backasync.launch.ModuleInserting;
@@ -79,7 +79,7 @@ import okio.BufferedSink;
 @Named
  public class CoreBinessLogics {
     private     Context context;
-    private BinessLogicPublicContent binessLogicPublicContent =null;
+    private JbossContext jbossContext =null;
 
     private String ПубличноеЛогин =      new String();
     private  String ПубличноеПароль =   new String();
@@ -90,7 +90,7 @@ import okio.BufferedSink;
        this. context=context;
        try{
         //TODO контроль потоков
-           binessLogicPublicContent =new BinessLogicPublicContent(context);
+           jbossContext =new JbossContext(context);
         // TODO: 16.04.2025
            preferencesJboss = context.getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
 
@@ -124,7 +124,7 @@ import okio.BufferedSink;
         AtomicReference<StringBuffer>  БуферСамиДанныеОтСервера = new AtomicReference<>(new StringBuffer());
         try {
             String enableSSl = preferencesJboss.getString("enablesll","http");
-            String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new BinessLogicPublicContent(context).getСсылкаНаРежимСервераТабель();;
+            String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new JbossContext(context).getСсылкаНаРежимСервераТабель();;
             СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");
             Log.d(this.getClass().getName(), "   СтрокаСвязиСсервером "+  СтрокаСвязиСсервером);
             String Params = "?" + "NameTable= " + ИмяТаблицы.trim() +
@@ -282,7 +282,7 @@ import okio.BufferedSink;
         AtomicReference<byte[]>  inputStreamJaksonByte = new AtomicReference();
         try {
             String enableSSl = preferencesJboss.getString("enablesll","http");
-            String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new BinessLogicPublicContent(context).getСсылкаНаРежимСервераТабель();;
+            String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new JbossContext(context).getСсылкаНаРежимСервераТабель();;
             СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");
             Log.d(this.getClass().getName(), "   СтрокаСвязиСсервером "+  СтрокаСвязиСсервером);
             String Params = "?" + "NameTable= " + ИмяТаблицы.trim() +
@@ -443,8 +443,7 @@ import okio.BufferedSink;
        AtomicLong РазмерПришедшегоПотока = new AtomicLong(0l);
         try {
             String enableSSl = preferencesJboss.getString("enablesll","http");
-            StringBuffer БуферРезультатПингасСервером = null;
-            String СтрокаСвязиСсервером = enableSSl+"://" + ИмяСервера + ":" + ИмяПорта + "/"+ new BinessLogicPublicContent(context).getСсылкаНаРежимСервераRuntime();
+            String СтрокаСвязиСсервером = enableSSl+"://" + ИмяСервера + ":" + ИмяПорта + "/"+ new JbossContext(context).getСсылкаНаРежимСервераRuntime();
             СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");
             Log.d(this.getClass().getName(), "   СтрокаСвязиСсервером " + СтрокаСвязиСсервером);
             String Params  = "?" + "NameTable= " + NameTable.trim() +
@@ -487,8 +486,8 @@ import okio.BufferedSink;
                                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " ПубличноеЛогин " +ПубличноеЛогин + " ПубличноеПароль " +ПубличноеПароль);
                             // TODO: 18.02.2025 get name Device
                             String ANDROID_ID =new ModulegetDeviceName().getDeviceName(context);
-                            Log.d(this.getClass().getName(), "  BinessLogicPublicContent.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
-                                    " BinessLogicPublicContent.ПубличноеПарольДлСервлета " + ПубличноеПароль);
+                            Log.d(this.getClass().getName(), "  JbossContext.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
+                                    " JbossContext.ПубличноеПарольДлСервлета " + ПубличноеПароль);
                             Request originalRequest = chain.request();
                             Request.Builder builder = originalRequest.newBuilder()
                                     .header("Content-Type", Тип + " ;charset=UTF-8")
@@ -596,7 +595,7 @@ import okio.BufferedSink;
                 try {
                     String enableSSl = preferencesJboss.getString("enablesll","http");
                     // TODO: 12.03.2023  метод POST()
-                    String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new BinessLogicPublicContent(context).getСсылкаНаРежимСервераТабель();
+                    String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/"+new JbossContext(context).getСсылкаНаРежимСервераТабель();
                     СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");
                     String Params = "?" + "NameTable=" + Таблица.trim() + "&"
                             + "IdUser=" + ID +
@@ -633,8 +632,8 @@ import okio.BufferedSink;
                                             " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + " ПубличноеЛогин " +ПубличноеЛогин + " ПубличноеПароль " +ПубличноеПароль);
                                     // TODO: 18.02.2025 get name Device
                                     String ANDROID_ID =new ModulegetDeviceName().getDeviceName(context);
-                                    Log.d(this.getClass().getName(), "  BinessLogicPublicContent.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
-                                            " BinessLogicPublicContent.ПубличноеПарольДлСервлета " + ПубличноеПароль);
+                                    Log.d(this.getClass().getName(), "  JbossContext.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
+                                            " JbossContext.ПубличноеПарольДлСервлета " + ПубличноеПароль);
                                     Request originalRequest = chain.request();
                                     Request.Builder builder = originalRequest.newBuilder()
                                             .header("Content-Type", "application/octet-stream ;charset=UTF-8")
@@ -980,9 +979,7 @@ import okio.BufferedSink;
         Integer   UpdatingPublicID=0;
         try {
 // TODO: 08.10.2024 Update PUBLIC ID AFTER SYNnc
-            Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/" + ИмяТаблицы + "");
-            // TODO: 08.10.2024 Дополнительное добавление данных
-            КонтейнерДляВставкиПубличныйID.put("publicid",PublicID);
+
 
             // TODO: 08.10.2024 Находим если такой  Пользователь
           Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT user_update FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
@@ -1298,11 +1295,11 @@ import okio.BufferedSink;
             // TODO: 14.05.2025  получение данных
             ModuleQuety moduleQuety=new ModuleQuety(context);
             Cursor Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО   =moduleQuety.getModuleQuery(Текущаятаблицы,
-                    "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D  ORDER BY date_update DESC " , null);
+                    "  SELECT D.success_users,D.success_login  FROM "+Текущаятаблицы+" AS D  ORDER BY D.date_update DESC " , null);
 
             if(Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getCount()>0){
                 Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.moveToFirst();
-                getSuccess_Users =           Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getString(2).trim();
+                getSuccess_Users =           Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.getString(0).trim();
 
             }
             Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.close();
@@ -1334,8 +1331,6 @@ import okio.BufferedSink;
          AtomicReference<File>  getFileAPKandJson=new AtomicReference<>();
         try {
             String enableSSl = preferencesJboss.getString("enablesll","http");
-
-            String PatchDeleteJsonAnalitic="SousAvtoFile/UpdatePO";
             String СтрокаСвязиСсервером =enableSSl+"://"+ИмяСервера+":"+ИмяПорта+"/";;
             СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");
             СтрокаСвязиСсервером = СтрокаСвязиСсервером + АдресЗагрузки; /////"dsu1.glassfish/update_android_dsu1/output-metadata.json";
@@ -1366,8 +1361,8 @@ import okio.BufferedSink;
                             Курсор_ПолучаемИмяСотрудникаИзТаблицыФИО.close();
                             // TODO: 18.02.2025 get name Device
                             String ANDROID_ID =new ModulegetDeviceName().getDeviceName(context);
-                            Log.d(this.getClass().getName(), "  BinessLogicPublicContent.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
-                                    " BinessLogicPublicContent.ПубличноеПарольДлСервлета " + ПубличноеПароль);
+                            Log.d(this.getClass().getName(), "  JbossContext.ПубличноеИмяПользовательДлСервлета  " + ПубличноеЛогин +
+                                    " JbossContext.ПубличноеПарольДлСервлета " + ПубличноеПароль);
                             Request originalRequest = chain.request();
                             Request.Builder builder = originalRequest.newBuilder()
                                     .header("Content-Type", ВозвращяемыйТип)
@@ -1554,7 +1549,7 @@ import okio.BufferedSink;
 
 
             String ИмменоКакойСерверПодкючения =enableSSl+"://"+ИмяСерверИзХранилица+":"+ПортСерверИзХранилица+"/";
-          String  СтрокаСвязиСсервером = ИмменоКакойСерверПодкючения +new BinessLogicPublicContent(context).getСсылкаНаРежимСервераТабель()+ "?"
+          String  СтрокаСвязиСсервером = ИмменоКакойСерверПодкючения +new JbossContext(context).getСсылкаНаРежимСервераТабель()+ "?"
                      + "JobForServer=" + "Хотим Получить ID для Генерации  UUID" + ""+
                   "&" + "IdUser=" + ПубличноеЛогин + "";
             СтрокаСвязиСсервером = СтрокаСвязиСсервером.replace(" ", "%20");

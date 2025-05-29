@@ -118,6 +118,7 @@
         android:allowBackup="true"
         android:appCategory="productivity"
         android:hardwareAccelerated="false"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/deliverytruckcolors"
         android:label="@string/name_dsu"
         android:largeHeap="true"

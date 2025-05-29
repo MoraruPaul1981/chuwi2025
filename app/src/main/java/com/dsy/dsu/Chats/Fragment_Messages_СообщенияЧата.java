@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -34,11 +33,10 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.SubClassGET_FIO;
 
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sous.backasync.launch.ModuleQuety;
@@ -52,8 +50,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
-import dagger.hilt.EntryPoints;
 
 
 public class Fragment_Messages_СообщенияЧата extends Fragment {
@@ -70,7 +66,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
     private Long ПолученыйUUIDДляЧатаПриУжеСуществуещйПперески;
     private TextView textViewФрагментСообщенияНазваниеЧАты;
     private View viewФрагментСообщенияНазваниеЧАты;
-    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;///
+    private JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;///
     private Integer ПубличноеIDПолученныйИзСервлетаДляUUID = 0;
     private   String ФИОдляпервогоФрагмента;
     private   Long UUIDдляпервогоФрагментаДляСообщенияTagДляПередачиВоДругиеФрагменты;
@@ -119,7 +115,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
             ТекстВиюВьюДляСообщенийЧатаКогдаНетДанных = (TextView) viewДляСообщений.findViewById(R.id.TextviewКогдаНетДанных);
             ТекстВиюВьюДляСообщенийЧатаКогдаНетДанных.setVisibility(View.GONE);
             floatingActionButtonФрагментСообщение = (FloatingActionButton) viewДляСообщений.findViewById(R.id.floatingActionButtonФрагментСообщение);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getActivity());///
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new JbossContext(getActivity());///
             textViewФрагментСообщенияНазваниеЧАты = (TextView) viewДляСообщений.findViewById(R.id.textViewФрагментСообщенияНазваниеЧАты);
             viewФрагментСообщенияНазваниеЧАты = (View) viewДляСообщений.findViewById(R.id.viewФрагментСообщенияНазваниеЧАты);
 
@@ -345,7 +341,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
             try {
                 SubClassGET_FIO subClassGET_fio=       new SubClassGET_FIO(getContext());
                 // TODO: 11.02.2022
-                BinessLogicPublicContent binessLogicPublicContentCompletionService =new BinessLogicPublicContent(getContext());
+                JbossContext jbossContextCompletionService =new JbossContext(getContext());
                 // TODO: 11.02.2022
                 ЛистДополнительныеПрарментыID=new ArrayList();
                 // TODO: 18.02.2022
@@ -375,7 +371,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
                                    // TODO: 28.06.2021  главное ДЕЙСТВИЕ ЗАПОЛЯНЕМ ДАННЫМИ НАШ SIMPLECURSORADAPTER
                                        МетодГлавныйЗаполняемДаннымиНашSimpleCursorAdapter((TextView) view,
                                             cursor,subClassGET_fio,ПубличноеIDПолученныйИзСервлетаДляUUID
-                                               , binessLogicPublicContentCompletionService);
+                                               , jbossContextCompletionService);
                                     ///
                                     // TODO: 21.12.2021
 
@@ -418,7 +414,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
                     protected  View МетодГлавныйЗаполняемДаннымиНашSimpleCursorAdapter(TextView view, Cursor cursor,
                                                                                        SubClassGET_FIO subClassGET_fio,
                                                                                        Integer ПубличноеIDПолученныйИзСервлетаДляUUID,
-                                                                                       BinessLogicPublicContent public_contentCompletionService) {
+                                                                                       JbossContext public_contentCompletionService) {
 
 
 
@@ -721,7 +717,7 @@ public class Fragment_Messages_СообщенияЧата extends Fragment {
 
                     private void МетодВычисляемЕслиХотьОдноСообщениеНеПрочитаноДляТекущегоПользоватеялСтрочки(Long ПолученныйUUIDСтчрокиКтоМнеНАписал,
                                                                                                               Integer ПубличноеIDПолученныйИзСервлетаДляUUID,
-                                                                                                              BinessLogicPublicContent public_contentCompletionService) {
+                                                                                                              JbossContext public_contentCompletionService) {
 
 
                         try{

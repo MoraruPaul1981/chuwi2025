@@ -25,10 +25,10 @@ import androidx.core.content.FileProvider;
 
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.DeletingFiles.GetDeletingFilesJsonAndApk;
 import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 import com.dsy.dsu.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -354,7 +354,7 @@ public     void МетодСообщениеАнализПО( ) {
             // TODO: 08.01.2022 Полученм JSON File  для анализа
 
             FileAPK = new CoreBinessLogics(context).
-                    МетодЗагрузкиОбновлениеПОсСервера(new BinessLogicPublicContent(context).getСсылкаНаРежимСервераОбновлениеПО(),
+                    МетодЗагрузкиОбновлениеПОсСервера(new JbossContext(context).getСсылкаНаРежимСервераОбновлениеПО(),
                            context, ИмяСерверИзХранилица ,ПортСерверИзХранилица,
                             "FileAPKUpdatePO","update_dsu1.apk",
                             "application/octet-stream",getsslSocketFactory2);

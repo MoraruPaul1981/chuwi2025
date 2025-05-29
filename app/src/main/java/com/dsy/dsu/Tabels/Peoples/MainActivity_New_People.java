@@ -36,7 +36,7 @@ import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
 import com.dsy.dsu.BusinessLogicAll.Class_Generations_New_Customers_For_Tabels;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.BusinessLogicAll.SubClassGetPublicId;
 import com.dsy.dsu.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -100,7 +100,7 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
     private   int Результат_ПриписиИзменнийВерсииДанныхВФонеПослеОбработкиТекущийТаблицыФИО;
 
 
-    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    private JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
     private   ProgressDialog progressDialog;
     private      ConstraintLayout constraintLayout;
 
@@ -126,7 +126,7 @@ public class MainActivity_New_People extends AppCompatActivity implements DatePi
 
         activity=this;
         ////
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new JbossContext(getApplicationContext());
         /////todo данная настрока запрещает при запуке активти подскаваать клавиатуре вверх на компонеты eedittext
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -904,7 +904,7 @@ private void МетодВозврещениеНаПредыдущуюАктив�
                 String Текущаятаблицы="fio";
                 ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
                 Cursor    Курсор_ИщемЕслиТАкойСнилсУже= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT D.snils  FROM "+Текущаятаблицы+" AS D" +
-                        "   D.date_update DESC  LIMIT 1  " ,null);
+                        "  WHERE   D.snils  ='"+ПолученныйСНИЛСНовогоСотрудника+"' ORDER BY   D.date_update DESC  LIMIT 1  " ,null);
 
                 Log.d(this.getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +

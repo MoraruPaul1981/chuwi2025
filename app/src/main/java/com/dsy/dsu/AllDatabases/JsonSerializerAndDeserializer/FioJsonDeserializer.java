@@ -115,12 +115,6 @@ this.context=context;
                  public void accept(List<JsonNode> jsonNodes) throws Throwable {
                      // TODO: 04.07.2023  ОПЕРАЦИИ ПОСЛЕ УСПЕШНОЙ ОБРАБОТКИ 500 ЗАписей
                      if ( РезультатОперацииBurkUPDATE.size()>0) {
-                         // TODO: 04.07.2023 После Успешной Операции Повышаем Версию ДАнных Для Данной Тваблицы  
-                         Integer РезультатПовышенииВерсииДанных =
-                                 new VersionCurentTable(context).writingDataVersionAfterLocalInsertOrUpdate(имяТаблицаAsync);
-                         Log.d(this.getClass().getName(), " РезультатПовышенииВерсииДанных  " + РезультатПовышенииВерсииДанных);
-                         // TODO: 04.07.2023 ЗАВЕРШАЕТ ТРНЗАКЦИЮ НА 50 СТРОЧКЕ
-
                          Create_Database_СамаБАзаSQLite.setTransactionSuccessful();
                          if (Create_Database_СамаБАзаSQLite.inTransaction()) {
                              Create_Database_СамаБАзаSQLite.endTransaction();
@@ -129,12 +123,21 @@ this.context=context;
                      Log.d(this.getClass().getName(), "\n" + " class " +
                              Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                              " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " jsonNodeParentMAP " +jsonNodeParentMAP);
+                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " jsonNodeParentMAP " +jsonNodeParentMAP);////
                  }
              })
              .doOnComplete(new Action() {
                  @Override
                  public void run() throws Throwable {
+
+                     // TODO: 27.05.2025
+                     if ( РезультатОперацииBurkUPDATE.size()>0) {
+                         // TODO: 04.07.2023 После Успешной Операции Повышаем Версию ДАнных Для Данной Тваблицы
+                         Integer РезультатПовышенииВерсииДанных =
+                                 new VersionCurentTable(context).writingDataVersionAfterLocalInsertOrUpdate(имяТаблицаAsync);
+                         Log.d(this.getClass().getName(), " РезультатПовышенииВерсииДанных  " + РезультатПовышенииВерсииДанных);
+                     }
+
                      Log.d(this.getClass().getName(), "doOnComplete "  + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                              " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
                  }

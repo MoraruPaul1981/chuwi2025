@@ -12,7 +12,6 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -25,7 +24,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.Person;
-import androidx.core.graphics.drawable.IconCompat;
 import androidx.work.Data;
 import androidx.work.WorkInfo;
 import androidx.work.Worker;
@@ -33,26 +31,23 @@ import androidx.work.WorkerParameters;
 
 import com.dsy.dsu.BusinessLogicAll.SubClass_Starting_Tasks_ЗапускДЛяЗадач;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.CnangeServers.PUBLIC_CONTENT;
+
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 import com.sous.backasync.launch.ModuleUpdating;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 
-public class MyWork_Notifocations_Уведомления_Для_Задачи extends Worker {
+public class MyWork_NotifocationsForTasks extends Worker {
     private  Context context;
     private  String ИмяСлужбыУведомленияДля_Задачи = "WorkManager NOtofocationForTasks";
     private  WorkerParameters workerParams;
@@ -65,7 +60,7 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
     private   Intent ИнтентДляЗапускаСлужбыПолсеАнализа;
     private   Boolean РезультатНужноЗапускатьУведомленияИлиНет=false;
     private String PROCESS_ID_УведомленияПлановая="12";
-    private   PUBLIC_CONTENT Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+
     private  ArrayList БуферСамиУведомленияЛинкСамиУведомления;
     private  NotificationCompat.MessagingStyle messagingStyleДля_ОбщихУведомлений;
     private Person.Builder person;
@@ -73,11 +68,9 @@ public class MyWork_Notifocations_Уведомления_Для_Задачи ext
     private  Long UUIDРочитаногоЗаданиеДляКотрогоДалееБудетПроизведенаСменаСтсусаНАОзнакомленный=0l;
     private     Data myDataОтветОбщегоУведомления;
 
-    public MyWork_Notifocations_Уведомления_Для_Задачи(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public MyWork_NotifocationsForTasks(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
-        workerParams = workerParams;
-        Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new PUBLIC_CONTENT(context);
         messagingStyleДля_ОбщихУведомлений = new NotificationCompat.MessagingStyle(getApplicationContext().getResources().getString(R.string.action_settings)).setConversationTitle("Задачи");
         Log.i(this.context.getClass().getName(),
                 " messagingStyleДля_ОбщихУведомлений " + "\n" + messagingStyleДля_ОбщихУведомлений.getMessages());

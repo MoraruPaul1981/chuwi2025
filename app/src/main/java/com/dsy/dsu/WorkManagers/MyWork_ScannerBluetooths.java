@@ -19,14 +19,14 @@ import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class MyWork_ScannerBluetooth_ДляПосикаДевайсов extends Worker {
+public class MyWork_ScannerBluetooths extends Worker {
     private Context Контекст;
     private String ИмяСлужбыСинхронизации = "WorkManager ScannerBluetooth";
     private  String MACАдрес;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothServerSocket bluetoothServerSocket;
     private  BluetoothDevice bluetoothDevice;
-    public MyWork_ScannerBluetooth_ДляПосикаДевайсов(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public MyWork_ScannerBluetooths(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.Контекст = context;
         Log.d(this.getClass().getName(),"\n"
@@ -90,7 +90,7 @@ public class MyWork_ScannerBluetooth_ДляПосикаДевайсов extends 
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
             Log.e(Контекст.getClass().getName(),
-                    " MyWork_ScannerBluetooth_ДляПосикаДевайсов "
+                    " MyWork_ScannerBluetooths "
                             + e.toString());
             try {
                 bluetoothServerSocket.close();

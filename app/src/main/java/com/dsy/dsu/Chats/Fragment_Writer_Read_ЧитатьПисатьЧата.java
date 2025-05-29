@@ -42,7 +42,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.BusinessLogicAll.SubClassDiffentChats;
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Services.ServiceForChatten;
 import com.dsy.dsu.R;
 import com.google.android.material.card.MaterialCardView;
@@ -73,7 +73,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
     protected Activity ActivityДляСинхронизацииОбмена = null;
     protected String ПолученыйФИОIDДляЧата = new String();
     protected CoreBinessLogics modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного;
-    protected BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+    protected JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
     protected LinkedBlockingQueue<String> ЛистЗапускаемТолькоТаблицыЧатаВСинхронизации = new LinkedBlockingQueue();
     protected WorkInfo WorkInfoИнформацияОЗапущенойСлужбеОдноразовая;
     protected Integer ПубличныйIDДляФрагмента = 0;
@@ -173,7 +173,7 @@ public class Fragment_Writer_Read_ЧитатьПисатьЧата extends Fragm
         try {
             recordNewErros =new RecordNewErros(getContext());
 
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new BinessLogicPublicContent(getContext());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new JbossContext(getContext());
             modelДляФрагментаДляОперацииЗаписиНовгоСтатусаПрочитанного = new CoreBinessLogics(getContext());
 
 

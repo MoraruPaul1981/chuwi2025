@@ -3,7 +3,6 @@ package com.dsy.dsu.SynsProccessor;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,8 +10,7 @@ import androidx.annotation.NonNull;
 import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -241,7 +239,7 @@ public class AsynsProccessor extends CoreBinessLogics {
 
 
                     //TODO Таблицы ОТ  Андройда
-                 //   CopyOnWriteArrayList<String>      getMainTabelAllAndroid = new BinessLogicPublicContent(context).getWorkerTablesALl(context);
+                 //   CopyOnWriteArrayList<String>      getMainTabelAllAndroid = new JbossContext(context).getWorkerTablesALl(context);
 
                     Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

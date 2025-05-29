@@ -9,8 +9,6 @@ public interface ModuleQueryBackAsyncInterface {
 
     // TODO: 28.01.2025
 
-       final String getNameProvider="com.sous.backasync.provider";
-
     Cursor getModuleQueryForceLoad(@NonNull Bundle bundleModuleBack);
     // TODO: 28.01.2025
       Cursor getModuleQueryForceLoad(@NonNull String Таблица, @NonNull String СамЗапрос, @NonNull String []УсловияВыборки);

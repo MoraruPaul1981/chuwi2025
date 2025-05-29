@@ -49,7 +49,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
@@ -59,14 +59,11 @@ import com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples;
 import com.dsy.dsu.Tabels.Tabel.New.MainActivity_New_Tabely;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.sous.backasync.launch.ModuleQuety;
 
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -115,7 +112,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
     private  Activity activity;
     private   Integer   ПубличноеIDПолученныйИзСервлетаДляUUID=0;
 
-    private BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков ;
+    private JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков ;
     private Long MainParentUUIDFromTabel =0l;
     private SharedPreferences sharedPreferencesХранилище;
     private  Animation     animation;
@@ -159,7 +156,6 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  );
 
 
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getApplicationContext());
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -575,42 +571,7 @@ public class MainActivity_List_Tabels extends AppCompatActivity  {
     }
 
 
-    ////TODO Метод Преоразует цифру в  названия месяца
-    private String МетодДляПреоразванияЦифрыВНазванияМесяца(Cursor Курсор_ВЫводимМаксимальнуюДатуДляСпинера) {
-        String  МаксимальнаяМесяцДляСпинера;
-        String МаксимальнаяГодДляСпинера;
-        String  МаксимальнаяНазваниеДляСпинера;
-        String ПолученыеМесяцНеОбработанный = null;
-        try{
-            МаксимальнаяМесяцДляСпинера =Курсор_ВЫводимМаксимальнуюДатуДляСпинера.getString(0);
-            Log.i(this.getClass().getName(), "МаксимальнаяМесяцДляСпинера[0] " +   МаксимальнаяМесяцДляСпинера);
-            МаксимальнаяГодДляСпинера =Курсор_ВЫводимМаксимальнуюДатуДляСпинера.getString(1);
-            Log.i(this.getClass().getName(), "МаксимальнаяГодДляСпинера[0] " + МаксимальнаяГодДляСпинера);
-            МаксимальнаяНазваниеДляСпинера=Курсор_ВЫводимМаксимальнуюДатуДляСпинера.getString(2);
-            Log.i(this.getClass().getName(), " МаксимальнаяНазваниеДляСпинера[0] " + МаксимальнаяНазваниеДляСпинера);
-            DateFormat df = new SimpleDateFormat("MM/yyyy");
-            Date date = df.parse(МаксимальнаяМесяцДляСпинера+"/"+МаксимальнаяГодДляСпинера);
-            System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
-                /*   SimpleDateFormat f = new SimpleDateFormat("MMM", new Locale("ru"));
-                    SimpleDateFormat f1 = new SimpleDateFormat("LLL", new Locale("ru"));
-                    SimpleDateFormat f2 = new SimpleDateFormat("MMMM", new Locale("ru"));*/
-            SimpleDateFormat ПреобразованиеЦифраВНАзваниемесяца = new SimpleDateFormat("LLLL  yyyy", new Locale("ru"));
-            ПолученыеМесяцНеОбработанный=  ПреобразованиеЦифраВНАзваниемесяца.format(date);
-            System.out.println(ПолученыеМесяцНеОбработанный);
-            ПолученыеМесяцНеОбработанный=(ПолученыеМесяцНеОбработанный.substring(0,1).toUpperCase()+
-                    ПолученыеМесяцНеОбработанный.substring(1).toLowerCase());
-            Log.i(this.getClass().getName(), " ПолученыеМесяцНеОбработанный " + ПолученыеМесяцНеОбработанный);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(),
-       this.getClass().getName(),
-                    Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-        }
-        return ПолученыеМесяцНеОбработанный;
-    }
 
     private Cursor методGetDataSimpleCursorAdapter()  {
         Cursor Курсор_ДанныеСпиннера = null;
@@ -1659,35 +1620,14 @@ try{
                                                  @NonNull  View v) {
 
         try{
-            Long СамUUIDТабеляКакLONG= Long.valueOf(СамUUIDТабеля);
-            Boolean ФлагВыясняемПроведенныйТабельИлиНет = false;
-            // TODO: 14.05.2025
-            String Текущаятаблицы="data_tabels";
-            ModuleQuety moduleQuety=new ModuleQuety(context);
-            Cursor    Курсор_ИщемПроведенЛиТАбельИлиНЕт= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT * FROM "+Текущаятаблицы+" AS D" +
-                    "  WHERE D.uuid_tabel="+СамUUIDТабеляКакLONG.toString()+"   ORDER BY D.date_update DESC LIMIT 1   " ,null);
+
+
+                СообщениеВыборУдлалянияТабеляИзБазы(НазваниеУдаляемогоТАбеля,СамUUIDТабеля) ;
 
             Log.d(this.getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " Курсор_ИщемПроведенЛиТАбельИлиНЕт " +Курсор_ИщемПроведенЛиТАбельИлиНЕт);
-            /////////
-            if(Курсор_ИщемПроведенЛиТАбельИлиНЕт.getCount()>0){
-                Курсор_ИщемПроведенЛиТАбельИлиНЕт.moveToFirst();
-                Log.d(this.getClass().getName(), " Курсор_ИщемПУбличныйIDКогдаегоНетВстатике " + Курсор_ИщемПроведенЛиТАбельИлиНЕт.getCount());
-                int ИндексКурсор_ИщемПУбличныйIDКогдаегоНетВстатике= Курсор_ИщемПроведенЛиТАбельИлиНЕт.getColumnIndex("status_carried_out");
-                ФлагВыясняемПроведенныйТабельИлиНет =Boolean.parseBoolean( Курсор_ИщемПроведенЛиТАбельИлиНЕт.getString(ИндексКурсор_ИщемПУбличныйIDКогдаегоНетВстатике));
-                Log.d(this.getClass().getName(), " ИндексКурсор_ИщемПУбличныйIDКогдаегоНетВстатике " + ИндексКурсор_ИщемПУбличныйIDКогдаегоНетВстатике+
-                        "  ФлагВыясняемПроведенныйТабельИлиНет " +ФлагВыясняемПроведенныйТабельИлиНет);
-            }
-            Курсор_ИщемПроведенЛиТАбельИлиНЕт.close();
-
-            // TODO: 16.09.2021  продолжаем удаление табеля табелья ЕСЛИ СТАРУС ТАБЕЛЬЯ НЕ ПРОВЕДЕННЫЙ
-            if (ФлагВыясняемПроведенныйТабельИлиНет==false) {//todo МОЖНО УДАЛИТЬ ПОТОМУ ЧТО ЕЩЕ НЕ ПРЕДЕНЕ
-                СообщениеВыборУдлалянияТабеляИзБазы(НазваниеУдаляемогоТАбеля,СамUUIDТабеля) ;
-            }else if (ФлагВыясняемПроведенныйТабельИлиНет==true){
-            Snackbar.make(v, "В Табеле присутстуют проведенный табель !!! ( удалить нельзя )",Snackbar.LENGTH_LONG).setAction("Action",null).show();
-            }
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " +e + " Метод :"+Thread.currentThread().getStackTrace()[2].getMethodName()
@@ -1745,8 +1685,11 @@ try{
                     if (СамоЗначениеUUID>0) {
                         // TODO: 15.02.2023 получаем даннеы для удаления
                         Cursor cursorДляУдалениея=    МетодПолучениеДанныхДляИхУдаления(getApplicationContext(),СамоЗначениеUUID);
+
+
                         // TODO: 15.02.2023  само удаление по двум таблицам
                         МетодУдалениеСамогоТабеляИлиСотрудников(СамоЗначениеUUID,"data_tabels",cursorДляУдалениея);
+
                         Log.d(this.getClass().getName(), "  ФИНАЛ создание нового сотрудника " + "cursorДляУдалениея ");
                     }
 
@@ -1765,7 +1708,6 @@ try{
             });
         } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
             new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
@@ -1824,44 +1766,29 @@ try{
                                             progressDialogДляУдаления.setMessage("Удалание..."+УдалениеintegerArrayList.size()+"("+СтрочкиОбработки+")");
                                         });
                                     }
+                                }).doOnComplete(new Action() {
+                                    @Override
+                                    public void run() throws Throwable {
+
+
+                                        МетодУдалениеСамогоТабеляИлиСотрудников(СамоЗначениеUUID,"tabel");
+
+                                        Log.d(this.getClass().getName(), "\n"
+                                                + " время: " + new Date() + "\n+" +
+                                                " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
+                                    }
                                 })
                                .subscribeOn(AndroidSchedulers.mainThread())
-                                    .doOnComplete(new Action() {
-                                        @Override
-                                        public void run() throws Throwable {
-                                            Log.d(this.getClass().getName(), " УдалениеintegerArrayList.size() " +УдалениеintegerArrayList.size());
-                                            МетодУдалениеСамогоТабеляИлиСотрудников(СамоЗначениеUUID,"tabel");
-                                        }
-                                    })
-                                    .doOnError(new Consumer<Throwable>() {
-                                        @Override
-                                        public void accept(Throwable throwable) throws Throwable {
-                                            Log.d(this.getClass().getName(), " doOnError  МетодУдалениеСамогоТабеля  throwable " +throwable.getMessage());
-                                            ///метод запись ошибок в таблицу
-                                            Log.e(this.getClass().getName(), "Ошибка " + throwable + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                            new RecordNewErros(getApplicationContext()).recordnewerror(throwable.toString(), this.getClass().getName(),
-                                                    Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                        }
-                                    })
-                                    .onErrorComplete(new Predicate<Throwable>() {
-                                        @Override
-                                        public boolean test(Throwable throwable) throws Throwable {
-                                            Log.d(this.getClass().getName(), " onErrorComplete  МетодУдалениеСамогоТабеля  throwable " +throwable.getMessage());
-                                            ///метод запись ошибок в таблицу
-                                            Log.e(this.getClass().getName(), "Ошибка " + throwable + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                                                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                            new RecordNewErros(getApplicationContext()).recordnewerror(throwable.toString(), this.getClass().getName(),
-                                                    Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                            return false;
-                                        }
-                                    }).subscribe();;
+                                .subscribe();;
 
-
+            Log.d(this.getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
 
         } catch (Exception e) {
             e.printStackTrace();
-            ///метод запись ошибок в таблицу
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
             new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),

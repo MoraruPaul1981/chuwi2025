@@ -4,17 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.FirebaseAndOneSignal.Firebase.MyFirebaseInstanceIDService;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.onesignal.OneSignal;
 
@@ -23,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import dagger.hilt.EntryPoints;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Action;
@@ -59,7 +56,7 @@ public class ClassOneSingnalGenerator {
     public void getGetRegistaziyNewKeyForOnoSignal(@NonNull String КлючДляFirebaseNotification) {
 
         try {
-            BinessLogicPublicContent public_contentменеджер=new BinessLogicPublicContent(context);
+            JbossContext public_contentменеджер=new JbossContext(context);
             // TODO: 23.12.2021 ЧЕТЫРЕ ПОПЫТКИ ПОДКЛЮЧЕНИЕ В СЕВРЕРУONESIGNAL
             Observable.interval(0, 20, TimeUnit.SECONDS, Schedulers.single())
                     .timeInterval()

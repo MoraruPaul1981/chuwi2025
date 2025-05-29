@@ -49,8 +49,7 @@ import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.Сhat_usersJsonDes
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СhatsJsonDeserializer;
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СompanylJsonDeserializer;
 import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.HiltWorkerTableCoreApp;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.fasterxml.jackson.databind.JsonNode;

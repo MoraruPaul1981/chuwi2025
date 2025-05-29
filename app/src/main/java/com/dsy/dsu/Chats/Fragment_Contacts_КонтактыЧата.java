@@ -3,7 +3,6 @@ package com.dsy.dsu.Chats;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,8 +23,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
+import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.R;
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class Fragment_Contacts_КонтактыЧата extends Fragment    {
@@ -57,7 +54,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
 
     // TODO: 12.10.2021  Ссылка Менеджер Потоков
 
-    BinessLogicPublicContent Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
+    JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =null;
 
 
 
@@ -99,7 +96,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
             viewДляКонтактов= inflater.inflate(R.layout.fragment2_layout, container, false);// viewДляКонтактов= inflater.inflate(R.layout.fragment2_layout, container, false);
             ////
             ЛистВьюДляКонтактыЧата = (ListView) viewДляКонтактов.findViewById(R.id.list);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new BinessLogicPublicContent(getActivity());
+            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков =new JbossContext(getActivity());
             // TODO ////////////////////////////МОДЕЛЬ MVC ////////////////////////////////////////////////////////////////////////////////////////////////
             new Fragment_Contacts_КонтактыЧата. MODEL(getActivity()).   МетодЗагрузкиДанныхДляФрагентаКонтакты();
             new Fragment_Contacts_КонтактыЧата.VIEW(getActivity());

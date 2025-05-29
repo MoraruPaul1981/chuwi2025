@@ -28,8 +28,9 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class ModuleDeleting implements ModuleDeletingBackAsyncInterface {
-
-    Context context;
+    private final String getNameProvider="com.sous.backasync.provider";
+    private    final  String getNameProviderSystem="com.dsy.dsu.providerforsystemtables";
+  private   Context context;
     public @Inject ModuleDeleting(@ApplicationContext Context context) {
         this.context=context;
         Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -43,8 +44,6 @@ public class ModuleDeleting implements ModuleDeletingBackAsyncInterface {
     public Integer getModuleDelete(@NonNull String Таблица, @NonNull String selection,  @NonNull String[] selectionArgs) {
         Integer getDeletingBack=0;
         try{
-
-
             if (selection!=null) {
                 Uri uri = Uri.parse("content://"+getNameProvider+"/" + Таблица + "");
                 // TODO: 28.01.2025
@@ -80,6 +79,12 @@ public class ModuleDeleting implements ModuleDeletingBackAsyncInterface {
     }
 
 
+
+
+
+
+
+
     @SuppressLint("NewApi")
     @Override
     public Integer getModuleDelete(@NonNull String Таблица, @NonNull Bundle bungleModuleBack) {
@@ -110,6 +115,45 @@ public class ModuleDeleting implements ModuleDeletingBackAsyncInterface {
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
             Log.e(context.getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
+        }
+        return  getDeletingBack;
+    }
+
+
+    @SuppressLint("NewApi")
+    @Override
+    public Integer getModuleSystemDelete(@NonNull String Таблица ) {
+        Integer getDeletingBack=0;
+        try{
+            if (Таблица!=null) {
+                Uri uri = Uri.parse("content://"+getNameProviderSystem+"/" + Таблица + "");
+                // TODO: 28.01.2025
+                ContentResolver contentProviderInsert=context.getContentResolver();
+                getDeletingBack= contentProviderInsert.acquireContentProviderClient(uri).delete(uri,null,null);
+
+
+                getDeletingBack=
+                        Optional.ofNullable(getDeletingBack)
+                                .stream()
+                                .filter(f->f!=null).mapToInt(Integer::new).findAny().orElse(0);
+
+
+                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "getDeletingBack " +getDeletingBack  );
+            }
+
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "getDeletingBack " +getDeletingBack  );
+
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErroBack(context).recordnewerrorBack(e.toString(),
+                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
         return  getDeletingBack;
     }

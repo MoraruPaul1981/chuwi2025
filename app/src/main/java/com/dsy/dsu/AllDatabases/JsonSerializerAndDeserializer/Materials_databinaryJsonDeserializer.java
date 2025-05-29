@@ -17,9 +17,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class Materials_databinaryJsonDeserializer extends JsonMainDeseirialzer {
     private Context context;
@@ -37,37 +40,47 @@ this.context=context;
         if (!Create_Database_СамаБАзаSQLite.inTransaction()) {
             Create_Database_СамаБАзаSQLite.beginTransaction();
         }
-
-
-
-
-
     Flowable.fromIterable(jsonNodeParentMAP)
             .onBackpressureBuffer()
-            .blockingIterable().
-            forEach(new java.util.function.Consumer<JsonNode>() {
-                        @Override
-                        public void accept(JsonNode jsonNodeBinaryMaretial) {
-
-                // TODO: 31.10.2023
-                if (ФлагКакойСинхронизацияПерваяИлиНет.equalsIgnoreCase("ПовторныйЗапускСинхронизации") ) {
-                    // TODO: 04.07.2023  Обновление
-                    // TODO: 04.07.2023  Вставка  ПОСЛЕ ОБНОВЛЕНИЯ ЕСЛИ ОНО НЕ ПРОШЛО
-                    long ЕслиИлиНЕтUUID=        new  FindEmptyUUID().методПосикаUUIDDeseializer(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite,jsonNodeBinaryMaretial);
-                    if (ЕслиИлиНЕтUUID>0) {
+            .doOnNext(new Consumer<JsonNode>() {
+                @Override
+                public void accept(JsonNode jsonNodeBinaryMaretial) throws Throwable {
+                    // TODO: 31.10.2023
+                    if (ФлагКакойСинхронизацияПерваяИлиНет.equalsIgnoreCase("ПовторныйЗапускСинхронизации") ) {
                         // TODO: 04.07.2023  Обновление
-                        Integer  ОперацияUpdate = ОбновлениеДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
-                        if (ОперацияUpdate>0) {
-                            РезультатОперацииBurkUPDATE.add(ОперацияUpdate);
-                        }
-                        Log.d(this.getClass().getName(), "\n" + " class " +
-                                Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                                + имяТаблицаAsync  + " ОперацияUpdate " +ОперацияUpdate + " ОперацияUpdate " +ОперацияUpdate  );
-                    }else{
                         // TODO: 04.07.2023  Вставка  ПОСЛЕ ОБНОВЛЕНИЯ ЕСЛИ ОНО НЕ ПРОШЛО
-                        Long     ОперацияInsert = ВставкаДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
+                        long ЕслиИлиНЕтUUID=        new  FindEmptyUUID().методПосикаUUIDDeseializer(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite,jsonNodeBinaryMaretial);
+                        if (ЕслиИлиНЕтUUID>0) {
+                            // TODO: 04.07.2023  Обновление
+                            Integer  ОперацияUpdate = ОбновлениеДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
+                            if (ОперацияUpdate>0) {
+                                РезультатОперацииBurkUPDATE.add(ОперацияUpdate);
+                            }
+                            Log.d(this.getClass().getName(), "\n" + " class " +
+                                    Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                    + имяТаблицаAsync  + " ОперацияUpdate " +ОперацияUpdate + " ОперацияUpdate " +ОперацияUpdate  );
+                        }else{
+                            // TODO: 04.07.2023  Вставка  ПОСЛЕ ОБНОВЛЕНИЯ ЕСЛИ ОНО НЕ ПРОШЛО
+                            Long     ОперацияInsert = ВставкаДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
+                            if (ОперацияInsert>0) {
+                                РезультатОперацииBurkUPDATE.add(ОперацияInsert.intValue());
+                            }
+                            Log.d(this.getClass().getName(), "\n" + " class " +
+                                    Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
+                                    + имяТаблицаAsync   + " ОперацияInsert " +ОперацияInsert  );
+
+                        }
+
+
+// TODO: 04.07.2023 ТОЛЬКО ВСТАВКА   // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА
+                    }else {
+
+                        // TODO: 04.07.2023  ТОЛЬКО ВСТАВКА
+                        Long ОперацияInsert = ВставкаДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
                         if (ОперацияInsert>0) {
                             РезультатОперацииBurkUPDATE.add(ОперацияInsert.intValue());
                         }
@@ -77,42 +90,39 @@ this.context=context;
                                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
                                 + имяТаблицаAsync   + " ОперацияInsert " +ОперацияInsert  );
 
+
                     }
-
-
-// TODO: 04.07.2023 ТОЛЬКО ВСТАВКА   // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА  // TODO: 04.07.2023 ТОЛЬКО ВСТАВКА
-                }else {
-
-                    // TODO: 04.07.2023  ТОЛЬКО ВСТАВКА
-                    Long ОперацияInsert = ВставкаДанных(context, имяТаблицаAsync, Create_Database_СамаБАзаSQLite, jsonNodeBinaryMaretial);
-                    if (ОперацияInsert>0) {
-                        РезультатОперацииBurkUPDATE.add(ОперацияInsert.intValue());
+                }
+            }).doAfterNext(new Consumer<JsonNode>() {
+                @Override
+                public void accept(JsonNode jsonNode) throws Throwable {
+                    // TODO: 04.07.2023  ОПЕРАЦИИ ПОСЛЕ УСПЕШНОЙ ОБРАБОТКИ 500 ЗАписей
+                    if ( РезультатОперацииBurkUPDATE.size()>0) {
+                        Create_Database_СамаБАзаSQLite.setTransactionSuccessful();
+                        if (Create_Database_СамаБАзаSQLite.inTransaction()) {
+                            Create_Database_СамаБАзаSQLite.endTransaction();
+                        }
                     }
                     Log.d(this.getClass().getName(), "\n" + " class " +
                             Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                            + имяТаблицаAsync   + " ОперацияInsert " +ОперацияInsert  );
-
-
+                            " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " jsonNodeParentMAP " +jsonNodeParentMAP);
                 }
+            }).doOnComplete(new Action() {
+                @Override
+                public void run() throws Throwable {
+                    // TODO: 14.09.2023 операций insert and update
+                    if ( РезультатОперацииBurkUPDATE.size()>0) {
+                        // TODO: 04.07.2023 После Успешной Операции Повышаем Версию ДАнных Для Данной Тваблицы
+                        Integer РезультатПовышенииВерсииДанных =
+                                new VersionCurentTable(context).writingDataVersionAfterLocalInsertOrUpdate(имяТаблицаAsync);
+                        Log.d(this.getClass().getName(), " РезультатПовышенииВерсииДанных  " + РезультатПовышенииВерсииДанных);
 
-            }
-        });
+                    }}
+            }).blockingSubscribe();
 
 
-// TODO: 14.09.2023 операций insert and update
-        if ( РезультатОперацииBurkUPDATE.size()>0) {
-            // TODO: 04.07.2023 После Успешной Операции Повышаем Версию ДАнных Для Данной Тваблицы
-            Integer РезультатПовышенииВерсииДанных =
-                    new VersionCurentTable(context).writingDataVersionAfterLocalInsertOrUpdate(имяТаблицаAsync);
-            Log.d(this.getClass().getName(), " РезультатПовышенииВерсииДанных  " + РезультатПовышенииВерсииДанных);
-            // TODO: 04.07.2023 ЗАВЕРШАЕТ ТРНЗАКЦИЮ НА 50 СТРОЧКЕ
-            Create_Database_СамаБАзаSQLite.setTransactionSuccessful();
-            if (Create_Database_СамаБАзаSQLite.inTransaction()) {
-                Create_Database_СамаБАзаSQLite.endTransaction();
-            }
-        }
+
         Log.d(this.getClass().getName(), "\n" + " class " +
                 Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +

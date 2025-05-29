@@ -9,7 +9,7 @@ import android.util.Log;
 import com.dsy.dsu.BootAndAsync.Model.Service.IntentServiceBoot;
 import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 
 import org.jetbrains.annotations.NotNull;
 

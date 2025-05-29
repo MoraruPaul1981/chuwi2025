@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -39,11 +37,9 @@ import androidx.work.WorkManager;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
-import com.dsy.dsu.CnangeServers.BinessLogicPublicContent;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,8 +57,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-
-import dagger.hilt.EntryPoints;
 
 
 public class Fragment1_One_Tasks extends Fragment {

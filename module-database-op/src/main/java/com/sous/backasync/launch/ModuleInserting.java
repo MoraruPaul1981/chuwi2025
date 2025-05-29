@@ -28,7 +28,8 @@ import dagger.hilt.components.SingletonComponent;
 @InstallIn(SingletonComponent.class)
 public class ModuleInserting implements ModuleInsertingBackAsyncInterface {
     private  Context context;
-
+    private  final String getNameProvider="com.sous.backasync.provider";
+    private    final  String getNameProviderSystem="com.dsy.dsu.providerforsystemtables";
     public @Inject ModuleInserting(@ApplicationContext Context context) {
         this.context=context;
         Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -118,5 +119,45 @@ public Integer getModuleInsert(@NonNull Bundle bundleModuleBack ){
     }
 
 
+    @SuppressLint("NewApi")
+    @Override
+    public Integer getModuleSystemInsert(@NonNull String Таблица, @NonNull ContentValues contentValuesModuleBackAsync ){
+        Integer getInsertingBack = null;
+        try{
+            if (contentValuesModuleBackAsync!=null) {
+                Uri uri = Uri.parse("content://"+getNameProviderSystem+"/" + Таблица + "");
+                ContentResolver contentProviderInsert=context.getContentResolver();
 
+                Uri InsertingBackUri=contentProviderInsert.acquireContentProviderClient(uri).insert(uri,contentValuesModuleBackAsync);
+                // TODO: 29.05.2025
+                getInsertingBack=
+                        Optional.ofNullable(InsertingBackUri)
+                                .stream()
+                                .filter(f->f!=null)
+                                .filter(f->f.getHost()!=null)
+                                .filter(f->f.getHost().chars().allMatch( Character::isDigit ))
+                                .mapToInt(tran-> Integer.parseInt(tran.getHost())).findAny().orElse(0);
+
+                Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "getInsertingBack " +getInsertingBack +"\n"+
+                        " InsertingBackUri "+InsertingBackUri);
+            }
+
+
+            Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + "\n" + "getInsertingBack " +getInsertingBack +"\n");
+
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                    " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+            new RecordNewErroBack(context).recordnewerrorBack(e.toString(),
+                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                    Thread.currentThread().getStackTrace()[2].getLineNumber());
+            Log.e(context.getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
+        }
+        return  getInsertingBack;
+    }
 }

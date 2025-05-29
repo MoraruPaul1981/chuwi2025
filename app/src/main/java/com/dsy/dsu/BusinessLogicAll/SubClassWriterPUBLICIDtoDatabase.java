@@ -19,25 +19,25 @@ public class SubClassWriterPUBLICIDtoDatabase {
     public SubClassWriterPUBLICIDtoDatabase() {
     }
     //функция получающая время операции ДАННАЯ ФУНКЦИЯ ВРЕМЯ ПРИМЕНЯЕТЬСЯ ВО ВСЕЙ ПРОГРАММЕ
-    public Integer aftersuccessfulsynchronizationWritedownthepublicidSuccessLogin(@NonNull  Context context,
-                                                                               @NonNull  Integer ПолученинныйПубличныйIDДлчЗаписиВБАзу,
-                                                                               @NonNull  String ПубличноеИмяПользовательДлСервлета,
-                                                                               @NonNull  String ПубличноеПарольДлСервлета) {
+    public Integer recordaftersyncSuccesLogin(@NonNull  Context context,
+                                              @NonNull  Integer ПолученинныйПубличныйIDДлчЗаписиВБАзу,
+                                              @NonNull  String ПубличноеИмяПользовательДлСервлета,
+                                              @NonNull  String ПубличноеПарольДлСервлета) {
 
 
         Integer результатЗаписиНовогоПароляПользователявБазцуsuccesslogin = 0;
         try{
-       ContentValues NewPublicWitnSussecLogin=new ContentValues();
-       NewPublicWitnSussecLogin.put("publicid", ПолученинныйПубличныйIDДлчЗаписиВБАзу);
-       NewPublicWitnSussecLogin.put("success_users", ПубличноеИмяПользовательДлСервлета);
+       ContentValues setNewPublicWitnSussecLogin=new ContentValues();
+            setNewPublicWitnSussecLogin.put("publicid", ПолученинныйПубличныйIDДлчЗаписиВБАзу);
+            setNewPublicWitnSussecLogin.put("success_users", ПубличноеИмяПользовательДлСервлета);
        ///
-       NewPublicWitnSussecLogin.put("success_login",ПубличноеПарольДлСервлета);
+            setNewPublicWitnSussecLogin.put("success_login",ПубличноеПарольДлСервлета);
        Log.d(this.getClass().getName(), " ПубличноеИмяПользовательДлСервлета "
                + ПолученинныйПубличныйIDДлчЗаписиВБАзу +
                " ПубличноеПарольДлСервлета" + ПолученинныйПубличныйIDДлчЗаписиВБАзу);
        ////TODO ДАТ
        String ДатаДЛяОчисткиИВстсвкиИмениИПароль=     new Class_Generation_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанных();
-       NewPublicWitnSussecLogin.put("date_update", ДатаДЛяОчисткиИВстсвкиИмениИПароль);
+            setNewPublicWitnSussecLogin.put("date_update", ДатаДЛяОчисткиИВстсвкиИмениИПароль);
 
             // TODO: 08.10.2024 Update or Insert  In table SuccessLogin PUBLIC ID
 
@@ -45,7 +45,7 @@ public class SubClassWriterPUBLICIDtoDatabase {
             результатЗаписиНовогоПароляПользователявБазцуsuccesslogin =
                     new CoreBinessLogics(context).
                             wewillsetupanewPublicidaftersuccessfulsynchronizationSuccessLogin("successlogin",
-                                    NewPublicWitnSussecLogin,ПолученинныйПубличныйIDДлчЗаписиВБАзу);
+                                    setNewPublicWitnSussecLogin,ПолученинныйПубличныйIDДлчЗаписиВБАзу);
 
 
 

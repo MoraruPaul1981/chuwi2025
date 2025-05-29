@@ -11,7 +11,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.SubClassCreatingMainAllTables;
+import com.dsy.dsu.BusinessLogicAll.WorkerTables.GetWorkerAndSystemTables;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 
@@ -101,7 +101,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
         try {
             Log.d(this.getClass().getName(), "сработала ... НАЧАЛО  СОЗДАНИЯ ТАЛИЦ ");
             // TODO: 24.10.2022 Генерируем Список Таблиц
-            ИменаТаблицыОтАндройда=    new SubClassCreatingMainAllTables().getWorkerTablesALl(context);
+            ИменаТаблицыОтАндройда=    new GetWorkerAndSystemTables().getWorkerTablesALl(context);
 
             // TODO: 12.10.2022  СИСТЕМНЫЕ ТАБЛИЦЫ
             МетодТаблицаMODIFITATION_Client(ССылкаНаСозданнуюБазу);
@@ -1256,7 +1256,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
         try{
             Log.d(this.getClass().getName(), " до СЛУЖБА  содание базы newVersion==  652   (например)  " +
                     " " + new Date()+  " newVersion " +newVersion);
-            ИменаТаблицыОтАндройда=    new SubClassCreatingMainAllTables().getWorkerTablesALl(context);
+            ИменаТаблицыОтАндройда=    new GetWorkerAndSystemTables().getWorkerTablesALl(context);
             Log.d(this.getClass().getName()," ИменаТаблицыОтАндройда " +ИменаТаблицыОтАндройда); // TODO: 28.09.2022 таблицы
             Log.d(this.getClass().getName(), " после СЛУЖБА  содание базы newVersion==  652   (например)   " + new Date() + " newVersion " + newVersion);
 

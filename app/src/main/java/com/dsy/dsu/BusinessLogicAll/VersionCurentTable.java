@@ -211,7 +211,7 @@ public class VersionCurentTable {
         ModuleQuety moduleQuety=new ModuleQuety(context);
             try   (Cursor КурсоАнализVersionCurrentTable   =moduleQuety.getModuleQuery(Текущаятаблицы,
                            " SELECT MAX( current_table  ) " +
-                                   "AS MAX_R  FROM   ' " +  Текущаятаблицы.trim()+"'" , null);) {
+                                   "AS MAX_R  FROM    " +  Текущаятаблицы.trim()+";" , null);) {
                 if (КурсоАнализVersionCurrentTable!=null) {
                     if(КурсоАнализVersionCurrentTable.getCount()>0){
                         КурсоАнализVersionCurrentTable.moveToFirst();

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
+import com.sous.backasync.businesslogic.dates.Class_GenerationBack_Data;
+import com.sous.backasync.launch.ModuleUpdating;
 
 import java.util.Date;
 
@@ -132,30 +134,25 @@ public class ChangeSSLForSettings {
           // TODO: 09.10.2024
           Integer recordingShiftdSSLconnectionMode=0;
           try{
-
               String ИмяТаблицы= "successlogin";
+              ModuleUpdating moduleUpdating = new ModuleUpdating(context);
               ContentValues contentValuesChangeModeSLL=new ContentValues();
-              Uri uri = Uri.parse("content://com.dsy.dsu.providerforsystemtables/successlogin");
-              // TODO: 08.10.2024 Дополнительное добавление данных
-              ContentResolver contentProviderNewPubicID = context.getContentResolver();
-              contentValuesChangeModeSLL.put("mode_ssl",getchangeMode);
-
-
               // TODO: 08.10.2024 Находим если такой  Пользователь
               Long getuuidLocal=  new GetPublicID( ).gettingSettingTableVersion(context," SELECT publicid FROM "+ИмяТаблицы+"  ",ИмяТаблицы);
-              // TODO: 09.10.2024
-              contentValuesChangeModeSLL.put("publicid",getuuidLocal);
+              String getNewDateForError = new Class_GenerationBack_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанных();
               // TODO: 12.04.2023 UPDATER PUBLIC ID
               if(getuuidLocal>0 ){
 
-                  // TODO: 12.04.2023 UPDATER model_ssl
-                  recordingShiftdSSLconnectionMode=  contentProviderNewPubicID.update(uri, contentValuesChangeModeSLL,null,null);
-
+                  // TODO: 09.10.2024
+                  contentValuesChangeModeSLL.put("publicid",getuuidLocal);
+                  contentValuesChangeModeSLL.put("mode_ssl",getchangeMode);
+                  contentValuesChangeModeSLL.put("date_update",getNewDateForError);
+                  // TODO: 03.02.2025 update new back
+                  recordingShiftdSSLconnectionMode=        moduleUpdating.getModuleSystemUpdate(ИмяТаблицы,contentValuesChangeModeSLL);
                   Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                           " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                          " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +recordingShiftdSSLconnectionMode);
+                          " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" + " recordingShiftdSSLconnectionMode "+recordingShiftdSSLconnectionMode );
 
-                  // TODO: 08.10.2024 UNSERT PUBLIC ID
               }
               Log.d(context.getClass().getName(), "\n"
                   + " время: " + new Date()+"\n+" +

@@ -5,7 +5,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.Hilt.JbossAdrress.getHiltPortJbossInterface;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 
 import java.util.LinkedHashMap;
 

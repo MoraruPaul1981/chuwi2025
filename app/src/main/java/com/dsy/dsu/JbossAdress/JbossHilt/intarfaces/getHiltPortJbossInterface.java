@@ -1,7 +1,7 @@
-package com.dsy.dsu.Hilt.JbossAdrress;
+package com.dsy.dsu.JbossAdress.JbossHilt.intarfaces;
 
 
-import com.dsy.dsu.Hilt.JbossAdrress.qualifiers.QualifierJbossServer3;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierJbossServer3;
 
 import java.util.LinkedHashMap;
 

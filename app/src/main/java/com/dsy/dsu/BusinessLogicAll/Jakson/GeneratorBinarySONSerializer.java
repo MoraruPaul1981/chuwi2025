@@ -44,8 +44,8 @@ public class GeneratorBinarySONSerializer extends JsonSerializer<Cursor> {
         try{
             jsonGenerator.writeStartObject();//    .concatMap(i -> Observable.just(i).delay(150, TimeUnit.MILLISECONDS))
             // TODO: 20.07.2023 Строки 
-            Observable.range(0,КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount())
-                    .concatMap(i -> Observable.just(i).delay(150, TimeUnit.MILLISECONDS))
+            Flowable.range(0,КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount())
+                    .onBackpressureBuffer(1)
                     .doOnNext(new Consumer<Integer>() {
                         @Override
                         public void accept(Integer integer) throws Throwable {

@@ -636,7 +636,7 @@ public InputStream   МетодПолучемJSONОт1СДляСогласова
                     new Class_Get_Json_1C(context,АдресСервера)//TODO
                             .МетодПолучемJSONОт1СДляСогласования(ПубличныйIDДляФрагмента,"sog");//
             //TODO БУфер JSON от Сервера
-          //  ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
+          //  ObjectMapper jsonGenerator = new JbossContext(context).getGeneratorJackson();
 
             if (  inputStream1cСогласования !=null) {
                 if (inputStream1cСогласования.available()>0 ) {
@@ -677,7 +677,7 @@ public InputStream   МетодПолучемJSONОт1СДляСогласова
           linkedHashMapОтпавркаНа1с.put("dsu1number",НомерТекущегоДокумента);
           // TODO: 10.11.2023 starting Jakson JSON
           StringWriter stringWriterJSONAndroid=    new StringWriter();
-          //ObjectMapper jsonGenerator = new BinessLogicPublicContent(context).getGeneratorJackson();
+          //ObjectMapper jsonGenerator = new JbossContext(context).getGeneratorJackson();
           SimpleModule module = new SimpleModule();
           // TODO: 11.09.2023  какая текущап таблица
 

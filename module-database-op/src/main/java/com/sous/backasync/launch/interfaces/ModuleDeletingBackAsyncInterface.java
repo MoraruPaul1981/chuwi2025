@@ -10,7 +10,6 @@ public interface ModuleDeletingBackAsyncInterface {
 
     // TODO: 28.01.2025
 
-       final String getNameProvider="com.sous.backasync.provider";
 
 
     @SuppressLint("NewApi")
@@ -18,6 +17,8 @@ public interface ModuleDeletingBackAsyncInterface {
 
     @SuppressLint("NewApi")
     Integer getModuleDelete(@NonNull String Таблица,@NonNull Bundle bungleModuleBack);
+
+    Integer getModuleSystemDelete(@NonNull String Таблица );
 
 
 }

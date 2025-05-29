@@ -28,18 +28,19 @@ public class GeneratorJSONSerializer extends JsonSerializer<Cursor> {
     }
 
     @Override
+    @SuppressLint("Range")
     public void serialize(Cursor КурсорДляОтправкиДанныхНаСерверОтАндройда, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
 //////////20.15
         try{
             jsonGenerator.writeStartObject();///      .concatMap(i -> Observable.just(i).delay(150, TimeUnit.MILLISECONDS))
             // TODO: 20.07.2023 Строки 
-            Observable.range(0,КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount())
-                    .concatMap(i -> Observable.just(i).delay(150, TimeUnit.MILLISECONDS))
+            Flowable.range(0,КурсорДляОтправкиДанныхНаСерверОтАндройда.getCount())
+                    .onBackpressureBuffer(1)
                     .doOnNext(new Consumer<Integer>() {
                         @Override
                         public void accept(Integer integer) throws Throwable {
 
-                            @SuppressLint("Range") Long Key=   КурсорДляОтправкиДанныхНаСерверОтАндройда.getLong(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex("uuid"));
+                    Long Key= КурсорДляОтправкиДанныхНаСерверОтАндройда.getLong(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex("uuid"));
                             jsonGenerator.writeFieldId(Key);
                             jsonGenerator.writeStartObject();
 
@@ -72,15 +73,44 @@ public class GeneratorJSONSerializer extends JsonSerializer<Cursor> {
                                                             " UUIDandCurrenttableValue " +UUIDandCurrenttableValue);
                                                     break;
                                                 case "user_update":
-                                                case "prof":
                                                     Integer Getuser_update= КурсорДляОтправкиДанныхНаСерверОтАндройда
                                                             .getInt(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex(НазваниеСтолбикаJson)) ;
-                                                    Getuser_update=Optional.ofNullable(Getuser_update).orElse(0);// TODO: 14.03.2023
                                                     // Само Полученое содеожимое столбика Value
-                                                    serializers.defaultSerializeField(НазваниеСтолбикаJson,Getuser_update, jsonGenerator);
+                                                    if (Getuser_update>0) {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,Getuser_update, jsonGenerator);
+                                                    } else {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,null, jsonGenerator);
+                                                    }
                                                     Log.d(this.getClass().getName(), " НазваниеСтолбикаJson ::    " + НазваниеСтолбикаJson +
                                                             " Getuser_update " +Getuser_update);
                                                     break;
+
+                                                case "prof":
+                                                  Integer Getprof= КурсорДляОтправкиДанныхНаСерверОтАндройда
+                                                            .getInt(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex(НазваниеСтолбикаJson)) ;
+                                                    //TODO Само Полученое содеожимое столбика Value
+                                                    if (Getprof>0) {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,Getprof, jsonGenerator);
+                                                    } else {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,null, jsonGenerator);
+                                                    }
+                                                    Log.d(this.getClass().getName(), " НазваниеСтолбикаJson ::    " + НазваниеСтолбикаJson +
+                                                            " Getprof " +Getprof);
+                                                    break;
+
+                                                case    "current_organization":
+                                                    Integer GetcurrentOrganization= КурсорДляОтправкиДанныхНаСерверОтАндройда
+                                                            .getInt(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex(НазваниеСтолбикаJson)) ;
+                                                    //TODO Само Полученое содеожимое столбика Value
+                                                    if (GetcurrentOrganization>0) {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,GetcurrentOrganization, jsonGenerator);
+                                                    } else {
+                                                        serializers.defaultSerializeField(НазваниеСтолбикаJson,null, jsonGenerator);
+                                                    }
+                                                    Log.d(this.getClass().getName(), " НазваниеСтолбикаJson ::    " + НазваниеСтолбикаJson +
+                                                            " GetcurrentOrganization " +GetcurrentOrganization);
+                                                    break;
+
                                                 case "image":
                                                     byte[] GetBlobImage= КурсорДляОтправкиДанныхНаСерверОтАндройда
                                                             .getBlob(КурсорДляОтправкиДанныхНаСерверОтАндройда.getColumnIndex(НазваниеСтолбикаJson)) ;
