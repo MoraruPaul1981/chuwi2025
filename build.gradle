@@ -20,7 +20,7 @@ buildscript {
 }
 
 ext {
-    //myValue = 'C:\\Users\\Public\\Public Doc Dev\\AndroidStudioProjectsTabel\\DSU\\certificates\\dsu1_keys.jks' // TODO AMD REZEN 5600
+   // myValue = 'C:\\Users\\Public\\Public Doc Dev\\AndroidStudioProjectsTabel\\DSU\\certificates\\dsu1_keys.jks' //AMD Rezyn 5600
     myValue = 'C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks' // CHUWI
     //TODO
     def getJbossGradle =true ///TRue Релиз

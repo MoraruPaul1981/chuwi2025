@@ -386,14 +386,5 @@ public class BootFragment extends DialogFragment {
         }
     }
 
-
-
-
-
-
-
-
-
-
 // TODO: 15.04.2025 end class
 }

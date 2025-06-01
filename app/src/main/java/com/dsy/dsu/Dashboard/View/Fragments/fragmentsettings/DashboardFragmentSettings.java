@@ -705,9 +705,9 @@ public class DashboardFragmentSettings extends  DialogFragment {
 
 
 
-                                            // TODO: 17.05.2025  Запускаем
-                                            new GetClearDataUserAnCnahgeData(getActivity())
-                                                    .методСменаДанныхWorkerПользователя(getContext(),getActivity(),prograssbarСменаДанныхПользователя );
+                                            // TODO: 17.05.2025  Запускае
+                                            Integer ИменаТаблицыWorkerAndSystem=     new GetClearDataUserAnCnahgeData(getActivity())
+                                                    .changeTableWorkerUsers(getContext(),getActivity(),prograssbarСменаДанныхПользователя );
 
                                             Log.d(this.getClass().getName(), "\n" + " class " +
                                                     Thread.currentThread().getStackTrace()[2].getClassName()
