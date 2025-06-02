@@ -251,13 +251,14 @@ public class MainActivityPasswords extends AppCompatActivity {
 
     private void методGetПарольОбработка(View v) {
         try{
-        Integer PublicID;
         //TODO запукаем метод Афторизаиция по ЛОГИНУ И ПАРОЛЮ
-        PublicID = new CoreBinessLogics(getApplicationContext()).методАвторизацииЛогинИПаполь( ПубличноеЛогин, ПубличноеПароль,getsslSocketFactory2);
-        Log.d(this.getClass().getName(), " PublicID " + PublicID);
+            Integer  getPublicIDotJboss =
+                    new CoreBinessLogics(getApplicationContext())
+                            .методАвторизацииЛогинИПаполь( ПубличноеЛогин, ПубличноеПароль,getsslSocketFactory2);
+        Log.d(this.getClass().getName(), " getPublicIDotJboss " + getPublicIDotJboss);
 
         // TODO: 24.08.2023 УСПЕШНЫЙ КОД ЛОГИРОВАНИЕ И ПАРОЛЬ
-        switch (PublicID){
+        switch (getPublicIDotJboss){
             case 0:
                 МетодВизуальногоОтображениеРаботыКоннекта("Сервер выкл !!!", v);
                 break;
@@ -269,19 +270,21 @@ public class MainActivityPasswords extends AppCompatActivity {
             default:
                 // TODO: 15.09.2023  Успешно  ПЕРЕХОД В САМУ ПРОГРАММУ
 
-                ClassAfterForfardFaseApp classAfterForfardFaseApp=new ClassAfterForfardFaseApp();
+                if (getPublicIDotJboss>0) {
+                    ClassAfterForfardFaseApp classAfterForfardFaseApp=new ClassAfterForfardFaseApp();
 
-                classAfterForfardFaseApp.ClassAfterForfardFaseApp( PublicID, v);
+                    classAfterForfardFaseApp.ClassAfterForfardFaseApp( getPublicIDotJboss, v);
+                }
 
                 Log.d(this.getClass().getName(), " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                         " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber()+
-                        " Класс  :" + Thread.currentThread().getStackTrace()[2].getClassName()+ " PublicID " +PublicID);
+                        " Класс  :" + Thread.currentThread().getStackTrace()[2].getClassName()+ " getPublicIDotJboss " +getPublicIDotJboss);
 
                 break;
         }
             Log.d(this.getClass().getName(), " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                     " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber()+
-                    " Класс  :" + Thread.currentThread().getStackTrace()[2].getClassName()+ " PublicID " +PublicID);
+                    " Класс  :" + Thread.currentThread().getStackTrace()[2].getClassName()+ " getPublicIDotJboss " +getPublicIDotJboss);
     } catch (Exception e) {
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
                 " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());

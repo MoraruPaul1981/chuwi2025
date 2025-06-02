@@ -136,14 +136,15 @@ public class ProccesorparallelSynch   {
                                         " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
                                         +"\n" + "POOL NAME  " +Thread.currentThread().getName());
 
-                            }).sequentialDelayError().doOnComplete(new Action() {
+                            }).sequentialDelayError()
+                            .doOnComplete(new Action() {
                                 @Override
                                 public void run() throws Throwable {
+                                    // TODO: 29.04.2025
                                     // TODO: 29.04.2025
                                     if (getstartingAsyncParallels.get()>0) {
                                         new GetSharedPreferences(context).writinganewvaluePreferences();
                                     }
-                                    // TODO: 03.04.2025
                                     Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"

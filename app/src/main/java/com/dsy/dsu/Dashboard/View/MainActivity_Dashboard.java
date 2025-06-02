@@ -94,9 +94,6 @@ public class MainActivity_Dashboard extends AppCompatActivity {
 
             // TODO: 15.08.2023 Начинается Пользовательский КОд
             buniccessLogicaActivityDashboard=new BuniccessLogicaActivityDashboard();
-            // TODO: 29.09.2023 Статус Повтороной Синхрониазции
-            buniccessLogicaActivityDashboard.  методЗаписываемПовторныйЭтапСинхрогниазции( );
-
             buniccessLogicaActivityDashboard.  strartigWorkManger();
             buniccessLogicaActivityDashboard.  strartigOneSignal();
             // TODO: 28.09.2023
@@ -198,25 +195,7 @@ public class MainActivity_Dashboard extends AppCompatActivity {
                         Thread.currentThread().getStackTrace()[2].getLineNumber());
             }
         }
-        private void методЗаписываемПовторныйЭтапСинхрогниазции( ) {
-            try {
-                // TODO: 02.08.2023 БИЗНЕС КОД
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("РежимЗапускаСинхронизации", "ПовторныйЗапускСинхронизации");
-                editor.apply();
-                Log.d(getApplicationContext().getClass().getName(), "\n"
-                        + " время: " + new Date()+"\n+" +
-                        " Класс в процессе... " +  this.getClass().getName()+"\n"+
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                // TODO: 01.09.2021 метод вызова
-                new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
-                        Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-        }
+
 
 
 

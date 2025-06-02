@@ -119,9 +119,6 @@ public class GetClearDataUserAnCnahgeData {
                                   activity.runOnUiThread(()->{
                                       progressDialogДляУдалениеТаблиц.dismiss();
                                       progressDialogДляУдалениеТаблиц.cancel();
-
-                                      wretingNewVaueSuccess(РезультатWorkerСменыДанных.size());
-
                                       методПослеСменыДанныхЗапускаемСНАчала(activity);
                                   });
 
@@ -202,13 +199,8 @@ public class GetClearDataUserAnCnahgeData {
                         @Override
                         public void run() throws Throwable {
                             // TODO: 19.02.2025
-                            activity.runOnUiThread(()-> {
-
-                                wretingNewVaueSuccess(РезультатWorkerСменыДанных.size());
-
-                            });
-
-                            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                            Log.d(this.getClass().getName(), "\n" + " class "
+                                    + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
                         }
@@ -440,28 +432,4 @@ public class GetClearDataUserAnCnahgeData {
 
 
 
-
-
-    void wretingNewVaueSuccess(Integer РезультатОчистикТАблицИДобалениеДаты) {
-        try {
-            if (РезультатОчистикТАблицИДобалениеДаты >0) {
-
-                new GetSharedPreferences(context).writinganewvaluePreferences();
-            }
-            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber()
-                    + "\n" +" РезультатОчистикТАблицИДобалениеДаты " +РезультатОчистикТАблицИДобалениеДаты
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
-                    + " Линия  :"
-                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErros(context).recordnewerror(e.toString(),
-                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                    Thread.currentThread().getStackTrace()[2].getLineNumber());
-        }
-
-    }
 }
