@@ -54,7 +54,7 @@ public class CoreApp extends Application {
 
 
   @Inject
-   @QualifierJbossServer3
+   @QualifierPortJboss
    public LinkedHashMap<Integer,String> getHiltPortJboss;
 
 

@@ -24,7 +24,7 @@ import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAut
 
 import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierJbossServer3;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 
@@ -67,7 +67,7 @@ public class IntentServiceBoot extends IntentService {
 
 
     @Inject
-    @QualifierJbossServer3
+    @QualifierPortJboss
     public  LinkedHashMap<Integer,String> getHiltPortJboss;
 
     public IntentServiceBoot() {

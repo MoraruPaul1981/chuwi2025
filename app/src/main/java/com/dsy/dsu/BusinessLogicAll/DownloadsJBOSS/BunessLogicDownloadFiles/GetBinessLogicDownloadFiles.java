@@ -23,11 +23,11 @@ public class GetBinessLogicDownloadFiles implements  GetBinessLogicDwonloadFiles
      * @return
      */
     @Override
-    public File GetBinessLogicDwonloadFiles(@NotNull Context context,@NotNull byte[] getbytejboss,@NotNull String ИмяФайлаЗагрузки) {
+    public File getttingFilesJboss(@NotNull Context context, @NotNull byte[] getbytejboss, @NotNull String ИмяФайлаЗагрузки) {
         // TODO: 07.04.2025
-        File  getNewFile=null;
+        File  getNewFileJsonApk=null;
   try{
-      String PatchDeleteJsonAnalitic="SousAvtoFile/UpdatePO";
+    final  String PatchDeleteJsonAnalitic="SousAvtoFile/UpdatePO";
 
       File ПутькФайлу = null;
       if (Build.VERSION.SDK_INT >= 30) {
@@ -43,15 +43,15 @@ public class GetBinessLogicDownloadFiles implements  GetBinessLogicDwonloadFiles
       // TODO: 12.02.2025 удаление
       // TODO: 12.02.2025  второе удаление файла самого
 
-      File СамкФайлу = null;
+
       if (Build.VERSION.SDK_INT >= 30) {
-          СамкФайлу = context.getExternalFilesDir( Environment.DIRECTORY_DOWNLOADS+ File.separator + PatchDeleteJsonAnalitic+File.separator + ИмяФайлаЗагрузки);
+          getNewFileJsonApk = context.getExternalFilesDir( Environment.DIRECTORY_DOWNLOADS+ File.separator + PatchDeleteJsonAnalitic+File.separator + ИмяФайлаЗагрузки);
       } else {
-          СамкФайлу = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS+ File.separator + PatchDeleteJsonAnalitic+File.separator + ИмяФайлаЗагрузки);
+          getNewFileJsonApk = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS+ File.separator + PatchDeleteJsonAnalitic+File.separator + ИмяФайлаЗагрузки);
       }
 
-      if (СамкФайлу.exists()) {
-          СамкФайлу.delete();
+      if (getNewFileJsonApk.exists()) {
+          getNewFileJsonApk.delete();
       }
       Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
               " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -59,58 +59,50 @@ public class GetBinessLogicDownloadFiles implements  GetBinessLogicDwonloadFiles
 
 
 
-        getNewFile=new File(String.valueOf(СамкФайлу)) ;
-      getNewFile.setReadable(true);
-      getNewFile.setWritable(true);
-      getNewFile.setExecutable(true);
-      getNewFile.getParentFile().mkdirs();
+
+      getNewFileJsonApk.setReadable(true);
+      getNewFileJsonApk.setWritable(true);
+      getNewFileJsonApk.setExecutable(true);
+      getNewFileJsonApk.getParentFile().mkdirs();
 
       // TODO: 24.09.2024
       Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
               " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getNewFile " +  getNewFile);
+              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getNewFileJsonApk " +  getNewFileJsonApk);
 
       // TODO: 20.03.2023 само создание файла
-      if ( getNewFile.createNewFile()) {
+      if ( getNewFileJsonApk.createNewFile()) {
 
           try (ByteArrayInputStream bin = new ByteArrayInputStream(getbytejboss);
-               GZIPInputStream gzipper = new GZIPInputStream(bin))
-          {
-              // Not sure where to go here
+               GZIPInputStream gzipper = new GZIPInputStream(bin)) {
 
-       /*       byte[] buffer = new byte[2048];
-              ByteArrayOutputStream out = new ByteArrayOutputStream();
-              int len;
-              while ((len = gzipper.read(buffer)) > 0) {
-                  out.write(buffer, 0, len);
-              }
-
-              gzipper.close();
-              out.flush();
-              out.close();*/
-              //out.toByteArray();
               ByteArrayOutputStream out = new ByteArrayOutputStream(2048);
              ByteStreams.copy(gzipper , out);
 
-              gzipper.close();
-              out.flush();
-              out.close();
 
-              try (FileOutputStream outputStream = new FileOutputStream(getNewFile)) {
+                   FileOutputStream outputStream = new FileOutputStream(getNewFileJsonApk);
                   outputStream.write(out.toByteArray());
-              }
+
+
+              // TODO: 03.06.2025  close
+                      gzipper.close();
+                      out.flush();
+                     out.close();
+
+              Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                      " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                      " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getNewFileJsonApk.length() " +getNewFileJsonApk.length());
+
 
           }
-          Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                  " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                  " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getBinessLogicDwonloadFiles.length() " +getNewFile.length());
+
       } else {
-          Log.e(context.getClass().getName(), "Ошибка ERRO FILE DONT NEW FILE  getNewFile" + getNewFile);
+          Log.e(context.getClass().getName(), "Ошибка ERRO FILE DONT NEW FILE  getNewFileJsonApk" + getNewFileJsonApk);
       }
 
       Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
               " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getBinessLogicDwonloadFiles " +getNewFile);
+              " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + " getNewFileJsonApk " +getNewFileJsonApk);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -120,6 +112,6 @@ public class GetBinessLogicDownloadFiles implements  GetBinessLogicDwonloadFiles
                 Thread.currentThread().getStackTrace()[2].getLineNumber());
     }
 
-        return getNewFile;
+        return getNewFileJsonApk;
     }
 }

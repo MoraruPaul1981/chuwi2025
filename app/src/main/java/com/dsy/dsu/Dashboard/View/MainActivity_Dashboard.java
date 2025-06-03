@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -30,6 +29,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.FirebaseAndOneSignal.OneSignal.StartigOneSignal.GetStartingRegistraziyOneSIgnalAndFireBase;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 import com.dsy.dsu.R;
 
 
@@ -38,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import javax.inject.Inject;
 import javax.net.ssl.SSLSocketFactory;
@@ -53,6 +54,11 @@ public class MainActivity_Dashboard extends AppCompatActivity {
 
     @Inject
     GetStartingRegistraziyOneSIgnalAndFireBase getStartingRegistraziyOneSIgnalAndFireBase;
+
+
+    @Inject
+    @QualifierPortJboss
+    public  LinkedHashMap<Integer,String> getHiltPortJboss;
 
     private   Activity activity;
 
@@ -262,7 +268,7 @@ public class MainActivity_Dashboard extends AppCompatActivity {
                     // TODO: 22.01.2024
                     DownLoadPO downLoadPO=new DownLoadPO(activity,getApplicationContext(),СервернаяВерсия,getsslSocketFactory2);
 
-                    downLoadPO.МетодСообщениеАнализПО( );
+                    downLoadPO.МетодСообщениеАнализПО( getHiltPortJboss);
                     // TODO: 26.12.2022  конец основгого кода
                     Log.d(getApplicationContext().getClass().getName(), "\n" + " class "
                             + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

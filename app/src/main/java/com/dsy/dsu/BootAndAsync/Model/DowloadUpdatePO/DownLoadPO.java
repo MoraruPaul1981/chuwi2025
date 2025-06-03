@@ -47,7 +47,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class DownLoadPO {
 private  Activity activity;
     private Context context;
-    private  File FileAPK;
+
     private      AlertDialog alertDialogАнализВерсииПО =null;
     private     Integer СервернаяВерсияПОВнутри =null;
 
@@ -67,7 +67,7 @@ private  Activity activity;
 
     @SuppressLint("NewApi")
     @UiThread
-public     void МетодСообщениеАнализПО( ) {
+public     void МетодСообщениеАнализПО( @NonNull LinkedHashMap<Integer,String> getHiltPortJboss) {
 
         try {
             preferences = context.getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
@@ -91,37 +91,37 @@ public     void МетодСообщениеАнализПО( ) {
                                     // TODO: 18.02.2023 удаление Файлов перед Обновление ПО или Анализм Версии ПО
                                     new GetDeletingFilesJsonAndApk(context).startingDeletingFileApk();
 
-                                    LinkedHashMap<Integer,String> getHiltPortJboss=   EntryPoints.get(context, getHiltPortJbossInterface.class).getHiltPortJboss();
+
 
                                     // TODO: 29.07.2023 ЗАгрузки  ПО
-                                    FileAPK =    МетодЗагрузкиAPK(getHiltPortJboss,  getsslSocketFactory2) ;
+                             final    File    getFileAPK =    МетодЗагрузкиAPK(getHiltPortJboss,  getsslSocketFactory2) ;
 
                                     Log.d(context.getClass().getName(), "\n"
                                             + " время: " + new Date() + "\n+" +
                                             " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " FileAPK " +FileAPK);
-                            return FileAPK;
-                                }).doOnSuccess(FileAPK->{
+                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " getFileAPK " +getFileAPK);
+                            return getFileAPK;
+                                }).doOnSuccess(getFileAPK->{
                                     // TODO: 11.04.2025
 
 
                             КнопкаЗАгрузкиПО.getHandler().post( new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (FileAPK!=null) {
-                                        методПослеАнализаПО();
+                                    if (getFileAPK!=null) {
+                                        методПослеАнализаПО(getFileAPK);
                                     }
 
                                     Log.d(context.getClass().getName(), "\n"
                                             + " время: " + new Date() + "\n+" +
                                             " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " FileAPK " +FileAPK);
+                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " getFileAPK " +getFileAPK);
                                 }
                             });
                                     Log.d(context.getClass().getName(), "\n"
                                             + " время: " + new Date() + "\n+" +
                                             " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " FileAPK " +FileAPK);
+                                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " getFileAPK " +getFileAPK);
                                 }).doOnError(e->{
                                     e.printStackTrace();
                                     Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -150,17 +150,19 @@ public     void МетодСообщениеАнализПО( ) {
                                             Log.d(context.getClass().getName(), "\n"
                                                     + " время: " + new Date() + "\n+" +
                                                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " FileAPK " +FileAPK);
+                                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
                                         }
                                     });
                                     
                                     
                                     
-                                }).subscribeOn(Schedulers.single()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                                }).subscribeOn(Schedulers.single())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe();
                         Log.d(context.getClass().getName(), "\n"
                                 + " время: " + new Date() + "\n+" +
                                 " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  + " FileAPK " +FileAPK);
+                                " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
@@ -172,14 +174,20 @@ public     void МетодСообщениеАнализПО( ) {
 
                 }
 
-                private void методПослеАнализаПО() {
+                private void методПослеАнализаПО(@NonNull File getFileAPK) {
                     try{
-                        if (FileAPK != null && FileAPK.length() > 0) {
+                        if (getFileAPK != null && getFileAPK.length() > 0) {
                             alertDialogАнализВерсииПО.dismiss();
                             alertDialogАнализВерсииПО.cancel();
 
                             // TODO: 29.07.2023 ЗапускаемАнализ ВЕРСИИ ПО
-                            МетодУстановкиНовойВерсииПО(СервернаяВерсияПОВнутри, FileAPK);
+                            МетодУстановкиНовойВерсииПО(СервернаяВерсияПОВнутри, getFileAPK);
+
+                            Log.d(context.getClass().getName(), "\n"
+                                    + " время: " + new Date() + "\n+" +
+                                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
+                                    + " СервернаяВерсияПОВнутри " +СервернаяВерсияПОВнутри);
 
                         } else {
 
@@ -342,6 +350,8 @@ public     void МетодСообщениеАнализПО( ) {
 
 
     private File МетодЗагрузкиAPK(@NonNull LinkedHashMap<Integer,String> getHiltPortJboss,@NonNull SSLSocketFactory getsslSocketFactory2)  {
+        // TODO: 03.06.2025
+        File   getFileAPK=null;
         try {
             Log.d(this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName()+"Загружаем Файл APK."+new Date());
 
@@ -353,14 +363,14 @@ public     void МетодСообщениеАнализПО( ) {
 
             // TODO: 08.01.2022 Полученм JSON File  для анализа
 
-            FileAPK = new CoreBinessLogics(context).
+             getFileAPK = new CoreBinessLogics(context).
                     МетодЗагрузкиОбновлениеПОсСервера(new JbossContext(context).getСсылкаНаРежимСервераОбновлениеПО(),
                            context, ИмяСерверИзХранилица ,ПортСерверИзХранилица,
                             "FileAPKUpdatePO","update_dsu1.apk",
                             "application/octet-stream",getsslSocketFactory2);
 
             Log.w(context.getClass().getName(),    Thread.currentThread().getStackTrace()[2].getMethodName()
-                    + Thread.currentThread().getName()+" FileAPK" + FileAPK);
+                    + Thread.currentThread().getName()+" getFileAPK" + getFileAPK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -370,7 +380,7 @@ public     void МетодСообщениеАнализПО( ) {
                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
                     Thread.currentThread().getStackTrace()[2].getLineNumber());
         }
-        return FileAPK;
+        return getFileAPK;
     }
 
 

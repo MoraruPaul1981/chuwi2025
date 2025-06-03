@@ -3,17 +3,14 @@ package com.dsy.dsu.JbossAdress.module;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.Log;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.HiltJbossBinessLogicIntarface;
-import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierJbossServer3;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 import com.dsy.dsu.JbossAdress.JbossLinktoRelease;
-import com.dsy.dsu.JbossAdress.JbossLinktoDebug;
 import com.dsy.dsu.Settings.Model.Model.SLLBenessLogicMode;
-import com.onesignal.BuildConfig;
 
 import java.util.LinkedHashMap;
 
@@ -34,7 +31,7 @@ import dagger.hilt.components.SingletonComponent;
 public class ModulePortJboss {
 
     @Provides
-    @QualifierJbossServer3
+    @QualifierPortJboss
     public  LinkedHashMap<Integer,String> getHiltPortJboss(@ApplicationContext Context context) {
         LinkedHashMap<Integer,String> getJbossPort= new LinkedHashMap();
         try {

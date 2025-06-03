@@ -20,7 +20,7 @@ final public class DownloadFiles {
 
         try{
             // TODO: 07.04.2025 start
-            downloadFile=    getBinessLogicDwonloadFilesInterface.GetBinessLogicDwonloadFiles(context, getbytejboss, ИмяФайлаЗагрузки);
+            downloadFile=    getBinessLogicDwonloadFilesInterface.getttingFilesJboss(context, getbytejboss, ИмяФайлаЗагрузки);
 
 
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

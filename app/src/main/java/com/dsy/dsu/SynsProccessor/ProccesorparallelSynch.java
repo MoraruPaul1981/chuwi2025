@@ -90,7 +90,7 @@ public class ProccesorparallelSynch   {
     }
 
     public Long startingAsyncParallels() {
-        AtomicLong getstartingAsyncParallels=new AtomicLong(0l);
+        final AtomicLong getstartingAsyncParallels=new AtomicLong(0l);
         try{
             // TODO: 30.09.2024
             preferences =context. getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
@@ -98,8 +98,7 @@ public class ProccesorparallelSynch   {
             // TODO: 20.01.2025 сама синхрониаиця
             switch (РежимЗапускаСинхронизации){
 // TODO: 20.01.2025 сама синхрониаиця
-               // case  "СамыйПервыйЗапускСинхронизации":
-                case "ПовторныйЗапускСинхронизации2":
+            case  "СамыйПервыйЗапускСинхронизации":
                     Flowable.fromIterable(getBufferFromJbossServerAllTables)
                             .parallel().runOn(Schedulers.from(Executors.newFixedThreadPool(2)))
                             .doOnNext(new Consumer<ConcurrentHashMap<String, String>>() {
@@ -161,7 +160,6 @@ public class ProccesorparallelSynch   {
                     break;
 
                 // TODO: 20.01.2025 сама синхрониаиця
-              case  "СамыйПервыйЗапускСинхронизации":
               case "ПовторныйЗапускСинхронизации":
 // TODO: 20.01.2025 сама синхрониаиця
                     Flowable.fromIterable(getBufferFromJbossServerAllTables)
@@ -249,10 +247,10 @@ public Long getLooTablesPOSTANDGET(@NonNull ConcurrentHashMap<String, String> st
         Long   РезультатТаблицыОбмена=0l;
         try{
         // TODO: 21.08.2023 Запуск Синхронизации после получение Версии
-        String getId= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("id")).map(Map.Entry::getValue).findFirst().get();
-        String getNameTable= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("name")).map(Map.Entry::getValue).findFirst().get();
-        String getVersionserver= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("versionserver")).map(Map.Entry::getValue).findFirst().get();
-        Long getVersionserverversion= Long.valueOf(stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("versionserverversion")).map(Map.Entry::getValue).findFirst().get());
+final   String getId= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("id")).map(Map.Entry::getValue).findFirst().get();
+final  String getNameTable= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("name")).map(Map.Entry::getValue).findFirst().get();
+final   String getVersionserver= stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("versionserver")).map(Map.Entry::getValue).findFirst().get();
+final   Long getVersionserverversion= Long.valueOf(stringStringMapRowSingle.entrySet().stream().filter(e->e.getKey().equalsIgnoreCase("versionserverversion")).map(Map.Entry::getValue).findFirst().get());
 
         // TODO: 27.12.2024 get Date parser
         DateFormat dateFormat =   new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",new Locale("ru"));

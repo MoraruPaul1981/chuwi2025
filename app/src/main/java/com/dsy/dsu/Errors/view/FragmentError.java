@@ -2,9 +2,9 @@ package com.dsy.dsu.Errors.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +23,6 @@ import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
 import com.dsy.dsu.Errors.model.bl_fragment_errors.BinessLogicFragmentError;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.model.BinessLogicGetDataFragmentError;
-import com.dsy.dsu.Errors.model.bl_get_error_from_files.GettingExistingErrorFromCursor;
 import com.dsy.dsu.Errors.model.bl_get_error_from_files.GettingExistingErrorFromFile;
 import com.dsy.dsu.R;
 import com.google.android.material.button.MaterialButton;
@@ -157,6 +156,8 @@ public class FragmentError extends DialogFragment {
             // BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromCursor() );
              BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
 
+            getCheckDownloadErrror(BufferGetError);
+
             Log.d(this.getClass().getName(),"\n" + " class "
                 + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -172,6 +173,29 @@ public class FragmentError extends DialogFragment {
                 Thread.currentThread().getStackTrace()[2].getLineNumber());
     }
         return view;
+    }
+
+    private   void getCheckDownloadErrror(@NonNull StringBuffer bufferGetError) {
+        try{
+                if (bufferGetError.toString().length()>2) {
+                    textViewAllError.setText("Данные...");
+                } else {
+                textViewAllError.setText("Ошибка загрузки ошибок...");
+            }
+            Log.d(this.getClass().getName(),"\n" + " class "
+                + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                " BufferGetError " +BufferGetError);
+    } catch (Exception e) {
+        e.printStackTrace();
+        Log.e(getContext().getClass().getName(),
+                "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+        new RecordNewErros(getContext()).recordnewerror(e.toString(),
+                this.getClass().getName().toString(), Thread.currentThread().getStackTrace()[2].getMethodName().toString(),
+                Thread.currentThread().getStackTrace()[2].getLineNumber());
+    }
     }
 
 

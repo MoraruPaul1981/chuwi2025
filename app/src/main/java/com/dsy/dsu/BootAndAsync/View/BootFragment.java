@@ -1,27 +1,18 @@
 package com.dsy.dsu.BootAndAsync.View;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -38,6 +29,7 @@ import com.dsy.dsu.Dashboard.Model.endingasynsdashboard.LaunchMainAppAfterSyncin
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 import com.dsy.dsu.R;
 
 import com.google.android.material.navigation.NavigationView;
@@ -46,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import javax.inject.Inject;
 import javax.net.ssl.SSLSocketFactory;
@@ -74,6 +67,10 @@ public class BootFragment extends DialogFragment {
     @Inject
     @QualifiergetsslSocketFactory2
     public SSLSocketFactory getsslSocketFactory2;
+
+          @Inject
+          @QualifierPortJboss
+          protected LinkedHashMap<Integer,String> getHiltPortJboss;
 
 
 
@@ -315,7 +312,7 @@ public class BootFragment extends DialogFragment {
         try{
 
 
-            blInnerMainActivityBootAndAsync   .getEventBusUpdatePo(messageEvensBusUpdatePO);
+            blInnerMainActivityBootAndAsync   .getEventBusUpdatePo(messageEvensBusUpdatePO,getHiltPortJboss);
 
             Log.d(getContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +

@@ -213,7 +213,6 @@ public class BinessLogicFragmentError {
 
     public void metodScreenDontErrorForUsers(@NonNull TextView    textViewAllError,@NonNull Animation animationv3) {
         try{
-            textViewAllError.setText("Нет ошибок !!! ");
             textViewAllError.startAnimation(animationv3);
             textViewAllError.requestLayout();
             textViewAllError.refreshDrawableState();

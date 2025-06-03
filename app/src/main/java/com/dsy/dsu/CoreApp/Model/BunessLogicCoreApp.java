@@ -3,7 +3,8 @@ package com.dsy.dsu.CoreApp.Model;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsy.dsu.BootAndAsync.ViewModelBoot.Model.DowloadUpdatePO.ClassCreateFolderUpdatePO;
+
+import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.ClassCreateFolderUpdatePO;
 import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassCreateFolderBinatyMatrilal;
 import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassCreateFolderCommitPays1C;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;

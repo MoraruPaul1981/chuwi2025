@@ -178,7 +178,7 @@
                                 android:layout_margin="5dp"
                                 android:padding="2dp"
                                 android:gravity="center"
-                                android:text="Данные..."
+                                android:hint="Данные..."
                                 android:orientation="vertical"
                                 android:overScrollMode="always"
                                 android:scrollbars="horizontal|vertical"

@@ -41,7 +41,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.BusinessLogicAll.SubClassWriterPUBLICIDtoDatabase;
 
-import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierJbossServer3;
+import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
 import com.dsy.dsu.R;
 
@@ -96,7 +96,7 @@ public class MainActivityPasswords extends AppCompatActivity {
 
 
     @Inject
-    @QualifierJbossServer3
+    @QualifierPortJboss
     public LinkedHashMap<Integer,String> getHiltPortJboss;
 
 

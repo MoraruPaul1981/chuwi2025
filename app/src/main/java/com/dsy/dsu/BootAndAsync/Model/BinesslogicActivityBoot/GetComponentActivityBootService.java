@@ -47,6 +47,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import javax.net.ssl.SSLSocketFactory;
 
@@ -114,7 +115,7 @@ public class GetComponentActivityBootService {
     }
 
 
-    public void getEventBusUpdatePo(@NonNull MessageEvensBusUpdatePO messageEvensBusUpdatePO  ){
+    public void getEventBusUpdatePo(@NonNull MessageEvensBusUpdatePO messageEvensBusUpdatePO  ,@NonNull LinkedHashMap<Integer,String> getHiltPortJboss){
 
         try{
             Bundle bundleGetOtServiceUpdatePO =(Bundle)         messageEvensBusUpdatePO.mess.getExtras();
@@ -125,7 +126,8 @@ public class GetComponentActivityBootService {
                 v2.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
                 // TODO: 22.01.2024
                 DownLoadPO downLoadPO=new DownLoadPO(activity,context,СервернаяВерсия,getsslSocketFactory2);
-                downLoadPO.МетодСообщениеАнализПО( );
+                // TODO: 03.06.2025  start Update PO
+                downLoadPO.МетодСообщениеАнализПО(getHiltPortJboss );
 
                 // TODO: 26.12.2022  конец основгого кода
                 Log.d(context.getClass().getName(), "\n" + " class "

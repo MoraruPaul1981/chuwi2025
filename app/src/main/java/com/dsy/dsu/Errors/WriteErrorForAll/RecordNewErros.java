@@ -79,7 +79,7 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
                     // TODO: 21.12.2022  главная  файл ErrorDSU1 в ТАблицу
 
 
-                    AtomicFile atomicFile=new AtomicFile(new File(""));//
+
 
                 }
                 Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
