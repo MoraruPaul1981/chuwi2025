@@ -476,9 +476,9 @@ try{
 
 // TODO: 07.04.2025
 
-        AtomicLong getCompleteInsertsUpdatesOperations=new AtomicLong(0);
+    final     AtomicLong getCompleteInsertsUpdatesOperations=new AtomicLong(0);
         try{
-            AtomicLong getInsertsUpdatesCurrentOperation=new AtomicLong(0);
+            final        AtomicLong getInsertsUpdatesCurrentOperation=new AtomicLong(0);
             // TODO: 02.11.2023  ПРИНИМАЕМ ДАННЫЕ ОТ СЕРВЕРА ПО ЧАСТЯМ
             IntStream.range(0,Integer.MAX_VALUE).noneMatch(new IntPredicate() {
                 @Override
