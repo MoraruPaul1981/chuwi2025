@@ -75,7 +75,7 @@ public class Fragment_Contacts_КонтактыЧата extends Fragment    {
             Log.d(getContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() );//
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
