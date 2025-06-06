@@ -58,7 +58,7 @@ public class FragmentError extends DialogFragment {
 
     // TODO: 14.10.2022 настйрока хранилища
     private  SharedPreferences sharedPreferencesХранилище;
-    private     StringBuffer BufferGetError;
+
     private Animation animationv3;
 
     // TODO: Rename and change types and number of parameters
@@ -151,18 +151,23 @@ public class FragmentError extends DialogFragment {
             // TODO: 07.04.2025 exit fromFragment ERROR 
             logicFragmentError.BackFragmentSettings(imageViewBack,fragmentManager);
 
+            // TODO: 05.06.2025  получаем ошибки
             // TODO: 17.01.2025  Получаем Ошибку двумя разными способами из файла и из курсора
               //77777BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
             // BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),getSqlLiteCoreApp,moduleQuety).getDataFragmentError( new GettingExistingErrorFromCursor() );
-             BufferGetError =     new BinessLogicGetDataFragmentError(getContext(),moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
+            StringBuffer  getBufferGetError =     new BinessLogicGetDataFragmentError(getContext(),moduleQuety).getDataFragmentError( new GettingExistingErrorFromFile() );
 
-            getCheckDownloadErrror(BufferGetError);
+            getCheckDownloadErrror(getBufferGetError);
+
+
+            insertingAllErrorFragment(getBufferGetError);
+
 
             Log.d(this.getClass().getName(),"\n" + " class "
                 + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                    " BufferGetError " +BufferGetError);
+                    " BufferGetError " +getBufferGetError);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(getContext().getClass().getName(),
@@ -175,18 +180,49 @@ public class FragmentError extends DialogFragment {
         return view;
     }
 
-    private   void getCheckDownloadErrror(@NonNull StringBuffer bufferGetError) {
+    private void insertingAllErrorFragment(StringBuffer getBufferGetError) {
+        // TODO: 12.12.2023  Данные ОШибки*/
         try{
-                if (bufferGetError.toString().length()>2) {
+        if (getBufferGetError.length()>0) {
+            logicFragmentError.   metodButtonEnables(materialButtonОтправка);
+            // TODO: 17.01.2025  полученные ошибку отправляем на экран ПОльзователю
+            logicFragmentError.  metodScreenErrorForUsers(textViewAllError, getBufferGetError,animationv3);
+            logicFragmentError.  metodSendErrorsToMail(materialButtonОтправка, getBufferGetError,getActivity(),sharedPreferencesХранилище);
+            // TODO: 07.04.2025 Когда нет данных
+        } else {
+            logicFragmentError.metodButtonDisable(materialButtonОтправка);
+            logicFragmentError.  metodScreenDontErrorForUsers(  textViewAllError,animationv3);
+
+        }
+        Log.d(this.getClass().getName(),"\n" + " class "
+                + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
+                " BufferGetError " +getBufferGetError);
+    } catch (Exception e) {
+        e.printStackTrace();
+        Log.e(getContext().getClass().getName(),
+                "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                        " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+        new RecordNewErros(getContext()).recordnewerror(e.toString(),
+                this.getClass().getName().toString(), Thread.currentThread().getStackTrace()[2].getMethodName().toString(),
+                Thread.currentThread().getStackTrace()[2].getLineNumber());
+    }
+    }
+
+    private   void getCheckDownloadErrror(@NonNull StringBuffer getBufferGetError) {
+        try{
+                if (getBufferGetError!=null) {
                     textViewAllError.setText("Данные...");
                 } else {
-                textViewAllError.setText("Ошибка загрузки ошибок...");
+                textViewAllError.setText("Ошибка загрузки !!!");
             }
+            textViewAllError.requestLayout();
             Log.d(this.getClass().getName(),"\n" + " class "
                 + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+
-                " BufferGetError " +BufferGetError);
+                " getBufferGetError " +getBufferGetError);
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(getContext().getClass().getName(),
@@ -205,18 +241,7 @@ public class FragmentError extends DialogFragment {
         try{
 
 
-            // TODO: 12.12.2023  Данные ОШибки*/
-            if (BufferGetError.length()>0) {
-                logicFragmentError.   metodButtonEnables(materialButtonОтправка);
-                // TODO: 17.01.2025  полученные ошибку отправляем на экран ПОльзователю
-                logicFragmentError.  metodScreenErrorForUsers(textViewAllError,BufferGetError,animationv3);
-                logicFragmentError.  metodSendErrorsToMail(materialButtonОтправка,BufferGetError,getActivity(),sharedPreferencesХранилище);
-                // TODO: 07.04.2025 Когда нет данных
-            } else {
-                logicFragmentError.metodButtonDisable(materialButtonОтправка);
-                logicFragmentError.  metodScreenDontErrorForUsers(  textViewAllError,animationv3);
-               
-            }
+
 
             // TODO: 17.04.2023
             Log.d(this.getClass().getName(),"\n" + " class FaceAPp " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

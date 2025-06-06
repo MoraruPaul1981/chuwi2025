@@ -843,7 +843,7 @@ public class GetSQLiteDatabase extends SQLiteOpenHelper{ ///SQLiteOpenHelper
                 "FOREIGN KEY(prof) REFERENCES prof  (_id)  ON UPDATE CASCADE," +
                 "FOREIGN KEY(current_organization) REFERENCES organization  (id)  ON UPDATE CASCADE " +
                 ")");
-
+        ССылкаНаСозданнуюБазу.execSQL("CREATE UNIQUE  INDEX indexfio_name_snils ON fio (name,snils);");
         Log.d(this.getClass().getName(), " сработала ...  создание таблицы   fio");
     }
 

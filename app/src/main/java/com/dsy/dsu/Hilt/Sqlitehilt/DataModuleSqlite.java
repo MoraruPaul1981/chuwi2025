@@ -77,8 +77,7 @@ public SQLiteDatabase metodHiltSqlite (@ApplicationContext Context context){
         AtomicReference<SQLiteDatabase>  getSQLites=new AtomicReference<>();
         try{
         //getSQLites =  SQLiteDatabase.openDatabase("/data/user/0/com.dsy.dsu/databases/Database DSU-1.db",null, SQLiteDatabase.CREATE_IF_NECESSARY);
-        getSQLites.getAndSet( SQLiteDatabase.openDatabase(fileDatabeseOpenParametrs.getAbsolutePath(),null,
-                SQLiteDatabase.OPEN_READWRITE|SQLiteDatabase.CREATE_IF_NECESSARY));
+        getSQLites.getAndSet( SQLiteDatabase.openDatabase(fileDatabeseOpenParametrs.getAbsolutePath(),null, SQLiteDatabase.OPEN_READWRITE));
         // TODO: 17.04.2023
         Log.d(this.getClass().getName(),"\n" + " class FaceAPp "
                 + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

@@ -15,38 +15,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrandPermissions {
-
+    public static final int MULTIPLE_PERMISSIONS = 10;
     Activity activity;
     String[] permissions = new String[]{
-            android.Manifest.permission.CAMERA,
             android.Manifest.permission.INTERNET,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.VIBRATE,
             android.Manifest.permission.REQUEST_INSTALL_PACKAGES,
             android.Manifest.permission.ACCESS_NETWORK_STATE,
             android.Manifest.permission.INSTALL_PACKAGES,
             android.Manifest.permission.WRITE_SETTINGS,
             android.Manifest.permission.WRITE_SECURE_SETTINGS,
-            android.Manifest.permission.INTERNET,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.VIBRATE,
             android.Manifest.permission.REQUEST_INSTALL_PACKAGES,
             android.Manifest.permission.INSTALL_PACKAGES,
             android.Manifest.permission.WRITE_SETTINGS,
             android.Manifest.permission.WRITE_SECURE_SETTINGS,
             android.Manifest.permission.CAMERA,
-            android.Manifest.permission.INTERNET,
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.VIBRATE,
             android.Manifest.permission.REQUEST_INSTALL_PACKAGES,
             android.Manifest.permission.INSTALL_PACKAGES,
             android.Manifest.permission.WRITE_SETTINGS,
-            android.Manifest.permission.WRITE_SECURE_SETTINGS
+            android.Manifest.permission.WRITE_SECURE_SETTINGS,
+            android.Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+            android.Manifest.permission. READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    public static final int MULTIPLE_PERMISSIONS = 10;
+
 
     public GrandPermissions(Activity activity) {
         this.activity = activity;

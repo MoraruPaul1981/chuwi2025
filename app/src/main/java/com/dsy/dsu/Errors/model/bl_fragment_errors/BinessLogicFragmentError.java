@@ -214,6 +214,7 @@ public class BinessLogicFragmentError {
     public void metodScreenDontErrorForUsers(@NonNull TextView    textViewAllError,@NonNull Animation animationv3) {
         try{
             textViewAllError.startAnimation(animationv3);
+            textViewAllError.setText("Ошибок нет !!!");
             textViewAllError.requestLayout();
             textViewAllError.refreshDrawableState();
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
@@ -289,6 +290,7 @@ public class BinessLogicFragmentError {
         try{
             materialButtonОтправка.setClickable(false);
             materialButtonОтправка.setFocusable(false);
+            materialButtonОтправка.setVisibility(View.INVISIBLE);
             materialButtonОтправка.requestLayout();
             materialButtonОтправка.refreshDrawableState();
             Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +

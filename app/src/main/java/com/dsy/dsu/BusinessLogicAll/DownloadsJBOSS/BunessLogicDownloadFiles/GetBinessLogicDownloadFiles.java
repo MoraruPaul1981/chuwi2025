@@ -60,9 +60,9 @@ public class GetBinessLogicDownloadFiles implements  GetBinessLogicDwonloadFiles
 
 
 
-      getNewFileJsonApk.setReadable(true);
-      getNewFileJsonApk.setWritable(true);
-      getNewFileJsonApk.setExecutable(true);
+      getNewFileJsonApk.setReadable(true,false);
+      getNewFileJsonApk.setWritable(true,false);
+      getNewFileJsonApk.setExecutable(true,false);
       getNewFileJsonApk.getParentFile().mkdirs();
 
       // TODO: 24.09.2024

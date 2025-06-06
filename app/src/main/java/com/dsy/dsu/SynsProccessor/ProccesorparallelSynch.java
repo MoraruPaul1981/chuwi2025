@@ -100,7 +100,7 @@ public class ProccesorparallelSynch   {
 // TODO: 20.01.2025 сама синхрониаиця
             case  "СамыйПервыйЗапускСинхронизации":
                     Flowable.fromIterable(getBufferFromJbossServerAllTables)
-                            .parallel().runOn(Schedulers.from(Executors.newFixedThreadPool(2)))
+                            .parallel(2).runOn(Schedulers.io())
                             .doOnNext(new Consumer<ConcurrentHashMap<String, String>>() {
                                 @Override
                                 public void accept(ConcurrentHashMap<String, String> operationMulti) throws Throwable {

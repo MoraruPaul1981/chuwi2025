@@ -6,14 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,8 +26,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.multidex.BuildConfig;
 
 
 import com.dsy.dsu.BootAndAsync.View.MainActivityBootAndAsync;
@@ -79,8 +89,8 @@ public class MainActivityPasswords extends AppCompatActivity {
     private Configuration config;
     private Activity activity;
 
-    private Context КонтекстСинхроДляАунтификации;
-    private JbossContext Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = null;
+
+
     private String ПубличноеЛогин = new String();
     private String ПубличноеПароль = new String();
     private SharedPreferences preferences;
@@ -88,6 +98,7 @@ public class MainActivityPasswords extends AppCompatActivity {
     private Message message;
     public static final int ALL_PERSSION_CODE=1;
     public static final int CAMERA_PERSSION_CODE=2;
+
 
 
     @Inject
@@ -99,7 +110,7 @@ public class MainActivityPasswords extends AppCompatActivity {
     @QualifierPortJboss
     public LinkedHashMap<Integer,String> getHiltPortJboss;
 
-
+    private  String getstepAsync;
     //////////////////////TODO SERVICE
 
 
@@ -111,13 +122,12 @@ public class MainActivityPasswords extends AppCompatActivity {
             setContentView(R.layout.activity_main__authentication);
 
             preferences = getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
-            КонтекстСинхроДляАунтификации = this;
+
             activity = this;
-            ((Activity) КонтекстСинхроДляАунтификации).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            ((Activity) КонтекстСинхроДляАунтификации).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            Class_Engine_SQLГдеНаходитьсяМенеджерПотоков = new JbossContext(getApplicationContext());
+            ((Activity) getApplicationContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            ((Activity) getApplicationContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
-
+            getBunbleSendForActivityPassword();
 
 
             // TODO: 04.10.2023 разрешения для всего
@@ -163,23 +173,20 @@ public class MainActivityPasswords extends AppCompatActivity {
             ПарольДляВходаСистему = (TextInputEditText) findViewById(R.id.ПарольДляВходавПрограмму); ////програссбар при аунтификации при входе в системму
 
 
-
-
             // TODO: 02.08.2023 БИЗНЕС КОД
-            методЗаписываемПервыйЭтапСинхрогниазции();
+            методЗаписываемПервыйЭтапСинхрогниазции(getstepAsync);
 
-// TODO: 13.09.2023 очистка ТАБЛИЦ с паролями  
-            // TODO: 17.05.2025  Запускаем
-      Integer ИменаТаблицыWorkerAndSystem=
-              // TODO: 17.05.2025  Запускаем
-              new GetClearDataUserAnCnahgeData(this).changeTableWorkerUsers(getApplicationContext(),this  );
+            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
 
 
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                    + " ИменаТаблицыWorkerAndSystem " +ИменаТаблицыWorkerAndSystem);
+                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+            // TODO: 05.06.2025
+
 
 
         } catch (Exception e) {
@@ -189,6 +196,27 @@ public class MainActivityPasswords extends AppCompatActivity {
                     Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
             Log.d(this.getClass().getName(), "  Полусаем Ошибку e.toString() " + e.toString());
         }
+    }
+
+    private void getBunbleSendForActivityPassword() {
+        try{
+        Intent intent =  getIntent();
+        Bundle bungleforPaaasword =intent.getExtras();
+        // TODO: 10.04.2023
+        if (bungleforPaaasword !=null) {
+              getstepAsync = bungleforPaaasword.getString("stepAsync");
+        }
+
+        Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +" getstepAsync " +getstepAsync);
+    } catch (Exception e) {
+        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
+        new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
+                Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
+    }
+
     }
 
     @Override
@@ -356,7 +384,8 @@ public class MainActivityPasswords extends AppCompatActivity {
     private void exitForActivityPassword(@NonNull Integer PublicID) {
         try {
             // TODO: 01.12.2022 записываем режим синъронизации
-                Intent IntentStartFaceApp = new Intent();
+                Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                Intent IntentStartFaceApp = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
                 IntentStartFaceApp.putExtra("ID", PublicID);
                 IntentStartFaceApp.putExtra("ПубличноеИмяПользовательДлСервлета", ПубличноеЛогин);
                 IntentStartFaceApp.putExtra("ПубличноеПарольДлСервлета", ПубличноеПароль);
@@ -364,7 +393,7 @@ public class MainActivityPasswords extends AppCompatActivity {
                 IntentStartFaceApp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(IntentStartFaceApp);
                // TODO: 11.04.2025 exit
-               finishAffinity();
+               finish();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date()+"\n+" +
                     " Класс в процессе... " +  this.getClass().getName()+"\n"+
@@ -401,11 +430,11 @@ public class MainActivityPasswords extends AppCompatActivity {
     }
 
 
-    private void методЗаписываемПервыйЭтапСинхрогниазции( ) {
+    private void методЗаписываемПервыйЭтапСинхрогниазции( @NonNull String stepAsync) {
         try {
             // TODO: 02.08.2023 БИЗНЕС КОД
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("РежимЗапускаСинхронизации", "СамыйПервыйЗапускСинхронизации");
+            editor.putString("РежимЗапускаСинхронизации",stepAsync );///TODO "СамыйПервыйЗапускСинхронизации"   ,  //TODO "ПовторныйЗапускСинхронизации"
             editor.commit();
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date()+"\n+" +

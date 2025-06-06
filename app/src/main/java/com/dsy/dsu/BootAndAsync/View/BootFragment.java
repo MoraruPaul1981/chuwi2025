@@ -360,14 +360,14 @@ public class BootFragment extends DialogFragment {
 
             Boolean getUserAuthenticated=   getbundleLaunchMainAppAfterSyncing.getBoolean("launchMainAppAfterSyncing",false);///"В процесс"
 
-            LaunchMainAppAfterSyncing launchMainAppaftersyncing =new LaunchMainAppAfterSyncing(getActivity(),fragmentManager);
+            LaunchMainAppAfterSyncing launchMainAppaftersyncing =new LaunchMainAppAfterSyncing(getActivity());
             if (getUserAuthenticated){
                 // TODO: 01.04.2024 Все в порядке ЗАпускам Саму Программу DashBord
-                launchMainAppaftersyncing.appAfterSyncingDashboard();
+                launchMainAppaftersyncing.appAfterSyncingDashboard(fragmentManager);
             }else {
                 // TODO: 28.04.2023 НЕт Анутифтикации Пароль
                 // TODO: 28.04.2023 НЕт Анутифтикации Пароль
-                launchMainAppaftersyncing.appAfterSyncingPassword(  );
+                launchMainAppaftersyncing.appAfterSyncingActivityPassword(getActivity(),  "СамыйПервыйЗапускСинхронизации"  );
             }
             Log.d(getContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +

@@ -59,23 +59,19 @@ public class WewriteallApplicationErrorstoaFile {
                 СамаОшибка = linkedBlockingQueueВскеОшибкиДляЗаписи.get(0).toString();
             }
 
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            File fileWriteError = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                     File.separator + patchFileName +File.separator+fileNameFull+".txt" );
-            if (  file.exists()) {
-
-//                file.delete();
-//                file.setReadable(true);
-//                file.setWritable(true);
-//                file.createNewFile();
+            if (  fileWriteError.exists()) {
 
 
-                try(FileOutputStream outputStream = new FileOutputStream(file.getAbsoluteFile(), true);
+
+                try(FileOutputStream outputStream = new FileOutputStream(fileWriteError.getAbsoluteFile(), true);
                         BufferedWriter  bufferedWriterErrors = new BufferedWriter(new OutputStreamWriter(outputStream,
                                 StandardCharsets.UTF_8));) {
 
 
                     bufferedWriterErrors.newLine();
-                    bufferedWriterErrors.write("********ОШИБКИ********");
+                    bufferedWriterErrors.write("********ОШИБКА********");
                     bufferedWriterErrors.newLine();
                     bufferedWriterErrors.write("Время");
                     bufferedWriterErrors.newLine();

@@ -29,9 +29,9 @@ public  class GetWorkerErros implements GetWorkerErrosInterface {
                     File.separator + patchFileName);
 
             if (!patchFile.isDirectory()) {
-                patchFile.setReadable(true);
-                patchFile.setWritable(true);
-                patchFile.setExecutable(true);
+                patchFile.setReadable(true,false);
+                patchFile.setWritable(true,false);
+                patchFile.setExecutable(true,false);
                 patchFile.mkdirs();
                 // TODO: 10.04.2025
                 patchFile.createNewFile();
@@ -40,9 +40,9 @@ public  class GetWorkerErros implements GetWorkerErrosInterface {
             File file = new File(String.valueOf(patchFile.getAbsoluteFile())+File.separator+fileName);
 
             if ( ! file.isFile()) {
-                file.setReadable(true);
-                file.setWritable(true);
-                file.setExecutable(true);
+                file.setReadable(true,false);
+                file.setWritable(true,false);
+                file.setExecutable(true,false);
                 file.createNewFile();
 
 

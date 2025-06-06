@@ -49,9 +49,9 @@ public  class CreatingAFileForApp implements GetWorkerErrosInterface {
             File NewFileError = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                     File.separator + patchFileName +File.separator+fileNameFull+".txt" );
             if ( !NewFileError.exists()) {
-                NewFileError.setReadable(true);
-                NewFileError.setWritable(true);
-                NewFileError.setExecutable(true);
+                NewFileError.setReadable(true,false);
+                NewFileError.setWritable(true,false);
+                NewFileError.setExecutable(true,false);
                 NewFileError.getParentFile().mkdirs();
                 NewFileError.createNewFile();
             }

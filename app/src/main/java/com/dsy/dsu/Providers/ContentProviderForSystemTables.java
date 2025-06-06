@@ -17,6 +17,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.dsy.dsu.AllDatabases.bl_MODIFITATION_Client.GetClearsMODIFITATION_Client;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSettingsTabels;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSuccessLogin;
 import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltSystemTableCoreApp;
@@ -397,8 +398,6 @@ public class ContentProviderForSystemTables extends ContentProvider  {
             // TODO: 14.10.2022 метод определения текущней таблицы
             String table = МетодОпределяемТаблицу(uri);
             if (table!=null) {
-
-
                 switch (table){
                     // TODO: 08.10.2024
                     case  "settings_tabels":
@@ -410,15 +409,10 @@ public class ContentProviderForSystemTables extends ContentProvider  {
 
                         РезультатUpdates=      sqLiteStatementInsertSettingsTabels.executeUpdateDelete();
 
-                        if(РезультатUpdates>0){
-                            // TODO: 08.10.2024
-                            getContext().getContentResolver().notifyChange(uri, null);
-                            // TODO: 08.10.2024
-                            sqlite.setTransactionSuccessful();
-                        }
-                        if (sqlite.inTransaction()) {
-                            sqlite.endTransaction();
-                        }
+                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +РезультатUpdates);
+
                         break;
 
 
@@ -437,29 +431,36 @@ public class ContentProviderForSystemTables extends ContentProvider  {
                                 // TODO: 08.10.2024
                                 РезультатUpdates=      sqLiteStatementInsertSuccessLoginSLL.executeUpdateDelete();
 // TODO: 24.05.2025
-//                        // TODO: 09.10.2024
-//                        SettingAndLoginBinesslogicSuccessLogin settingAndLoginBinesslogicSuccessLogin  =
-//                                new SettingAndLoginBinesslogicSuccessLogin(getContext(), sqlite);
-//                        SQLiteStatement sqLiteStatementInsertSuccessLogin=       settingAndLoginBinesslogicSuccessLogin
-//                                .getsqLiteStatementUpdateSuccessLogin(table,values);
-//                        // TODO: 08.10.2024
-//                        РезультатUpdates=      sqLiteStatementInsertSuccessLogin.executeUpdateDelete();
-
-
-                                break;
-
-
-                        }
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +РезультатUpdates);
 
-                        if(РезультатUpdates>0){
+
+                        break;
+                    case  "MODIFITATION_Client":
+
+                        // TODO: 08.10.2024
+                        GetClearsMODIFITATION_Client getClearsMODIFITATIONClient
+                                =  new GetClearsMODIFITATION_Client(getContext(), sqlite);
+
+                        SQLiteStatement sqLiteStatementMODIFITATIONClient=
+                                getClearsMODIFITATIONClient.sqLiteStatementUpdateMODIFITATION_Client(table,values);
+                        // TODO: 08.10.2024
+
+                        РезультатUpdates=      sqLiteStatementMODIFITATIONClient.executeUpdateDelete();
+
                             // TODO: 08.10.2024
-                            getContext().getContentResolver().notifyChange(uri, null);
+                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +РезультатUpdates);
+
+                        break;
+
+                        }
+
                             // TODO: 08.10.2024
                             sqlite.setTransactionSuccessful();
-                        }
+
                         if (sqlite.inTransaction()) {
                             sqlite.endTransaction();
                         }
