@@ -19,10 +19,10 @@ import androidx.core.app.ServiceCompat;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.BinessLogicIntentServiceBoot;
-import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
+import com.dsy.dsu.BusinessLogicPublic.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
 
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 

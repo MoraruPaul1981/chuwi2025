@@ -3,8 +3,6 @@ package com.dsy.dsu.Chats;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -20,12 +18,9 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-
-
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.dsy.dsu.R;
 import com.sous.backasync.launch.ModuleQuety;
 
@@ -35,9 +30,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import dagger.hilt.EntryPoints;
 
 public class MainActivity_List_Chats extends FragmentActivity {
 
@@ -903,10 +895,11 @@ try{
 
         try {
             // TODO: 28.12.2021  ЗАПУСК ОДНОРАЗОВОЙ СЛУЖБЫ
-            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   new GetPublicID().getPublicIDAllApp(getApplicationContext());
+            Integer  ПубличныйIDДляОдноразовойСинхрониазции=   new GetttingPublicID().getttingPublicID(getApplicationContext());
             if (!WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().isEmpty()) {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая =
-                        WorkManager.getInstance(getApplicationContext().getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().get(0);
+                        WorkManager.getInstance(getApplicationContext().getApplicationContext())
+                                .getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get().get(0);
                 if (WorkInfoИнформацияОЗапущенойСлужбеОдноразовая.getState().compareTo(WorkInfo.State.RUNNING) != 0) {
                     // TODO: 26.03.2023 launch Async
 
@@ -916,7 +909,8 @@ try{
                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
                 }
             }
-            Log.w(getApplicationContext().getClass().getName(), " ПЕРВЫЙ ЗАПУСК НА ФРАГМЕНТЕ ЧИТАТЬ И ПИСАТЬ ПубличныйIDДляОдноразовойСинхрониазции   " + ПубличныйIDДляОдноразовойСинхрониазции + "\n");
+            Log.w(getApplicationContext().getClass().getName(), " ПЕРВЫЙ ЗАПУСК НА ФРАГМЕНТЕ ЧИТАТЬ И ПИСАТЬ ПубличныйIDДляОдноразовойСинхрониазции   "
+                    + ПубличныйIDДляОдноразовойСинхрониазции + "\n");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +

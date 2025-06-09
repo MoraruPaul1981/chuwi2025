@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.sous.backasync.launch.ModuleQuety;
 
@@ -244,7 +244,7 @@ public class ServiceForChatten extends IntentService {
                 String Текущаятаблицы="data_chat";
                 ModuleQuety moduleQuety=new ModuleQuety(getApplicationContext());
                 КурсорДанныеДлязаписиичтнияЧата= moduleQuety.getModuleQuery(Текущаятаблицы," SELECT   * FROM '"+Текущаятаблицы+"'  AS D "+
-                        " WHERE  chat_uuid  ='" + ПолученыйУжеСуществующийUUIDИзПерепискиДляЧата +"'"+
+                        " WHERE  D.chat_uuid  ='" + ПолученыйУжеСуществующийUUIDИзПерепискиДляЧата +"'"+
                         "                                        \"  AND   D.message IS NOT NULL    \" +\n" +
                         "                                        \" ORDER BY   D.date_update     ASC, D.id   ASC " ,null);
 

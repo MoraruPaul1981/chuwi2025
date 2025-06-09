@@ -41,12 +41,12 @@ import androidx.work.WorkManager;
 
 
 
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GreatUuidGenerations.GreatUuidGeneration;
 
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -80,7 +80,7 @@ public class Fragment3_Now_Create_Tasks extends Fragment {
     private Bundle BungleДанныеДляViewCardДляпередачиCallsBaskПримечание;
     private Cursor Курсор_ГлавныйКурсорДляЗадач;
     private SQLiteCursor Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе = null;
-    private GetPublicID getPublic_id;
+
     private Integer ПубличныйIDДляЗаданияКомуПисать;
     private FragmentManager fragmentManagerДляЗадачи;
     private FragmentTransaction fragmentTransactionляЗадачи;
@@ -279,7 +279,7 @@ public class Fragment3_Now_Create_Tasks extends Fragment {
 
 
 // TODO: 02.03.2022
-            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента = new GetttingPublicID().getttingPublicID(getContext());
             // TODO: 15.03.202
             Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента " +     ПубличныйIDДляФрагмента );
 

@@ -9,7 +9,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:visibility="visible"
-    tools:context=".Tabels.Peoples.MainActivity_Find_Peoples">
+    tools:context=".Tabels.Peoples.MainActivityFindPeoples">
 
     <TextView
         android:layout_width="match_parent"

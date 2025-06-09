@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
+import com.dsy.dsu.BusinessLogicPublic.Permissions.GrandPermissions;
 import com.dsy.dsu.Errors.model.bl_fragment_errors.BinessLogicFragmentError;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.model.BinessLogicGetDataFragmentError;

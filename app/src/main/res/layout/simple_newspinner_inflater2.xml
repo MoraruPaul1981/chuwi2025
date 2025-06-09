@@ -8,7 +8,7 @@
     android:scrollbars="horizontal|vertical"
     android:verticalScrollbarPosition="defaultPosition"
     android:visibility="visible"
-    tools:context=".Tabels.Tabel.New.MainActivity_New_Tabely"
+    tools:context=".Tabels.Tabel.New.MainActivityNewTabels"
     tools:visibility="visible">
 
 

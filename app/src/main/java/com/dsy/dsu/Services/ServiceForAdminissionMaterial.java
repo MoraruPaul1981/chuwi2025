@@ -25,11 +25,11 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
+import com.dsy.dsu.BusinessLogicPublic.GreatUuidGenerations.GreatUuidGeneration;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
 import com.sous.backasync.launch.ModuleInserting;
 
 
@@ -762,9 +762,11 @@ public class ServiceForAdminissionMaterial extends IntentService {
                         contentValuesСозданиеНовогоМатериала.put("count", data.getLong("count"));
                         contentValuesСозданиеНовогоМатериала.put("ttn", data.getString("ttn"));
                         contentValuesСозданиеНовогоМатериала.put("datattn", data.getString("datattn"));
-                        Integer  ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getApplicationContext());
+                        Integer  ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());
+
                         contentValuesСозданиеНовогоМатериала.put("user_update", ПубличныйIDДляФрагмента);
-                        String СгенерированованныйДатаДляДаннойОперации = new Class_Generation_Data(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();
+                        String СгенерированованныйДатаДляДаннойОперации = new Class_Generation_Data(getApplicationContext()).
+                                ГлавнаяДатаИВремяОперацийСБазойДанных();
                         contentValuesСозданиеНовогоМатериала.put("date_update", СгенерированованныйДатаДляДаннойОперации);
                         //    contentValuesСозданиеНовогоМатериала.putNull("id");
                         contentValuesСозданиеНовогоМатериала.put("status_send"," ");
@@ -850,7 +852,7 @@ public class ServiceForAdminissionMaterial extends IntentService {
                                     // TODO: 21.10.2022 Записываем Новые ФОтографии Image CAmera
                                     ContentValues contentValuesСозданиеНовогоМатериала = new ContentValues();
 
-                                    Integer  ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getApplicationContext());
+                                    Integer  ПубличныйIDДляФрагмента = new GetttingPublicID().getttingPublicID(context);
                                     contentValuesСозданиеНовогоМатериала.put("user_update", ПубличныйIDДляФрагмента);
 
                                     String СгенерированованныйДатаДляДаннойОперации = new Class_Generation_Data(getApplicationContext()).ГлавнаяДатаИВремяОперацийСБазойДанных();

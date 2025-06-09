@@ -16,9 +16,9 @@ import androidx.annotation.NonNull;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusAppAfterSyncing;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusNetworkStatuses;
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusUpdatePO;
-import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
+import com.dsy.dsu.BusinessLogicPublic.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
 
-import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJbossNotActivity;
+import com.dsy.dsu.BusinessLogicPublic.GetPingServers.GetPingServerJbossNotActivity;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Services.ServiceForRemoteAsyncBinary;
 import com.dsy.dsu.Services.ServiceUpdatesPO;

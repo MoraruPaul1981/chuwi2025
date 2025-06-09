@@ -5,10 +5,8 @@ import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
-import com.sous.backasync.launch.ModuleСalled;
 
 import java.util.Date;
 
@@ -94,7 +92,7 @@ public class CoreApp extends Application {
               " \n" +
               " STARTED    COREAPP    " +" BREMY " +new Date().toLocaleString());
 
-     // new BunessLogicCoreApp(getApplicationContext()).getBunessLogicCoreApp();
+     // new GetCreateFilesApp(getApplicationContext()).getBunessLogicCoreApp();
 
 
       ///  getBinderAsync = EntryPoints.get(getApplicationContext(), HiltInterfaceBinderAsync.class).metodBinderAsync();

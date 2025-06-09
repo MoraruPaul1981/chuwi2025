@@ -23,7 +23,7 @@ import androidx.work.WorkManager;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.BusinessLogicAll.SubClass_ДляСменыСтатусаНаЗадачиВыполненыйОтказОтмененный;
+import com.dsy.dsu.BusinessLogicPublic.SubClass_ДляСменыСтатусаНаЗадачиВыполненыйОтказОтмененный;
 import com.dsy.dsu.Tasks.MainActivity_Tasks;
 import com.sous.backasync.launch.ModuleQuety;
 

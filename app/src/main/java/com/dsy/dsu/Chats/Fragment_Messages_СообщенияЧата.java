@@ -32,10 +32,10 @@ import androidx.lifecycle.Observer;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.SubClassGET_FIO;
+import com.dsy.dsu.BusinessLogicPublic.SubClassGET_FIO;
 
 import com.dsy.dsu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -1378,7 +1378,7 @@ try {
         /////
         public MODEL(Activity activity) {
             try {
-                Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
+                Integer ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());
 
                 Log.d(this.getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +
@@ -1472,7 +1472,7 @@ try {
 
         public void МетодПолученияПубличногоIDДляСообщенийЧата() {
             try {
-                Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
+                Integer ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());;
 
                 Log.d(this.getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +

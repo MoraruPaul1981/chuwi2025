@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.BusinessLogicAll.Class_Get_Json_1C;
+import com.dsy.dsu.BusinessLogicPublic.Class_Get_Json_1C;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;

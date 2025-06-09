@@ -44,12 +44,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GreatUuidGenerations.GreatUuidGeneration;
 
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
+
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.OrdersTransports.Background.ServiceOrserTransportService;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -111,7 +110,7 @@ public class FragmentNewOrderTransport extends Fragment {
             // TODO: 27.04.2023  Запускаем  Новый Заказ Транпорта
             subClassNewOrderTransport    =new SubClassNewOrderTransport(getActivity());
             subClassSetAllSprabochnik=           new SubClassSetAllSprabochnik();
-            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйID = new GetttingPublicID().getttingPublicID(getContext());
             localBinderNewOrderTransport =  (ServiceOrserTransportService.  LocalBinderOrderTransport) getArguments().getBinder("binder");
             animationvibr1 = AnimationUtils.loadAnimation(getContext(),R.anim.slide_singletable2);//
             preferencesМатериалы = getContext().getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
@@ -933,7 +932,7 @@ public class FragmentNewOrderTransport extends Fragment {
                 String getName=     bundlegetCfo.getString("getName");
                 subClassNewOrderTransport.     методЗаписьВыбраногоЦФО(getId,getName);
                 // TODO: 06.06.2023 запускаем сихорнизацию одноразовую
-                Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
+                Integer ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +

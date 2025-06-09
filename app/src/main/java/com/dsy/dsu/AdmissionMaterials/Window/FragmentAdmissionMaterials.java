@@ -44,9 +44,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.Services.ServiceUpdatesPO;
 import com.dsy.dsu.R;
@@ -589,7 +589,7 @@ public class FragmentAdmissionMaterials extends Fragment {
                             try {
                                 progressBarСканирование.setVisibility(View.VISIBLE);
                                 МетодЗапускаАнимацииКнопок(v);
-                                Integer getPublicIdForError =   new GetPublicID().getPublicIDAllApp(getContext());
+                                Integer getPublicIdForError =   new GetttingPublicID().getttingPublicID(getContext());
 
                                 // TODO: 16.11.2022  запуск синхронизации однорозовая
                                 Log.d(this.getClass().getName(), "  v  " + v);
@@ -966,7 +966,7 @@ public class FragmentAdmissionMaterials extends Fragment {
     // TODO: 02.08.2022
     protected   Cursor методGetCFOCursorFirst(@NonNull String  ФлагКакиеДанныеНужныПолучениеМатериалов, @NonNull Integer ТекущаяЦФО ){
         try{
-            ПубличныйIDДляФрагмента      =  new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента      = new GetttingPublicID().getttingPublicID(getContext());
 
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);

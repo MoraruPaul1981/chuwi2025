@@ -185,16 +185,9 @@
             android:showOnLockScreen="true">
 
         </service>
-        <service
-            android:name=".Services.ServiceForPublic"
-            android:directBootAware="true"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:requestLegacyExternalStorage="true"
-            android:showOnLockScreen="true">
 
-        </service>
+
+
         <service
             android:name=".Services.ServiceForCommitPay"
             android:directBootAware="true"
@@ -432,26 +425,7 @@
 
 
 
-        <activity
-            android:name=".Tabels.Templates.MainActivity_New_Templates"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:label="Шаблоны Табелей"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Templates.MainActivity_New_Templates" />
-        </activity>
-        <activity
-            android:name=".Tabels.Templates.MainActivity_Find_Templates"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:label="Поиск Шаблон Сотурдников"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Templates.MainActivity_Find_Templates" />
-        </activity>
+
         <activity
             android:name=".Tabels.Tabel.Single.view.MainActivity_Metki_Tabel"
             android:exported="true"
@@ -462,22 +436,49 @@
                 android:value="com.dsy.dsu.Tabels.Tabel.Single.view.MainActivity_Metki_Tabel" />
         </activity> <!-- TODO НАЧИНАЮТЬСЯ РАБОЧИЕ АКТИВИТИ ПРИЛОЖЕНИЯ -->
         <activity
-            android:name=".Tabels.Peoples.MainActivity_Find_Peoples"
+            android:name=".Tabels.Peoples.MainActivityFindPeoples"
             android:exported="true"
             android:label="Выбор Сотрудника"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivity_Find_Peoples" />
+                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
         </activity>
+
         <activity
-            android:name=".Tabels.Peoples.MainActivity_New_People"
+            android:name=".Tabels.Templates.MainActivityListTemplates"
+            android:exported="true"
+            android:label="Списко шаблонов"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
+        </activity>
+
+        <activity
+            android:name=".Tabels.Templates.MainActivityFindTemplates"
+            android:exported="true"
+            android:label="Поиск шаблон"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
+        </activity>
+
+
+
+
+
+
+
+        <activity
+            android:name=".Tabels.Peoples.MainActivityNewPeople"
             android:exported="true"
             android:label="Новый Сотрудник"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivity_New_People" />
+                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityNewPeople" />
         </activity>
         <activity
             android:name=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
@@ -487,19 +488,19 @@
             android:windowSoftInputMode="stateVisible|adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivity_List_Peoples" />
+                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityListPeoples" />
         </activity>
         <activity
-            android:name=".Tabels.Peoples.MainActivity_List_Peoples"
+            android:name=".Tabels.Peoples.MainActivityListPeoples"
             android:exported="true"
             android:label="Сотрудники Табеля"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels" />
+                android:value="com.dsy.dsu.Tabels.Tabel.ListTabels.MainActivity_List_Tabels" />
         </activity>
         <activity
-            android:name=".Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels"
+            android:name=".Tabels.Tabel.ListTabels.MainActivity_List_Tabels"
             android:exported="true"
             android:label="Выбор ЦФО"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -509,13 +510,13 @@
 
 
         <activity
-            android:name=".Tabels.Tabel.New.MainActivity_New_Tabely"
+            android:name=".Tabels.Tabel.New.MainActivityNewTabels"
             android:exported="true"
             android:label="Логины ДСУ-1"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels" />
+                android:value="com.dsy.dsu.Tabels.Tabel.ListTabels.MainActivity_List_Tabels" />
         </activity>
         <activity
             android:name=".Settings.View.MainActivity_Settings"

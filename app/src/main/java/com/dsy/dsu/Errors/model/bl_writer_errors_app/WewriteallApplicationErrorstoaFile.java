@@ -1,34 +1,18 @@
 package com.dsy.dsu.Errors.model.bl_writer_errors_app;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
 
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.CallNavigarlaout.CallNavigarlaout;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class WewriteallApplicationErrorstoaFile {

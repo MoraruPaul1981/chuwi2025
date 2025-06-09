@@ -3,7 +3,7 @@ package com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassCreateFolders;
+import com.dsy.dsu.BusinessLogicPublic.CreateFolderBinatySave.ClassCreateFolders;
 
 public class ClassCreateFolderUpdatePO extends ClassCreateFolders {
     public ClassCreateFolderUpdatePO(Context context) {

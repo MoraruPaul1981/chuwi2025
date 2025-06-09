@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltWorkerTableCoreApp;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.hilt.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;

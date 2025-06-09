@@ -16,11 +16,8 @@ import androidx.work.WorkManager;
 
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.R;
-
-import dagger.hilt.EntryPoints;
 
 
 public class MainActivity_Tasks extends FragmentActivity {
@@ -31,7 +28,7 @@ public class MainActivity_Tasks extends FragmentActivity {
     private FragmentTransaction fragmentTransactionляЗадачи;
     private Fragment fragment_дляЗадачиПерваяКнопка;
 
-   private GetPublicID getPublic_id;
+   
     private WorkInfo WorkInfoИнформацияОЗапущенойСлужбеОдноразовая;
     private String ИмяСлужбыСинхронизацииОдноразовая = "WorkManager Synchronizasiy_Data Disposable";
 
@@ -61,7 +58,7 @@ public class MainActivity_Tasks extends FragmentActivity {
                 WorkInfoИнформацияОЗапущенойСлужбеОдноразовая=   WorkManager.getInstance(getApplicationContext()).getWorkInfosByTag(ИмяСлужбыСинхронизацииОдноразовая).get() .get(0);
             if (WorkInfoИнформацияОЗапущенойСлужбеОдноразовая.getState().compareTo(WorkInfo.State.RUNNING)!=0) {
 // TODO: 02.03.2022
-                Integer ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getApplicationContext());
+                Integer ПубличныйIDДляФрагмента = new GetttingPublicID().getttingPublicID(getContext());;
 
 
 

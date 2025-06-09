@@ -40,7 +40,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Gsons.SubClass_JSON_B_P_GET_1C_shipment_of_materials;
@@ -221,7 +221,8 @@ public class Fragment1_List_Shipment_of_Materials extends Fragment    {
             Log.d(this.getClass().getName(), " отработоатл new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент1 imageView  Fragment1_One_Tasks  onStart");
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов();
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодПодключенияКСлужбеБиндингом();
-            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента = new GetttingPublicID().getttingPublicID(getContext());
+
             subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодИнициализациHandlerCallBack();
             БуферОт1ССписокЦФО = subClassBuccessLogin_главныйКлассБизнесЛогикиФрагментОтгрузкаМатериалов.МетодОбобщенныйДляПервогоЭтапаПолучаемСпискЦфоОт1С();
             Log.d(this.getClass().getName(), " нет данных  БуферРезультатПолучениеДанныхОт1СПервыйЭтап  " + БуферОт1ССписокЦФО);

@@ -4,7 +4,7 @@ package com.dsy.dsu.Hilt.PublicId;
 import android.content.Context;
 import android.util.Log;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import dagger.Module;
@@ -26,12 +26,8 @@ public class ModulePublicId {
     public Integer getHiltPublicId(@ApplicationContext Context context) {
         Integer ПубличныйID = 0;
         try {
-            ПубличныйID =
-                    new GetPublicID().getPublicIDAllApp(context);
+            ПубличныйID = new GetttingPublicID().getttingPublicID(context);
             // TODO: 29.01.2024
-   ///// ПубличныйID=96;
-        /////   ПубличныйID=8;
-        ///// ПубличныйID=96;
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                     " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"

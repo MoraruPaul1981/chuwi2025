@@ -20,7 +20,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.BLFragmentCommintingPrices;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.EventsBackAndAsyncAndSearchCommintPrices;
 import com.dsy.dsu.CommitPrices.Model.BiccessLogicas.InitRecyreviews.InizializayRecyreViews;

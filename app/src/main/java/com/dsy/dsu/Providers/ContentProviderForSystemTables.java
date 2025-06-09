@@ -20,18 +20,15 @@ import androidx.annotation.Nullable;
 import com.dsy.dsu.AllDatabases.bl_MODIFITATION_Client.GetClearsMODIFITATION_Client;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSettingsTabels;
 import com.dsy.dsu.AllDatabases.bl_SettingandSucceesLogin.SettingAndLoginBinesslogicSuccessLogin;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltSystemTableCoreApp;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.hilt.HiltSystemTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
-import com.sous.backasync.businesslogic.hill.HiltWorkerTableBarckAync;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import dagger.hilt.EntryPoints;
@@ -120,15 +117,14 @@ public class ContentProviderForSystemTables extends ContentProvider  {
             // TODO: 14.10.2022 метод определения текущней таблицы
             String table = МетодОпределяемТаблицу(uri);
             if (table!=null) {
-                РезультатУдаления  = sqlite.delete(table, selection, selectionArgs);
+                SQLiteStatement sqLiteStatementDelete=     sqlite.compileStatement(selection);
+                   sqLiteStatementDelete.execute();
+
+               // РезультатУдаления  = sqlite.delete(table, selection, selectionArgs);
                 // TODO: 30.10.2021
                 Log.w(getContext().getClass().getName(), " РезультатУдаления  " + РезультатУдаления);/////
-                if (РезультатУдаления> 0) {
-                    getContext().getContentResolver().notifyChange(uri, null);
-                    if (sqlite.inTransaction()) {
+
                         sqlite.setTransactionSuccessful();
-                    }
-                }
             }
             if (sqlite.inTransaction()) {
                 sqlite.endTransaction();
@@ -437,31 +433,39 @@ public class ContentProviderForSystemTables extends ContentProvider  {
 
 
                         break;
-                    case  "MODIFITATION_Client":
 
+                    // TODO: 06.06.2025 все остальные таблицы
+                    default:{
                         // TODO: 08.10.2024
                         GetClearsMODIFITATION_Client getClearsMODIFITATIONClient
                                 =  new GetClearsMODIFITATION_Client(getContext(), sqlite);
-
+                        // TODO: 06.06.2025
                         SQLiteStatement sqLiteStatementMODIFITATIONClient=
-                                getClearsMODIFITATIONClient.sqLiteStatementUpdateMODIFITATION_Client(table,values);
+                                getClearsMODIFITATIONClient.sqLiteStatementUpdateMODIFITATION_Client(table,values   );
                         // TODO: 08.10.2024
 
                         РезультатUpdates=      sqLiteStatementMODIFITATIONClient.executeUpdateDelete();
 
-                            // TODO: 08.10.2024
+                        // TODO: 08.10.2024
                         Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                                 " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                 " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +РезультатUpdates);
 
+                        // TODO: 08.10.2024
+                        Log.d(this.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"+ "  recordingShiftdSSLconnectionMode " +РезультатUpdates);
                         break;
+                    }
 
                         }
 
                             // TODO: 08.10.2024
-                            sqlite.setTransactionSuccessful();
+                if (РезультатUpdates>0) {
+                    sqlite.setTransactionSuccessful();
+                }
 
-                        if (sqlite.inTransaction()) {
+                if (sqlite.inTransaction()) {
                             sqlite.endTransaction();
                         }
                 }

@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;

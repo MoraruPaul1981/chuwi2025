@@ -22,7 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.dsy.dsu.BootAndAsync.Model.DowloadUpdatePO.DeletingFiles.GetDeletingFilesJsonAndApk;
 
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusNetworkStatuses;
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;

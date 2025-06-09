@@ -25,7 +25,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.dsy.dsu.AdmissionMaterials.Window.MainActivity_AdmissionMaterials;
 import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.GetFinishAffinityFragment;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
+import com.dsy.dsu.BroadcastRecievers.Bl.RegisterBroadcastForWorkManager;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.CommitPrices.View.Window.MainActivityCommitingPrices;
 
 import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
@@ -37,7 +38,7 @@ import com.dsy.dsu.OrdersTransports.Window.MainActivityOrdersTransports;
 import com.dsy.dsu.PaysCommit.View.Window.MainActivity_CommitPay;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Services.ServiceUpdatesPO;
-import com.dsy.dsu.Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels;
+import com.dsy.dsu.Tabels.Tabel.ListTabels.MainActivity_List_Tabels;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -79,6 +80,8 @@ public class DashboardFaceApp extends  DialogFragment  {
     @Inject
     @QualifierPublicID
         Integer getHiltPublicId;
+    @Inject
+    RegisterBroadcastForWorkManager registerBroadcastForWorkManager;
 
   public    ViewPager2 pagerdachbord;
     protected LifecycleOwner getlifecycleOwner  ;
@@ -233,7 +236,9 @@ public class DashboardFaceApp extends  DialogFragment  {
                     ,КнопкаПоступлениеМатериалов,
                     КнопкаТабель,getGrantRemote);
 
+// TODO: 06.06.2025 workmanager registert
 
+            registerBroadcastForWorkManager.statingPublicWorkMAnager(getContext());
 
 
 

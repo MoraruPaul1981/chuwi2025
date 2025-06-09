@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".Tabels.Peoples.MainActivity_List_Peoples">
+    tools:context=".Tabels.Peoples.MainActivityListPeoples">
 
 
     <com.google.android.material.card.MaterialCardView

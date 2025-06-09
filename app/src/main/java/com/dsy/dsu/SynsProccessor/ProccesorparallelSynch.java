@@ -11,11 +11,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.Jakson.GeneratorBinarySONSerializer;
-import com.dsy.dsu.BusinessLogicAll.Jakson.GeneratorJSONSerializer;
-import com.dsy.dsu.BusinessLogicAll.SharedPreferences.GetSharedPreferences;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.Jakson.GeneratorBinarySONSerializer;
+import com.dsy.dsu.BusinessLogicPublic.Jakson.GeneratorJSONSerializer;
+import com.dsy.dsu.BusinessLogicPublic.SharedPreferences.GetSharedPreferences;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.SynsProccessor.PrograsBarAsync.GetPrograssbarChangeIndicator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -38,7 +38,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.IntPredicate;
 import java.util.function.LongBinaryOperator;
@@ -63,7 +62,7 @@ public class ProccesorparallelSynch   {
 
     protected Integer PublicID;
 
-    @NonNull LinkedHashMap<Integer,String> getHiltPortJboss;
+    protected  @NonNull LinkedHashMap<Integer,String> getHiltPortJboss;
 
     private SharedPreferences preferences;
 
@@ -94,7 +93,7 @@ public class ProccesorparallelSynch   {
         try{
             // TODO: 30.09.2024
             preferences =context. getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
-             РежимЗапускаСинхронизации = preferences.getString("РежимЗапускаСинхронизации","СамыйПервыйЗапускСинхронизации");
+             РежимЗапускаСинхронизации = preferences.getString("РежимЗапускаСинхронизации" ,null);
             // TODO: 20.01.2025 сама синхрониаиця
             switch (РежимЗапускаСинхронизации){
 // TODO: 20.01.2025 сама синхрониаиця

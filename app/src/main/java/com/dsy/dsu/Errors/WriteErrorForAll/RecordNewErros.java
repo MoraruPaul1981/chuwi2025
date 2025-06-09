@@ -2,22 +2,20 @@ package com.dsy.dsu.Errors.WriteErrorForAll;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.AtomicFile;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 
-import com.dsy.dsu.BusinessLogicAll.GreatUuidGenerations.GreatUuidGeneration;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.DeviceName.ModulegetDeviceName;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GreatUuidGenerations.GreatUuidGeneration;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
+import com.dsy.dsu.BusinessLogicPublic.DeviceName.ModulegetDeviceName;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.model.bl_writer_errors_app.WewriteallApplicationErrorstoaFile;
 import com.dsy.dsu.Errors.model.interfaces.RecordNewErrorsInterface;
 import com.sous.backasync.launch.ModuleInserting;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -158,7 +156,7 @@ public class RecordNewErros  implements RecordNewErrorsInterface {
                     new GreatUuidGeneration(context).greatUuidGeneration();
      
 
-            Integer getPublicIdForError =   new GetPublicID().getPublicIDAllApp(context);
+            Integer getPublicIdForError =    new GetttingPublicID().getttingPublicID(context);
 
 
             String getNewDateForError = new Class_Generation_Data(context).ГлавнаяДатаИВремяОперацийСБазойДанных();

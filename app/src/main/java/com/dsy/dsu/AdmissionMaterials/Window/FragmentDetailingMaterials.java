@@ -42,8 +42,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
@@ -571,7 +571,7 @@ public class FragmentDetailingMaterials extends Fragment {
 
                     МетодЗапускаАнимацииКнопок(GetNameSingleAsync1c);
                     handler.postDelayed(()->{
-                                Integer ПубличныйIDДляФрагмента =    new GetPublicID().getPublicIDAllApp(getContext());
+                                Integer ПубличныйIDДляФрагмента =   new GetttingPublicID().getttingPublicID(getContext());
 
                             },
                             500);
@@ -956,7 +956,7 @@ public class FragmentDetailingMaterials extends Fragment {
     , @NonNull Integer НомерВыбраногоМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     =     new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента     =     new GetttingPublicID().getttingPublicID(getContext());
 
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);

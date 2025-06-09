@@ -53,7 +53,6 @@ import android.widget.TextView;
 
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.OrdersTransports.Background.ServiceOrserTransportService;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Services.ServiceUpdatesPO;
@@ -157,7 +156,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
             lifecycleOwnerОдноразовая =this;
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
-            ПубличныйID = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйID = new GetttingPublicID().getttingPublicID(getContext());
 
             subClassOrdersTransport.   МетодHandlerCallBack();
 
@@ -582,7 +581,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
                             progressBarСканирование.setVisibility(View.VISIBLE);
                             МетодЗапускаАнимацииКнопок(v);
 
-                            Integer ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
+                            Integer ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());
                             // TODO: 16.11.2022  запуск синхронизации однорозовая
 
 

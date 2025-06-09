@@ -1,16 +1,13 @@
 package com.dsy.dsu.Settings.Model;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.sous.backasync.businesslogic.dates.Class_GenerationBack_Data;
 import com.sous.backasync.launch.ModuleUpdating;

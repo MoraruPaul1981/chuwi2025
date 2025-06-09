@@ -37,8 +37,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
-
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 import com.dsy.dsu.Services.ServiceForTasks;
@@ -79,7 +77,7 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
     private  Cursor Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе = null;
     private Handler handlerTaskFragment4;
     private ProgressBar progressBarTaskFragment4;
-    private GetPublicID getPublic_id;
+    
     private FragmentManager fragmentManagerДляЗадачи;
     private FragmentTransaction fragmentTransactionляЗадачи;
     private Fragment fragment_ТекущийФрагмент;
@@ -259,7 +257,7 @@ public class Fragment4_Now_Views_Task_For_Complete extends Fragment {
                     "" + subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент4ЗаполенияЗадачиДляСозданияНовойЗадачи);
 
             // TODO: 02.03.2022
-            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента = new GetttingPublicID().getttingPublicID(getContext());
 
 
             // TODO: 15.03.2022

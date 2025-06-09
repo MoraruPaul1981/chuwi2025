@@ -36,10 +36,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -63,14 +62,14 @@ import java.util.concurrent.ExecutionException;
 public class Fragment2_Create_Tasks extends Fragment {
     // TODO: 15.03.2022
     private RecyclerView recyclerView;
-    private SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2 subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2;
+    private SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2 БизнесЛогикиФрагмент2;
     private SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2.MyRecycleViewAdapter myRecycleViewAdapter;
     private SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2.MyViewHolder myViewHolder;
     private View viewДляПервойКнопкиHome_Задания ;
     private  Cursor Курсор_ГлавныйКурсорДляЗадач;
     private  Cursor Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе ;
     private AccessibilityNodeInfo accessibilityNodeInfoBundle;
-    private GetPublicID getPublic_id;
+
     private    Bundle   BungleДанныеДляViewCard;
     private   Bundle BungleДанныеДляViewCardBungle;
     private    Bundle   BungleДанныеДляViewCardBungleID;
@@ -134,9 +133,9 @@ public class Fragment2_Create_Tasks extends Fragment {
             bottomNavigationКонкретноКнопкаКонтролируемыеЗадачи.setTitle("Задачи");
             bottomNavigationПринудительныйОбмен = bottomNavigationViewДляTasks.findViewById(R.id.id_taskAsyns);
             Log.d(this.getClass().getName(), "  Fragment2_Create_Tasks  viewДляПервойКнопкиHome_Задания ---/" + viewДляПервойКнопкиHome_Задания +
-                    " subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 " + subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2);
+                    " subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 " + БизнесЛогикиФрагмент2);
 // TODO: 02.08.2022  иницаализация  recycreView
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодИнициализацииRecycleViewДляЗадач(viewДляПервойКнопкиHome_Задания);
+            БизнесЛогикиФрагмент2.МетодИнициализацииRecycleViewДляЗадач(viewДляПервойКнопкиHome_Задания);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,12 +162,12 @@ public class Fragment2_Create_Tasks extends Fragment {
 
 
         // TODO: 02.08.2022 инициализация классовдля работы
-        subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2(getContext(), getActivity());
+        БизнесЛогикиФрагмент2 = new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2(getContext(), getActivity());
 
         // TODO: 02.08.2022  инициализация двух слуушатель для двух work manager
-        subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerФрагмент2();
-        subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerОбщщийДополнительныйФрагмент2();
-        subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодИнициализациHandlerCallBack();
+        БизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerФрагмент2();
+        БизнесЛогикиФрагмент2.МетодСоздаенияСлушателяДляЧатаWorkMAnagerОбщщийДополнительныйФрагмент2();
+        БизнесЛогикиФрагмент2.МетодИнициализациHandlerCallBack();
     } catch (Exception e) {
         e.printStackTrace();
         Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
@@ -205,10 +204,11 @@ public class Fragment2_Create_Tasks extends Fragment {
         // TODO: 20.07.2022
         try{
             // TODO: 14.03.2022
-            ПубличныйIDДляФрагмента = new GetPublicID().getPublicIDAllApp(getContext());
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодПолучаемГлавныеДанныеДляЗадач(ПубличныйIDДляФрагмента);
-            Log.d(this.getClass().getName(), "ПубличныйIDДляФрагмента " + ПубличныйIDДляФрагмента);
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодПолученимТОлькоКоличествоЗадач(ПубличныйIDДляФрагмента);
+            ПубличныйIDДляФрагмента =  new GetttingPublicID().getttingPublicID(getContext());
+            БизнесЛогикиФрагмент2.
+                    МетодПолучаемГлавныеДанныеДляЗадач(ПубличныйIDДляФрагмента);
+
+            БизнесЛогикиФрагмент2.МетодПолученимТОлькоКоличествоЗадач(ПубличныйIDДляФрагмента);
         } catch (Exception e) {
             e.printStackTrace();
             ///метод запись ошибок в таблицу
@@ -225,14 +225,14 @@ public class Fragment2_Create_Tasks extends Fragment {
         super.onResume();
         try {
             Log.d(this.getClass().getName(), "Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе " + Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе+ " + Курсор_ГлавныйКурсорДляЗадач " + Курсор_ГлавныйКурсорДляЗадач);
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСозданиеНавигаторКнопок();
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодКпопкаСоЗачкомКраснымДополнительныйСтатус(Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе);
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодЗаполенияRecycleViewДляЗадач(viewДляПервойКнопкиHome_Задания);
-            subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2.МетодСлушательObserverДляRecycleView();
+            БизнесЛогикиФрагмент2.МетодСозданиеНавигаторКнопок();
+            БизнесЛогикиФрагмент2.МетодКпопкаСоЗачкомКраснымДополнительныйСтатус(Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе);
+            БизнесЛогикиФрагмент2.МетодЗаполенияRecycleViewДляЗадач(viewДляПервойКнопкиHome_Задания);
+            БизнесЛогикиФрагмент2.МетодСлушательObserverДляRecycleView();
 
             Log.d(this.getClass().getName(), " отработоатл new SubClassBuccessLogin_ГлавныйКлассБизнесЛогикиФрагмент2 ИмяСлужбыСинхронизацииДляЗадачиИзЧата   Fragment2_Create_Tasks " +
                     "" + ИмяСлужбыСинхронизацииОдноразовая +
-                    " subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 " + subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2);
+                    " subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент2 " + БизнесЛогикиФрагмент2);
             // TODO: 04.03.2022 создаем слушатель    третий класс создаем ЗАПУСКАЕМ  второай слушатель только количество данных СЛУШАТЕЛЬ КУРСОРРА
         } catch (Exception e) {
             e.printStackTrace();

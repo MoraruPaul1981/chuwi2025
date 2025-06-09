@@ -7,8 +7,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -127,7 +126,7 @@ public class AsynsProccessor extends CoreBinessLogics {
         Long результатСинхрониазции=0l;
         try {
             ////САМАЯ ПЕРВАЯ КОМАНДА НАЧАЛА ОБМНЕНА ДАННЫМИ///// TODO ГЛАВНЫЙ МЕТОД ОБМЕНА ДАНЫМИ  НА АКТИВИТИ FACE_APP
-            Integer getPublicID = new GetPublicID().getPublicIDAllApp(context);
+            Integer getPublicID = new GetttingPublicID().getttingPublicID(getContext());
             //TODO
             if (getPublicID > 0) {
                 результатСинхрониазции = МетодПолучениеСпискаТаблицДляОбменаДанными(getPublicID);

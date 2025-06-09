@@ -61,8 +61,8 @@ import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.AdmissionMaterials.Service.ServiceCameraTake;
 import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
@@ -684,10 +684,11 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
 
     // TODO: 02.08.2022
     protected   Cursor МетодДляПолучениеДанныхИзСлужбыДляСозданияНовогоМатериала(@NonNull String  ФлагКакаяТаблицаОбработки,
-                                                                                 @NonNull Intent intent,@NonNull String ФлагКакаяРаботаНужнаДляВыполнения){
+                                                                                 @NonNull Intent intent,
+                                                                                 @NonNull String ФлагКакаяРаботаНужнаДляВыполнения){
         Cursor cursor = null;
         try{
-            ПубличныйIDДляФрагмента     =     new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента     =    new GetttingPublicID().getttingPublicID(getContext());
 
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
@@ -696,7 +697,8 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
             Intent intentПолучениеМатериалов = new Intent(getContext(), ServiceForAdminissionMaterial.class);
             intentПолучениеМатериалов.setAction(ФлагКакаяРаботаНужнаДляВыполнения);
             intentПолучениеМатериалов.putExtras(bundleДляПЕредачи);
-                cursor = (Cursor) binderДляПолучениеМатериалов.getService().МетодCлужбыПолучениеМатериалов(getContext(), intentПолучениеМатериалов);
+                cursor = (Cursor) binderДляПолучениеМатериалов.getService().
+                        МетодCлужбыПолучениеМатериалов(getContext(), intentПолучениеМатериалов);
                 Log.d(this.getClass().getName(), "   cursor " + cursor);
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
@@ -1298,7 +1300,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
             Cursor cursor = null;
             LinkedHashMap<String, Object> linkedHashMap=null;
             try{
-                Integer   ПубличныйIDДляФрагмента    =   new GetPublicID().getPublicIDAllApp(getContext());
+                Integer   ПубличныйIDДляФрагмента    =   new GetttingPublicID().getttingPublicID(getContext());
 
                 Log.d(getContext().getClass().getName(), "\n"
                         + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
@@ -1327,7 +1329,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
             Cursor cursor = null;
             LinkedHashMap<String, Object> linkedHashMap=null;
             try{
-                Integer   ПубличныйIDДляФрагмента  =   new GetPublicID().getPublicIDAllApp(getContext());
+                Integer   ПубличныйIDДляФрагмента  =   new GetttingPublicID().getttingPublicID(getContext());
 
                 Log.d(getContext().getClass().getName(), "\n"
                         + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
@@ -1357,7 +1359,7 @@ void методCallsBackFromCameraX(@NonNull  Bitmap bitmapNewCompleteImage, @No
             Cursor cursor = null;
             LinkedHashMap<String, Object> linkedHashMap=null;
             try{
-                Integer   ПубличныйIDДляФрагмента       =new GetPublicID().getPublicIDAllApp(getContext());
+                Integer   ПубличныйIDДляФрагмента       =new GetttingPublicID().getttingPublicID(getContext());
                 Log.d(getContext().getClass().getName(), "\n"
                         + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);
                 Bundle bundleДляПЕредачи=new Bundle();

@@ -49,8 +49,8 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.dsy.dsu.AdmissionMaterials.bl_admissonmaterils.PesssionCameta;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.Services.ServiceForAdminissionMaterial;
 import com.dsy.dsu.R;
@@ -515,7 +515,7 @@ public class FragmentImagesMaterials extends Fragment {
                         progressBarСканирование.setVisibility(View.VISIBLE);
                         МетодЗапускаАнимацииКнопок(v);
                         message.getTarget().postDelayed(()->{
-                                    Integer ПубличныйIDДляФрагмента =     new GetPublicID().getPublicIDAllApp(getContext());
+                                    Integer ПубличныйIDДляФрагмента =     new GetttingPublicID().getttingPublicID(getContext());
 
                                     // TODO: 16.11.2022  запуск синхронизации однорозовая
                                     },
@@ -842,7 +842,7 @@ public class FragmentImagesMaterials extends Fragment {
     , @NonNull Integer ТекущаяНомерМатериала ){
         Cursor cursorДетализацияМатериала = null;
         try{
-            ПубличныйIDДляФрагмента     =     new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента     =    new GetttingPublicID().getttingPublicID(getContext());
 
             Log.d(getContext().getClass().getName(), "\n"
                     + " ПубличныйIDДляФрагмента: " + ПубличныйIDДляФрагмента);

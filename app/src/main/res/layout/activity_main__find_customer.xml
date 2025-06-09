@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:cardBackgroundColor="@color/icon_dashdornd_tabel2_background"
     app:layout_scrollFlags="snapMargins|scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
-    tools:context=".Tabels.Peoples.MainActivity_Find_Peoples"
+    tools:context=".Tabels.Peoples.MainActivityFindPeoples"
     tools:visibility="visible">
 
 

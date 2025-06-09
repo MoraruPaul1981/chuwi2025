@@ -5,17 +5,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.window.OnBackInvokedDispatcher;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.LaunchActivityFragmentBoot;
-import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
-import com.dsy.dsu.CoreApp.Model.BunessLogicCoreApp;
-import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
-import com.dsy.dsu.Dashboard.Model.endingasynsdashboard.LaunchMainAppAfterSyncing;
+import com.dsy.dsu.BusinessLogicPublic.Permissions.GrandPermissions;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.R;
 
@@ -47,8 +42,7 @@ public class MainActivityBootAndAsync extends AppCompatActivity {
             grandPermissions.checkPermissions();
 
 
-            // TODO   запускам бизнес логику CoreApp
-            new BunessLogicCoreApp(getApplicationContext()).getBunessLogicCoreApp();
+
 
 
                 LaunchActivityFragmentBoot launchFragmentBoot= new LaunchActivityFragmentBoot(fragmentManagerBoot, getApplicationContext());

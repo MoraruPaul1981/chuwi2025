@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Message;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -26,30 +23,23 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.multidex.BuildConfig;
 
 
 import com.dsy.dsu.BootAndAsync.View.MainActivityBootAndAsync;
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.GetClearDataUserAnCnahgeData;
-import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.GetPingServers.GetPingServerJboss;
 
-import com.dsy.dsu.BusinessLogicAll.CreateFolderBinatySave.ClassDeleteErrorFile;
-import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
-import com.dsy.dsu.BusinessLogicAll.Permissions.GrandPermissions;
-import com.dsy.dsu.JbossAdress.JbossContext;
-import com.dsy.dsu.CoreApp.Model.BunessLogicCoreApp;
+import com.dsy.dsu.BusinessLogicPublic.CreateFolderBinatySave.ClassDeleteErrorFile;
+import com.dsy.dsu.BusinessLogicPublic.GetConnectivityManagerAndroid;
+import com.dsy.dsu.BusinessLogicPublic.Permissions.GrandPermissions;
+import com.dsy.dsu.CoreApp.Model.GetCreateFilesApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
-import com.dsy.dsu.BusinessLogicAll.SubClassWriterPUBLICIDtoDatabase;
+import com.dsy.dsu.BusinessLogicPublic.SubClassWriterPUBLICIDtoDatabase;
 
 import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.QualifierPortJboss;
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
@@ -63,7 +53,6 @@ import com.jakewharton.rxbinding4.view.RxView;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -95,9 +84,7 @@ public class MainActivityPasswords extends AppCompatActivity {
     private String ПубличноеПароль = new String();
     private SharedPreferences preferences;
     private String ОшибкиПришлиПослеПингаОтСервера = null;
-    private Message message;
-    public static final int ALL_PERSSION_CODE=1;
-    public static final int CAMERA_PERSSION_CODE=2;
+
 
 
 
@@ -105,14 +92,9 @@ public class MainActivityPasswords extends AppCompatActivity {
     @QualifiergetsslSocketFactory2
     SSLSocketFactory getsslSocketFactory2;
 
-
     @Inject
     @QualifierPortJboss
     public LinkedHashMap<Integer,String> getHiltPortJboss;
-
-    private  String getstepAsync;
-    //////////////////////TODO SERVICE
-
 
     ////
     @Override
@@ -120,51 +102,12 @@ public class MainActivityPasswords extends AppCompatActivity {
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main__authentication);
-
             preferences = getSharedPreferences("sharedPreferencesХранилище", Context.MODE_MULTI_PROCESS);
-
             activity = this;
-            ((Activity) getApplicationContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            ((Activity) getApplicationContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
-            getBunbleSendForActivityPassword();
-
-
-            // TODO: 04.10.2023 разрешения для всего
-            GrandPermissions grandPermissions=   new GrandPermissions(this );
-            grandPermissions.checkPermissions();
-            Log.d(getApplicationContext().getClass().getName(), "\n"
-                    + " время: " + new Date() + "\n+" +
-                    " Класс в процессе... " + this.getClass().getName() + "\n" +
-                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
-
-// TODO   запускам бизнес логику CoreApp
-            new BunessLogicCoreApp(getApplicationContext()).getBunessLogicCoreApp();
-
-
-            методHideКлавиатура();
-
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             getSupportActionBar().hide(); ///скрывать тул бар
-
-            // TODO: 29.09.2023 клавиатура
-
-            Log.d(this.getClass().getName(), "   ");
-            Locale locale = new Locale("rus");
-            Locale.setDefault(locale);
-            config =
-                    getBaseContext().getResources().getConfiguration();
-            config.setLocale(locale);
-            createConfigurationContext(config);
-
-
-            // TODO: 19.12.2023 удаляем файл ошибоок
-            ClassDeleteErrorFile classDeleteErrorFile=new ClassDeleteErrorFile(getApplicationContext());
-            classDeleteErrorFile.МетодDeleteFolders();
-
-// TODO: 19.12.2023 создаем  файл ошибоок
-
-
-
+            // TODO: 06.06.2025 Componens
             КнопкаВходавСистему = (Button) findViewById(R.id.КнопкаВходаВПриложение);/////кнопка входа на сервер
             КнопкаВходавСистему.setVisibility(View.VISIBLE);
             ПрогрессБарДляВходаСистему = (ProgressBar) findViewById(R.id.progressBarДляWIFI); ////програссбар при аунтификации при входе в системму
@@ -173,8 +116,34 @@ public class MainActivityPasswords extends AppCompatActivity {
             ПарольДляВходаСистему = (TextInputEditText) findViewById(R.id.ПарольДляВходавПрограмму); ////програссбар при аунтификации при входе в системму
 
 
-            // TODO: 02.08.2023 БИЗНЕС КОД
+
+
+         String getstepAsync=   getBunbleSendForActivityPassword();
+            // TODO: 06.06.2025 BinessLogic Password Activity
             методЗаписываемПервыйЭтапСинхрогниазции(getstepAsync);
+
+            // TODO: 04.10.2023 разрешения для всего
+            GrandPermissions grandPermissions=   new GrandPermissions(this );
+            grandPermissions.checkPermissions();
+
+
+            // TODO: 19.12.2023 удаляем файл
+            ClassDeleteErrorFile classDeleteErrorFile=new ClassDeleteErrorFile(getApplicationContext());
+            classDeleteErrorFile.getDeleteFolderErrros();
+
+
+            // TODO: 19.12.2023 Создание файл
+            GetCreateFilesApp getCreateFilesApp =     new GetCreateFilesApp(getApplicationContext());
+            getCreateFilesApp.getBunessLogicCoreApp();
+
+
+            методHideКлавиатура();
+
+            Log.d(getApplicationContext().getClass().getName(), "\n"
+                    + " время: " + new Date() + "\n+" +
+                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
+
 
             Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                     " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
@@ -198,7 +167,9 @@ public class MainActivityPasswords extends AppCompatActivity {
         }
     }
 
-    private void getBunbleSendForActivityPassword() {
+    private String getBunbleSendForActivityPassword() {
+        // TODO: 06.06.2025
+    String    getstepAsync=null;
         try{
         Intent intent =  getIntent();
         Bundle bungleforPaaasword =intent.getExtras();
@@ -216,6 +187,7 @@ public class MainActivityPasswords extends AppCompatActivity {
         new RecordNewErros(getApplicationContext()).recordnewerror(e.toString(), this.getClass().getName(),
                 Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
     }
+        return  getstepAsync;
 
     }
 

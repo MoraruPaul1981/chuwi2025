@@ -39,9 +39,9 @@ import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.StartServiceBootAn
 import com.dsy.dsu.BootAndAsync.Model.BinesslogicActivityBoot.GetComponentActivityBootService;
 
 
-import com.dsy.dsu.BusinessLogicAll.CoreBinessLogic.CoreBinessLogics;
-import com.dsy.dsu.BusinessLogicAll.GetClearDataUserAnCnahgeData;
-import com.dsy.dsu.BusinessLogicAll.GetPingServers.GetPingServerJboss;
+import com.dsy.dsu.BusinessLogicPublic.CoreBinessLogic.CoreBinessLogics;
+import com.dsy.dsu.BusinessLogicPublic.GetClearDataUserAnCnahgeData;
+import com.dsy.dsu.BusinessLogicPublic.GetPingServers.GetPingServerJboss;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Dashboard.Model.endingasynsdashboard.LaunchMainAppAfterSyncing;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
@@ -686,78 +686,75 @@ public class DashboardFragmentSettings extends  DialogFragment {
                                     String ПолученыйТекущееИмяПользователя = new CoreBinessLogics(getContext())
                                             .МетодПолучениеИмяСистемыДляСменыПользователя(getActivity());
 
-                                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity())
-                                                .setTitle("Смена данных")
-                                                .setMessage("Данные будут удалены" + "\n"
-                                                        + " (текущий пользователь : ) " + ПолученыйТекущееИмяПользователя.toUpperCase())
-                                                 .setIcon(R.drawable.icon_dsu1_web_success)
-                                             .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        try {
-                                            // TODO: 24.04.2023  запуск смены Пользоватедя Данные
-                                            ProgressDialog    prograssbarСменаДанныхПользователя = new ProgressDialog(getActivity());
-                                            prograssbarСменаДанныхПользователя.setTitle("Смена данных");
-                                            prograssbarСменаДанныхПользователя.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                            prograssbarСменаДанныхПользователя.setProgress(0);
-                                            prograssbarСменаДанныхПользователя.setCanceledOnTouchOutside(false);
-                                            prograssbarСменаДанныхПользователя.setMessage("в процессе...");
-                                            prograssbarСменаДанныхПользователя.show();
+                                    MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
+                                    materialAlertDialogBuilder.setTitle("Смена данных");
+                                    materialAlertDialogBuilder.setMessage("Данные будут удалены" + "\n"
+                                            + " (текущий пользователь : ) " + ПолученыйТекущееИмяПользователя.toUpperCase());
+                                    materialAlertDialogBuilder.setIcon(R.drawable.icon_dsu1_web_success);
+                                    materialAlertDialogBuilder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            try {
+                                                // TODO: 24.04.2023  запуск смены Пользоватедя Данные
+                                                ProgressDialog prograssbarСменаДанныхПользователя = new ProgressDialog(getActivity());
+                                                prograssbarСменаДанныхПользователя.setTitle("Смена данных");
+                                                prograssbarСменаДанныхПользователя.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                prograssbarСменаДанныхПользователя.setProgress(0);
+                                                prograssbarСменаДанныхПользователя.setCanceledOnTouchOutside(false);
+                                                prograssbarСменаДанныхПользователя.setMessage("в процессе...");
+                                                prograssbarСменаДанныхПользователя.show();
 
 
-
-//                                            // TODO: 17.05.2025  Запускае Очистка таблиц
-//                                            GetClearDataUserAnCnahgeData clearDataUserAnCnahgeData      =      new GetClearDataUserAnCnahgeData(getActivity());
-//
-//                                            clearDataUserAnCnahgeData .changeTableWorkerUsers(getContext(),getActivity(),prograssbarСменаДанныхПользователя );
-//
-//
-                                            GetClearDataUserAnCnahgeData clearDataUserAnCnahgeData      =      new GetClearDataUserAnCnahgeData(getActivity());
-                                            // TODO: 29.05.2025  Очистка Системных Таблиц
-                                            Integer ИменаТаблицыSystem=      clearDataUserAnCnahgeData.  changeTableSystemUsers(getContext());
+                                                // TODO: 17.05.2025  Запускае Очистка таблиц
+                                            GetClearDataUserAnCnahgeData clearDataUserAnCnahgeDataWorkerTable      =      new GetClearDataUserAnCnahgeData(getActivity());
+                                            clearDataUserAnCnahgeDataWorkerTable .clearTableWorkerUsers(getContext(),getActivity(),prograssbarСменаДанныхПользователя );
 
 
-//                                            // TODO: 05.06.2025  После Очисты Данных ЗАпускаем Активити Password
-//                                            LaunchMainAppAfterSyncing launchMainAppaftersyncing =new LaunchMainAppAfterSyncing(getActivity());
-//                                            launchMainAppaftersyncing.appAfterSyncingActivityPassword(getActivity(), "ПовторныйЗапускСинхронизации");
+                                                // TODO: 29.05.2025  Очистка Системных Таблиц
+                                                GetClearDataUserAnCnahgeData clearDataUserAnCnahgeDataТаблицыSystem = new GetClearDataUserAnCnahgeData(getActivity());
+                                                clearDataUserAnCnahgeDataТаблицыSystem.clearTableSystemUsers(getContext());
 
 
-                                            Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                                                    + " ИменаТаблицыSystem " +ИменаТаблицыSystem);
+                                                // TODO: 05.06.2025  После Очисты Данных ЗАпускаем Активити Password
+                                                LaunchMainAppAfterSyncing launchMainAppaftersyncing = new LaunchMainAppAfterSyncing(getActivity());
+                                                launchMainAppaftersyncing.appAfterSyncingActivityPassword(getActivity(), "ПовторныйЗапускСинхронизации");
 
-                                            Log.d(this.getClass().getName(), "\n" + " class " +
-                                                    Thread.currentThread().getStackTrace()[2].getClassName()
-                                                    + "\n" +
-                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                                    + " Линия  :"
-                                                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                            new RecordNewErros(getContext()).recordnewerror(e.toString(),
-                                                    this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                                                    Thread.currentThread().getStackTrace()[2].getLineNumber());
-                                        }
 
-                                    }
-                                })
-                                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
+                                                Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
+                                                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
 
-                                                dialog.cancel();
-                                                dialog.dismiss();
                                                 Log.d(this.getClass().getName(), "\n" + " class " +
                                                         Thread.currentThread().getStackTrace()[2].getClassName()
                                                         + "\n" +
                                                         " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                                                         " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
+                                                        + " Линия  :"
+                                                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
+                                                new RecordNewErros(getContext()).recordnewerror(e.toString(),
+                                                        this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
+                                                        Thread.currentThread().getStackTrace()[2].getLineNumber());
                                             }
-                                        })
-                                        .setIcon(R.drawable.icon_change_user1);
+
+                                        }
+                                    });
+                                    materialAlertDialogBuilder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            dialog.cancel();
+                                            dialog.dismiss();
+                                            Log.d(this.getClass().getName(), "\n" + " class " +
+                                                    Thread.currentThread().getStackTrace()[2].getClassName()
+                                                    + "\n" +
+                                                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
+                                                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
+                                        }
+                                    });
+                                    materialAlertDialogBuilder.setIcon(R.drawable.icon_change_user1);
 
 // TODO: 22.08.2023
                                 if(    DialogBox==null ){

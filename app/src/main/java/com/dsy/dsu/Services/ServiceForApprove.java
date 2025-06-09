@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.Class_Get_Json_1C;
+import com.dsy.dsu.BusinessLogicPublic.Class_Get_Json_1C;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

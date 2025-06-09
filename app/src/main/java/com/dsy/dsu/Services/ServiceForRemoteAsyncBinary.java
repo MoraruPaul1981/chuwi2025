@@ -2,10 +2,8 @@ package com.dsy.dsu.Services;
 
 import android.annotation.SuppressLint;
 import android.app.IntentService;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
@@ -19,7 +17,8 @@ import androidx.annotation.Nullable;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.bl_service_boot.BinessLogicIntentServiceBoot;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
+import com.dsy.dsu.BusinessLogicPublic.AfterSynchRemoveDeletedStatus.GetAfterSynchRemoveDeletedStatus;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import com.dsy.dsu.Hilt.getSSLSocketFactory2.QualifiergetsslSocketFactory2;
@@ -48,7 +47,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ServiceForRemoteAsyncBinary extends IntentService {
     protected LocalBinderAsync binderBinderRemoteAsync = new LocalBinderAsync();
-    private ServiceForPublic.LocalBinderОбщий localBinderОбщий;
+
     private      Integer PublicID =0;
     @Inject
     ObjectMapper getHiltJaksonObjectMapper;
@@ -56,11 +55,6 @@ public class ServiceForRemoteAsyncBinary extends IntentService {
     @QualifiergetsslSocketFactory2
     SSLSocketFactory getsslSocketFactory2;
     String КлючДляFirebaseNotification = "2a1819db-60c8-4ca3-a752-1b6cd9cadfa1";
-
-
-
-
-
     private SharedPreferences preferencesJboss;
 
 
@@ -68,6 +62,11 @@ public class ServiceForRemoteAsyncBinary extends IntentService {
     @Inject
     @QualifierPublicID
     Integer getHiltPublicId;
+
+
+    @Inject
+    GetAfterSynchRemoveDeletedStatus getAfterSynchRemoveDeletedStatus;
+
 
 
 
@@ -85,10 +84,6 @@ public class ServiceForRemoteAsyncBinary extends IntentService {
             /// ПубличныйIDДляФрагмента = new SubClass_Connection_BroadcastReceiver_Sous_Asyns_Glassfish().МетодПолучениеяПубличногоID(getApplicationContext());
 
             getSharedPreferencesSyncGrande();
-
-            МетодБиндинuCлужбыPublic(getApplicationContext());
-            
-            
 
             Log.d(getApplicationContext().getClass().getName(), "\n"
                     + " время: " + new Date() + "\n+" +
@@ -302,7 +297,8 @@ try{
         // TODO: 26.03.2023 дополнительное удаление после Удаление статсу удалнеенон
         try{
         if (ФинальныйРезультатAsyncBackgroud >0) {
-            МетодПослеСинхрониазцииУдалениеСтатусаУдаленный(getApplicationContext());
+            // TODO: 09.06.2025   Удаление Дублей после сихронизации
+            getAfterSynchRemoveDeletedStatus.afterSynchRemoveDeletedStatus(context);
         }
 
             Log.d(getApplicationContext().getClass().getName(), "\n"
@@ -325,86 +321,5 @@ try{
 
 
 
-
-    private void МетодПослеСинхрониазцииУдалениеСтатусаУдаленный(@NonNull Context context) {
-        try {
-            Intent intentПослеСинхроницииРегламентаняРаботаУдалениеДанных=new Intent();
-            intentПослеСинхроницииРегламентаняРаботаУдалениеДанных.setClass(context, ServiceForPublic.class);
-            intentПослеСинхроницииРегламентаняРаботаУдалениеДанных.setAction("ЗапускУдалениеСтатусаУдаленияСтрок");
-            // TODO: 25.03.2023 дополнительное удаление после синхрониазции статус Удаленныц
-            if (localBinderОбщий!=null) {
-                localBinderОбщий.getService().МетодГлавныйPublicPO(context,intentПослеСинхроницииРегламентаняРаботаУдалениеДанных,
-                        null);
-            }
-            Log.d(context.getClass().getName(),"\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
-                    " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                    " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n" +   "  localBinderОбщий  " +localBinderОбщий);
-
-        } catch (Exception e) {
-        e.printStackTrace();
-        Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
-                " Линия  :" + Thread.currentThread().getStackTrace()[2].getLineNumber());
-        new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(),
-                Thread.currentThread().getStackTrace()[2].getMethodName(), Thread.currentThread().getStackTrace()[2].getLineNumber());
-        Log.e(getApplicationContext().getClass().getName(), " Ошибка СЛУЖБА Service_ДляЗапускаодноразовойСинхронизации   ");
-    }
-    }
-
-
-    public void МетодБиндинuCлужбыPublic(@NonNull Context context) {
-        try {
-            Intent intentЗапускPublicService = new Intent(context, ServiceForPublic.class);
-            intentЗапускPublicService.setAction("ЗапускУдалениеСтатусаУдаленияСтрок");
-         ServiceConnection connectionPUBLIC;       connectionPUBLIC=     new ServiceConnection() {
-                     @Override
-                     public void onServiceConnected(ComponentName name, IBinder service) {
-                         try {
-                             if (service.isBinderAlive()) {
-                                 localBinderОбщий = (ServiceForPublic.LocalBinderОбщий) service;
-                                 // TODO: 16.11.2022
-                                 Log.d(context.getClass().getName(), "\n"
-                                         + " время: " + new Date() + "\n+" +
-                                         " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                         " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                         + "   service.pingBinder() " + service.pingBinder());
-                             }
-                         } catch (Exception e) {
-                             e.printStackTrace();
-                             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                             new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                                     Thread.currentThread().getStackTrace()[2].getLineNumber());
-                         }
-                     }
-
-                     @Override
-                     public void onServiceDisconnected(ComponentName name) {
-                         try {
-                             Log.d(context.getClass().getName(), "\n"
-                                     + " время: " + new Date() + "\n+" +
-                                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                     + "    onServiceDisconnected  localBinderОбщий" + localBinderОбщий);
-                         } catch (Exception e) {
-                             e.printStackTrace();
-                             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                             new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(),
-                                     Thread.currentThread().getStackTrace()[2].getMethodName(),
-                                     Thread.currentThread().getStackTrace()[2].getLineNumber());
-                             // TODO: 11.05.2021 запись ошибок
-
-                         }
-                     }
-                 };
-           context. bindService(intentЗапускPublicService, connectionPUBLIC ,Context.BIND_AUTO_CREATE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                    + Thread.currentThread().getStackTrace()[2].getLineNumber());
-            new RecordNewErros(context).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                    Thread.currentThread().getStackTrace()[2].getLineNumber());
-        }
-    }
 
 }

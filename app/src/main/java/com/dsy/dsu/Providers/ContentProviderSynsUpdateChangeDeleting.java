@@ -22,11 +22,11 @@ import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltWorkerTableCoreApp;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.hilt.HiltWorkerTableCoreApp;
 import com.dsy.dsu.JbossAdress.JbossContext;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 
 import java.util.ArrayList;

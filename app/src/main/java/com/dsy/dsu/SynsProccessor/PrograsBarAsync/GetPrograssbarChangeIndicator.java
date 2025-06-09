@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 
 import com.dsy.dsu.BootAndAsync.Model.EventsBus.MessageEvensBusPrograssBar;
-import com.dsy.dsu.BusinessLogicAll.Class_Visible_Processing_Async;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.GetWorkerAndSystemTables;
+import com.dsy.dsu.BusinessLogicPublic.Class_Visible_Processing_Async;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.GetWorkerAndSystemTables;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 import org.greenrobot.eventbus.EventBus;

@@ -8,6 +8,7 @@ import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.hilt.InstallIn;
@@ -16,6 +17,7 @@ import dagger.hilt.components.SingletonComponent;
 @QualifierInRegisterBoradcastWork
 @Module
 @InstallIn(SingletonComponent.class)
+@Named
 public class RegisterBroadcastForWorkManager {
 
 Context context;

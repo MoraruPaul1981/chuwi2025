@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
@@ -20,12 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.DATE.Class_Generation_Data;
-import com.dsy.dsu.BusinessLogicAll.DATE.SubClassCursorLoader;
-import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
+import com.dsy.dsu.BusinessLogicPublic.DATE.Class_Generation_Data;
 import com.google.firebase.annotations.concurrent.Background;
+import com.sous.backasync.launch.ModuleQuety;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,8 +35,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
-
-import dagger.hilt.EntryPoints;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -234,20 +230,16 @@ public class ServiceOrserTransportService extends IntentService {
 
         // TODO: 04.05.2023 Главный метод Службы Заказы Транспота
         @BinderThread
-        @Background
-        public  Map<String,Object> методГлавныйTraffic(@NonNull  HashMap<String,String> dataMap  ){
-            Map<String,Object>  mapRetry= new HashMap<>();
+        public  Cursor методГлавныйTraffic(@NonNull  String selection, @NonNull String arg  ){
+            Cursor cursorTraffic=null;
             try{
-                     Cursor cursor=   subClassOrderTransport.new SubClassGetCursor().методGetCursor(dataMap);
+                cursorTraffic=   subClassOrderTransport.new SubClassGetCursor().методGetCursor( selection,  arg);
                         // TODO: 04.05.2023  ответ Курсором Из Службы
-                        mapRetry.put("replyget1",cursor);
                 Log.d(getApplicationContext().getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +
                         " Класс в процессе... " + this.getClass().getName() + "\n" +
                         " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +  " mapBoundService " +
-                        " mapRetry " +mapRetry + " Thread 1   "
-                        + Thread.currentThread().getName()+ " Thread 2"
-                        + Thread.getAllStackTraces().values().toString() );
+                        " cursorTraffic " +cursorTraffic );
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() +
@@ -413,25 +405,20 @@ public class ServiceOrserTransportService extends IntentService {
 
         // TODO: 03.05.2023 GEt Cursor
       protected   class SubClassGetCursor{
-            Cursor методGetCursor(@NonNull   HashMap<String,String>  mapBoundService){
+            Cursor методGetCursor(@NonNull String selection, @NonNull String arg){
                 Cursor cursor = null;
                 try{
-               String    СамЗапрос = mapBoundService.get("1").trim();
-                String УсловияВыборки=    mapBoundService.get("2").trim();
-                String ФильтрУсловияВыборки1= Optional.ofNullable(mapBoundService.get("3")) .orElse("") ;
-                String ФильтрУсловияВыборки2=   Optional.ofNullable( mapBoundService.get("4")).orElse("") ;
-                String Таблица=    mapBoundService.get("5").trim();
-                    Bundle bundleЗаказТранспорт=new Bundle();
-                    bundleЗаказТранспорт.putString("СамЗапрос", СамЗапрос + " "+ УсловияВыборки);
-                    bundleЗаказТранспорт.putStringArray("УсловияВыборки" ,new String[]{ФильтрУсловияВыборки1,ФильтрУсловияВыборки2});
-                    bundleЗаказТранспорт.putString("Таблица",Таблица);
-                    cursor=      (Cursor)    new SubClassCursorLoader(). CursorLoaders(getApplicationContext(), bundleЗаказТранспорт);
-
-                Log.d(getApplicationContext().getClass().getName(), "\n"
-                        + " время: " + new Date() + "\n+" +
-                        " Класс в процессе... " + this.getClass().getName() + "\n" +
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() + "mapBoundService " +mapBoundService+
-                         "cursor " +cursor);
+                    // TODO: 14.05.2025
+                    String Текущаятаблицы = "chat_users";
+                    ModuleQuety moduleQuety = new ModuleQuety(getApplicationContext());
+                    cursor = moduleQuety.getModuleQuery(Текущаятаблицы,
+                            " SELECT *  FROM " + Текущаятаблицы + " AS D WHERE  D._id<>= '"+ПубличныйIDДляФрагмента+"'  ORDER BY D._id ",
+                            null);
+                    Log.d(this.getClass().getName(), "\n"
+                            + " время: " + new Date() + "\n+" +
+                            " Класс в процессе... " + this.getClass().getName() + "\n" +
+                            " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                            " cursor " + cursor);
 
             } catch (Exception e) {
                 e.printStackTrace();

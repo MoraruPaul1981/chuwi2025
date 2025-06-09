@@ -48,8 +48,8 @@ import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.View_onesignalJson
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.Сhat_usersJsonDeserializer;
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СhatsJsonDeserializer;
 import com.dsy.dsu.AllDatabases.JsonSerializerAndDeserializer.СompanylJsonDeserializer;
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.hilt.HiltWorkerTableCoreApp;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.hilt.HiltWorkerTableCoreApp;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.Sqlitehilt.AppModuleSQLlite;
 import com.fasterxml.jackson.databind.JsonNode;

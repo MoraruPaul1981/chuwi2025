@@ -34,7 +34,6 @@ import androidx.work.WorkManager;
 
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 import com.dsy.dsu.Services.ServiceForTasks;
 import com.dsy.dsu.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -69,7 +68,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
     private Bundle BungleДанныеДляViewCardДляпередачиCallsBaskПримечание;
     private  Cursor Курсор_ГлавныйКурсорДляЗадач;
     private  Cursor Курсор_ДляПолученияДАнныхТОлькоДляЗадачВработе = null;
-    private GetPublicID getPublic_id;
+    
     private FragmentManager fragmentManagerДляЗадачи;
     private FragmentTransaction fragmentTransactionляЗадачи;
     private Fragment fragment_ТекущийФрагмент;
@@ -260,7 +259,7 @@ public class Fragment5_ViewcreatedTasks extends Fragment {
                     "" + subClassBuccessLogin_главныйКлассБизнесЛогикиФрагмент5ЗаполенияЗадачиДляСозданияНовойЗадачи);
 
             // TODO: 02.03.2022
-            ПубличныйIDДляФрагмента =new GetPublicID().getPublicIDAllApp(getContext());
+            ПубличныйIDДляФрагмента =new GetttingPublicID().getttingPublicID(getContext());
             
 
             // TODO: 15.03.2022

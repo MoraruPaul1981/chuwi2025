@@ -11,7 +11,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.WorkerTables.GetWorkerAndSystemTables;
+import com.dsy.dsu.BusinessLogicPublic.WorkerTables.GetWorkerAndSystemTables;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 
 

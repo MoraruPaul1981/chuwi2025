@@ -1,11 +1,8 @@
 package com.dsy.dsu.Errors.model.bl_fragment_errors;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,13 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 
-import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
-import com.dsy.dsu.BusinessLogicAll.Class_Sendiing_Errors;
+import com.dsy.dsu.BusinessLogicPublic.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
+import com.dsy.dsu.BusinessLogicPublic.Class_Sendiing_Errors;
 import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.IOUtils;
-import com.sous.backasync.launch.ModuleDeleting;
 import com.sous.backasync.launch.ModuleQuety;
 import com.sous.backasync.launch.ModuleСalled;
 
@@ -39,9 +35,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.function.Consumer;
-
-import io.reactivex.rxjava3.core.Flowable;
 
 public class BinessLogicFragmentError {
 

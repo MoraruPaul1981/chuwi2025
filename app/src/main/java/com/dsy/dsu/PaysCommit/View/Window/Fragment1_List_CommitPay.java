@@ -23,7 +23,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.QualifierPublicID;
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.QualifierPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Hilt.Adress1cPays.QualifierCommintgPays;
 import com.dsy.dsu.Hilt.Adress1cPays.QualifierCommintgPays2;

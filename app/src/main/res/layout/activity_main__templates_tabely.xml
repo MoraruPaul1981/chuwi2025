@@ -9,7 +9,7 @@
     android:focusable="auto"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-    tools:context=".Tabels.Tabel.CompleteTabel.MainActivity_List_Tabels">
+    tools:context=".Tabels.Tabel.ListTabels.MainActivity_List_Tabels">
 
 
     <com.google.android.material.button.MaterialButton

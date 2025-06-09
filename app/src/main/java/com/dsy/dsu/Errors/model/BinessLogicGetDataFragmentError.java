@@ -1,44 +1,13 @@
 package com.dsy.dsu.Errors.model;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.FragmentManager;
 
-import com.dsy.dsu.BusinessLogicAll.AnalysisUserAuthenticated.GetAnalysisUserAuthenticated;
-import com.dsy.dsu.BusinessLogicAll.Class_Sendiing_Errors;
-import com.dsy.dsu.Dashboard.Model.LaunchActivityDiaologSettings;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.Errors.model.interfaces.GettingExistingErrorsInterface;
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.IOUtils;
 import com.sous.backasync.launch.ModuleQuety;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.function.Consumer;
-
-import io.reactivex.rxjava3.core.Flowable;
 
 final public class BinessLogicGetDataFragmentError {
 

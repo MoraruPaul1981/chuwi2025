@@ -10,14 +10,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.dsy.dsu.BusinessLogicAll.VersionCurentTable;
+import com.dsy.dsu.BusinessLogicPublic.VersionCurentTable;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.SaveBitmapToFile.ClassSaveBitmapToFile;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.reactivex.rxjava3.core.Flowable;

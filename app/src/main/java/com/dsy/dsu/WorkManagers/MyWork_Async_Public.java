@@ -14,14 +14,11 @@ import androidx.work.WorkerParameters;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.IntentServiceBoot;
-import com.dsy.dsu.BusinessLogicAll.GetPublicID.GetPublicID;
 
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.WorkManagers.binesslogic.GetWorker;
 
 import java.util.Date;
-
-import dagger.hilt.EntryPoints;
 
 public class MyWork_Async_Public extends Worker {
 /*    private String ИмяСлужбыWorkManger ="WorkManager Synchronizasiy_Data";*/
@@ -65,7 +62,7 @@ public class MyWork_Async_Public extends Worker {
     public Result doWork() {
         try {
 
-            Integer PublicIDWorkMangerPubluc= new GetPublicID().getPublicIDAllApp(getApplicationContext());
+            Integer PublicIDWorkMangerPubluc= new GetttingPublicID().getttingPublicID(getContext());
 
             // TODO: 18.03.2025
             GetWorker getWorker=new GetWorker(getApplicationContext());

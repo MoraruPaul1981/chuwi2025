@@ -10,7 +10,7 @@
     android:gravity="center_horizontal"
     android:visibility="visible"
     android:orientation="vertical"
-    tools:context=".Tabels.Peoples.MainActivity_List_Peoples">
+    tools:context=".Tabels.Peoples.MainActivityListPeoples">
 
 
 

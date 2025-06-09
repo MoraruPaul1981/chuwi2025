@@ -7,7 +7,7 @@ import android.util.Log;
 
 
 import com.dsy.dsu.BootAndAsync.Model.Service.IntentServiceBoot;
-import com.dsy.dsu.BusinessLogicAll.GetConnectivityManagerAndroid;
+import com.dsy.dsu.BusinessLogicPublic.GetConnectivityManagerAndroid;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.JbossAdress.JbossHilt.intarfaces.getHiltPortJbossInterface;
 
@@ -106,7 +106,7 @@ public class GetWorker {
                             String actionSingleWorker =  "lanchAsync" ;
                             intentSingleWorker.setAction(actionSingleWorker);
                             intentSingleWorker.setData(Uri.parse(actionSingleWorker));
-
+// TODO: 06.06.2025  запускам public work managers
                             getlocalBinderBootSerice.getService().startingServicePublicWorkManger(intentSingleWorker, getHiltPortJboss);
 
                         }
