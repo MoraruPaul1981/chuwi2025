@@ -925,25 +925,6 @@ public class FragmentOrderTransportOneChane extends Fragment {
             }
         }
         // TODO: 02.08.2022
-
-        // TODO: 28.04.2023
-
-
-        // TODO: 02.08.2022
-
-
-
-        // TODO: 02.08.2022
-
-
-        private void МетодДизайнПрограссБара() {
-            progressBarСканирование.postDelayed(()->{
-                progressBarСканирование.setVisibility(View.INVISIBLE);
-                progressBarСканирование.setIndeterminate(true);
-            },250);
-        }
-        // TODO: 28.04.2023
-
         private Cursor методGetCursorGROUPBYBounds() {
             Cursor cursorGroupByParent = null;
             try{
@@ -951,27 +932,24 @@ public class FragmentOrderTransportOneChane extends Fragment {
                 if (localBinderOrderTransport!=null) {
                     linkedHashMapДеньМесяцГод = localBinderOrderTransport.   методGetТриЗначениеГодМесяцДень();
                     // TODO: 04.05.2023  получаем первоночальыне Данные  #1
-                    HashMap<String,String> datasendMap=new HashMap();
-                    datasendMap.putIfAbsent("1","  SELECT DISTINCT  _id, dateorders, status," +
-                            "  strftime('%Y', dateorders)  AS Year, strftime('%m', dateorders)  AS Month," +
-                            " strftime('%d', dateorders)  AS Day, COUNT(*) AS getcounts" +
-                            "  FROM  view_ordertransport ");
-                    datasendMap.putIfAbsent("2"," WHERE dateorders  IS NOT NULL " +
+                    String Текущаятаблицы = "view_ordertransport";
+                    ModuleQuety moduleQuety = new ModuleQuety(getContext());
+                    cursorGroupByParent = moduleQuety.getModuleQuery(Текущаятаблицы,
+                            " SELECT DISTINCT  _id, dateorders, status,\" +\n" +
+                                    "                            \"  strftime('%Y', dateorders)  AS Year, strftime('%m', dateorders)  AS Month,\" +\n" +
+                                    "                            \" strftime('%d', dateorders)  AS Day, COUNT(*) AS getcounts\" +\n" +
+                                    "                            \"  FROM  "+Текущаятаблицы+"  WHERE dateorders  IS NOT NULL " +
                             " AND    date(dateorders) >=" +
-                            " date('"+linkedHashMapДеньМесяцГод.get("Год")+"-"+
-                            linkedHashMapДеньМесяцГод.get("Месяц")+"-"
-                            +linkedHashMapДеньМесяцГод.get("День")+"') AND status!='5'  "
-                            +"  ");
-                    datasendMap.putIfAbsent("3"," GROUP BY strftime('%Y', dateorders)  ," +
-                            " strftime('%m', dateorders)   ," +
-                            " strftime('%d', dateorders) ," +
-                            " dateorders ");
-                    datasendMap.putIfAbsent("4"," HAVING        (COUNT(*) > 0)");
-                    datasendMap.putIfAbsent("5","view_ordertransport");///view_ordertransport
-                    datasendMap.putIfAbsent("6"," ORDER by  strftime('%Y', dateorders) DESC , " +
-                            "strftime('%m', dateorders) DESC  ,strftime('%d', dateorders) DESC ");///view_ordertransport
-                    // TODO: 05.05.2023  ПОЛУЧАЕМ ДАННЫЕ ПЕРВЫЙ ЭТАП
-                    cursorGroupByParent =       subClassOrdersTransport.       методGetGROUPBYCursor( datasendMap);
+                                    " date('"+linkedHashMapДеньМесяцГод.get("Год")+"-"+
+                                    linkedHashMapДеньМесяцГод.get("Месяц")+"-"
+                                    +linkedHashMapДеньМесяцГод.get("День")+"') AND status!='5'  " +
+                                    " GROUP BY strftime('%Y', dateorders)  ," +
+                                    " strftime('%m', dateorders)   ," +
+                                    " strftime('%d', dateorders) ," +
+                                    " dateorders   HAVING        (COUNT(*) > 0)   "+
+                                    " ORDER by  strftime('%Y', dateorders) DESC , " +
+                                    "strftime('%m', dateorders) DESC  ,strftime('%d', dateorders) DESC ", null);
+
                     // TODO: 04.05.2023  перегружаем экран
                     Log.d(getContext().getClass().getName(), "\n"
                             + " время: " + new Date() + "\n+" +
