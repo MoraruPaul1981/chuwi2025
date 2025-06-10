@@ -51,6 +51,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Dashboard.Model.bl_launchFragmentSettingsandDashbord.LaunchActivityDashboard;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.OrdersTransports.Background.ServiceOrserTransportService;
@@ -62,6 +63,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.sous.backasync.launch.ModuleQuety;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -157,6 +159,7 @@ public class FragmentOrderTransportOneChane extends Fragment {
             lifecycleOwnerОбщая=this;
             // TODO: 04.05.2023
             ПубличныйID = new GetttingPublicID().getttingPublicID(getContext());
+
 
             subClassOrdersTransport.   МетодHandlerCallBack();
 
@@ -927,56 +930,11 @@ public class FragmentOrderTransportOneChane extends Fragment {
 
 
         // TODO: 02.08.2022
-        protected   Cursor методGetCursor(@NonNull   HashMap<String,String> datasendMap ){
-            Cursor cursorOrder = null;
-            try{
-                // TODO: 03.05.2023 тест код
-                Map<String,Object>  mapRetry=       localBinderOrderTransport.методГлавныйTraffic(datasendMap);
-                // TODO: 04.05.2023 результат
-                 cursorOrder   =(Cursor) mapRetry.get("replyget1" );
 
-                Log.d(this.getClass().getName(), "\n" + " class " +
-                        Thread.currentThread().getStackTrace()[2].getClassName()
-                        + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                        + " cursorOrder " + cursorOrder  + " ПубличныйID  "+ПубличныйID + " ФлагОперации " +
-                         " mapRetry " +mapRetry+ " ");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-            return  cursorOrder;
-        }
 
 
         // TODO: 02.08.2022
-        protected   Cursor методGetGROUPBYCursor(@NonNull   HashMap<String,String> datasendMap ){
-            Cursor cursor=null;
-            try{
-                // TODO: 03.05.2023 тест код
-                Map<String,Object>  mapRetry=       localBinderOrderTransport.методГлавныйGrpuopByOrderTrasport(datasendMap);
-                // TODO: 04.05.2023 результат
-                cursor =(Cursor) mapRetry.get("replyget1" );
-                Log.d(this.getClass().getName(), "\n" + " class " +
-                        Thread.currentThread().getStackTrace()[2].getClassName()
-                        + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                        + " cursor " + cursor + " ПубличныйID  "+ПубличныйID + " ФлагОперации " +
-                        " mapRetry " +mapRetry+ " ");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-            return cursor;
-        }
+
 
         private void МетодДизайнПрограссБара() {
             progressBarСканирование.postDelayed(()->{
@@ -1349,27 +1307,22 @@ class SubClassGetDateOrderGroupBy {
                         try{
                             String УсловиеПоискаЦФО = (String) bundleGrpuopByOrder.get("dateordersForCFO");
                             // TODO: 04.05.2023  получаем первоночальыне Данные  #1
-                            HashMap<String,String> datasendMap=new HashMap();
-                            datasendMap.putIfAbsent("1","  SELECT  *  FROM  view_ordertransport  ");
-                            datasendMap.putIfAbsent("2"," WHERE name  IS NOT NULL  AND dateorders = ?  AND status!=? ORDER BY  dateorders");
-                            datasendMap.putIfAbsent("3",УсловиеПоискаЦФО);
-                            datasendMap.putIfAbsent("4","5");
-                            datasendMap.putIfAbsent("5"," view_ordertransport ");
-                            // TODO: 05.05.2023  ПОЛУЧАЕМ ДАННЫЕ
-                             cursorOtGetCFO =       subClassOrdersTransport.       методGetCursor( datasendMap);
-                            // TODO: 04.05.2023  перегружаем экран
-                            Log.d(getContext().getClass().getName(), "\n"
+                            String Текущаятаблицы = "view_ordertransport";
+                            ModuleQuety moduleQuety = new ModuleQuety(getContext());
+                            cursorOtGetCFO = moduleQuety.getModuleQuery(Текущаятаблицы,
+                                    " SELECT *  FROM " + Текущаятаблицы + " AS D  WHERE " +
+                                            " D.name  IS NOT NULL  AND D.dateorders = '"+УсловиеПоискаЦФО+"'   ORDER BY  D.dateorders ",
+                                    null);
+                            Log.d(this.getClass().getName(), "\n"
                                     + " время: " + new Date() + "\n+" +
                                     " Класс в процессе... " + this.getClass().getName() + "\n" +
-                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                    + "   localBinderOrderTransport.isBinderAlive()" + localBinderOrderTransport.isBinderAlive()+
-                                    " localBinderOrderTransport " +localBinderOrderTransport
-                                    + " cursorOtGetCFO " +cursorOtGetCFO
-                                    + "   localBinderOrderTransport.isBinderAlive()" + localBinderOrderTransport.isBinderAlive());
+                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                                    " cursor " + cursor);
                             // TODO: 25.05.2023 ;
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
+                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName()
+                                    + " Линия  :"
                                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
                             new RecordNewErros(getContext()).recordnewerror(e.toString(),
                                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
@@ -1377,6 +1330,9 @@ class SubClassGetDateOrderGroupBy {
                         }
                         return cursorOtGetCFO;
                     }
+
+
+
                     // TODO: 28.05.2023 gosNomer
                     private Cursor методGetCursorGosNomer(   @NonNull  String getDateOrdersForGosNomers,@NonNull  Integer getCFOGosNomers ) throws Exception {
                         Cursor cursorOtGetGosNomer=null;

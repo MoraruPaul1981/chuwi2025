@@ -43,6 +43,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.BusinessLogicPublic.GreatUuidGenerations.GreatUuidGeneration;
 
@@ -58,6 +59,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.sous.backasync.launch.ModuleQuety;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -403,65 +405,8 @@ public class FragmentNewOrderTransport extends Fragment {
 
 
         // TODO: 02.08.2022
-        protected   Cursor методGetNewOTCursorметодGetCursor(@NonNull   HashMap<String,String> datasendMap,@NonNull String СтатусNewOrder ){
-            Cursor cursor=null;
-            try{
-                Map<String,Object> mapRetry ;
-                switch (СтатусNewOrder){
-                    case "neworder":
-                        // TODO: 03.05.2023 тест код
-                        mapRetry=       localBinderNewOrderTransport.методГлавныйNeworderTranportTraffic(datasendMap);
-                        // TODO: 04.05.2023 результат
-                        cursor =(Cursor) mapRetry.get("replyget1" );
-                        break;
-                    case "like":
-                          mapRetry=       localBinderNewOrderTransport.методГлавныйLikeNeworderTranportTraffic(datasendMap);
-                        // TODO: 04.05.2023 результат
-                        cursor =(Cursor) mapRetry.get("replyget1" );
-                        break;
-                }
-                Log.d(this.getClass().getName(), "\n" + " class " +
-                        Thread.currentThread().getStackTrace()[2].getClassName()
-                        + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                        + " cursorCfo " + cursorCfo + " ПубличныйID  "+ПубличныйID + " ФлагОперации " +
-                        " "+  "СтатусNewOrder " +СтатусNewOrder);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-            return cursor;
-        }
 
-        // TODO: 02.08.2022
-        protected   Cursor методGetCursor(@NonNull   HashMap<String,String> datasendMap ){
-            Cursor cursor=null;
-            try{
-                // TODO: 03.05.2023 тест код
-                Map<String,Object>  mapRetry=       localBinderNewOrderTransport.методГлавныйTraffic(datasendMap);
-                // TODO: 04.05.2023 результат
-                cursor =(Cursor) mapRetry.get("replyget1" );
 
-                Log.d(this.getClass().getName(), "\n" + " class " +
-                        Thread.currentThread().getStackTrace()[2].getClassName()
-                        + "\n" +
-                        " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
-                        " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n"
-                        + " cursorCfo " + cursorCfo + " ПубличныйID  "+ПубличныйID + " ФлагОперации " +
-                        " mapRetry " +mapRetry+ " ");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(), this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-            return cursor;
-        }
 
         private void МетодДизайнПрограссБара() {
             progressBarСканирование.postDelayed(()->{
@@ -472,36 +417,6 @@ public class FragmentNewOrderTransport extends Fragment {
 
 
 
-        @SuppressLint("Range")
-        // TODO: 05.05.2023
-        Bundle методДанныеCFOBungle(@NonNull Cursor cursor) {
-            Bundle bundleCFO=new Bundle();
-            try {
-            Integer IdCfo= cursor.getInt(cursor.getColumnIndex("_id"));
-                String      NameCFO= cursor.getString(cursor.getColumnIndex("name")).trim();
-                Long      UuidCFO= cursor.getLong(cursor.getColumnIndex("uuid"));
-                // TODO: 18.04.2023 Данные Заказы Трансопрта
-                bundleCFO.putInt("IdCfo", IdCfo);
-                bundleCFO.putInt("Position", cursor.getPosition());
-                bundleCFO.putString("NameCFO",NameCFO );
-                bundleCFO.putLong("UuidCFO",UuidCFO );
-
-                // TODO: 12.05.2023 ДАННЫЕ
-                Log.d(getContext().getClass().getName(), "\n"
-                        + " время: " + new Date() + "\n+" +
-                        " Класс в процессе... " + this.getClass().getName() + "\n" +
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                        + "  cursor " + cursor  +  "bundleCFO " +bundleCFO);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
-                        + Thread.currentThread().getStackTrace()[2].getLineNumber());
-                new RecordNewErros(getContext()).recordnewerror(e.toString(),
-                        this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
-                        Thread.currentThread().getStackTrace()[2].getLineNumber());
-            }
-            return  bundleCFO;
-        }
 
         @NonNull
         private String методПарсингаДатыЗаказа(String DateOrder) throws ParseException {
@@ -533,18 +448,15 @@ public class FragmentNewOrderTransport extends Fragment {
             Cursor cursor = null;
             try{
                 // TODO: 04.05.2023  получаем первоночальыне Данные  #1
-                HashMap<String,String> datasendMap=new HashMap();
-                datasendMap.putIfAbsent("1","  SELECT  *  FROM   "+ТекущеаяТаблица+"");
-                datasendMap.putIfAbsent("2"," WHERE "+ТекущейСтолбик+"  IS NOT NULL  AND _id >?  ORDER BY _id ");
-                datasendMap.putIfAbsent("3"," 0 ");
-                datasendMap.putIfAbsent("4",""+ТекущеаяТаблица+"");
-                // TODO: 05.05.2023  ПОЛУЧАЕМ ДАННЫЕ
-                cursor =         subClassNewOrderTransport.     методGetNewOTCursorметодGetCursor( datasendMap,"neworder");
-                Log.d(getContext().getClass().getName(), "\n"
+                ModuleQuety moduleQuety = new ModuleQuety(getContext());
+                cursor = moduleQuety.getModuleQuery(ТекущеаяТаблица,
+                        " SELECT *  FROM " + ТекущеаяТаблица + "  WHERE "+ТекущейСтолбик+" IS NOT NULL  AND _id >?  ORDER BY _id  ",
+                        null);
+                Log.d(this.getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +
                         " Класс в процессе... " + this.getClass().getName() + "\n" +
-                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()  +
-                        "  cursorCfo " +cursorCfo);
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                        " cursor " + cursor);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(getContext().getClass().getName(),
@@ -557,16 +469,22 @@ public class FragmentNewOrderTransport extends Fragment {
             return  cursor;
         }
 
-        private Cursor методGetAllLike(@NonNull String ТекущеаяТаблица,@NonNull String ТекущейСтолбик,@NonNull String ValueForLike) {
+        private Cursor методGetAllLike(@NonNull String ТекущеаяТаблица,
+                                       @NonNull String ТекущейСтолбик,@NonNull String ValueForLike) {
             Cursor cursor = null;
             try{
-                // TODO: 04.05.2023  получаем первоночальыне Данные  #1
-                HashMap<String,String> datasendMap=new HashMap();
-                datasendMap.putIfAbsent("Таблица",ТекущеаяТаблица);
-                datasendMap.putIfAbsent("ТекущийLike",ValueForLike);
-                datasendMap.putIfAbsent("ТекущейСтолбик",ТекущейСтолбик);
+
                 // TODO: 05.05.2023  ПОЛУЧАЕМ ДАННЫЕ
-                cursor =         subClassNewOrderTransport.     методGetNewOTCursorметодGetCursor( datasendMap,"like");
+                ModuleQuety moduleQuety = new ModuleQuety(getContext());
+                cursor = moduleQuety.getModuleQuery(ТекущеаяТаблица,
+                        " SELECT *  FROM " + ТекущеаяТаблица + "  WHERE "+ТекущейСтолбик+"  LIKE= '"+ValueForLike+"' ",
+                        null);
+                Log.d(this.getClass().getName(), "\n"
+                        + " время: " + new Date() + "\n+" +
+                        " Класс в процессе... " + this.getClass().getName() + "\n" +
+                        " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                        " cursor " + cursor);
+
                 Log.d(getContext().getClass().getName(), "\n"
                         + " время: " + new Date() + "\n+" +
                         " Класс в процессе... " + this.getClass().getName() + "\n" +
@@ -587,12 +505,13 @@ public class FragmentNewOrderTransport extends Fragment {
         private String методGetNumberNewIDOrderTranport() {
             String number_order = null;
             try{
-                Bundle bundleПосик=new Bundle();
-                bundleПосик.putString("СамЗапрос","  SELECT MAX ( _id  ) AS MAX_R FROM  view_ordertransport ");
-                bundleПосик.putStringArray("УсловияВыборки" ,new String[]{"0"});
-                bundleПосик.putString("Таблица","view_ordertransport");
-                Cursor Курсор=      (Cursor)    new SubClassCursorLoader(). CursorDontSelectionLoaders(getContext(), bundleПосик);
-                Integer  получаемGetId=Курсор.getInt(Курсор.getColumnIndex("MAX_R"));
+                String Текущаятаблицы = "view_ordertransport";
+                ModuleQuety moduleQuety = new ModuleQuety(getContext());
+             Cursor   CursorlastDateAsync = moduleQuety.getModuleQuery(Текущаятаблицы,
+                        " SELECT MAX ( D.versionserveraandroid  ) " +
+                                "AS MAX_R  FROM " +  Текущаятаблицы.trim()+" AS D" , null);
+
+                Integer  получаемGetId=CursorlastDateAsync.getInt(CursorlastDateAsync.getColumnIndex("MAX_R"));
                 if(получаемGetId!=null){
                     получаемGetId=получаемGetId+1;
                 }else {
@@ -604,8 +523,8 @@ public class FragmentNewOrderTransport extends Fragment {
                         " Класс в процессе... " + this.getClass().getName() + "\n" +
                         " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName());
                 // TODO: 18.05.2023
-                if(!Курсор.isClosed()){
-                    Курсор.close();
+                if(CursorlastDateAsync!=null) {
+                    CursorlastDateAsync.close();
                 }
                 
             } catch (Exception e) {

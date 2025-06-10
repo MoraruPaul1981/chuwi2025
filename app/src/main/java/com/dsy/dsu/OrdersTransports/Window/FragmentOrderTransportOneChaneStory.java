@@ -1126,7 +1126,7 @@ class SubClassGetDateOrderGroupBy {
                             // TODO: 04.05.2023  перегружаем экран
                             Log.d(getContext().getClass().getName(), "\n"
                                     + " время: " + new Date() + "\n+" +
-                                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                    " Класс в про    цессе... " + this.getClass().getName() + "\n" +
                                     " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
                                     + "   localBinderOrderTransport.isBinderAlive()" + localBinderOrderTransport.isBinderAlive()+
                                     " localBinderOrderTransport " +localBinderOrderTransport
