@@ -51,6 +51,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.dsy.dsu.BusinessLogicPublic.GetPublicID.GetttingPublicID;
 import com.dsy.dsu.Errors.WriteErrorForAll.RecordNewErros;
 import com.dsy.dsu.OrdersTransports.Background.ServiceOrserTransportService;
 import com.dsy.dsu.R;
@@ -60,6 +61,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.sous.backasync.launch.ModuleQuety;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -1114,28 +1116,25 @@ class SubClassGetDateOrderGroupBy {
                         Cursor cursorOtGetCFO=null;
                         try{
                             String УсловиеПоискаЦФО = (String) bundleGrpuopByOrder.get("dateordersForCFO");
-                            // TODO: 04.05.2023  получаем первоночальыне Данные  #1
-                            HashMap<String,String> datasendMap=new HashMap();
-                            datasendMap.putIfAbsent("1","  SELECT  *  FROM  view_ordertransport  ");
-                            datasendMap.putIfAbsent("2"," WHERE name  IS NOT NULL  AND dateorders = ?  AND status!=? ORDER BY  dateorders");
-                            datasendMap.putIfAbsent("3",УсловиеПоискаЦФО);
-                            datasendMap.putIfAbsent("4","5");
-                            datasendMap.putIfAbsent("5"," view_ordertransport ");
                             // TODO: 05.05.2023  ПОЛУЧАЕМ ДАННЫЕ
-                             cursorOtGetCFO =       subClassOrdersTransport.       методGetCursor( datasendMap);
-                            // TODO: 04.05.2023  перегружаем экран
-                            Log.d(getContext().getClass().getName(), "\n"
+                            // TODO: 04.05.2023  получаем первоночальыне Данные  #1
+                            String Текущаятаблицы = "view_ordertransport";
+                            ModuleQuety moduleQuety = new ModuleQuety(getContext());
+                            cursorOtGetCFO = moduleQuety.getModuleQuery(Текущаятаблицы,
+                                    " SELECT  *  FROM  "+Текущаятаблицы+"  "+
+                                            " WHERE name  IS NOT NULL  AND dateorders ='"+УсловиеПоискаЦФО+"' " +
+                                            " AND status!='5' ORDER BY  dateorders" ,
+                                    null);
+                            Log.d(this.getClass().getName(), "\n"
                                     + " время: " + new Date() + "\n+" +
-                                    " Класс в про    цессе... " + this.getClass().getName() + "\n" +
-                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName()
-                                    + "   localBinderOrderTransport.isBinderAlive()" + localBinderOrderTransport.isBinderAlive()+
-                                    " localBinderOrderTransport " +localBinderOrderTransport
-                                    + " cursorOtGetCFO " +cursorOtGetCFO
-                                    + "   localBinderOrderTransport.isBinderAlive()" + localBinderOrderTransport.isBinderAlive());
+                                    " Класс в процессе... " + this.getClass().getName() + "\n" +
+                                    " метод в процессе... " + Thread.currentThread().getStackTrace()[2].getMethodName() +
+                                    " cursorOtGetCFO " + cursorOtGetCFO);
                             // TODO: 25.05.2023 ;
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :" + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
+                            Log.e(this.getClass().getName(), "Ошибка " + e + " Метод :"
+                                    + Thread.currentThread().getStackTrace()[2].getMethodName() + " Линия  :"
                                     + Thread.currentThread().getStackTrace()[2].getLineNumber());
                             new RecordNewErros(getContext()).recordnewerror(e.toString(),
                                     this.getClass().getName(), Thread.currentThread().getStackTrace()[2].getMethodName(),
