@@ -11,7 +11,7 @@
     android:scrollbars="horizontal|vertical"
     android:layout_centerInParent="true"
     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-    tools:context=".Dashboard.View.MainActivity_Dashboard">
+    tools:context=".DashboardCoreApp.View.MainActivity_Dashboard">
 
 
 
@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:minHeight="700dp"
         android:background="#C0C5C0"
-        tools:context=".Dashboard.View.MainActivity_Dashboard">
+        tools:context=".DashboardCoreApp.View.MainActivity_Dashboard">
 
 
 

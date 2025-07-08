@@ -9,7 +9,7 @@
     android:visibility="visible"
     android:background="#FFFFFF"
     android:backgroundTint="@color/cardview_light_background"
-    tools:context=".Settings.View.MainActivity_Settings">
+    tools:context=".CoreApp.Apps.SettingsCoreApp.View.MainActivity_Settings">
 
 <!--//TODO Начало Основного Экрана-->
 
@@ -27,7 +27,7 @@
             android:layout_margin="5dp"
             android:padding="5dp"
             tools:layout_editor_absoluteX="5dp"
-            tools:context=".Settings.MainActivity_Visible_Async"
+            tools:context=".SettingsCoreApp.MainActivity_Visible_Async"
             tools:layout_editor_absoluteY="5dp">
 
 
@@ -124,7 +124,7 @@
 
     <!--TODO НАчало Боллоковой Панели-->
     <com.google.android.material.navigation.NavigationView
-        tools:context=".Settings.MainActivity_Visible_Async"
+        tools:context=".SettingsCoreApp.MainActivity_Visible_Async"
         android:id="@+id/navigator_asyncapp"
         android:layout_width="230dp"
         android:layout_height="match_parent"

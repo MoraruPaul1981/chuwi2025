@@ -22,7 +22,7 @@
     android:translationZ="100dp"
     android:animateLayoutChanges="true"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".PaysCommit.View.Window.MainActivity_CommitPay">
+    tools:context=".PaysCommitApp.View.Window.MainActivity_CommitPay">
 
 
 
@@ -146,7 +146,7 @@
                 android:translationZ="100dp"
                 android:animateLayoutChanges="true"
                 android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-                tools:context=".PaysCommit.View.Window.MainActivity_CommitPay">
+                tools:context=".PaysCommitApp.View.Window.MainActivity_CommitPay">
 
 
 
@@ -691,7 +691,7 @@
                 android:translationZ="10dp"
                 android:animateLayoutChanges="true"
                 android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-                tools:context=".PaysCommit.View.Window.MainActivity_CommitPay">
+                tools:context=".PaysCommitApp.View.Window.MainActivity_CommitPay">
 
 
 

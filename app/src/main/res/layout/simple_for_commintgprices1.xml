@@ -15,7 +15,7 @@
     android:translationZ="10dp"
     android:animateLayoutChanges="true"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".CommitPrices.View.Window.MainActivityCommitingPrices">
+    tools:context=".CommitPricesApp.View.Window.MainActivityCommitingPrices">
 
 
 

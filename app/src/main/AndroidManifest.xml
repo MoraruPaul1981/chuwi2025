@@ -114,7 +114,7 @@
 
 
     <application
-        android:name=".CoreApp.CoreApp"
+        android:name=".CoreApp.view.CoreApp"
         android:allowBackup="true"
         android:appCategory="productivity"
         android:hardwareAccelerated="false"
@@ -151,7 +151,7 @@
     <!--    //TODO-05,02,2025-09,22  начинаем добавлять пользовательские обьекты -->      <!--    //TODO-05,02,2025-09,22  начинаем добавлять пользовательские обьекты -->
         <!-- //TODO all SERVICES-04.02.2025-17.24-->
         <service
-            android:name=".BootAndAsync.Model.Service.IntentServiceBoot"
+            android:name=".BusinessLogicForApps.BootAndAsync.Model.Service.IntentServiceBoot"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -164,7 +164,7 @@
 
 
         <service
-            android:name=".Services.ServiceOneSignalForFirebase"
+            android:name=".BusinessLogicForApps.Services.ServiceOneSignalForFirebase"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -176,7 +176,7 @@
         </service>
 
         <service
-            android:name=".AdmissionMaterials.Service.ServiceCameraTake"
+            android:name=".AdmissionMaterialsApp.Service.ServiceCameraTake"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -189,7 +189,7 @@
 
 
         <service
-            android:name=".Services.ServiceForCommitPay"
+            android:name=".BusinessLogicForApps.Services.ServiceForCommitPay"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -199,7 +199,7 @@
 
         </service>
         <service
-            android:name=".OrdersTransports.Background.ServiceOrserTransportService"
+            android:name=".OrdersTransportsApp.Background.ServiceOrserTransportService"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -210,7 +210,7 @@
         </service>
 
         <service
-            android:name=".Services.ServiceForRemoteAsyncBinary"
+            android:name=".BusinessLogicForApps.Services.ServiceForRemoteAsyncBinary"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -220,7 +220,7 @@
 
         </service>
         <service
-            android:name=".Services.ServiceForAdminissionMaterial"
+            android:name=".BusinessLogicForApps.Services.ServiceForAdminissionMaterial"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -232,7 +232,7 @@
 
 
         <service
-            android:name=".Services.ServiceForNotifocations"
+            android:name=".BusinessLogicForApps.Services.ServiceForNotifocations"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -243,7 +243,7 @@
 
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.ServiceForTasks"
+            android:name=".BusinessLogicForApps.Services.ServiceForTasks"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -255,7 +255,7 @@
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <!-- todo JOBintenservice -->
         <service
-            android:name=".Services.ServiceForChatten"
+            android:name=".BusinessLogicForApps.Services.ServiceForChatten"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -267,7 +267,7 @@
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.ServiceForApprove"
+            android:name=".BusinessLogicForApps.Services.ServiceForApprove"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -277,7 +277,7 @@
 
         </service> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <service
-            android:name=".Services.ServiceFor1C"
+            android:name=".BusinessLogicForApps.Services.ServiceFor1C"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -288,7 +288,7 @@
 
         </service>
         <service
-            android:name=".Services.Service_Async_1C"
+            android:name=".BusinessLogicForApps.Services.Service_Async_1C"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -299,7 +299,7 @@
 
         </service>
         <service
-            android:name=".Services.ServiceUpdatesPO"
+            android:name=".BusinessLogicForApps.Services.ServiceUpdatesPO"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"
@@ -311,7 +311,7 @@
         </service>
 
         <service
-            android:name=".FirebaseAndOneSignal.Firebase.MyFirebaseInstanceIDService"
+            android:name=".BusinessLogicForApps.FirebaseAndOneSignal.Firebase.MyFirebaseInstanceIDService"
             android:directBootAware="true"
             android:exported="false"
             android:showOnLockScreen="true">
@@ -332,7 +332,7 @@
 
        <!-- //TODO начало актвити-->
         <activity
-            android:name=".CommitPrices.View.Window.MainActivityCommitingPrices"
+            android:name=".CommitPricesApp.View.Window.MainActivityCommitingPrices"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Согласование цены"
@@ -344,7 +344,7 @@
 
 
         <activity
-            android:name=".AdmissionMaterials.Window.MainActivity_AdmissionMaterials"
+            android:name=".AdmissionMaterialsApp.Window.MainActivity_AdmissionMaterials"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Поступление материалов"
@@ -356,14 +356,14 @@
 
         <!--//TODO  END  Бродкаст Ресиверы -->
         <activity
-            android:name=".Chats.MainActivity_List_Chats"
+            android:name=".ChatsApp.MainActivity_List_Chats"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Чат"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         </activity>
         <activity
-            android:name=".Tasks.MainActivity_Tasks"
+            android:name=".TasksApp.MainActivity_Tasks"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Задания"
@@ -371,14 +371,14 @@
             android:windowSoftInputMode="stateVisible|adjustPan">
         </activity>
         <activity
-            android:name=".PaysCommit.View.Window.MainActivity_CommitPay"
+            android:name=".PaysCommitApp.View.Window.MainActivity_CommitPay"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Задания"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         </activity> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
         <activity
-            android:name=".MaterialsShipment.MainActivity_shipment_of_materials"
+            android:name=".MaterialsShipmentApp.MainActivity_shipment_of_materials"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="Задания"
@@ -386,7 +386,7 @@
         </activity> <!-- android:permission="android.intent.action.BOOT_COMPLETED" -->
 
         <activity
-            android:name=".BootAndAsync.View.MainActivityBootAndAsync"
+            android:name=".BusinessLogicForApps.BootAndAsync.View.MainActivityBootAndAsync"
             android:exported="true"
             android:grantUriPermissions="true"
             android:label="@string/name_dsu"
@@ -411,7 +411,7 @@
 
 
         <activity
-            android:name=".Passwords.View.MainActivityPasswords"
+            android:name=".CoreApp.Apps.PasswordsCoreApp.view.MainActivityPasswords"
             android:exported="true"
             android:label="Аунтификация ДСУ-1"
             android:grantUriPermissions="true"
@@ -427,42 +427,42 @@
 
 
         <activity
-            android:name=".Tabels.Tabel.Single.view.MainActivity_Metki_Tabel"
+            android:name=".TabelsApp.Tabel.Single.view.MainActivity_Metki_Tabel"
             android:exported="true"
             android:label="Список Контант Слов Для Табеля"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.Single.view.MainActivity_Metki_Tabel" />
+                android:value="com.dsy.dsu.TabelsApp.Tabel.Single.view.MainActivity_Metki_Tabel" />
         </activity> <!-- TODO НАЧИНАЮТЬСЯ РАБОЧИЕ АКТИВИТИ ПРИЛОЖЕНИЯ -->
         <activity
-            android:name=".Tabels.Peoples.MainActivityFindPeoples"
+            android:name=".TabelsApp.Peoples.MainActivityFindPeoples"
             android:exported="true"
             android:label="Выбор Сотрудника"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
+                android:value="com.dsy.dsu.TabelsApp.Peoples.MainActivityFindPeoples" />
         </activity>
 
         <activity
-            android:name=".Tabels.Templates.MainActivityListTemplates"
+            android:name=".TabelsApp.Templates.view.MainActivityListTemplates"
             android:exported="true"
             android:label="Списко шаблонов"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
+                android:value="com.dsy.dsu.TabelsApp.Peoples.MainActivityFindPeoples" />
         </activity>
 
         <activity
-            android:name=".Tabels.Templates.MainActivityFindTemplates"
+            android:name=".TabelsApp.Templates.view.MainActivityFindTemplates_in_proccesing"
             android:exported="true"
             android:label="Поиск шаблон"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityFindPeoples" />
+                android:value="com.dsy.dsu.TabelsApp.Peoples.MainActivityFindPeoples" />
         </activity>
 
 
@@ -472,35 +472,35 @@
 
 
         <activity
-            android:name=".Tabels.Peoples.MainActivityNewPeople"
+            android:name=".TabelsApp.Peoples.MainActivityNewPeople"
             android:exported="true"
             android:label="Новый Сотрудник"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityNewPeople" />
+                android:value="com.dsy.dsu.TabelsApp.Peoples.MainActivityNewPeople" />
         </activity>
         <activity
-            android:name=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
+            android:name=".TabelsApp.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
             android:exported="true"
             android:label="Табель"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Peoples.MainActivityListPeoples" />
+                android:value="com.dsy.dsu.TabelsApp.Peoples.MainActivityListPeoples" />
         </activity>
         <activity
-            android:name=".Tabels.Peoples.MainActivityListPeoples"
+            android:name=".TabelsApp.Peoples.MainActivityListPeoples"
             android:exported="true"
             android:label="Сотрудники Табеля"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.ListTabels.MainActivity_List_Tabels" />
+                android:value="com.dsy.dsu.TabelsApp.Tabel.ListTabels.MainActivity_List_Tabels" />
         </activity>
         <activity
-            android:name=".Tabels.Tabel.ListTabels.MainActivity_List_Tabels"
+            android:name=".TabelsApp.Tabel.ListTabels.MainActivity_List_Tabels"
             android:exported="true"
             android:label="Выбор ЦФО"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -510,23 +510,23 @@
 
 
         <activity
-            android:name=".Tabels.Tabel.New.MainActivityNewTabels"
+            android:name=".TabelsApp.Tabel.New.MainActivityNewTabels"
             android:exported="true"
             android:label="Логины ДСУ-1"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dsy.dsu.Tabels.Tabel.ListTabels.MainActivity_List_Tabels" />
+                android:value="com.dsy.dsu.TabelsApp.Tabel.ListTabels.MainActivity_List_Tabels" />
         </activity>
         <activity
-            android:name=".Settings.View.MainActivity_Settings"
+            android:name=".CoreApp.Apps.SettingsCoreApp.View.MainActivity_Settings"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:label="Форма просмотр Логин"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         </activity>
         <activity
-            android:name=".OrdersTransports.Window.MainActivityOrdersTransports"
+            android:name=".OrdersTransportsApp.Window.MainActivityOrdersTransports"
             android:exported="true"
             android:label="Союз-Автодор"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -535,7 +535,7 @@
 
 
         <activity
-            android:name=".DocumentsCom.View.Window.ActivityCommitDocuments"
+            android:name=".Documents1CApp.View.Window.ActivityCommitDocuments"
             android:exported="true"
             android:label="Союз-Автодор"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -567,7 +567,7 @@
                 android:resource="@xml/provider_paths" />
         </provider> <!-- ПРОВАЙДЕР ДЛЯ БАЗЫ ДАННЫХ  ${applicationId}.file  content://com.dsy.dsu/Database DSU-1.db  content://com.example.app.provider/table2/dataset1  content://com.example.app.provider/table1    uriMatcher.addURI("com.example.app.provider", "table3/#", 2); -->
         <provider
-            android:name=".Providers.ContentProviderSynsInsert"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderSynsInsert"
             android:authorities="com.dsy.dsu.providerdatabase"
             android:directBootAware="true"
             android:enabled="true"
@@ -578,7 +578,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderSynsInsertOnlyAsync"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderSynsInsertOnlyAsync"
             android:authorities="com.dsy.dsu.providerdatabaseonlyasync"
             android:directBootAware="true"
             android:enabled="true"
@@ -589,7 +589,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderSynsUpdate"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderSynsUpdate"
             android:authorities="com.dsy.dsu.providerdatabasemirror"
             android:directBootAware="true"
             android:enabled="true"
@@ -600,7 +600,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderSynsUpdateBinary"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderSynsUpdateBinary"
             android:authorities="com.dsy.dsu.providerdatabasemirrorbinary"
             android:directBootAware="true"
             android:enabled="true"
@@ -611,7 +611,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderSynsUpdateChangeDeleting"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderSynsUpdateChangeDeleting"
             android:authorities="com.dsy.dsu.providerdatachangedeleting"
             android:directBootAware="true"
             android:enabled="true"
@@ -622,7 +622,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderForAdminissionMaterial"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderForAdminissionMaterial"
             android:authorities="com.dsy.dsu.providerdataadminissionmaterial"
             android:directBootAware="true"
             android:enabled="true"
@@ -633,7 +633,7 @@
             android:readPermission="true"
             android:writePermission="true" />
         <provider
-            android:name=".Providers.ContentProviderForDataBaseCurrentOperations"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderForDataBaseCurrentOperations"
             android:authorities="com.dsy.dsu.providerdatabasecurrentoperations"
             android:directBootAware="true"
             android:enabled="true"
@@ -646,7 +646,7 @@
 
 
         <provider
-            android:name=".Providers.ContentProviderForSystemTables"
+            android:name=".BusinessLogicForApps.Providers.ContentProviderForSystemTables"
             android:authorities="com.dsy.dsu.providerforsystemtables"
             android:directBootAware="true"
             android:enabled="true"
@@ -687,7 +687,7 @@
 
         <!--//TODO  Start Бродкаст Ресиверы -->
         <receiver
-            android:name=".BroadcastRecievers.BroadCastMyReceiverPublic"
+            android:name=".BusinessLogicForApps.BroadcastRecievers.BroadCastMyReceiverPublic"
             android:enabled="true"
             android:exported="true"
             android:directBootAware="true"
@@ -713,7 +713,7 @@
         </receiver>
 
         <receiver
-            android:name=".BroadcastRecievers.BroadCastMyReceiverNotifications"
+            android:name=".BusinessLogicForApps.BroadcastRecievers.BroadCastMyReceiverNotifications"
             android:enabled="true"
             android:exported="true"
             android:directBootAware="true"
@@ -740,7 +740,7 @@
 
 
         <receiver
-            android:name=".BroadcastRecievers.BootCompletedReceiver"
+            android:name=".BusinessLogicForApps.BroadcastRecievers.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true"
             android:directBootAware="true"

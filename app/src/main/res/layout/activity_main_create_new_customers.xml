@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Tabels.Peoples.MainActivityNewPeople">
+    tools:context=".TabelsApp.Peoples.MainActivityNewPeople">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:context=".Tabels.Peoples.MainActivityNewPeople">
+        tools:context=".TabelsApp.Peoples.MainActivityNewPeople">
 
         <Spinner
             android:id="@+id/значениеИзСпинераОрганизацияДляНовогоСотрудника"

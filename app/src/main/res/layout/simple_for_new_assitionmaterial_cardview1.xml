@@ -15,7 +15,7 @@
     app:strokeWidth="3dp"
     android:translationZ="150dp"
     android:animateLayoutChanges="true"
-    tools:context=".AdmissionMaterials.ActivityFragment.MainActivity_AdmissionMaterials">
+    tools:context=".AdmissionMaterialsApp.ActivityFragment.MainActivity_AdmissionMaterials">
 
         <RelativeLayout
             android:id="@+id/relativelayoutcardviewmatirealtask"

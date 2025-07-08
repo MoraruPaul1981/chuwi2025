@@ -20,10 +20,16 @@ buildscript {
 }
 
 ext {
-   // myValue = 'C:\\Users\\Public\\Public Doc Dev\\AndroidStudioProjectsTabel\\DSU\\certificates\\dsu1_keys.jks' //AMD Rezyn 5600
-    myValue = 'C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks' // CHUWI
-    //TODO
-    def getJbossGradle =true ///TRue Релиз
+    def getJbossGradle =true
+    //TODO AMD Rezyn 5600
+     //getValueCertificate = 'C:\\Users\\Public\\Public Doc Dev\\AndroidStudioProjectsTabel\\DSU\\certificates\\dsu1_keys.jks' //AMD Rezyn 5600
+    //TODO CHUWI
+     getValueCertificate = 'C:\\Users\\Public\\Documents\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks' // CHUWI
+    //TODO Core i-3
+    //  getValueCertificate = 'C:\\Users\\Public\\Documents\\Dev Android\\AndroidStudioProjects\\DSU\\certificates\\dsu1_keys.jks' //Core i-3
+
+
+///TRue Релиз
 }
 
 allprojects {

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Tabels.Tabel.MainActivity_Tabel_Single_PeopleViewPager"
+    tools:context=".TabelsApp.Tabel.MainActivity_Tabel_Single_PeopleViewPager"
     tools:visibility="visible"
     android:orientation="vertical">
 

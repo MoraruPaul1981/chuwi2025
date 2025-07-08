@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/Read_WriteЧатаmain_for_chats"
     android:background="#F5FFFA"
-    tools:context=".Chats.Fragment_Writer_Read_ЧитатьПисатьЧата">
+    tools:context=".ChatsApp.Fragment_Writer_Read_ЧитатьПисатьЧата">
 
     <!-- TODO: Update blank fragment layout -->
 

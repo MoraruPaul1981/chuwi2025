@@ -20,5 +20,5 @@ android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
 
-tools:context=".CommitPrices.View.Window.MainActivityCommitingPrices">
+tools:context=".CommitPricesApp.View.Window.MainActivityCommitingPrices">
 </com.google.android.material.card.MaterialCardView>

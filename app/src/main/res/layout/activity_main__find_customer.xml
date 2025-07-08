@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:cardBackgroundColor="@color/icon_dashdornd_tabel2_background"
     app:layout_scrollFlags="snapMargins|scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
-    tools:context=".Tabels.Peoples.MainActivityFindPeoples"
+    tools:context=".TabelsApp.Peoples.MainActivityFindPeoples"
     tools:visibility="visible">
 
 
@@ -92,7 +92,7 @@
 
 
             <TextView
-                android:id="@+id/textViewcountfiio"
+                android:id="@+id/textviewcountemplates"
                 style="@style/Widget.MaterialComponents.MaterialCalendar.DayTextView"
                 android:layout_width="85dp"
                 android:layout_height="40dp"

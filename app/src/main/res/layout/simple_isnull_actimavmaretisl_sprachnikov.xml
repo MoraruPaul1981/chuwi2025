@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     android:background="#F5FFFA"
-    tools:context=".AdmissionMaterials.Window.MainActivity_AdmissionMaterials">
+    tools:context=".AdmissionMaterialsApp.Window.MainActivity_AdmissionMaterials">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardviewmatirealtask"

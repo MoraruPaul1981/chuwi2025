@@ -10,7 +10,7 @@
     android:scrollbars="vertical"
     android:verticalScrollbarPosition="defaultPosition"
     android:visibility="visible"
-    tools:context=".Settings.MainActivity_Face_App_OLd"
+    tools:context=".SettingsCoreApp.MainActivity_Face_App_OLd"
     tools:visibility="visible">
 
     <androidx.constraintlayout.widget.Barrier

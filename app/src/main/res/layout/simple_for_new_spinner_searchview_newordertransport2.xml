@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".OrdersTransports.Window.MainActivityOrdersTransports"
+    tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:background="#FFFFFF"
-        tools:context=".OrdersTransports.Window.MainActivityOrdersTransports">
+        tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchview_newordertransport"

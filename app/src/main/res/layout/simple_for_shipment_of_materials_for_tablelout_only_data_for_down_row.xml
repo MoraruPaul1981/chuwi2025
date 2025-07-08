@@ -7,7 +7,7 @@
     android:layout_height="2dp"
     android:background="@color/colorPrimaryDark"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".MaterialsShipment.MainActivity_shipment_of_materials">
+    tools:context=".MaterialsShipmentApp.MainActivity_shipment_of_materials">
 
                 <!--  //TODO ТРЕТЬЯ строчка САМИ ДАННЫЕ  -->
 

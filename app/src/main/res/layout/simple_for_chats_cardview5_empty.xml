@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFFFFF"
-    tools:context=".Tasks.MainActivity_Tasks">
+    tools:context=".TasksApp.MainActivity_Tasks">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@android:id/text1"

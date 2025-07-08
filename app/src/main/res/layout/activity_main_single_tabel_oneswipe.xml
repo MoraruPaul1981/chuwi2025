@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Tabels.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
+    tools:context=".TabelsApp.Tabel.Single.view.MainActivity_Tabel_Single_PeopleOneSwipe"
     tools:visibility="visible"
     android:orientation="vertical">
 

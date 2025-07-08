@@ -19,7 +19,7 @@
     android:clickable="true"
     android:focusable="true"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".DocumentsCom.View.Window.ActivityCommitDocuments">
+    tools:context=".Documents1CApp.View.Window.ActivityCommitDocuments">
 
 
 

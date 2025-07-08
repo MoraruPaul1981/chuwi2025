@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5FFFA"
-    tools:context=".Tasks.Fragment1_One_Tasks">
+    tools:context=".TasksApp.Fragment1_One_Tasks">
 
     <!-- TODO: Update blank fragment layout -->
 

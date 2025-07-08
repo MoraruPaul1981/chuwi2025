@@ -15,5 +15,5 @@
     android:animateLayoutChanges="true"
     app:strokeColor="#CFCCCC"
     app:strokeWidth="1dp"
-    tools:context=".DocumentsCom.View.Window.ActivityCommitDocuments">
+    tools:context=".Documents1CApp.View.Window.ActivityCommitDocuments">
 </com.google.android.material.card.MaterialCardView>

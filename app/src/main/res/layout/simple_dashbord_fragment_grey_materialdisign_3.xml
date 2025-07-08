@@ -12,7 +12,7 @@
     android:translationZ="0dp"
     app:cardElevation="0dp"
     app:cardMaxElevation="0dp"
-    tools:context=".Dashboard.View.MainActivity_Dashboard">
+    tools:context=".DashboardCoreApp.View.MainActivity_Dashboard">
 
 
     <!--       ///TODO TOOLBAR  toolbarcamera_dashbord -->

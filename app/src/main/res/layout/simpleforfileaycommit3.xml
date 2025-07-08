@@ -17,7 +17,7 @@
     app:cardBackgroundColor="#F0F8FF"
     app:strokeColor="#F5FFFA"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".PaysCommit.View.Window.MainActivity_CommitPay">
+    tools:context=".PaysCommitApp.View.Window.MainActivity_CommitPay">
 
 
 

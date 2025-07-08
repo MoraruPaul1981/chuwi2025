@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".AdmissionMaterials.Window.MainActivity_AdmissionMaterials">
+    tools:context=".AdmissionMaterialsApp.Window.MainActivity_AdmissionMaterials">
 
     <ScrollView
         android:id="@+id/scrollviewmaterial"

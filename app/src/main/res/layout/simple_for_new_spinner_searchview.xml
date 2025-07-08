@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:padding="2dp"
-    tools:context=".Tabels.Tabel.New.MainActivityNewTabels"
+    tools:context=".TabelsApp.Tabel.New.MainActivityNewTabels"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:background="#FFFFFF"
-        tools:context=".Tabels.Tabel.New.MainActivityNewTabels">
+        tools:context=".TabelsApp.Tabel.New.MainActivityNewTabels">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchview_newscanner"

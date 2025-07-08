@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".AdmissionMaterials.Window.FragmentAdmissionMaterials"
+    tools:context=".AdmissionMaterialsApp.Window.FragmentAdmissionMaterials"
     android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/RelativeLayout"

@@ -15,7 +15,7 @@
         android:layout_margin="5dp"
         android:padding="5dp"
         android:backgroundTint="@color/cardview_light_background"
-        tools:context=".Settings.MainActivity_Visible_Async">
+        tools:context=".SettingsCoreApp.MainActivity_Visible_Async">
 
 
         <ImageView

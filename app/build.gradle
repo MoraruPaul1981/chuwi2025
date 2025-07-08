@@ -19,13 +19,13 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file(myValue)
+            storeFile file(getValueCertificate)
             storePassword 'dsu1dsu1up'
             keyAlias 'tabels_releases'
             keyPassword 'dsu1dsu1down'
         }
         release {
-            storeFile file(myValue)
+            storeFile file(getValueCertificate)
             storePassword 'dsu1dsu1up'
             keyAlias 'tabels_releases'
             keyPassword 'dsu1dsu1down'
@@ -90,17 +90,8 @@ android {
     dynamicFeatures = []
     sourceSets {
         main {
-            java {
-                srcDirs 'src\\main\\java', 'src\\main\\java\\com\\dsy\\dsu\\newJava', 'src\\main\\java\\com.dsy.dsu\\folder_for_JSON_B_P', 'src\\main\\java\\com\\dsy\\dsu\\CommitingPrices\\BL', 'src\\main\\java\\2'
-            }
-            resources {
-                srcDirs 'src\\main\\resources', 'src\\main\\java\\com\\dsy\\dsu\\new2Java', 'src\\main\\resources\\Class_For_JSON_B_P'
-            }
-            assets {
-                srcDirs 'src\\main\\assets', 'src\\main\\java\\com\\dsy\\dsu\\new3Java'
-            }
             res {
-                srcDirs 'src\\main\\res', 'src\\main\\java\\com\\dsy\\dsu\\new4Java'
+                srcDirs 'src\\main\\res', 'src\\main\\java\\com\\dsy\\dsu\\BusinessLogicForApps\\new4Java'
             }
         }
     }

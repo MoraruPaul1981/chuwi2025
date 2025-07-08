@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="#F5FFFA"
     app:layout_constraintBottom_toTopOf="parent"
-    tools:context=".Chats.MainActivity_List_Chats">
+    tools:context=".ChatsApp.MainActivity_List_Chats">
 
 
     <FrameLayout

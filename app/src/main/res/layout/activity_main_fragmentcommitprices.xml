@@ -19,7 +19,7 @@
     android:clickable="true"
     android:focusable="true"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".CommitPrices.View.Window.MainActivityCommitingPrices">
+    tools:context=".CommitPricesApp.View.Window.MainActivityCommitingPrices">
 
 
 

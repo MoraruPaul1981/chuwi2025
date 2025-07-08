@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".PaysCommit.View.Window.MainActivity_CommitPay"
+    tools:context=".PaysCommitApp.View.Window.MainActivity_CommitPay"
     android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/activitynain_for_Taskslinelayoutrela3nameAndLine"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:background="#FFFFFF"
-            tools:context=".Tasks.MainActivity_Tasks">
+            tools:context=".TasksApp.MainActivity_Tasks">
             <TextView
                 android:id="@+id/TextView"
                 android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:orientation="vertical"
         android:background="#FFFFFF"
 
-        tools:context=".Tasks.MainActivity_Tasks">
+        tools:context=".TasksApp.MainActivity_Tasks">
 
 
         <androidx.recyclerview.widget.RecyclerView

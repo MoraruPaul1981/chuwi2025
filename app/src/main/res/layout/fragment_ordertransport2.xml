@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:gravity="center"
-    tools:context=".OrdersTransports.Window.MainActivityOrdersTransports"
+    tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports"
     android:orientation="vertical">
 
 
@@ -31,7 +31,7 @@
     android:animateLayoutChanges="true"
     app:cardBackgroundColor="#F0FFFF"
     app:strokeColor="#D2D8D8"
-    tools:context=".OrdersTransports.Window.MainActivityOrdersTransports">
+    tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports">
 
 
 
@@ -44,7 +44,7 @@
         android:background="#F0FFFF"
         android:gravity="center"
         android:layout_margin="1dp"
-        tools:context=".OrdersTransports.Window.MainActivityOrdersTransports">
+        tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports">
         <!--todo новый код созданиеновой задачи-->
 
 

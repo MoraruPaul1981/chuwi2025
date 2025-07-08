@@ -10,7 +10,7 @@
     android:orientation="vertical"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="snapMargins|scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap"
-    tools:context=".Tabels.Peoples.MainActivityFindPeoples"
+    tools:context=".TabelsApp.Peoples.MainActivityFindPeoples"
     tools:visibility="visible">
 
     <com.google.android.material.button.MaterialButton

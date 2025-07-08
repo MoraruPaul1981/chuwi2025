@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F5FFFA"
     android:orientation="vertical"
-    tools:context=".Tasks.MainActivity_Tasks">
+    tools:context=".TasksApp.MainActivity_Tasks">
 
 
     <RelativeLayout
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:background="#F5FFFA"
-        tools:context=".Tasks.MainActivity_Tasks">
+        tools:context=".TasksApp.MainActivity_Tasks">
 
 
         <TextView
@@ -55,7 +55,7 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:background="#F5FFFA"
         android:orientation="vertical"
-        tools:context=".Tasks.MainActivity_Tasks">
+        tools:context=".TasksApp.MainActivity_Tasks">
 
 
         <TextView

@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     tools:openDrawer="left"
     android:background="#FFFFFF"
-    tools:context=".Settings.MainActivity_Face_App_OLd">
+    tools:context=".SettingsCoreApp.MainActivity_Face_App_OLd">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

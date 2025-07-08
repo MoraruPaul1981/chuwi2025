@@ -16,7 +16,7 @@
     android:background="#F0FFFF"
     app:cardBackgroundColor="#F0FFFF"
     app:strokeColor="#316E6E"
-    tools:context=".OrdersTransports.Window.MainActivityOrdersTransports">
+    tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports">
     <!--  НАЧАЛО ПЕРВОГО БЛОКА -->
         <TableLayout
             android:id="@+id/tablelayout_singleotrow"
@@ -27,7 +27,7 @@
             android:background="#F0FFFF"
             android:gravity="center_horizontal|center_vertical"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            tools:context=".OrdersTransports.Window.MainActivityOrdersTransports">
+            tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports">
             <!--//TODO начало    строчки ЦФО-->
             <TableRow
                 android:id="@+id/tableRowChildOt"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:background="#F0FFFF"
                     android:gravity="center"
-                    tools:context=".OrdersTransports.Window.MainActivityOrdersTransports"
+                    tools:context=".OrdersTransportsApp.Window.MainActivityOrdersTransports"
                     android:orientation="vertical">
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/ot_key_order_singlevalue"
