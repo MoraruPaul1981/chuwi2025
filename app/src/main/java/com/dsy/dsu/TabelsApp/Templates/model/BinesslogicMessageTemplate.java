@@ -1,17 +1,18 @@
 package com.dsy.dsu.TabelsApp.Templates.model;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,9 +21,7 @@ import com.dsy.dsu.CoreApp.Apps.ErrorsCoreApp.model.bl_readnewerrors.RecordNewEr
 import com.dsy.dsu.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
-import com.sous.backasync.launch.ModuleInserting;
-
-import java.util.Date;
+import com.google.android.material.textview.MaterialTextView;
 
 public class BinesslogicMessageTemplate extends MessageTemplateIntarface {
   private Context context;
@@ -75,17 +74,19 @@ public class BinesslogicMessageTemplate extends MessageTemplateIntarface {
                 ///MessageBoxUpdate метод CLICK для DIALOBOX
                 @Override
                 public void onClick(View v) throws  NullPointerException {
-                    // TODO: 28.06.2025 Создание нового Шаблона
-                    new BinesslogicNewTemplate(context,activity).newTamplate(v,namenewtemplate);
-
+                    // TODO: 09.07.2025
                     alertDialogNewTemplate .dismiss();
                     alertDialogNewTemplate.cancel();
 
+                    // TODO: 28.06.2025 Создание нового Шаблона
+                    new BinesslogicNewTemplate(context,activity).newTamplate(v,namenewtemplate,    getHandler);
                     // TODO: 17.04.2023
                     Log.d(this.getClass().getName(), "\n" + " class " + Thread.currentThread().getStackTrace()[2].getClassName() + "\n" +
                             " metod " + Thread.currentThread().getStackTrace()[2].getMethodName() + "\n" +
                             " line " + Thread.currentThread().getStackTrace()[2].getLineNumber() + "\n");
                 }
+
+
             });
 
 
@@ -147,7 +148,7 @@ public class BinesslogicMessageTemplate extends MessageTemplateIntarface {
     public void messageCompleteTemplate(@NonNull String СообщениеДиалога,
                                         @NonNull String namenewtemplate,
                                         @NonNull Bundle bundleFromActivityListPeoples,
-                                        @NonNull Handler gethandler) {
+                                        @NonNull Handler handlerAfterAddingTemplate) {
         try {
             int ФлагЗнака = R.drawable.icon_for_tastk_fragment_create_tastks_dostavleno;//icon_dsu1_new_customer7
             LayoutInflater layoutInflater = LayoutInflater.from(activity);
@@ -182,7 +183,7 @@ public class BinesslogicMessageTemplate extends MessageTemplateIntarface {
                 public void onClick(View v) throws  NullPointerException {
                     // TODO: 28.06.2025 Шаблон добавить в  Табель
                     //TODO   в Табель добаляем созданный ранее Шаблон или в Табель
-                    new BinesslogicAddingTemplate(context,activity).addingTemplateInTabel(v,bundleFromActivityListPeoples);
+                        new BinesslogicAddingTemplate(context,activity).addingTemplateInTabel(v,bundleFromActivityListPeoples,handlerAfterAddingTemplate);
 
                     alertDialogCompleteTemplate .dismiss();
                     alertDialogCompleteTemplate.cancel();
@@ -201,7 +202,7 @@ public class BinesslogicMessageTemplate extends MessageTemplateIntarface {
                 public void onClick(View v) throws  NullPointerException {
                     // TODO: 26.06.2025
                     // TODO: 07.07.2025
-                    new BinesslogiсSystemTemplate(context,activity).launchToActivityFindTempales(bundleFromActivityListPeoples);
+                    new BinesslogiсSystemTemplate(context,activity).launchToActivityFindTempales(bundleFromActivityListPeoples,handlerAfterAddingTemplate);
 
 
                     alertDialogCompleteTemplate.dismiss();
