@@ -26,7 +26,6 @@ import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(SingletonComponent.class)
-@SuppressLint("SuspiciousIndentation")
 @Named
 public class ModulePortJboss {
 
